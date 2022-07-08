@@ -23,14 +23,17 @@ void DnApp::onSetup() {
 
     hardware.startSerial(SERIAL_BITS_PER_SECOND);
 
-    Serial.println("\n\n\n\n\n\n\n\n\n============\n\nHello from `doorlockservo-esp8266`!\n\n============");
+    Serial.println("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
 
     wiFi.connect();
+    otaUpdater.setup();
     server.start();
 }
 
 void DnApp::onLoop() {
     informTheLoopIsRunning();
+
+    otaUpdater.handle();
     server.handleRequests();
 
     // todo: secure server

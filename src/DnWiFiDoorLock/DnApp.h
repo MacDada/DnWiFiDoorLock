@@ -1,6 +1,7 @@
 #pragma once
 
 #include "config.h"
+#include "DnOTAUpdater.h"
 #include "DnHardware.h"
 #include "DnDoorLock.h"
 #include "DnLed.h"
@@ -23,6 +24,8 @@ namespace DnWiFiDoorLock {
         DnLed builtInLed = DnLed(hardware, DnHardware::BUILT_IN_LED_PIN);
 
         DnWiFi wiFi = DnWiFi(WIFI_SSID, WIFI_PASSWORD, builtInLed);
+
+        DnOTAUpdater otaUpdater = DnOTAUpdater(OTA_UPDATE_PORT, OTA_UPDATE_HOST, OTA_UPDATE_PASSWORD_MD5);
 
         DnHttpController doorLockWebController = DnHttpController(hardware, doorLock);
 

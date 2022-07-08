@@ -2,3 +2,4 @@
 CMakeListsPrivate.txt
 cmake-build-*/ 
 /src/DnWiFiDoorLock/config.h
+/platformio_secret.ini
