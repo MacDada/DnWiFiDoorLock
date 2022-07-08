@@ -7,12 +7,11 @@ DnHttpServer::DnHttpServer(
     const char *serverHostName,
     const unsigned int serverPort,
     DnHttpController &doorLockController
-) {
-    this->server = &server;
-    this->serverHostName = serverHostName;
-    this->serverPort = serverPort;
-    this->doorLockController = &doorLockController;
-}
+):
+    server(&server),
+    serverHostName(serverHostName),
+    serverPort(serverPort),
+    doorLockController(&doorLockController) {}
 
 void DnHttpServer::handleWebNotFound() {
     String message = "File Not Found\n\n";

@@ -2,10 +2,7 @@
 
 using namespace DnWiFiDoorLock;
 
-DnLed::DnLed(DnHardware &hardware, const byte pin) {
-    this->hardware = &hardware;
-    this->pin = pin;
-
+DnLed::DnLed(DnHardware &hardware, const byte pin): hardware(&hardware), pin(pin) {
     this->hardware->setPinToOutputMode(pin);
 }
 

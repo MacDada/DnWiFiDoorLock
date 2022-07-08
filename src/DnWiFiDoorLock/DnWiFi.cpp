@@ -2,11 +2,10 @@
 
 using namespace DnWiFiDoorLock;
 
-DnWiFi::DnWiFi(const char *ssid, const char *password, DnLed &led) {
-    this->ssid = ssid;
-    this->password = password;
-    this->led = &led;
-}
+DnWiFi::DnWiFi(const char *ssid, const char *password, DnLed &led):
+    ssid(ssid),
+    password(password),
+    led(&led) {}
 
 void DnWiFi::connect() {
     WiFi.begin(this->ssid, this->password);

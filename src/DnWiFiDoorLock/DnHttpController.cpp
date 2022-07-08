@@ -5,10 +5,7 @@ using namespace DnWiFiDoorLock;
 DnHttpController::DnHttpController(
     DnHardware &hardware,
     DnDoorLock &doorLock
-) {
-    this->hardware = &hardware;
-    this->doorLock = &doorLock;
-}
+): hardware(&hardware), doorLock(&doorLock) {}
 
 void DnHttpController::statusAction(ESP8266WebServer &server) {
     DnTime uptime = this->hardware->getUptime();
