@@ -3,6 +3,7 @@
 #include "config.h"
 #include "DnOTAUpdater.h"
 #include "ESPAsyncWebServer.h"
+#include <WebSerial.h>
 #include "DnHardware.h"
 #include "DnDoorLock.h"
 #include "DnLed.h"
@@ -44,5 +45,7 @@ namespace DnWiFiDoorLock {
         void informThatTheLoopHasStarted();
 
         void informTheLoopIsRunning();
+
+        void onWebSerialIncoming(uint8_t *message, size_t messageLength);
     };
 }
