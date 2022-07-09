@@ -1,7 +1,6 @@
 #pragma once
 
-#include <ESP8266WebServer.h>
-
+#include "ESPAsyncWebServer.h"
 #include "DnHardware.h"
 #include "DnDoorLock.h"
 #include "DnTools.h"
@@ -11,9 +10,9 @@ namespace DnWiFiDoorLock {
     public:
         DnHttpController(DnHardware &hardware, DnDoorLock &doorLock);
 
-        void statusAction(ESP8266WebServer &server);
+        void statusAction(AsyncWebServerRequest *request);
 
-        void switchAction(ESP8266WebServer &server);
+        void switchAction(AsyncWebServerRequest *request);
 
     private:
         static const int HTTP_RESPONSE_STATUS_OK = 200;

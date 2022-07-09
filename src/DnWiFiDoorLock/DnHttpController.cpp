@@ -7,10 +7,10 @@ DnHttpController::DnHttpController(
     DnDoorLock &doorLock
 ): hardware(&hardware), doorLock(&doorLock) {}
 
-void DnHttpController::statusAction(ESP8266WebServer &server) {
+void DnHttpController::statusAction(AsyncWebServerRequest *request) {
     DnTime uptime = this->hardware->getUptime();
 
-    server.send(
+    request->send(
         HTTP_RESPONSE_STATUS_OK,
         HTTP_RESPONSE_CONTENT_TYPE_HTML,
         DnTools::format(
@@ -52,19 +52,11 @@ void DnHttpController::statusAction(ESP8266WebServer &server) {
     );
 }
 
-void DnHttpController::switchAction(ESP8266WebServer &server) {
-    if (server.method() != HTTP_POST) {
-        server.send(
-            HTTP_RESPONSE_STATUS_METHOD_NOT_ALLOWED,
-            HTTP_RESPONSE_CONTENT_TYPE_PLAIN,
-            "Method Not Allowed"
-        );
-
-        return;
-    }
-
+void DnHttpController::switchAction(AsyncWebServerRequest *request) {
     doorLock->switchOpenClose();
 
-    server.sendHeader("Location", "/", true);
-    server.send(HTTP_RESPONSE_STATUS_REDIRECT);
+    // request->redirect("/") is wrong as it sends 302
+    AsyncWebServerResponse *response = request->beginResponse(HTTP_RESPONSE_STATUS_REDIRECT);
+    response->addHeader("Location", "/");
+    request->send(response);
 }

@@ -2,6 +2,7 @@
 
 #include "config.h"
 #include "DnOTAUpdater.h"
+#include "ESPAsyncWebServer.h"
 #include "DnHardware.h"
 #include "DnDoorLock.h"
 #include "DnLed.h"
@@ -29,7 +30,7 @@ namespace DnWiFiDoorLock {
 
         DnHttpController doorLockWebController = DnHttpController(hardware, doorLock);
 
-        ESP8266WebServer espServer = ESP8266WebServer(WEB_SERVER_PORT);
+        AsyncWebServer espServer = AsyncWebServer(WEB_SERVER_PORT);
 
         DnHttpServer server = DnHttpServer(
             espServer,

@@ -3,7 +3,7 @@
 using namespace DnWiFiDoorLock;
 
 DnHttpServer::DnHttpServer(
-    ESP8266WebServer &server,
+    AsyncWebServer &server,
     const char *serverHostName,
     const unsigned int serverPort,
     DnHttpController &doorLockController
@@ -13,21 +13,15 @@ DnHttpServer::DnHttpServer(
     serverPort(serverPort),
     doorLockController(&doorLockController) {}
 
-void DnHttpServer::handleWebNotFound() {
+void DnHttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
     String message = "File Not Found\n\n";
     message += "URI: ";
-    message += server->uri();
+    message += request->url();
     message += "\nMethod: ";
-    message += server->method() == HTTP_GET ? "GET" : "POST";
-    message += "\nArguments: ";
-    message += server->args();
+    message += request->methodToString();
     message += "\n";
 
-    for (uint8_t i = 0; i < server->args(); i++) {
-        message += " " + server->argName(i) + ": " + server->arg(i) + "\n";
-    }
-
-    server->send(404, "text/plain", message);
+    request->send(404, "text/plain", message);
 }
 
 void DnHttpServer::start() {
@@ -41,18 +35,16 @@ void DnHttpServer::start() {
         Serial.println("There was a problem to start MDNS!");
     }
 
-    // todo: Request class
-    // todo: Response class
-    server->on("/", [&] {
-        doorLockController->statusAction(*server);
+    server->on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
+        doorLockController->statusAction(request);
     });
 
-    server->on("/switch", [&] {
-        doorLockController->switchAction(*server);
+    server->on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
+        doorLockController->switchAction(request);
     });
 
-    server->onNotFound([&] {
-        handleWebNotFound();
+    server->onNotFound([&](AsyncWebServerRequest *request) {
+        handleWebNotFound(request);
     });
 
     server->begin();
@@ -75,7 +67,5 @@ void DnHttpServer::start() {
 }
 
 void DnHttpServer::handleRequests() {
-    server->handleClient();
-
     MDNS.update();
 }
