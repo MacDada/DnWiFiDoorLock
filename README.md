@@ -4,8 +4,9 @@ DnWifiDoorLock
 ---
 
 Thank you for the help on `Better C++` Discord server!
-- `SlyBach#4412`
+- `Doctor Bazooka#2461`
 - `Pickleas Cage#4209`
+- `SlyBach#4412`
 
 --- 
 
