@@ -1,28 +1,36 @@
 #include "DnWiFi.h"
+#include "DnTools.h"
 
 using namespace DnWiFiDoorLock;
 
-DnWiFi::DnWiFi(const char *ssid, const char *password, DnLed &led):
+DnWiFi::DnWiFi(
+    const char *ssid,
+    const char *password,
+    DnLed &led,
+    Logger::ArduinoLogger &logger
+) :
     ssid(ssid),
     password(password),
-    led(&led) {}
+    led(&led),
+    logger(&logger) {
+}
 
 void DnWiFi::connect() {
     WiFi.begin(this->ssid, this->password);
 
-    Serial.printf("\nWiFi selected: \"%s\"\n", this->ssid);
-    Serial.print("Connecting");
+    logger->log(DnTools::format("WiFi selected: \"%s\"", this->ssid));
+    logger->log("Connecting");
 
     delay(1000);
 
     waitForConnection();
 
-    Serial.print("\nConnected, IP address: ");
-    Serial.println(WiFi.localIP());
+    logger->log(DnTools::format("Connected, IP address: %s", WiFi.localIP().toString().c_str()));
 }
 
 void DnWiFi::waitForConnection() {
     int tries = 0;
+    String connectingMessage = "Connecting";
 
     // todo: better error handling
     while (true) {
@@ -34,7 +42,9 @@ void DnWiFi::waitForConnection() {
 
         delay(500);
 
-        Serial.print(".");
+        connectingMessage += ".";
+
+        logger->log(connectingMessage);
 
         if (++tries > 20) {
             informAboutConnectingIssue(tries, status);
@@ -46,11 +56,11 @@ void DnWiFi::informAboutConnectingIssue(int tries, int status) {
     led->blinkFast(3);
 
     if (0 == tries % 5) {
-        Serial.printf(
-            "\nWiFi is still not connected, status: %s (%d)\n",
+        logger->log(DnTools::format(
+            "WiFi is still not connected, status: %s (%d)",
             wiFiConnectionStatusToString(status),
             (int) status
-        );
+        ));
     }
 }
 

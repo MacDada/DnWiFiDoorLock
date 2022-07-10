@@ -7,6 +7,10 @@ DnHttpController::DnHttpController(
     DnDoorLock &doorLock
 ): hardware(&hardware), doorLock(&doorLock) {}
 
+// todo: declare const?
+// https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
+//
+// todo: can i get null here instead of the object? o.O
 void DnHttpController::statusAction(AsyncWebServerRequest *request) {
     DnTime uptime = this->hardware->getUptime();
 

@@ -5,11 +5,17 @@
 #include <WiFiClient.h>
 
 #include "DnLed.h"
+#include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
     class DnWiFi {
     public:
-        DnWiFi(const char *ssid, const char *password, DnLed &led);
+        DnWiFi(
+            const char *ssid,
+            const char *password,
+            DnLed &led,
+            Logger::ArduinoLogger &logger
+        );
 
         void connect();
 
@@ -17,6 +23,7 @@ namespace DnWiFiDoorLock {
         const char *ssid;
         const char *password;
         DnLed *led;
+        Logger::ArduinoLogger *logger;
 
         void waitForConnection();
 

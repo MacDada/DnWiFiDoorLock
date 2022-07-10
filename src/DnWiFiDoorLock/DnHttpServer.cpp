@@ -6,12 +6,15 @@ DnHttpServer::DnHttpServer(
     AsyncWebServer &server,
     const char *serverHostName,
     const unsigned int serverPort,
-    DnHttpController &doorLockController
+    DnHttpController &doorLockController,
+    Logger::ArduinoLogger &logger
 ):
     server(&server),
     serverHostName(serverHostName),
     serverPort(serverPort),
-    doorLockController(&doorLockController) {}
+    doorLockController(&doorLockController),
+    logger(&logger) {
+}
 
 void DnHttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
     String message = "File Not Found\n\n";
@@ -28,11 +31,10 @@ void DnHttpServer::start() {
     const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
 
     if (mdnsHasStarted) {
-        // todo: inject serial?
-        Serial.println("MDNS responder started");
+        logger->log("MDNS responder started");
     } else {
         // todo: better error handling
-        Serial.println("There was a problem to start MDNS!");
+        logger->log("There was a problem to start MDNS!");
     }
 
     server->on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
@@ -49,21 +51,25 @@ void DnHttpServer::start() {
 
     server->begin();
 
-    Serial.printf(
-        "Web server started, open http://%s:%i",
-        WiFi.localIP().toString().c_str(),
-        serverPort
-    );
+    logServerHasStarted(mdnsHasStarted);
+}
+
+void DnHttpServer::logServerHasStarted(const bool mdnsHasStarted) {
+    String logMessage = "HTTP server has started, open http://";
+    logMessage += WiFi.localIP().toString().c_str();
+    logMessage += ":";
+    logMessage += serverPort;
 
     if (mdnsHasStarted) {
-        Serial.printf(
-            " or http://%s.local:%i",
-            serverHostName,
-            serverPort
-        );
+        logMessage += " or http://";
+        logMessage += serverHostName;
+        logMessage += ".local:";
+        logMessage += serverPort;
     }
 
-    Serial.print(" in a web browser :)\n");
+    logMessage += " in a web browser :)\n";
+
+    logger->log(logMessage);
 }
 
 void DnHttpServer::handleRequests() {

@@ -4,7 +4,7 @@ using namespace DnWiFiDoorLock;
 
 void DnApp::informThatTheLoopHasStarted() {
     if (!hasLoopStarted) {
-        Serial.println("The Loop has started!");
+        logger.log("The Loop has started!");
         WebSerial.println("The Loop has started!");
         builtInLed.blinkFast(5);
 
@@ -16,7 +16,7 @@ void DnApp::informTheLoopIsRunning() {
     informThatTheLoopHasStarted();
 
     builtInLed.blink1sPause1s();
-    Serial.println("The loop is running…");
+    logger.log("The loop is running…");
     WebSerial.println("The Loop has started!");
 }
 
@@ -43,7 +43,7 @@ void DnApp::onSetup() {
 
     hardware.startSerial(SERIAL_BITS_PER_SECOND);
 
-    Serial.println("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
+    logger.log("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
 
     wiFi.connect();
 

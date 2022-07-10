@@ -1,11 +1,17 @@
 #pragma once
 
 #include <ArduinoOTA.h>
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
     class DnOTAUpdater {
     public:
-        DnOTAUpdater(const int port, const char *host, const char *passwordHash);
+        DnOTAUpdater(
+            const int port,
+            const char *host,
+            const char *passwordHash,
+            Logger::ArduinoLogger &logger
+        );
 
         void setup();
 
@@ -15,6 +21,7 @@ namespace DnWiFiDoorLock {
         int port;
         const char *host;
         const char *passwordHash;
+        Logger::ArduinoLogger *logger;
 
         const char *otaErrorToString(ota_error_t error);
     };
