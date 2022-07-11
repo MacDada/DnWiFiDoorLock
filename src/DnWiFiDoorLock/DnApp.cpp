@@ -25,7 +25,7 @@ void DnApp::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
 
     String command = "";
 
-    for (int i = 0; i < messageLength; i++) {
+    for (size_t i = 0; i < messageLength; i++) {
         command += char(message[i]);
     }
 
