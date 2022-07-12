@@ -6,7 +6,7 @@
 #include "DnTools.h"
 
 namespace DnWiFiDoorLock {
-    class DnHttpController {
+    class DnHttpController final {
     public:
         DnHttpController(DnHardware &hardware, DnDoorLock &doorLock);
 

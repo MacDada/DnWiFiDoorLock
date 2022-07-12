@@ -4,7 +4,7 @@
 #include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
-    class DnOTAUpdater {
+    class DnOTAUpdater final {
     public:
         DnOTAUpdater(
             const int port,

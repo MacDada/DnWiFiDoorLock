@@ -15,7 +15,7 @@
 #include "Logger/HardwareSerialArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
-    class DnApp {
+    class DnApp final {
     public:
         void onSetup();
 

@@ -8,7 +8,7 @@
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
-    class DnWiFi {
+    class DnWiFi final {
     public:
         DnWiFi(
             const char *ssid,

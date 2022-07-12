@@ -5,7 +5,7 @@
 #include "DnTime.h"
 
 namespace DnWiFiDoorLock {
-    class DnHardware {
+    class DnHardware final {
     public:
         static const byte BUILT_IN_LED_PIN = LED_BUILTIN;
 

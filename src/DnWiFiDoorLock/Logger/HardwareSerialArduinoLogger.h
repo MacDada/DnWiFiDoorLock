@@ -5,7 +5,7 @@
 
 namespace DnWiFiDoorLock::Logger {
 
-    class HardwareSerialArduinoLogger: public ArduinoLogger {
+    class HardwareSerialArduinoLogger final: public ArduinoLogger {
     public:
         explicit HardwareSerialArduinoLogger(HardwareSerial &serial);
 

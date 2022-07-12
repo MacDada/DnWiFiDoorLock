@@ -4,7 +4,7 @@
 #include "DnHardware.h"
 
 namespace DnWiFiDoorLock {
-    class DnLed {
+    class DnLed final {
     private:
         DnHardware *hardware;
         byte pin;

@@ -7,7 +7,7 @@
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
-    class DnHttpServer {
+    class DnHttpServer final {
     public:
         DnHttpServer(
             AsyncWebServer &server,

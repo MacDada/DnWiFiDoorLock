@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 namespace DnWiFiDoorLock {
-    class DnTime {
+    class DnTime final {
     private:
         unsigned long milliseconds;
         long seconds;
