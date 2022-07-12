@@ -21,30 +21,30 @@ void DnHttpController::statusAction(AsyncWebServerRequest *request) {
             // `PSTR()` loads string from Flash memory, instead of RAM
             // todo: does that mean it is slower, so should not use if enough memory?
             PSTR(
-                "<!DOCTYPE html>\
-                <html>\
-                <head>\
-                    <meta charset=\"utf-8\">\
-                    <title>EspDoorLock: %s</title>\
-                    <style>\
-                        h1 {\
-                            font-size: 1000%%;\
-                            line-height: 0;\
-                        }\
-                    </style>\
-                </head>\
-                <body>\
-                    <form action=\"/switch\" method=\"post\">\
-                        <center>\
-                            <button type=\"submit\">\
-                                <h1>%s</h1>\
-                                <h2>%s</h2>\
-                            </button>\
-                            <p>Uptime: %02dh:%02dm:%02ds</p>\
-                        </center>\
-                    </form>\
-                </body>\
-                </html>"
+                R"(<!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>EspDoorLock: %s</title>
+                    <style>
+                        h1 {
+                            font-size: 1000%%;
+                            line-height: 0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <form action="/switch" method="post">
+                        <center>
+                            <button type="submit">
+                                <h1>%s</h1>
+                                <h2>%s</h2>
+                            </button>
+                            <p>Uptime: %02dh:%02dm:%02ds</p>
+                        </center>
+                    </form>
+                </body>
+                </html>)"
             ),
             doorLock->isClosed() ? "zamknięte!" : "otwarte!",
             doorLock->isClosed() ? "&#128274;" : "&#128275;",
