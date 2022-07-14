@@ -19,7 +19,10 @@
 
 namespace DnWiFiDoorLock::Logger {
 
-    HardwareSerialArduinoLogger::HardwareSerialArduinoLogger(HardwareSerial &serial): serial(&serial) {
+    HardwareSerialArduinoLogger::HardwareSerialArduinoLogger(
+        HardwareSerial &serial
+    ):
+        serial(&serial) {
     }
 
     void HardwareSerialArduinoLogger::log(const String &m) {
