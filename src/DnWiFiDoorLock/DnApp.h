@@ -39,13 +39,19 @@ namespace DnWiFiDoorLock {
 
         DnLed builtInLed = DnLed(hardware, DnHardware::BUILT_IN_LED_PIN);
 
-        DnWiFi wiFi = DnWiFi(WIFI_SSID, WIFI_PASSWORD, builtInLed, hardwareSerialLogger);
+        DnWiFi wiFi = DnWiFi(
+            WIFI_SSID,
+            WIFI_PASSWORD,
+            builtInLed,
+            // WebSerial(Logger) cannot be injected, runtime crash for some reason
+            hardwareSerialLogger
+        );
 
         DnOTAUpdater otaUpdater = DnOTAUpdater(
             OTA_UPDATE_PORT,
             OTA_UPDATE_HOST,
             OTA_UPDATE_PASSWORD_MD5,
-            hardwareSerialLogger
+            logger
        );
 
         DnHttpController doorLockWebController = DnHttpController(hardware, doorLock);
@@ -57,7 +63,7 @@ namespace DnWiFiDoorLock {
             WEB_SERVER_HOST_NAME,
             WEB_SERVER_PORT,
             doorLockWebController,
-            hardwareSerialLogger
+            logger
         );
 
         bool hasLoopStarted = false;
