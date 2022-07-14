@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Logger {
         void log(float m) override;
 
     private:
-        WebSerialClass* serial;
+        WebSerialClass *serial;
     };
 
     static_assert(!std::is_abstract<WebSerialArduinoLogger>());

@@ -64,6 +64,7 @@ void DnWiFi::informAboutConnectingIssue(int tries, int status) {
     }
 }
 
+// todo: `const uint8_t &status`?
 const char *DnWiFi::wiFiConnectionStatusToString(uint8_t status) {
     switch (status) {
         case WL_NO_SHIELD:

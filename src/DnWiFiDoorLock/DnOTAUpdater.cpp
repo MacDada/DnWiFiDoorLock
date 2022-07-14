@@ -52,6 +52,7 @@ void DnOTAUpdater::handle() {
     ArduinoOTA.handle();
 }
 
+// todo: `const ota_error_t &error`?
 const char *DnOTAUpdater::otaErrorToString(ota_error_t error) {
     switch (error) {
         case OTA_AUTH_ERROR:

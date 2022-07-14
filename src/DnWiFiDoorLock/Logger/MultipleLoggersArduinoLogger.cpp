@@ -3,7 +3,7 @@
 namespace DnWiFiDoorLock::Logger {
 
     MultipleLoggersArduinoLogger::MultipleLoggersArduinoLogger(
-        const std::vector<ArduinoLogger*> &loggers
+        const std::vector<ArduinoLogger *> &loggers
     ) :
         loggers(&loggers) {
     }

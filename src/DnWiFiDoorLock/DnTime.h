@@ -5,6 +5,7 @@
 namespace DnWiFiDoorLock {
     class DnTime final {
     private:
+        // todo: unify declarations order style across classes
         unsigned long milliseconds;
         long seconds;
         long minutes;

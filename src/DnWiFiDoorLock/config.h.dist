@@ -2,6 +2,7 @@
 
 #pragma once
 
+// todo: change to const types
 #define SERIAL_BITS_PER_SECOND 115200
 
 #define WIFI_SSID ""
