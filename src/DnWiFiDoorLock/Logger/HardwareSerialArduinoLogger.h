@@ -9,7 +9,6 @@ namespace DnWiFiDoorLock::Logger {
     public:
         explicit HardwareSerialArduinoLogger(HardwareSerial &serial);
 
-        // todo: why do I need to declare those methods if I already have definitions in ArduinoLogger.h?!
         void log(const String &m) override;
 
         void log(const char *m) override;
