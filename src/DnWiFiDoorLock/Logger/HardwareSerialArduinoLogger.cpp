@@ -29,7 +29,6 @@ namespace DnWiFiDoorLock::Logger {
         serial->println(m);
     }
 
-    // todo: what is the difference between const char vs char?
     void HardwareSerialArduinoLogger::log(const char *m) {
         serial->println(m);
     }
