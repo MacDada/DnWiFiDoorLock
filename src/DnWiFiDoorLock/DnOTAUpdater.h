@@ -4,6 +4,7 @@
 #include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
+
     class DnOTAUpdater final {
     public:
         DnOTAUpdater(
@@ -25,4 +26,5 @@ namespace DnWiFiDoorLock {
 
         const char *otaErrorToString(ota_error_t error);
     };
+
 }

@@ -18,6 +18,7 @@
 #include "Logger/MultipleLoggersArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
+
     class DnApp final {
     public:
         void onSetup();
@@ -74,4 +75,5 @@ namespace DnWiFiDoorLock {
 
         void onWebSerialIncoming(uint8_t *message, size_t messageLength);
     };
+
 }

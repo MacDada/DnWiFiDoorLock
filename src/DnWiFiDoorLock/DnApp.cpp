@@ -1,67 +1,69 @@
 #include "DnApp.h"
 
-using namespace DnWiFiDoorLock;
+namespace DnWiFiDoorLock {
 
-void DnApp::informThatTheLoopHasStarted() {
-    if (!hasLoopStarted) {
-        logger.log("The Loop has started!");
+    void DnApp::informThatTheLoopHasStarted() {
+        if (!hasLoopStarted) {
+            logger.log("The Loop has started!");
+            builtInLed.blinkFast(5);
+
+            hasLoopStarted = true;
+        }
+    }
+
+    void DnApp::informTheLoopIsRunning() {
+        informThatTheLoopHasStarted();
+
+        builtInLed.blink1sPause1s();
+        logger.log("The loop is running…");
+    }
+
+    void DnApp::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
+        WebSerial.println("Received Data…");
+
+        String command = "";
+
+        for (size_t i = 0; i < messageLength; i++) {
+            command += char(message[i]);
+        }
+
+        WebSerial.println(command);
+
+        if (command == "foo") {
+            WebSerial.println("Foo command yo!");
+        } else if (command == "bar") {
+            WebSerial.println("Bar command yo!");
+        }
+    }
+
+    void DnApp::onSetup() {
         builtInLed.blinkFast(5);
 
-        hasLoopStarted = true;
-    }
-}
+        hardware.startSerial(SERIAL_BITS_PER_SECOND);
 
-void DnApp::informTheLoopIsRunning() {
-    informThatTheLoopHasStarted();
+        hardwareSerialLogger.log("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
 
-    builtInLed.blink1sPause1s();
-    logger.log("The loop is running…");
-}
+        wiFi.connect();
 
-void DnApp::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
-    WebSerial.println("Received Data…");
+        otaUpdater.setup();
 
-    String command = "";
+        WebSerial.begin(&espServer);
 
-    for (size_t i = 0; i < messageLength; i++) {
-        command += char(message[i]);
+        WebSerial.msgCallback([&](uint8_t *message, size_t messageLength) {
+            onWebSerialIncoming(message, messageLength);
+        });
+
+        server.start();
     }
 
-    WebSerial.println(command);
+    void DnApp::onLoop() {
+        informTheLoopIsRunning();
 
-    if (command == "foo") {
-        WebSerial.println("Foo command yo!");
-    } else if (command == "bar") {
-        WebSerial.println("Bar command yo!");
+        otaUpdater.handle();
+        server.handleRequests();
+
+        // todo: secure server
+        // todo: handling door open/close with servo
     }
-}
 
-void DnApp::onSetup() {
-    builtInLed.blinkFast(5);
-
-    hardware.startSerial(SERIAL_BITS_PER_SECOND);
-
-    hardwareSerialLogger.log("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
-
-    wiFi.connect();
-
-    otaUpdater.setup();
-
-    WebSerial.begin(&espServer);
-
-    WebSerial.msgCallback([&](uint8_t *message, size_t messageLength) {
-        onWebSerialIncoming(message, messageLength);
-    });
-
-    server.start();
-}
-
-void DnApp::onLoop() {
-    informTheLoopIsRunning();
-
-    otaUpdater.handle();
-    server.handleRequests();
-
-    // todo: secure server
-    // todo: handling door open/close with servo
 }

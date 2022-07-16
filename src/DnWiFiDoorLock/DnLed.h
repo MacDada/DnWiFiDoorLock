@@ -4,6 +4,7 @@
 #include "DnHardware.h"
 
 namespace DnWiFiDoorLock {
+
     class DnLed final {
     private:
         DnHardware &hardware;
@@ -24,4 +25,5 @@ namespace DnWiFiDoorLock {
 
         void blink1sPause1s();
     };
+
 }

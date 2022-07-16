@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 namespace DnWiFiDoorLock {
+
     class DnTime final {
     private:
         // todo: unify declarations order style across classes
@@ -35,4 +36,5 @@ namespace DnWiFiDoorLock {
 
         byte getRemainingHours();
     };
+
 }

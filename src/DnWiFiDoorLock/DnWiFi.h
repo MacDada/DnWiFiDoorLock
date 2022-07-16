@@ -8,6 +8,7 @@
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
+
     class DnWiFi final {
     public:
         DnWiFi(
@@ -31,4 +32,5 @@ namespace DnWiFiDoorLock {
 
         void informAboutConnectingIssue(int tries, int status);
     };
+
 }

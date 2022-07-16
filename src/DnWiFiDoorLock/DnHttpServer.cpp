@@ -1,77 +1,79 @@
 #include "DnHttpServer.h"
 
-using namespace DnWiFiDoorLock;
+namespace DnWiFiDoorLock {
 
-DnHttpServer::DnHttpServer(
-    AsyncWebServer &server,
-    const char *serverHostName,
-    const unsigned int serverPort,
-    DnHttpController &doorLockController,
-    Logger::ArduinoLogger &logger
-):
-    server(server),
-    serverHostName(serverHostName),
-    serverPort(serverPort),
-    doorLockController(doorLockController),
-    logger(logger) {
-}
-
-void DnHttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
-    String message = "File Not Found\n\n";
-    message += "URI: ";
-    message += request->url();
-    message += "\nMethod: ";
-    message += request->methodToString();
-    message += "\n";
-
-    request->send(404, "text/plain", message);
-}
-
-void DnHttpServer::start() {
-    const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
-
-    if (mdnsHasStarted) {
-        logger.log("MDNS responder started");
-    } else {
-        // todo: better error handling
-        logger.log("There was a problem to start MDNS!");
+    DnHttpServer::DnHttpServer(
+        AsyncWebServer &server,
+        const char *serverHostName,
+        const unsigned int serverPort,
+        DnHttpController &doorLockController,
+        Logger::ArduinoLogger &logger
+    ):
+        server(server),
+        serverHostName(serverHostName),
+        serverPort(serverPort),
+        doorLockController(doorLockController),
+        logger(logger) {
     }
 
-    server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
-        doorLockController.statusAction(request);
-    });
+    void DnHttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
+        String message = "File Not Found\n\n";
+        message += "URI: ";
+        message += request->url();
+        message += "\nMethod: ";
+        message += request->methodToString();
+        message += "\n";
 
-    server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
-        doorLockController.switchAction(request);
-    });
+        request->send(404, "text/plain", message);
+    }
 
-    server.onNotFound([&](AsyncWebServerRequest *request) {
-        handleWebNotFound(request);
-    });
+    void DnHttpServer::start() {
+        const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
 
-    server.begin();
+        if (mdnsHasStarted) {
+            logger.log("MDNS responder started");
+        } else {
+            // todo: better error handling
+            logger.log("There was a problem to start MDNS!");
+        }
 
-    logServerHasStarted(mdnsHasStarted);
-}
+        server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
+            doorLockController.statusAction(request);
+        });
 
-void DnHttpServer::logServerHasStarted(const bool mdnsHasStarted) {
-    String logMessage = "HTTP server has started, open http://";
-    logMessage += WiFi.localIP().toString().c_str();
-    logMessage += ":";
-    logMessage += serverPort;
+        server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
+            doorLockController.switchAction(request);
+        });
 
-    if (mdnsHasStarted) {
-        logMessage += " or http://";
-        logMessage += serverHostName;
-        logMessage += ".local:";
+        server.onNotFound([&](AsyncWebServerRequest *request) {
+            handleWebNotFound(request);
+        });
+
+        server.begin();
+
+        logServerHasStarted(mdnsHasStarted);
+    }
+
+    void DnHttpServer::logServerHasStarted(const bool mdnsHasStarted) {
+        String logMessage = "HTTP server has started, open http://";
+        logMessage += WiFi.localIP().toString().c_str();
+        logMessage += ":";
         logMessage += serverPort;
+
+        if (mdnsHasStarted) {
+            logMessage += " or http://";
+            logMessage += serverHostName;
+            logMessage += ".local:";
+            logMessage += serverPort;
+        }
+
+        logMessage += " in a web browser :)\n";
+
+        logger.log(logMessage);
     }
 
-    logMessage += " in a web browser :)\n";
+    void DnHttpServer::handleRequests() {
+        MDNS.update();
+    }
 
-    logger.log(logMessage);
-}
-
-void DnHttpServer::handleRequests() {
-    MDNS.update();
 }

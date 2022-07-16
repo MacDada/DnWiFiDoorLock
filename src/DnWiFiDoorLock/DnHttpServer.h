@@ -7,6 +7,7 @@
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
+
     class DnHttpServer final {
     public:
         DnHttpServer(
@@ -33,4 +34,5 @@ namespace DnWiFiDoorLock {
         // todo: is there a way to avoid declaring private methods in header file? looks unnecessary to me ;)
         void logServerHasStarted(const bool mdnsHasStarted);
     };
+
 }

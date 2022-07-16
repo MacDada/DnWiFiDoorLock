@@ -1,6 +1,7 @@
 #pragma once
 
 namespace DnWiFiDoorLock {
+
     class DnDoorLock final {
     public:
         bool isOpen() const;
@@ -18,4 +19,5 @@ namespace DnWiFiDoorLock {
         // and force closing if needed
         bool closed = false;
     };
+
 }
