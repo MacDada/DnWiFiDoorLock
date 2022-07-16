@@ -22,33 +22,33 @@ namespace DnWiFiDoorLock {
     void Led::blinkFast(const int count) {
         for (int i = 0; i < count; ++i) {
             on();
-            delay(100);
+            hardware.pause(100);
             off();
-            delay(100);
+            hardware.pause(100);
         }
     }
 
     void Led::blinkLong(const int count) {
         for (int i = 0; i < count; ++i) {
             on();
-            delay(1000);
+            hardware.pause(1000);
             off();
-            delay(1000);
+            hardware.pause(1000);
         }
     }
 
     void Led::blinkShortAndPause() {
         on();
-        delay(50);
+        hardware.pause(50);
         off();
-        delay(950);
+        hardware.pause(950);
     }
 
     void Led::blink1sPause1s() {
         on();
-        delay(1000);
+        hardware.pause(1000);
         off();
-        delay(1000);
+        hardware.pause(1000);
     }
 
 }

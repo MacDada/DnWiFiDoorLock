@@ -2,6 +2,10 @@
 
 namespace DnWiFiDoorLock {
 
+    void Hardware::pause(const unsigned long milliseconds) {
+        delay(milliseconds);
+    }
+
     Time Hardware::getUptime() {
         return Time(millis());
     }
@@ -25,7 +29,7 @@ namespace DnWiFiDoorLock {
 
         // waiting by uptime is not enough?!
         // without it the first Hello message is not printed :/
-        delay(2000);
+        pause(2000);
 
         // wait for serial port to open
         // taken from https://github.com/khoih-prog/WiFiWebServer/blob/master/examples/HelloServer/HelloServer.ino#L90

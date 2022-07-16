@@ -45,7 +45,8 @@ namespace DnWiFiDoorLock {
             WIFI_PASSWORD,
             builtInLed,
             // WebSerial(Logger) cannot be injected, runtime crash for some reason
-            hardwareSerialLogger
+            hardwareSerialLogger,
+            hardware
         );
 
         OTAUpdater otaUpdater = OTAUpdater(

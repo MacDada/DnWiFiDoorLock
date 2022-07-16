@@ -7,12 +7,14 @@ namespace DnWiFiDoorLock {
         const char *ssid,
         const char *password,
         Led &led,
-        Logger::ArduinoLogger &logger
+        Logger::ArduinoLogger &logger,
+        Hardware &hardware
     ):
         ssid(ssid),
         password(password),
         led(led),
-        logger(logger) {
+        logger(logger),
+        hardware(hardware) {
     }
 
     void DnWiFi::connect() {
@@ -21,7 +23,7 @@ namespace DnWiFiDoorLock {
         logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid));
         logger.log("Connecting");
 
-        delay(1000);
+        hardware.pause(1000);
 
         waitForConnection();
 
@@ -40,7 +42,7 @@ namespace DnWiFiDoorLock {
                 return;
             }
 
-            delay(500);
+            hardware.pause(500);
 
             connectingMessage += ".";
 
