@@ -2,19 +2,19 @@
 
 #include "ESPAsyncWebServer.h"
 #include <ESP8266mDNS.h>
-#include "DnTools.h"
-#include "DnHttpController.h"
+#include "Tools.h"
+#include "HttpController.h"
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
 
-    class DnHttpServer final {
+    class HttpServer final {
     public:
-        DnHttpServer(
+        HttpServer(
             AsyncWebServer &server,
             const char *serverHostName,
             const unsigned int serverPort,
-            DnHttpController &doorLockController,
+            HttpController &doorLockController,
             Logger::ArduinoLogger &logger
         );
 
@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock {
         AsyncWebServer &server;
         const char *serverHostName;
         unsigned int serverPort;
-        DnHttpController &doorLockController;
+        HttpController &doorLockController;
         Logger::ArduinoLogger &logger;
 
         void handleWebNotFound(AsyncWebServerRequest *request);

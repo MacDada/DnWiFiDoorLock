@@ -1,12 +1,12 @@
-#include "DnHttpServer.h"
+#include "HttpServer.h"
 
 namespace DnWiFiDoorLock {
 
-    DnHttpServer::DnHttpServer(
+    HttpServer::HttpServer(
         AsyncWebServer &server,
         const char *serverHostName,
         const unsigned int serverPort,
-        DnHttpController &doorLockController,
+        HttpController &doorLockController,
         Logger::ArduinoLogger &logger
     ):
         server(server),
@@ -16,7 +16,7 @@ namespace DnWiFiDoorLock {
         logger(logger) {
     }
 
-    void DnHttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
+    void HttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
         String message = "File Not Found\n\n";
         message += "URI: ";
         message += request->url();
@@ -27,7 +27,7 @@ namespace DnWiFiDoorLock {
         request->send(404, "text/plain", message);
     }
 
-    void DnHttpServer::start() {
+    void HttpServer::start() {
         const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
 
         if (mdnsHasStarted) {
@@ -54,7 +54,7 @@ namespace DnWiFiDoorLock {
         logServerHasStarted(mdnsHasStarted);
     }
 
-    void DnHttpServer::logServerHasStarted(const bool mdnsHasStarted) {
+    void HttpServer::logServerHasStarted(const bool mdnsHasStarted) {
         String logMessage = "HTTP server has started, open http://";
         logMessage += WiFi.localIP().toString().c_str();
         logMessage += ":";
@@ -72,7 +72,7 @@ namespace DnWiFiDoorLock {
         logger.log(logMessage);
     }
 
-    void DnHttpServer::handleRequests() {
+    void HttpServer::handleRequests() {
         MDNS.update();
     }
 

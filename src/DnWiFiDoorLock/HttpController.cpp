@@ -1,23 +1,23 @@
-#include "DnHttpController.h"
+#include "HttpController.h"
 
 namespace DnWiFiDoorLock {
 
-    DnHttpController::DnHttpController(
-        DnHardware &hardware,
-        DnDoorLock &doorLock
+    HttpController::HttpController(
+        Hardware &hardware,
+        DoorLock &doorLock
     ) : hardware(hardware), doorLock(doorLock) {}
 
     // todo: declare const?
     // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
     //
     // todo: can i get null here instead of the object? o.O
-    void DnHttpController::statusAction(AsyncWebServerRequest *request) {
-        DnTime uptime = hardware.getUptime();
+    void HttpController::statusAction(AsyncWebServerRequest *request) {
+        Time uptime = hardware.getUptime();
 
         request->send(
             HTTP_RESPONSE_STATUS_OK,
             HTTP_RESPONSE_CONTENT_TYPE_HTML,
-            DnTools::format(
+            Tools::format(
                 // `PSTR()` loads string from Flash memory, instead of RAM
                 // todo: does that mean it is slower, so should not use if enough memory?
                 PSTR(
@@ -56,7 +56,7 @@ namespace DnWiFiDoorLock {
         );
     }
 
-    void DnHttpController::switchAction(AsyncWebServerRequest *request) {
+    void HttpController::switchAction(AsyncWebServerRequest *request) {
         doorLock.switchOpenClose();
 
         // request->redirect("/") is wrong as it sends 302

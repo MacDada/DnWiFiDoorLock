@@ -1,12 +1,12 @@
 #include "DnWiFi.h"
-#include "DnTools.h"
+#include "Tools.h"
 
 namespace DnWiFiDoorLock {
 
     DnWiFi::DnWiFi(
         const char *ssid,
         const char *password,
-        DnLed &led,
+        Led &led,
         Logger::ArduinoLogger &logger
     ):
         ssid(ssid),
@@ -18,14 +18,14 @@ namespace DnWiFiDoorLock {
     void DnWiFi::connect() {
         WiFi.begin(this->ssid, this->password);
 
-        logger.log(DnTools::format("WiFi selected: \"%s\"", this->ssid));
+        logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid));
         logger.log("Connecting");
 
         delay(1000);
 
         waitForConnection();
 
-        logger.log(DnTools::format("Connected, IP address: %s", WiFi.localIP().toString().c_str()));
+        logger.log(Tools::format("Connected, IP address: %s", WiFi.localIP().toString().c_str()));
     }
 
     void DnWiFi::waitForConnection() {
@@ -56,7 +56,7 @@ namespace DnWiFiDoorLock {
         led.blinkFast(3);
 
         if (0 == tries % 5) {
-            logger.log(DnTools::format(
+            logger.log(Tools::format(
                 "WiFi is still not connected, status: %s (%d)",
                 wiFiConnectionStatusToString(status),
                 (int) status

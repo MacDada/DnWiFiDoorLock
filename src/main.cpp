@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/DnApp.h"
+#include "DnWiFiDoorLock/App.h"
 
-DnWiFiDoorLock::DnApp app;
+DnWiFiDoorLock::App app;
 
 void setup() {
     app.onSetup();

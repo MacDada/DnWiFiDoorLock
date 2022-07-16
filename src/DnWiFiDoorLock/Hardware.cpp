@@ -1,24 +1,24 @@
-#include "DnHardware.h"
+#include "Hardware.h"
 
 namespace DnWiFiDoorLock {
 
-    DnTime DnHardware::getUptime() {
-        return DnTime(millis());
+    Time Hardware::getUptime() {
+        return Time(millis());
     }
 
-    void DnHardware::setPinToOutputMode(const byte pin) {
+    void Hardware::setPinToOutputMode(const byte pin) {
         pinMode(pin, OUTPUT);
     }
 
-    void DnHardware::digitalWriteLow(const byte pin) {
+    void Hardware::digitalWriteLow(const byte pin) {
         digitalWrite(pin, LOW);
     }
 
-    void DnHardware::digitalWriteHigh(const byte pin) {
+    void Hardware::digitalWriteHigh(const byte pin) {
         digitalWrite(pin, HIGH);
     }
 
-    void DnHardware::startSerial(const long bitsPerSecond) {
+    void Hardware::startSerial(const long bitsPerSecond) {
         // to jest globalna zmienna dawana przez arduino
         // println po prostu nic nie robi jak nie będzie begin, ale nic się nie wywala
         Serial.begin(bitsPerSecond);

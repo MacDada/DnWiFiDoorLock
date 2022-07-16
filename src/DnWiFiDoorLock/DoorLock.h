@@ -2,7 +2,7 @@
 
 namespace DnWiFiDoorLock {
 
-    class DnDoorLock final {
+    class DoorLock final {
     public:
         bool isOpen() const;
 

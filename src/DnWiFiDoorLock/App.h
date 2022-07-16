@@ -5,28 +5,28 @@
 #include <vector>
 
 #include "config.h"
-#include "DnOTAUpdater.h"
+#include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
-#include "DnHardware.h"
-#include "DnDoorLock.h"
-#include "DnLed.h"
+#include "Hardware.h"
+#include "DoorLock.h"
+#include "Led.h"
 #include "DnWiFi.h"
-#include "DnHttpServer.h"
-#include "DnHttpController.h"
+#include "HttpServer.h"
+#include "HttpController.h"
 #include "Logger/HardwareSerialArduinoLogger.h"
 #include "Logger/WebSerialArduinoLogger.h"
 #include "Logger/MultipleLoggersArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
 
-    class DnApp final {
+    class App final {
     public:
         void onSetup();
 
         void onLoop();
 
     private:
-        DnHardware hardware;
+        Hardware hardware;
 
         Logger::HardwareSerialArduinoLogger hardwareSerialLogger = Logger::HardwareSerialArduinoLogger(Serial);
 
@@ -36,9 +36,9 @@ namespace DnWiFiDoorLock {
 
         Logger::MultipleLoggersArduinoLogger logger = Logger::MultipleLoggersArduinoLogger{loggers};
 
-        DnDoorLock doorLock;
+        DoorLock doorLock;
 
-        DnLed builtInLed = DnLed(hardware, DnHardware::BUILT_IN_LED_PIN);
+        Led builtInLed = Led(hardware, Hardware::BUILT_IN_LED_PIN);
 
         DnWiFi wiFi = DnWiFi(
             WIFI_SSID,
@@ -48,18 +48,18 @@ namespace DnWiFiDoorLock {
             hardwareSerialLogger
         );
 
-        DnOTAUpdater otaUpdater = DnOTAUpdater(
+        OTAUpdater otaUpdater = OTAUpdater(
             OTA_UPDATE_PORT,
             OTA_UPDATE_HOST,
             OTA_UPDATE_PASSWORD_MD5,
             logger
         );
 
-        DnHttpController doorLockWebController = DnHttpController(hardware, doorLock);
+        HttpController doorLockWebController = HttpController(hardware, doorLock);
 
         AsyncWebServer espServer = AsyncWebServer(WEB_SERVER_PORT);
 
-        DnHttpServer server = DnHttpServer(
+        HttpServer server = HttpServer(
             espServer,
             WEB_SERVER_HOST_NAME,
             WEB_SERVER_PORT,

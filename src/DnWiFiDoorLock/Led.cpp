@@ -1,9 +1,9 @@
-#include "DnLed.h"
+#include "Led.h"
 
 namespace DnWiFiDoorLock {
 
-    DnLed::DnLed(
-        DnHardware &hardware,
+    Led::Led(
+        Hardware &hardware,
         const byte pin
     ):
         hardware(hardware),
@@ -11,15 +11,15 @@ namespace DnWiFiDoorLock {
         hardware.setPinToOutputMode(pin);
     }
 
-    void DnLed::on() {
+    void Led::on() {
         hardware.digitalWriteLow(pin);
     }
 
-    void DnLed::off() {
+    void Led::off() {
         hardware.digitalWriteHigh(pin);
     }
 
-    void DnLed::blinkFast(const int count) {
+    void Led::blinkFast(const int count) {
         for (int i = 0; i < count; ++i) {
             on();
             delay(100);
@@ -28,7 +28,7 @@ namespace DnWiFiDoorLock {
         }
     }
 
-    void DnLed::blinkLong(const int count) {
+    void Led::blinkLong(const int count) {
         for (int i = 0; i < count; ++i) {
             on();
             delay(1000);
@@ -37,14 +37,14 @@ namespace DnWiFiDoorLock {
         }
     }
 
-    void DnLed::blinkShortAndPause() {
+    void Led::blinkShortAndPause() {
         on();
         delay(50);
         off();
         delay(950);
     }
 
-    void DnLed::blink1sPause1s() {
+    void Led::blink1sPause1s() {
         on();
         delay(1000);
         off();

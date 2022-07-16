@@ -1,9 +1,9 @@
-#include "DnOTAUpdater.h"
-#include "DnTools.h"
+#include "OTAUpdater.h"
+#include "Tools.h"
 
 namespace DnWiFiDoorLock {
 
-    DnOTAUpdater::DnOTAUpdater(
+    OTAUpdater::OTAUpdater(
         const int port,
         const char *host,
         const char *passwordHash,
@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock {
         logger(logger) {
     }
 
-    void DnOTAUpdater::setup() {
+    void OTAUpdater::setup() {
         ArduinoOTA.setPort(port);
         ArduinoOTA.setHostname(host);
         ArduinoOTA.setPasswordHash(passwordHash);
@@ -38,22 +38,22 @@ namespace DnWiFiDoorLock {
         });
 
         ArduinoOTA.onProgress([&](unsigned int progress, unsigned int total) {
-            logger.log(DnTools::format("Progress: %u%%", progress / (total / 100)));
+            logger.log(Tools::format("Progress: %u%%", progress / (total / 100)));
         });
 
         ArduinoOTA.onError([&](ota_error_t error) {
-            logger.log(DnTools::format("Error[%u]: %s", error, otaErrorToString(error)));
+            logger.log(Tools::format("Error[%u]: %s", error, otaErrorToString(error)));
         });
 
         ArduinoOTA.begin();
     }
 
-    void DnOTAUpdater::handle() {
+    void OTAUpdater::handle() {
         ArduinoOTA.handle();
     }
 
     // todo: `const ota_error_t &error`?
-    const char *DnOTAUpdater::otaErrorToString(ota_error_t error) {
+    const char *OTAUpdater::otaErrorToString(ota_error_t error) {
         switch (error) {
             case OTA_AUTH_ERROR:
                 return "OTA_AUTH_ERROR";

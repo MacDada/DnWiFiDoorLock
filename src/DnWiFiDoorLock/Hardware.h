@@ -2,15 +2,15 @@
 
 #include <Arduino.h>
 
-#include "DnTime.h"
+#include "Time.h"
 
 namespace DnWiFiDoorLock {
 
-    class DnHardware final {
+    class Hardware final {
     public:
         static const byte BUILT_IN_LED_PIN = LED_BUILTIN;
 
-        DnTime getUptime();
+        Time getUptime();
 
         void setPinToOutputMode(const byte pin);
 

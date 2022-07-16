@@ -1,15 +1,15 @@
 #pragma once
 
 #include "ESPAsyncWebServer.h"
-#include "DnHardware.h"
-#include "DnDoorLock.h"
-#include "DnTools.h"
+#include "Hardware.h"
+#include "DoorLock.h"
+#include "Tools.h"
 
 namespace DnWiFiDoorLock {
 
-    class DnHttpController final {
+    class HttpController final {
     public:
-        DnHttpController(DnHardware &hardware, DnDoorLock &doorLock);
+        HttpController(Hardware &hardware, DoorLock &doorLock);
 
         void statusAction(AsyncWebServerRequest *request);
 
@@ -22,8 +22,8 @@ namespace DnWiFiDoorLock {
         static constexpr char HTTP_RESPONSE_CONTENT_TYPE_PLAIN[] = "text/plain";
         static constexpr char HTTP_RESPONSE_CONTENT_TYPE_HTML[] = "text/html";
 
-        DnHardware &hardware;
-        DnDoorLock &doorLock;
+        Hardware &hardware;
+        DoorLock &doorLock;
     };
 
 }

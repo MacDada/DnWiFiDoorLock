@@ -4,7 +4,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 
-#include "DnLed.h"
+#include "Led.h"
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
@@ -14,7 +14,7 @@ namespace DnWiFiDoorLock {
         DnWiFi(
             const char *ssid,
             const char *password,
-            DnLed &led,
+            Led &led,
             Logger::ArduinoLogger &logger
         );
 
@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock {
     private:
         const char *ssid;
         const char *password;
-        DnLed &led;
+        Led &led;
         Logger::ArduinoLogger &logger;
 
         void waitForConnection();

@@ -5,9 +5,9 @@
 
 namespace DnWiFiDoorLock {
 
-    class DnOTAUpdater final {
+    class OTAUpdater final {
     public:
-        DnOTAUpdater(
+        OTAUpdater(
             const int port,
             const char *host,
             const char *passwordHash,

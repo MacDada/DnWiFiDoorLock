@@ -1,17 +1,17 @@
 #pragma once
 
 #include <Arduino.h>
-#include "DnHardware.h"
+#include "Hardware.h"
 
 namespace DnWiFiDoorLock {
 
-    class DnLed final {
+    class Led final {
     private:
-        DnHardware &hardware;
+        Hardware &hardware;
         byte pin;
 
     public:
-        DnLed(DnHardware &hardware, const byte pin);
+        Led(Hardware &hardware, const byte pin);
 
         void on();
 

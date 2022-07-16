@@ -4,7 +4,7 @@
 
 namespace DnWiFiDoorLock {
 
-    class DnTime final {
+    class Time final {
     private:
         // todo: unify declarations order style across classes
         unsigned long milliseconds;
@@ -14,9 +14,9 @@ namespace DnWiFiDoorLock {
         byte days;
 
     public:
-        static DnTime uptime();
+        static Time uptime();
 
-        DnTime(const unsigned long milliseconds);
+        Time(const unsigned long milliseconds);
 
         unsigned long getMilliseconds();
 

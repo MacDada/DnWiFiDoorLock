@@ -1,8 +1,8 @@
-#include "DnApp.h"
+#include "App.h"
 
 namespace DnWiFiDoorLock {
 
-    void DnApp::informThatTheLoopHasStarted() {
+    void App::informThatTheLoopHasStarted() {
         if (!hasLoopStarted) {
             logger.log("The Loop has started!");
             builtInLed.blinkFast(5);
@@ -11,14 +11,14 @@ namespace DnWiFiDoorLock {
         }
     }
 
-    void DnApp::informTheLoopIsRunning() {
+    void App::informTheLoopIsRunning() {
         informThatTheLoopHasStarted();
 
         builtInLed.blink1sPause1s();
         logger.log("The loop is running…");
     }
 
-    void DnApp::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
+    void App::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
         WebSerial.println("Received Data…");
 
         String command = "";
@@ -36,7 +36,7 @@ namespace DnWiFiDoorLock {
         }
     }
 
-    void DnApp::onSetup() {
+    void App::onSetup() {
         builtInLed.blinkFast(5);
 
         hardware.startSerial(SERIAL_BITS_PER_SECOND);
@@ -56,7 +56,7 @@ namespace DnWiFiDoorLock {
         server.start();
     }
 
-    void DnApp::onLoop() {
+    void App::onLoop() {
         informTheLoopIsRunning();
 
         otaUpdater.handle();

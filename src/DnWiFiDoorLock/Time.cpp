@@ -1,9 +1,9 @@
-#include "DnTime.h"
+#include "Time.h"
 
 namespace DnWiFiDoorLock {
 
-    DnTime DnTime::uptime() {
-        return DnTime(millis());
+    Time Time::uptime() {
+        return Time(millis());
     }
 
     // If I count correctly, `unsigned long` gives us max 49 days without restart xD
@@ -17,7 +17,7 @@ namespace DnWiFiDoorLock {
     // a crash? or `millis()` will just give a wrong result?
     //
     // another question: does static `const` for arg make any difference?
-    DnTime::DnTime(const unsigned long milliseconds) {
+    Time::Time(const unsigned long milliseconds) {
         // potential RAM saving:
         //   calculate on demand,
         //   instead of storing precalculated values,
@@ -29,40 +29,40 @@ namespace DnWiFiDoorLock {
         days = hours / 24;
     }
 
-    unsigned long DnTime::getMilliseconds() {
+    unsigned long Time::getMilliseconds() {
         return milliseconds;
     }
 
-    long DnTime::getSeconds() {
+    long Time::getSeconds() {
         return seconds;
     }
 
-    long DnTime::getMinutes() {
+    long Time::getMinutes() {
         return minutes;
     }
 
-    int DnTime::getHours() {
+    int Time::getHours() {
         return hours;
     }
 
     // `byte` is enough, we won't be going longer than 49 days xD
-    byte DnTime::getDays() {
+    byte Time::getDays() {
         return days;
     }
 
-    int DnTime::getRemainingMilliseconds() {
+    int Time::getRemainingMilliseconds() {
         return milliseconds % 1000;
     }
 
-    byte DnTime::getRemainingSeconds() {
+    byte Time::getRemainingSeconds() {
         return seconds % 60;
     }
 
-    byte DnTime::getRemainingMinutes() {
+    byte Time::getRemainingMinutes() {
         return minutes % 60;
     }
 
-    byte DnTime::getRemainingHours() {
+    byte Time::getRemainingHours() {
         return hours % 24;
     }
 
