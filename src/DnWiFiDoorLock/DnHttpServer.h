@@ -22,11 +22,11 @@ namespace DnWiFiDoorLock {
         void handleRequests();
 
     private:
-        AsyncWebServer *server;
+        AsyncWebServer &server;
         const char *serverHostName;
         unsigned int serverPort;
-        DnHttpController *doorLockController;
-        Logger::ArduinoLogger *logger;
+        DnHttpController &doorLockController;
+        Logger::ArduinoLogger &logger;
 
         void handleWebNotFound(AsyncWebServerRequest *request);
 

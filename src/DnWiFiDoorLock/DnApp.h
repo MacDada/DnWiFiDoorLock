@@ -31,7 +31,7 @@ namespace DnWiFiDoorLock {
 
         Logger::WebSerialArduinoLogger webSerialLogger = Logger::WebSerialArduinoLogger(WebSerial);
 
-        std::vector<Logger::ArduinoLogger*> loggers = {&hardwareSerialLogger, &webSerialLogger};
+        std::vector<Logger::ArduinoLogger *> loggers = {&hardwareSerialLogger, &webSerialLogger};
 
         Logger::MultipleLoggersArduinoLogger logger = Logger::MultipleLoggersArduinoLogger{loggers};
 
@@ -52,7 +52,7 @@ namespace DnWiFiDoorLock {
             OTA_UPDATE_HOST,
             OTA_UPDATE_PASSWORD_MD5,
             logger
-       );
+        );
 
         DnHttpController doorLockWebController = DnHttpController(hardware, doorLock);
 

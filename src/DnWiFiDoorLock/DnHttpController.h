@@ -21,7 +21,7 @@ namespace DnWiFiDoorLock {
         static constexpr char HTTP_RESPONSE_CONTENT_TYPE_PLAIN[] = "text/plain";
         static constexpr char HTTP_RESPONSE_CONTENT_TYPE_HTML[] = "text/html";
 
-        DnHardware *hardware;
-        DnDoorLock *doorLock;
+        DnHardware &hardware;
+        DnDoorLock &doorLock;
     };
 }

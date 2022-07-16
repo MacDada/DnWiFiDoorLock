@@ -22,8 +22,8 @@ namespace DnWiFiDoorLock {
     private:
         const char *ssid;
         const char *password;
-        DnLed *led;
-        Logger::ArduinoLogger *logger;
+        DnLed &led;
+        Logger::ArduinoLogger &logger;
 
         void waitForConnection();
 

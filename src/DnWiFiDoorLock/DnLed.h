@@ -6,7 +6,7 @@
 namespace DnWiFiDoorLock {
     class DnLed final {
     private:
-        DnHardware *hardware;
+        DnHardware &hardware;
         byte pin;
 
     public:

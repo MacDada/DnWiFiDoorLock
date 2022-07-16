@@ -11,21 +11,21 @@ DnWiFi::DnWiFi(
 ) :
     ssid(ssid),
     password(password),
-    led(&led),
-    logger(&logger) {
+    led(led),
+    logger(logger) {
 }
 
 void DnWiFi::connect() {
     WiFi.begin(this->ssid, this->password);
 
-    logger->log(DnTools::format("WiFi selected: \"%s\"", this->ssid));
-    logger->log("Connecting");
+    logger.log(DnTools::format("WiFi selected: \"%s\"", this->ssid));
+    logger.log("Connecting");
 
     delay(1000);
 
     waitForConnection();
 
-    logger->log(DnTools::format("Connected, IP address: %s", WiFi.localIP().toString().c_str()));
+    logger.log(DnTools::format("Connected, IP address: %s", WiFi.localIP().toString().c_str()));
 }
 
 void DnWiFi::waitForConnection() {
@@ -44,7 +44,7 @@ void DnWiFi::waitForConnection() {
 
         connectingMessage += ".";
 
-        logger->log(connectingMessage);
+        logger.log(connectingMessage);
 
         if (++tries > 20) {
             informAboutConnectingIssue(tries, status);
@@ -53,10 +53,10 @@ void DnWiFi::waitForConnection() {
 }
 
 void DnWiFi::informAboutConnectingIssue(int tries, int status) {
-    led->blinkFast(3);
+    led.blinkFast(3);
 
     if (0 == tries % 5) {
-        logger->log(DnTools::format(
+        logger.log(DnTools::format(
             "WiFi is still not connected, status: %s (%d)",
             wiFiConnectionStatusToString(status),
             (int) status

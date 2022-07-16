@@ -24,7 +24,7 @@ namespace DnWiFiDoorLock::Logger {
         void log(float m) override;
 
     private:
-        const std::vector<ArduinoLogger*>* loggers;
+        const std::vector<ArduinoLogger*> &loggers;
     };
 
     static_assert(!std::is_abstract<MultipleLoggersArduinoLogger>());

@@ -21,7 +21,7 @@ namespace DnWiFiDoorLock {
         int port;
         const char *host;
         const char *passwordHash;
-        Logger::ArduinoLogger *logger;
+        Logger::ArduinoLogger &logger;
 
         const char *otaErrorToString(ota_error_t error);
     };

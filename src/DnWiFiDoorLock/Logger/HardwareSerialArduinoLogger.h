@@ -22,7 +22,7 @@ namespace DnWiFiDoorLock::Logger {
         void log(float m) override;
 
     private:
-        HardwareSerial *serial;
+        HardwareSerial &serial;
     };
 
     static_assert(!std::is_abstract<HardwareSerialArduinoLogger>());

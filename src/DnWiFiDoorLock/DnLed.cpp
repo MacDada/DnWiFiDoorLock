@@ -2,16 +2,16 @@
 
 using namespace DnWiFiDoorLock;
 
-DnLed::DnLed(DnHardware &hardware, const byte pin): hardware(&hardware), pin(pin) {
-    this->hardware->setPinToOutputMode(pin);
+DnLed::DnLed(DnHardware &hardware, const byte pin): hardware(hardware), pin(pin) {
+    hardware.setPinToOutputMode(pin);
 }
 
 void DnLed::on() {
-    hardware->digitalWriteLow(pin);
+    hardware.digitalWriteLow(pin);
 }
 
 void DnLed::off() {
-    hardware->digitalWriteHigh(pin);
+    hardware.digitalWriteHigh(pin);
 }
 
 void DnLed::blinkFast(const int count) {

@@ -12,7 +12,7 @@ DnOTAUpdater::DnOTAUpdater(
     port(port),
     host(host),
     passwordHash(passwordHash),
-    logger(&logger) {
+    logger(logger) {
 }
 
 void DnOTAUpdater::setup() {
@@ -30,19 +30,19 @@ void DnOTAUpdater::setup() {
         }
 
         // NOTE: if updating FS this would be the place to unmount FS using FS.end()
-        logger->log("Start updating " + type);
+        logger.log("Start updating " + type);
     });
 
     ArduinoOTA.onEnd([&]() {
-        logger->log("End");
+        logger.log("End");
     });
 
     ArduinoOTA.onProgress([&](unsigned int progress, unsigned int total) {
-        logger->log(DnTools::format("Progress: %u%%", progress / (total / 100)));
+        logger.log(DnTools::format("Progress: %u%%", progress / (total / 100)));
     });
 
     ArduinoOTA.onError([&](ota_error_t error) {
-        logger->log(DnTools::format("Error[%u]: %s", error, otaErrorToString(error)));
+        logger.log(DnTools::format("Error[%u]: %s", error, otaErrorToString(error)));
     });
 
     ArduinoOTA.begin();

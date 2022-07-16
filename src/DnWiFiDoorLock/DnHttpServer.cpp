@@ -9,11 +9,11 @@ DnHttpServer::DnHttpServer(
     DnHttpController &doorLockController,
     Logger::ArduinoLogger &logger
 ):
-    server(&server),
+    server(server),
     serverHostName(serverHostName),
     serverPort(serverPort),
-    doorLockController(&doorLockController),
-    logger(&logger) {
+    doorLockController(doorLockController),
+    logger(logger) {
 }
 
 void DnHttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
@@ -31,25 +31,25 @@ void DnHttpServer::start() {
     const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
 
     if (mdnsHasStarted) {
-        logger->log("MDNS responder started");
+        logger.log("MDNS responder started");
     } else {
         // todo: better error handling
-        logger->log("There was a problem to start MDNS!");
+        logger.log("There was a problem to start MDNS!");
     }
 
-    server->on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
-        doorLockController->statusAction(request);
+    server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
+        doorLockController.statusAction(request);
     });
 
-    server->on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
-        doorLockController->switchAction(request);
+    server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
+        doorLockController.switchAction(request);
     });
 
-    server->onNotFound([&](AsyncWebServerRequest *request) {
+    server.onNotFound([&](AsyncWebServerRequest *request) {
         handleWebNotFound(request);
     });
 
-    server->begin();
+    server.begin();
 
     logServerHasStarted(mdnsHasStarted);
 }
@@ -69,7 +69,7 @@ void DnHttpServer::logServerHasStarted(const bool mdnsHasStarted) {
 
     logMessage += " in a web browser :)\n";
 
-    logger->log(logMessage);
+    logger.log(logMessage);
 }
 
 void DnHttpServer::handleRequests() {

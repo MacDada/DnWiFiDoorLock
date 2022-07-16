@@ -5,42 +5,42 @@ namespace DnWiFiDoorLock::Logger {
     MultipleLoggersArduinoLogger::MultipleLoggersArduinoLogger(
         const std::vector<ArduinoLogger *> &loggers
     ) :
-        loggers(&loggers) {
+        loggers(loggers) {
     }
 
     void MultipleLoggersArduinoLogger::log(const String &m) {
         // todo: get rid of copy–paste
-        for (auto &logger : *loggers) {
+        for (auto &logger : loggers) {
             logger->log(m);
         }
     }
 
     void MultipleLoggersArduinoLogger::log(const char *m) {
-        for (auto &logger : *loggers) {
+        for (auto &logger : loggers) {
             logger->log(m);
         }
     }
 
     void MultipleLoggersArduinoLogger::log(char *m) {
-        for (auto &logger : *loggers) {
+        for (auto &logger : loggers) {
             logger->log(m);
         }
     }
 
     void MultipleLoggersArduinoLogger::log(int m) {
-        for (auto &logger : *loggers) {
+        for (auto &logger : loggers) {
             logger->log(m);
         }
     }
 
     void MultipleLoggersArduinoLogger::log(double m) {
-        for (auto &logger : *loggers) {
+        for (auto &logger : loggers) {
             logger->log(m);
         }
     }
 
     void MultipleLoggersArduinoLogger::log(float m) {
-        for (auto &logger : *loggers) {
+        for (auto &logger : loggers) {
             logger->log(m);
         }
     }
