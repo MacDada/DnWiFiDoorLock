@@ -1,9 +1,9 @@
-#include "DnWiFi.h"
+#include "WiFi.h"
 #include "Tools.h"
 
 namespace DnWiFiDoorLock {
 
-    DnWiFi::DnWiFi(
+    WiFi::WiFi(
         const char *ssid,
         const char *password,
         Led &led,
@@ -17,8 +17,8 @@ namespace DnWiFiDoorLock {
         hardware(hardware) {
     }
 
-    void DnWiFi::connect() {
-        WiFi.begin(this->ssid, this->password);
+    void WiFi::connect() {
+        ::WiFi.begin(this->ssid, this->password);
 
         logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid));
         logger.log("Connecting");
@@ -27,16 +27,16 @@ namespace DnWiFiDoorLock {
 
         waitForConnection();
 
-        logger.log(Tools::format("Connected, IP address: %s", WiFi.localIP().toString().c_str()));
+        logger.log(Tools::format("Connected, IP address: %s", ::WiFi.localIP().toString().c_str()));
     }
 
-    void DnWiFi::waitForConnection() {
+    void WiFi::waitForConnection() {
         int tries = 0;
         String connectingMessage = "Connecting";
 
         // todo: better error handling
         while (true) {
-            int status = WiFi.status();
+            int status = ::WiFi.status();
 
             if (WL_CONNECTED == status) {
                 return;
@@ -54,7 +54,7 @@ namespace DnWiFiDoorLock {
         }
     }
 
-    void DnWiFi::informAboutConnectingIssue(int tries, int status) {
+    void WiFi::informAboutConnectingIssue(int tries, int status) {
         led.blinkFast(3);
 
         if (0 == tries % 5) {
@@ -67,7 +67,7 @@ namespace DnWiFiDoorLock {
     }
 
     // todo: `const uint8_t &status`?
-    const char *DnWiFi::wiFiConnectionStatusToString(uint8_t status) {
+    const char *WiFi::wiFiConnectionStatusToString(uint8_t status) {
         switch (status) {
             case WL_NO_SHIELD:
                 return "WL_NO_SHIELD";

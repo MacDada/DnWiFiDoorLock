@@ -10,9 +10,9 @@
 
 namespace DnWiFiDoorLock {
 
-    class DnWiFi final {
+    class WiFi final {
     public:
-        DnWiFi(
+        WiFi(
             const char *ssid,
             const char *password,
             Led &led,

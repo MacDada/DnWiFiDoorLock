@@ -10,7 +10,7 @@
 #include "Hardware.h"
 #include "DoorLock.h"
 #include "Led.h"
-#include "DnWiFi.h"
+#include "WiFi.h"
 #include "HttpServer.h"
 #include "HttpController.h"
 #include "Logger/HardwareSerialArduinoLogger.h"
@@ -40,7 +40,7 @@ namespace DnWiFiDoorLock {
 
         Led builtInLed = Led(hardware, Hardware::BUILT_IN_LED_PIN);
 
-        DnWiFi wiFi = DnWiFi(
+        WiFi wiFi = WiFi(
             WIFI_SSID,
             WIFI_PASSWORD,
             builtInLed,
