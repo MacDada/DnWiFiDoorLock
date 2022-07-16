@@ -8,17 +8,19 @@ namespace DnWiFiDoorLock {
         const char *password,
         Led &led,
         Logger::ArduinoLogger &logger,
-        Hardware &hardware
+        Hardware &hardware,
+        ESP8266WiFiClass &esp8266WiFi
     ):
         ssid(ssid),
         password(password),
         led(led),
         logger(logger),
-        hardware(hardware) {
+        hardware(hardware),
+        esp8266WiFi(esp8266WiFi) {
     }
 
     void WiFi::connect() {
-        ::WiFi.begin(this->ssid, this->password);
+        esp8266WiFi.begin(this->ssid, this->password);
 
         logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid));
         logger.log("Connecting");
@@ -27,7 +29,7 @@ namespace DnWiFiDoorLock {
 
         waitForConnection();
 
-        logger.log(Tools::format("Connected, IP address: %s", ::WiFi.localIP().toString().c_str()));
+        logger.log(Tools::format("Connected, IP address: %s", esp8266WiFi.localIP().toString().c_str()));
     }
 
     void WiFi::waitForConnection() {
@@ -36,7 +38,7 @@ namespace DnWiFiDoorLock {
 
         // todo: better error handling
         while (true) {
-            int status = ::WiFi.status();
+            int status = esp8266WiFi.status();
 
             if (WL_CONNECTED == status) {
                 return;

@@ -17,7 +17,8 @@ namespace DnWiFiDoorLock {
             const char *password,
             Led &led,
             Logger::ArduinoLogger &logger,
-            Hardware &hardware
+            Hardware &hardware,
+            ESP8266WiFiClass &esp8266WiFi
         );
 
         void connect();
@@ -28,6 +29,7 @@ namespace DnWiFiDoorLock {
         Led &led;
         Logger::ArduinoLogger &logger;
         Hardware &hardware;
+        ESP8266WiFiClass &esp8266WiFi;
 
         void waitForConnection();
 
