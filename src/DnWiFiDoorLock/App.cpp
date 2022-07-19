@@ -15,19 +15,17 @@ namespace DnWiFiDoorLock {
         informThatTheLoopHasStarted();
 
         builtInLed.blink1sPause1s();
-        logger.log("The loop is running…");
+        logger.log(Tools::format("The loop is running… [RSSI: %d dBm]", ::WiFi.RSSI()));
     }
 
     void App::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
-        WebSerial.println("Received Data…");
-
         String command = "";
 
         for (size_t i = 0; i < messageLength; i++) {
             command += char(message[i]);
         }
 
-        WebSerial.println(command);
+        WebSerial.println(Tools::format("Received command: \"%s\"", command.c_str()));
 
         if (command == "foo") {
             WebSerial.println("Foo command yo!");
