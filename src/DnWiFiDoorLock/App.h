@@ -75,9 +75,10 @@ class App final: public Arduino::SetupAndLoopAware {
 
         Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 
-        std::array<Arduino::SetupAndLoopAware *, 1> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *, 3> setupAndLoopAwares = {
             &loopIndicator,
-            &otaUpdater
+            &otaUpdater,
+            &server
         };
 
         void onWebSerialIncoming(uint8_t *message, size_t messageLength);

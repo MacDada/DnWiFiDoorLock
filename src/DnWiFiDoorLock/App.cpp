@@ -33,8 +33,6 @@ namespace DnWiFiDoorLock {
             onWebSerialIncoming(message, messageLength);
         });
 
-        server.start();
-
         for (auto &setupAndLoopAware: setupAndLoopAwares) {
             setupAndLoopAware->onSetup();
         }
@@ -44,8 +42,6 @@ namespace DnWiFiDoorLock {
         for (auto &setupAndLoopAware: setupAndLoopAwares) {
             setupAndLoopAware->onLoop();
         }
-
-        server.handleRequests();
 
         // todo: secure server
         // todo: handling door open/close with servo

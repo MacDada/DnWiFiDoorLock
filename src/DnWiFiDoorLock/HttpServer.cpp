@@ -27,7 +27,7 @@ namespace DnWiFiDoorLock {
         request->send(404, "text/plain", message);
     }
 
-    void HttpServer::start() {
+    void HttpServer::onSetup() {
         const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
 
         if (mdnsHasStarted) {
@@ -72,7 +72,7 @@ namespace DnWiFiDoorLock {
         logger.log(logMessage);
     }
 
-    void HttpServer::handleRequests() {
+    void HttpServer::onLoop() {
         MDNS.update();
     }
 
