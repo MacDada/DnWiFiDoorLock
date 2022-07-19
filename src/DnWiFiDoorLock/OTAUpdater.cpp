@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock {
         logger(logger) {
     }
 
-    void OTAUpdater::setup() {
+    void OTAUpdater::onSetup() {
         ArduinoOTA.setPort(port);
         ArduinoOTA.setHostname(host);
         ArduinoOTA.setPasswordHash(passwordHash);
@@ -48,7 +48,7 @@ namespace DnWiFiDoorLock {
         ArduinoOTA.begin();
     }
 
-    void OTAUpdater::handle() {
+    void OTAUpdater::onLoop() {
         ArduinoOTA.handle();
     }
 

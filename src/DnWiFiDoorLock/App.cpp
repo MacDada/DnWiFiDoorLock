@@ -27,8 +27,6 @@ namespace DnWiFiDoorLock {
 
         wiFi.connect();
 
-        otaUpdater.setup();
-
         WebSerial.begin(&espServer);
 
         WebSerial.msgCallback([&](uint8_t *message, size_t messageLength) {
@@ -47,7 +45,6 @@ namespace DnWiFiDoorLock {
             setupAndLoopAware->onLoop();
         }
 
-        otaUpdater.handle();
         server.handleRequests();
 
         // todo: secure server

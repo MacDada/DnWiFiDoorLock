@@ -1,11 +1,15 @@
 #pragma once
 
+#include <type_traits>
+
 #include <ArduinoOTA.h>
+
+#include "Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
 
-    class OTAUpdater final {
+    class OTAUpdater final: public Arduino::SetupAndLoopAware {
     public:
         OTAUpdater(
             const int port,
@@ -14,17 +18,22 @@ namespace DnWiFiDoorLock {
             Logger::ArduinoLogger &logger
         );
 
-        void setup();
+        void onSetup() override;
 
-        void handle();
+        void onLoop() override;
 
     private:
         int port;
+
         const char *host;
+
         const char *passwordHash;
+
         Logger::ArduinoLogger &logger;
 
         const char *otaErrorToString(ota_error_t error);
     };
+
+    static_assert(!std::is_abstract<OTAUpdater>());
 
 }
