@@ -1,9 +1,13 @@
 #pragma once
 
-#include <Arduino.h>
-#include <WebSerial.h>
+#include <array>
 #include <vector>
 
+#include <Arduino.h>
+#include <WebSerial.h>
+
+#include "Arduino/SetupAndLoopAware.h"
+#include "Arduino/LoopIndicator.h"
 #include "config.h"
 #include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
@@ -19,11 +23,11 @@
 
 namespace DnWiFiDoorLock {
 
-    class App final {
+class App final: public Arduino::SetupAndLoopAware {
     public:
-        void onSetup();
+        void onSetup() override;
 
-        void onLoop();
+        void onLoop() override;
 
     private:
         Hardware hardware;
@@ -69,11 +73,9 @@ namespace DnWiFiDoorLock {
             logger
         );
 
-        bool hasLoopStarted = false;
+        Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 
-        void informThatTheLoopHasStarted();
-
-        void informTheLoopIsRunning();
+        std::array<Arduino::SetupAndLoopAware *, 1> setupAndLoopAwares = {&loopIndicator};
 
         void onWebSerialIncoming(uint8_t *message, size_t messageLength);
     };

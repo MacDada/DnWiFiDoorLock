@@ -2,22 +2,6 @@
 
 namespace DnWiFiDoorLock {
 
-    void App::informThatTheLoopHasStarted() {
-        if (!hasLoopStarted) {
-            logger.log("The Loop has started!");
-            builtInLed.blinkFast(5);
-
-            hasLoopStarted = true;
-        }
-    }
-
-    void App::informTheLoopIsRunning() {
-        informThatTheLoopHasStarted();
-
-        builtInLed.blink1sPause1s();
-        logger.log(Tools::format("The loop is running… [RSSI: %d dBm]", ::WiFi.RSSI()));
-    }
-
     void App::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
         String command = "";
 
@@ -52,10 +36,16 @@ namespace DnWiFiDoorLock {
         });
 
         server.start();
+
+        for (auto &setupAndLoopAware: setupAndLoopAwares) {
+            setupAndLoopAware->onSetup();
+        }
     }
 
     void App::onLoop() {
-        informTheLoopIsRunning();
+        for (auto &setupAndLoopAware: setupAndLoopAwares) {
+            setupAndLoopAware->onLoop();
+        }
 
         otaUpdater.handle();
         server.handleRequests();
