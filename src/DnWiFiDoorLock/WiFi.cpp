@@ -19,6 +19,14 @@ namespace DnWiFiDoorLock {
         esp8266WiFi(esp8266WiFi) {
     }
 
+    void WiFi::onSetup() {
+        connect();
+    }
+
+    void WiFi::onLoop() {
+        // do nothing
+    }
+
     void WiFi::connect() {
         esp8266WiFi.begin(this->ssid, this->password);
 

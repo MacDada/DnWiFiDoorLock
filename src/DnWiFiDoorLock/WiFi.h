@@ -1,16 +1,19 @@
 #pragma once
 
+#include <type_traits>
+
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 
-#include "Led.h"
+#include "Arduino/SetupAndLoopAware.h"
 #include "Hardware.h"
+#include "Led.h"
 #include "Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
 
-    class WiFi final {
+    class WiFi final: public Arduino::SetupAndLoopAware {
     public:
         WiFi(
             const char *ssid,
@@ -21,15 +24,24 @@ namespace DnWiFiDoorLock {
             ESP8266WiFiClass &esp8266WiFi
         );
 
-        void connect();
+        void onSetup() override;
+
+        void onLoop() override;
 
     private:
         const char *ssid;
+
         const char *password;
+
         Led &led;
+
         Logger::ArduinoLogger &logger;
+
         Hardware &hardware;
+
         ESP8266WiFiClass &esp8266WiFi;
+
+        void connect();
 
         void waitForConnection();
 
@@ -37,5 +49,7 @@ namespace DnWiFiDoorLock {
 
         void informAboutConnectingIssue(int tries, int status);
     };
+
+    static_assert(!std::is_abstract<WiFi>());
 
 }

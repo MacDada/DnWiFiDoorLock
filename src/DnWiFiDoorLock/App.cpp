@@ -9,8 +9,6 @@ namespace DnWiFiDoorLock {
 
         hardwareSerialLogger.log("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
 
-        wiFi.connect();
-
         for (auto &setupAndLoopAware: setupAndLoopAwares) {
             setupAndLoopAware->onSetup();
         }

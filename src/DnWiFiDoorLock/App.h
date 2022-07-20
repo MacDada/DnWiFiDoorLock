@@ -80,7 +80,8 @@ class App final: public Arduino::SetupAndLoopAware {
 
         Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 
-        std::array<Arduino::SetupAndLoopAware *, 4> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *, 5> setupAndLoopAwares = {
+            &wiFi,
             &loopIndicator,
             &setupAndLoopAwareWebSerial,
             &otaUpdater,
