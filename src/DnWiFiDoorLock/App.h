@@ -8,6 +8,7 @@
 
 #include "Arduino/SetupAndLoopAware.h"
 #include "Arduino/LoopIndicator.h"
+#include "Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
 #include "config.h"
 #include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
@@ -22,6 +23,8 @@
 #include "Logger/MultipleLoggersArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
+
+using Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
 
 class App final: public Arduino::SetupAndLoopAware {
     public:
@@ -73,15 +76,16 @@ class App final: public Arduino::SetupAndLoopAware {
             logger
         );
 
+        SetupAndLoopAwareWebSerial setupAndLoopAwareWebSerial = SetupAndLoopAwareWebSerial(WebSerial, espServer);
+
         Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 
-        std::array<Arduino::SetupAndLoopAware *, 3> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *, 4> setupAndLoopAwares = {
             &loopIndicator,
+            &setupAndLoopAwareWebSerial,
             &otaUpdater,
             &server
         };
-
-        void onWebSerialIncoming(uint8_t *message, size_t messageLength);
     };
 
 }
