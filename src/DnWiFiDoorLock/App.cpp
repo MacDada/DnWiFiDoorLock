@@ -5,10 +5,6 @@ namespace DnWiFiDoorLock {
     void App::onSetup() {
         builtInLed.blinkFast(5);
 
-        hardware.startSerial(SERIAL_BITS_PER_SECOND);
-
-        hardwareSerialLogger.log("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
-
         for (auto &setupAndLoopAware: setupAndLoopAwares) {
             setupAndLoopAware->onSetup();
         }
