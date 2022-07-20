@@ -19,8 +19,6 @@ namespace DnWiFiDoorLock {
         void digitalWriteHigh(const byte pin);
 
         void digitalWriteLow(const byte pin);
-
-        void startSerial(const long bitsPerSecond);
     };
 
 }

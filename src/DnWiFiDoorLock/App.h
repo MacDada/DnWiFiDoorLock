@@ -6,9 +6,10 @@
 #include <Arduino.h>
 #include <WebSerial.h>
 
-#include "Arduino/SetupAndLoopAware.h"
-#include "Arduino/LoopIndicator.h"
 #include "Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
+#include "Arduino/HardwareSerialSetup.h"
+#include "Arduino/LoopIndicator.h"
+#include "Arduino/SetupAndLoopAware.h"
 #include "config.h"
 #include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
@@ -76,11 +77,18 @@ class App final: public Arduino::SetupAndLoopAware {
             logger
         );
 
+        Arduino::HardwareSerialSetup hardwareSerialSetup = Arduino::HardwareSerialSetup(
+            Serial,
+            hardware,
+            SERIAL_BITS_PER_SECOND
+        );
+
         SetupAndLoopAwareWebSerial setupAndLoopAwareWebSerial = SetupAndLoopAwareWebSerial(WebSerial, espServer);
 
         Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 
-        std::array<Arduino::SetupAndLoopAware *, 5> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *, 6> setupAndLoopAwares = {
+            &hardwareSerialSetup,
             &wiFi,
             &loopIndicator,
             &setupAndLoopAwareWebSerial,
