@@ -2,7 +2,7 @@
 
 namespace DnWiFiDoorLock::Arduino {
 
-    LoopIndicator::LoopIndicator(Led &led, Logger::Logger &logger): led(led), logger(logger) {
+    LoopIndicator::LoopIndicator(Led &led, Logger::ArduinoLogger &logger): led(led), logger(logger) {
     }
 
     void LoopIndicator::onSetup() {
@@ -26,8 +26,13 @@ namespace DnWiFiDoorLock::Arduino {
         informThatTheLoopHasStarted();
 
         led.blink1sPause1s();
+
+        String log = "The loop is running… [RSSI: ";
         // todo: get rid of the global var
-        logger.log(Tools::format("The loop is running… [RSSI: %d dBm]", ::WiFi.RSSI()));
+        log += ::WiFi.RSSI();
+        log += "dBm]";
+
+        logger.log(log);
     }
 
 }

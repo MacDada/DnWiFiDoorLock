@@ -6,14 +6,13 @@
 
 #include "SetupAndLoopAware.h"
 #include "../Led.h"
-#include "../Logger/Logger.h"
-#include "../Tools.h"
+#include "../Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
     class LoopIndicator final: public SetupAndLoopAware {
     public:
-        LoopIndicator(Led &led, Logger::Logger &logger);
+        LoopIndicator(Led &led, Logger::ArduinoLogger &logger);
 
         void onSetup() override;
 
@@ -22,7 +21,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         Led &led;
 
-        Logger::Logger &logger;
+        Logger::ArduinoLogger &logger;
 
         bool hasLoopStarted = false;
 
