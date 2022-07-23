@@ -28,22 +28,6 @@ namespace DnWiFiDoorLock {
         }
     }
 
-    void Led::blinkLong(const int count) {
-        for (int i = 0; i < count; ++i) {
-            on();
-            hardware.pause(1000);
-            off();
-            hardware.pause(1000);
-        }
-    }
-
-    void Led::blinkShortAndPause() {
-        on();
-        hardware.pause(50);
-        off();
-        hardware.pause(950);
-    }
-
     void Led::blink1sPause1s() {
         on();
         hardware.pause(1000);
