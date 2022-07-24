@@ -14,7 +14,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
     public:
         LoopAwareSignalStrengthLogger(
             ESP8266WiFiClass &esp8266WiFi,
-            Hardware &hardware,
             Logger::ArduinoLogger &logger
         );
 
@@ -23,19 +22,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
         void onLoop() override;
 
     private:
-        static const unsigned int INTERVAL_MILLISECONDS = 1000;
-
-        unsigned long lastLogUptimeMilliseconds = 0;
-
         ESP8266WiFiClass &esp8266WiFi;
 
-        Hardware &hardware;
-
         Logger::ArduinoLogger &logger;
-
-        void maybeLog();
-
-        bool isItTimeToLog();
 
         void log();
     };

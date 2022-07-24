@@ -4,11 +4,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
 
     LoopAwareSignalStrengthLogger::LoopAwareSignalStrengthLogger(
         ESP8266WiFiClass &esp8266WiFi,
-        Hardware &hardware,
         Logger::ArduinoLogger &logger
     ):
         esp8266WiFi(esp8266WiFi),
-        hardware(hardware),
         logger(logger) {
     }
 
@@ -17,18 +15,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
     }
 
     void LoopAwareSignalStrengthLogger::onLoop() {
-        maybeLog();
-    }
-
-    void LoopAwareSignalStrengthLogger::maybeLog() {
-        // todo: extract ThrottledLoopAware? ;]
-        if (isItTimeToLog()) {
-            log();
-        }
-    }
-
-    bool LoopAwareSignalStrengthLogger::isItTimeToLog() {
-        return hardware.getUptime().getMilliseconds() > (lastLogUptimeMilliseconds + INTERVAL_MILLISECONDS);
+        log();
     }
 
     void LoopAwareSignalStrengthLogger::log() {
@@ -37,7 +24,5 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
         message += " dBm";
 
         logger.log(message);
-
-        lastLogUptimeMilliseconds = hardware.getUptime().getMilliseconds();
     }
 }

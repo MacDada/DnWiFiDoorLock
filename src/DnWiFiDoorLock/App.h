@@ -11,6 +11,7 @@
 #include "Arduino/HardwareSerialSetup.h"
 #include "Arduino/LoopIndicator.h"
 #include "Arduino/SetupAndLoopAware.h"
+#include "Arduino/ThrottledLoopAware.h"
 #include "config.h"
 #include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
@@ -36,6 +37,9 @@ class App final: public Arduino::SetupAndLoopAware {
         void onLoop() override;
 
     private:
+        static const int MILLISECONDS_IN_SECOND = 1000;
+        static const int WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
+
         Hardware hardware;
 
         Logger::HardwareSerialArduinoLogger hardwareSerialLogger = Logger::HardwareSerialArduinoLogger(Serial);
@@ -72,8 +76,13 @@ class App final: public Arduino::SetupAndLoopAware {
 
         LoopAwareSignalStrengthLogger wifiSignalStrengthLogger = LoopAwareSignalStrengthLogger(
             ::WiFi,
-            hardware,
             logger
+        );
+
+        Arduino::ThrottledLoopAware throttledWiFiSignalStrengthLogger = Arduino::ThrottledLoopAware(
+            wifiSignalStrengthLogger,
+            hardware,
+            WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
         );
 
         HttpController doorLockWebController = HttpController(hardware, doorLock);
@@ -105,7 +114,7 @@ class App final: public Arduino::SetupAndLoopAware {
             &setupAndLoopAwareWebSerial,
             &otaUpdater,
             &server,
-            &wifiSignalStrengthLogger
+            &throttledWiFiSignalStrengthLogger
         };
     };
 
