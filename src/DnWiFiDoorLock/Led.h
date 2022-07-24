@@ -19,7 +19,11 @@ namespace DnWiFiDoorLock {
 
         void blinkFast(const int count);
 
-        void blink1sPause1s();
+        bool isOn();
+
+        bool isOff();
+
+        void toggle();
     };
 
 }

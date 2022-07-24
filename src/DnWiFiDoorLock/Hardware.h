@@ -19,6 +19,10 @@ namespace DnWiFiDoorLock {
         void digitalWriteHigh(const byte pin);
 
         void digitalWriteLow(const byte pin);
+
+        bool isPinHigh(const byte pin);
+
+        bool isPinLow(const byte pin);
     };
 
 }

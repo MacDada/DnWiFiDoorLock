@@ -25,7 +25,7 @@ namespace DnWiFiDoorLock::Arduino {
     void LoopIndicator::informTheLoopIsRunning() {
         informThatTheLoopHasStarted();
 
-        led.blink1sPause1s();
+        led.toggle();
     }
 
 }

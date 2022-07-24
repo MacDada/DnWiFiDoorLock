@@ -19,6 +19,22 @@ namespace DnWiFiDoorLock {
         hardware.digitalWriteHigh(pin);
     }
 
+    void Led::toggle() {
+        if (isOn()) {
+            off();
+        } else {
+            on();
+        }
+    }
+
+    bool Led::isOn() {
+        return hardware.isPinLow(pin);
+    }
+
+    bool Led::isOff() {
+        return hardware.isPinHigh(pin);
+    }
+
     void Led::blinkFast(const int count) {
         for (int i = 0; i < count; ++i) {
             on();
@@ -26,13 +42,6 @@ namespace DnWiFiDoorLock {
             off();
             hardware.pause(100);
         }
-    }
-
-    void Led::blink1sPause1s() {
-        on();
-        hardware.pause(1000);
-        off();
-        hardware.pause(1000);
     }
 
 }

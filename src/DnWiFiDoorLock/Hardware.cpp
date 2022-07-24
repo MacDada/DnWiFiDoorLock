@@ -22,4 +22,12 @@ namespace DnWiFiDoorLock {
         digitalWrite(pin, HIGH);
     }
 
+    bool Hardware::isPinHigh(const byte pin) {
+        return digitalRead(pin) == HIGH;
+    }
+
+    bool Hardware::isPinLow(const byte pin) {
+        return digitalRead(pin) == LOW;
+    }
+
 }
