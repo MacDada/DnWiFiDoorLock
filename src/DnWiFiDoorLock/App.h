@@ -7,6 +7,7 @@
 #include <WebSerial.h>
 
 #include "Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
+#include "Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "Arduino/HardwareSerialSetup.h"
 #include "Arduino/LoopIndicator.h"
 #include "Arduino/SetupAndLoopAware.h"
@@ -25,7 +26,8 @@
 
 namespace DnWiFiDoorLock {
 
-using Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
+using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
+using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
 
 class App final: public Arduino::SetupAndLoopAware {
     public:
@@ -40,7 +42,10 @@ class App final: public Arduino::SetupAndLoopAware {
 
         Logger::WebSerialArduinoLogger webSerialLogger = Logger::WebSerialArduinoLogger(WebSerial);
 
-        std::vector<Logger::ArduinoLogger *> loggers = {&hardwareSerialLogger, &webSerialLogger};
+        std::vector<Logger::ArduinoLogger *> loggers = {
+            &hardwareSerialLogger,
+            &webSerialLogger
+        };
 
         Logger::MultipleLoggersArduinoLogger logger = Logger::MultipleLoggersArduinoLogger{loggers};
 
@@ -62,6 +67,12 @@ class App final: public Arduino::SetupAndLoopAware {
             OTA_UPDATE_PORT,
             OTA_UPDATE_HOST,
             OTA_UPDATE_PASSWORD_MD5,
+            logger
+        );
+
+        LoopAwareSignalStrengthLogger wifiSignalStrengthLogger = LoopAwareSignalStrengthLogger(
+            ::WiFi,
+            hardware,
             logger
         );
 
@@ -87,13 +98,14 @@ class App final: public Arduino::SetupAndLoopAware {
 
         Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 
-        std::array<Arduino::SetupAndLoopAware *, 6> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *, 7> setupAndLoopAwares = {
             &hardwareSerialSetup,
             &wiFi,
             &loopIndicator,
             &setupAndLoopAwareWebSerial,
             &otaUpdater,
-            &server
+            &server,
+            &wifiSignalStrengthLogger
         };
     };
 

@@ -5,7 +5,10 @@ namespace DnWiFiDoorLock {
     HttpController::HttpController(
         Hardware &hardware,
         DoorLock &doorLock
-    ) : hardware(hardware), doorLock(doorLock) {}
+    ):
+        hardware(hardware),
+        doorLock(doorLock) {
+    }
 
     // todo: declare const?
     // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316

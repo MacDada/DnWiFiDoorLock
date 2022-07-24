@@ -29,8 +29,12 @@ class HttpServer final: public Arduino::SetupAndLoopAware {
 
     private:
         AsyncWebServer &server;
+
         const char *serverHostName;
+
         unsigned int serverPort;
+
+        // todo: controllers should register themselves to avoid having 2137 controllers here?
         HttpController &doorLockController;
         Logger::ArduinoLogger &logger;
 

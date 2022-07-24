@@ -26,13 +26,6 @@ namespace DnWiFiDoorLock::Arduino {
         informThatTheLoopHasStarted();
 
         led.blink1sPause1s();
-
-        String log = "The loop is running… [RSSI: ";
-        // todo: get rid of the global var
-        log += ::WiFi.RSSI();
-        log += "dBm]";
-
-        logger.log(log);
     }
 
 }
