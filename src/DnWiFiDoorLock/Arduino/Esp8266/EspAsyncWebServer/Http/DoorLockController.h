@@ -2,7 +2,7 @@
 
 #include "ESPAsyncWebServer.h"
 
-#include "DnWiFiDoorLock/DoorLock.h"
+#include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Tools.h"
 
@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     public:
         DoorLockController(
             DnWiFiDoorLock::Arduino::Hardware &hardware,
-            DoorLock &doorLock
+            DnWiFiDoorLock::Arduino::DoorLock &doorLock
         );
 
         void statusAction(AsyncWebServerRequest *request);
@@ -30,7 +30,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnWiFiDoorLock::Arduino::Hardware &hardware;
 
-        DoorLock &doorLock;
+        DnWiFiDoorLock::Arduino::DoorLock &doorLock;
     };
 
     static_assert(!std::is_abstract<DoorLockController>());

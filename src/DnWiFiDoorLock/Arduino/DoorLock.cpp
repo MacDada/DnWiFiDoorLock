@@ -1,10 +1,10 @@
-#include "DoorLock.h"
+#include "DnWiFiDoorLock/Arduino/DoorLock.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
     // todo: extract virtual base
     DoorLock::DoorLock(
-        Servo &servo,
+        Servo::Servo &servo,
         Logger::Logger &logger,
         byte openAngle,
         byte closedAngle

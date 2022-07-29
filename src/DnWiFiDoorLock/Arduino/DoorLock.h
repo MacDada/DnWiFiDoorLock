@@ -2,21 +2,19 @@
 
 #include <type_traits>
 
-#include "Arduino/Servo/Servo.h"
-#include "Arduino/SetupAndLoopAware.h"
-#include "Logger/Logger.h"
+#include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Logger/Logger.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
-    using Arduino::Servo::Servo;
-
-    class DoorLock final: public Arduino::SetupAndLoopAware {
+    class DoorLock final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         explicit DoorLock(
-            Servo &servo,
+            Servo::Servo &servo,
             Logger::Logger &logger,
-            byte openAngle = Servo::MIN_ANGLE,
-            byte closedAngle = Servo::MAX_ANGLE
+            byte openAngle = Servo::Servo::MIN_ANGLE,
+            byte closedAngle = Servo::Servo::MAX_ANGLE
         );
 
         // todo: "Clang-Tidy: Function 'isOpen' should be marked [[nodiscard]]"?
@@ -35,7 +33,7 @@ namespace DnWiFiDoorLock {
         void onLoop() override;
 
     private:
-        Servo &servo;
+        Servo::Servo &servo;
 
         Logger::Logger &logger;
 

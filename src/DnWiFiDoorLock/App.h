@@ -21,7 +21,7 @@
 #include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "DoorLock.h"
+#include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "Led.h"
 #include "WiFi.h"
 #include "HttpServer.h"
@@ -32,6 +32,7 @@
 namespace DnWiFiDoorLock {
 
 // todo: indentation
+using DnWiFiDoorLock::Arduino::DoorLock;
 using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
 using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
 using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
