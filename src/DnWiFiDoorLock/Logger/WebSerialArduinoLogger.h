@@ -2,7 +2,8 @@
 
 #include <Arduino.h>
 #include <WebSerial.h>
-#include "ArduinoLogger.h"
+
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock::Logger {
 

@@ -1,7 +1,8 @@
 #pragma once
 
 #include <Arduino.h>
-#include "ArduinoLogger.h"
+
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock::Logger {
 

@@ -3,7 +3,7 @@
 #include <type_traits>
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
 

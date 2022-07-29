@@ -6,10 +6,11 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 
-#include "Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
-#include "Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock {
 

@@ -1,5 +1,4 @@
 #include "OTAUpdater.h"
-#include "Tools.h"
 
 namespace DnWiFiDoorLock {
 

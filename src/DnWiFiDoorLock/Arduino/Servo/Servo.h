@@ -3,8 +3,8 @@
 #include <Servo.h>
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "../../Logger/ArduinoLogger.h"
-#include "../../Tools.h"
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Tools.h"
 
 // todo: servo power supply:
 //       * should I detach()?

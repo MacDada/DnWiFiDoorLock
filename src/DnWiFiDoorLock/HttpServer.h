@@ -3,14 +3,13 @@
 #include <type_traits>
 
 #include <ESP8266mDNS.h>
+#include <ESPAsyncWebServer.h>
 
-#include "ESPAsyncWebServer.h"
-
-#include "Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
-#include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
-#include "Arduino/SetupAndLoopAware.h"
-#include "Logger/ArduinoLogger.h"
-#include "Tools.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock {
 

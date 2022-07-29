@@ -3,31 +3,31 @@
 #include <array>
 #include <vector>
 
-// todo: ordering
 #include <Arduino.h>
+#include <ESPAsyncWebServer.h>
 #include <Servo.h>
 #include <WebSerial.h>
 
-#include "Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
-#include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
-#include "Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
-#include "Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
-#include "Arduino/HardwareSerialSetup.h"
-#include "Arduino/LoopIndicator.h"
-#include "Arduino/Servo/Servo.h"
-#include "Arduino/SetupAndLoopAware.h"
-#include "Arduino/ThrottledLoopAware.h"
 #include "config.h"
-#include "OTAUpdater.h"
-#include "ESPAsyncWebServer.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
+#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
-#include "WiFi.h"
-#include "HttpServer.h"
-#include "Logger/HardwareSerialArduinoLogger.h"
-#include "Logger/WebSerialArduinoLogger.h"
-#include "Logger/MultipleLoggersArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
+#include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
+#include "DnWiFiDoorLock/HttpServer.h"
+#include "DnWiFiDoorLock/Logger/HardwareSerialArduinoLogger.h"
+#include "DnWiFiDoorLock/Logger/WebSerialArduinoLogger.h"
+#include "DnWiFiDoorLock/Logger/MultipleLoggersArduinoLogger.h"
+#include "DnWiFiDoorLock/OTAUpdater.h"
+#include "DnWiFiDoorLock/WiFi.h"
 
 namespace DnWiFiDoorLock {
 

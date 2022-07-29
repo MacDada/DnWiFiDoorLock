@@ -1,10 +1,11 @@
 #pragma once
 
 #include <type_traits>
+
 #include <HardwareSerial.h>
 
-#include "SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
 

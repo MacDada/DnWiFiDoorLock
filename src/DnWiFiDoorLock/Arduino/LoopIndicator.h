@@ -5,8 +5,8 @@
 #include <ESP8266WiFi.h>
 
 #include "DnWiFiDoorLock/Arduino/Led.h"
-#include "SetupAndLoopAware.h"
-#include "../Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
