@@ -5,6 +5,11 @@
 // todo: change to const types
 #define SERIAL_BITS_PER_SECOND 115200
 
+// brown GND
+// red 3v3
+// orange D2 [pin4 at NodeMcu]
+#define SERVO_PIN 4
+
 #define WIFI_SSID ""
 #define WIFI_PASSWORD ""
 

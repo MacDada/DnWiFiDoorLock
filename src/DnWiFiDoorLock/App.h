@@ -5,12 +5,15 @@
 
 // todo: ordering
 #include <Arduino.h>
+#include <Servo.h>
 #include <WebSerial.h>
 
+#include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
 #include "Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "Arduino/HardwareSerialSetup.h"
 #include "Arduino/LoopIndicator.h"
+#include "Arduino/Servo/Servo.h"
 #include "Arduino/SetupAndLoopAware.h"
 #include "Arduino/ThrottledLoopAware.h"
 #include "config.h"
@@ -59,7 +62,20 @@ class App final: public Arduino::SetupAndLoopAware {
 
         Logger::MultipleLoggersArduinoLogger logger = Logger::MultipleLoggersArduinoLogger{loggers};
 
-        DoorLock doorLock;
+        ::Servo arduinoServo;
+
+        // todo: why the servo does not reach proper 0-180 degree angles by default?
+        //      * https://www.arduino.cc/reference/en/libraries/servo/attach/
+        //          - the docs say the default pulse should be 544-2400
+        //      * the lib actually defaults to 1000-2000 [which sounds like the "industry standard"]
+        //          - note when testing: changing the max does not impact the min and vice versa
+        //      * the servo's specs: https://download.kamami.pl/p195301-HD-1501MG.pdf
+        //          - according to the specs i dont know what to think, but i guess it should be 800-2200?
+        //      * verified values that work OK: 500-2500
+        //      * setting a smaller range just to be safe
+        Arduino::Servo::Servo servo = Arduino::Servo::Servo(arduinoServo, SERVO_PIN, 600, 2400, logger);
+
+        DoorLock doorLock = DoorLock(servo, logger, 0, 180);
 
         Led builtInLed = Led(hardware, Hardware::BUILT_IN_LED_PIN);
 
@@ -93,6 +109,9 @@ class App final: public Arduino::SetupAndLoopAware {
 
         HttpController doorLockWebController = HttpController(hardware, doorLock);
 
+        // todo: in the end we don't need that, but it is useful for calibration
+        ServoController servoController = ServoController(servo, logger);
+
         AsyncWebServer espServer = AsyncWebServer(WEB_SERVER_PORT);
 
         HttpServer server = HttpServer(
@@ -100,6 +119,7 @@ class App final: public Arduino::SetupAndLoopAware {
             WEB_SERVER_HOST_NAME,
             WEB_SERVER_PORT,
             doorLockWebController,
+            servoController,
             logger
         );
 
@@ -119,14 +139,16 @@ class App final: public Arduino::SetupAndLoopAware {
             LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
         );
 
-        std::array<Arduino::SetupAndLoopAware *, 7> setupAndLoopAwares = {
+        // todo: vector, so that me-the-dumbass dont forget about changing the size
+        std::array<Arduino::SetupAndLoopAware *, 8> setupAndLoopAwares = {
             &hardwareSerialSetup,
             &wiFi,
             &throttledLoopIndicator,
             &setupAndLoopAwareWebSerial,
             &otaUpdater,
             &server,
-            &throttledWiFiSignalStrengthLogger
+            &throttledWiFiSignalStrengthLogger,
+            &doorLock
         };
     };
 

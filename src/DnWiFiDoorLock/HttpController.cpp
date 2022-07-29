@@ -2,6 +2,8 @@
 
 namespace DnWiFiDoorLock {
 
+    // todo: rename to DoorLockController
+    // todo: logging actions
     HttpController::HttpController(
         Hardware &hardware,
         DoorLock &doorLock

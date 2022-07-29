@@ -7,12 +7,14 @@ namespace DnWiFiDoorLock {
         const char *serverHostName,
         const unsigned int serverPort,
         HttpController &doorLockController,
+        ServoController &servoController,
         Logger::ArduinoLogger &logger
     ):
         server(server),
         serverHostName(serverHostName),
         serverPort(serverPort),
         doorLockController(doorLockController),
+        servoController(servoController),
         logger(logger) {
     }
 
@@ -43,6 +45,10 @@ namespace DnWiFiDoorLock {
 
         server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
             doorLockController.switchAction(request);
+        });
+
+        server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *request) {
+            servoController.angleAction(*request);
         });
 
         server.onNotFound([&](AsyncWebServerRequest *request) {

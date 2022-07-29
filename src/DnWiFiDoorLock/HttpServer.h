@@ -6,12 +6,16 @@
 
 #include "ESPAsyncWebServer.h"
 
+#include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "Arduino/SetupAndLoopAware.h"
 #include "HttpController.h"
 #include "Logger/ArduinoLogger.h"
 #include "Tools.h"
 
 namespace DnWiFiDoorLock {
+
+// todo: indent
+using Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
 
 class HttpServer final: public Arduino::SetupAndLoopAware {
     public:
@@ -20,6 +24,7 @@ class HttpServer final: public Arduino::SetupAndLoopAware {
             const char *serverHostName,
             const unsigned int serverPort,
             HttpController &doorLockController,
+            ServoController &servoController,
             Logger::ArduinoLogger &logger
         );
 
@@ -36,6 +41,9 @@ class HttpServer final: public Arduino::SetupAndLoopAware {
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
         HttpController &doorLockController;
+
+        ServoController &servoController;
+
         Logger::ArduinoLogger &logger;
 
         void handleWebNotFound(AsyncWebServerRequest *request);
