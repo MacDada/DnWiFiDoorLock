@@ -24,7 +24,7 @@
 #include "Led.h"
 #include "WiFi.h"
 #include "HttpServer.h"
-#include "HttpController.h"
+#include "DoorLockController.h"
 #include "Logger/HardwareSerialArduinoLogger.h"
 #include "Logger/WebSerialArduinoLogger.h"
 #include "Logger/MultipleLoggersArduinoLogger.h"
@@ -107,10 +107,10 @@ class App final: public Arduino::SetupAndLoopAware {
             WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
         );
 
-        HttpController doorLockWebController = HttpController(hardware, doorLock);
+        DoorLockController doorLockHttpController = DoorLockController(hardware, doorLock);
 
         // todo: in the end we don't need that, but it is useful for calibration
-        ServoController servoController = ServoController(servo, logger);
+        ServoController servoHttpController = ServoController(servo, logger);
 
         AsyncWebServer espServer = AsyncWebServer(WEB_SERVER_PORT);
 
@@ -118,8 +118,8 @@ class App final: public Arduino::SetupAndLoopAware {
             espServer,
             WEB_SERVER_HOST_NAME,
             WEB_SERVER_PORT,
-            doorLockWebController,
-            servoController,
+            doorLockHttpController,
+            servoHttpController,
             logger
         );
 

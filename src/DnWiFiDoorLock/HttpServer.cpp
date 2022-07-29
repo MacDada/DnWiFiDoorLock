@@ -6,7 +6,7 @@ namespace DnWiFiDoorLock {
         AsyncWebServer &server,
         const char *serverHostName,
         const unsigned int serverPort,
-        HttpController &doorLockController,
+        DoorLockController &doorLockController,
         ServoController &servoController,
         Logger::ArduinoLogger &logger
     ):

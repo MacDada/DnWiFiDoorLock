@@ -8,9 +8,9 @@
 
 namespace DnWiFiDoorLock {
 
-    class HttpController final {
+    class DoorLockController final {
     public:
-        HttpController(
+        DoorLockController(
             Hardware &hardware,
             DoorLock &doorLock
         );
@@ -33,6 +33,6 @@ namespace DnWiFiDoorLock {
         DoorLock &doorLock;
     };
 
-    static_assert(!std::is_abstract<HttpController>());
+    static_assert(!std::is_abstract<DoorLockController>());
 
 }

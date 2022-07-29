@@ -8,7 +8,7 @@
 
 #include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "Arduino/SetupAndLoopAware.h"
-#include "HttpController.h"
+#include "DoorLockController.h"
 #include "Logger/ArduinoLogger.h"
 #include "Tools.h"
 
@@ -23,7 +23,7 @@ class HttpServer final: public Arduino::SetupAndLoopAware {
             AsyncWebServer &server,
             const char *serverHostName,
             const unsigned int serverPort,
-            HttpController &doorLockController,
+            DoorLockController &doorLockController,
             ServoController &servoController,
             Logger::ArduinoLogger &logger
         );
@@ -40,7 +40,7 @@ class HttpServer final: public Arduino::SetupAndLoopAware {
         unsigned int serverPort;
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
-        HttpController &doorLockController;
+        DoorLockController &doorLockController;
 
         ServoController &servoController;
 
