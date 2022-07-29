@@ -2,9 +2,9 @@
 
 #include "ESPAsyncWebServer.h"
 
-#include "DoorLock.h"
-#include "Hardware.h"
-#include "Tools.h"
+#include "DnWiFiDoorLock/DoorLock.h"
+#include "DnWiFiDoorLock/Hardware.h"
+#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock {
 

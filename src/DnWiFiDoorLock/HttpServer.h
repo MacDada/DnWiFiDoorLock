@@ -6,9 +6,9 @@
 
 #include "ESPAsyncWebServer.h"
 
+#include "Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "Arduino/SetupAndLoopAware.h"
-#include "DoorLockController.h"
 #include "Logger/ArduinoLogger.h"
 #include "Tools.h"
 

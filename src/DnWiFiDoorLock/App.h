@@ -8,6 +8,7 @@
 #include <Servo.h>
 #include <WebSerial.h>
 
+#include "Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
 #include "Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
@@ -24,7 +25,6 @@
 #include "Led.h"
 #include "WiFi.h"
 #include "HttpServer.h"
-#include "DoorLockController.h"
 #include "Logger/HardwareSerialArduinoLogger.h"
 #include "Logger/WebSerialArduinoLogger.h"
 #include "Logger/MultipleLoggersArduinoLogger.h"
