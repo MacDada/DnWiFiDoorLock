@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 
+// todo: ordering
 #include <Arduino.h>
 #include <WebSerial.h>
 
@@ -27,6 +28,8 @@
 
 namespace DnWiFiDoorLock {
 
+// todo: indentation
+using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
 using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
 using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
 
@@ -38,6 +41,7 @@ class App final: public Arduino::SetupAndLoopAware {
 
     private:
         static const int MILLISECONDS_IN_SECOND = 1000;
+
         static const int WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
 
         static const int LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;

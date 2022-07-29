@@ -55,7 +55,7 @@ namespace DnWiFiDoorLock {
                 uptime.getHours(),
                 uptime.getRemainingMinutes(),
                 uptime.getRemainingSeconds()
-            )
+            ).get()
         );
     }
 

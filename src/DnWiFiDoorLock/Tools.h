@@ -1,12 +1,14 @@
 #pragma once
 
+#include <memory>
+
 #include <Arduino.h>
 
 namespace DnWiFiDoorLock {
 
     class Tools final {
     public:
-        static char *format(char const *format...);
+        static std::unique_ptr<char[]> format(const char *format, ...);
     };
 
 }
