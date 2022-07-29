@@ -15,6 +15,7 @@
 namespace DnWiFiDoorLock {
 
 // todo: indent
+using Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
 using Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
 
 class HttpServer final: public Arduino::SetupAndLoopAware {

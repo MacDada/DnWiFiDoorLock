@@ -1,6 +1,6 @@
 #include "DoorLockController.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     // todo: logging actions
     DoorLockController::DoorLockController(

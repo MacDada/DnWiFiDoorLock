@@ -6,7 +6,7 @@
 #include "DnWiFiDoorLock/Hardware.h"
 #include "DnWiFiDoorLock/Tools.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     class DoorLockController final {
     public:

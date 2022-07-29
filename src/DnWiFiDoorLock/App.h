@@ -32,6 +32,7 @@
 namespace DnWiFiDoorLock {
 
 // todo: indentation
+using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
 using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
 using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
 using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
