@@ -20,7 +20,7 @@
 #include "config.h"
 #include "OTAUpdater.h"
 #include "ESPAsyncWebServer.h"
-#include "Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DoorLock.h"
 #include "Led.h"
 #include "WiFi.h"
@@ -50,7 +50,7 @@ class App final: public Arduino::SetupAndLoopAware {
 
         static const int LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
 
-        Hardware hardware;
+        DnWiFiDoorLock::Arduino::Hardware hardware;
 
         Logger::HardwareSerialArduinoLogger hardwareSerialLogger = Logger::HardwareSerialArduinoLogger(Serial);
 
@@ -78,7 +78,7 @@ class App final: public Arduino::SetupAndLoopAware {
 
         DoorLock doorLock = DoorLock(servo, logger, 0, 180);
 
-        Led builtInLed = Led(hardware, Hardware::BUILT_IN_LED_PIN);
+        Led builtInLed = Led(hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN);
 
         WiFi wiFi = WiFi(
             WIFI_SSID,

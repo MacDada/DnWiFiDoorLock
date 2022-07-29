@@ -4,7 +4,7 @@
 
 #include <ESP8266WiFi.h>
 
-#include "../../../Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "../../../Logger/ArduinoLogger.h"
 #include "../../SetupAndLoopAware.h"
 

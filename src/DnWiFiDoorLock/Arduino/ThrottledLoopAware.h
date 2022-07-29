@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-#include "../Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
@@ -11,7 +11,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         ThrottledLoopAware(
             SetupAndLoopAware &otherAware,
-            Hardware &hardware,
+            DnWiFiDoorLock::Arduino::Hardware &hardware,
             int throttleMilliseconds
         );
 
@@ -22,7 +22,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         SetupAndLoopAware &otherAware;
 
-        Hardware &hardware;
+        DnWiFiDoorLock::Arduino::Hardware &hardware;
 
         int throttleMilliseconds;
 

@@ -2,7 +2,7 @@
 
 #include <Servo.h>
 
-#include "DnWiFiDoorLock/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "../../Logger/ArduinoLogger.h"
 #include "../../Tools.h"
 

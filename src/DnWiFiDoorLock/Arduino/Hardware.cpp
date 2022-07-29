@@ -1,6 +1,6 @@
 #include "Hardware.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
     void Hardware::pause(const unsigned long milliseconds) {
         delay(milliseconds);

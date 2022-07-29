@@ -4,7 +4,7 @@
 #include <HardwareSerial.h>
 
 #include "SetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         HardwareSerialSetup(
             HardwareSerial &serial,
-            Hardware &hardware,
+            DnWiFiDoorLock::Arduino::Hardware &hardware,
             long bitsPerSecond
         );
 
@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         HardwareSerial &serial;
 
-        Hardware &hardware;
+        DnWiFiDoorLock::Arduino::Hardware &hardware;
 
         const long bitsPerSecond;
     };

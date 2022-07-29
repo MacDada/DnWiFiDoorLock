@@ -2,9 +2,9 @@
 
 #include <Arduino.h>
 
-#include "Time.h"
+#include "DnWiFiDoorLock/Time.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
     class Hardware final {
     public:
