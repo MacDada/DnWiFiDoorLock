@@ -29,4 +29,5 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         servo.write(degrees);
     }
+
 }

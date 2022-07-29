@@ -26,4 +26,5 @@ namespace DnWiFiDoorLock::Logger {
     };
 
     static_assert(!std::is_abstract<HardwareSerialArduinoLogger>());
+
 }

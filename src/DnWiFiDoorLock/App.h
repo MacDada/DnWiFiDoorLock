@@ -31,14 +31,13 @@
 
 namespace DnWiFiDoorLock {
 
-// todo: indentation
-using DnWiFiDoorLock::Arduino::DoorLock;
-using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
-using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
-using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
-using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
+    using DnWiFiDoorLock::Arduino::DoorLock;
+    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
+    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
+    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
+    using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
 
-class App final: public Arduino::SetupAndLoopAware {
+    class App final: public Arduino::SetupAndLoopAware {
     public:
         void onSetup() override;
 

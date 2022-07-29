@@ -25,4 +25,5 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
 
         logger.log(message);
     }
+
 }

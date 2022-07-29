@@ -27,4 +27,5 @@ namespace DnWiFiDoorLock::Arduino {
     bool ThrottledLoopAware::isItTime() {
         return hardware.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
     }
+
 }
