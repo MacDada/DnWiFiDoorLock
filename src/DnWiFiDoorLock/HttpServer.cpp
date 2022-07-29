@@ -39,6 +39,18 @@ namespace DnWiFiDoorLock {
             logger.log("There was a problem to start MDNS!");
         }
 
+        // todo; figure out why it crashes when handling "long" requests
+        server.on("/test", HTTP_GET, [](AsyncWebServerRequest *request) {
+            // 1000 OK, 2000 crash
+            auto end = millis() + 2000;
+
+            while (end > millis()) {
+                // just wait for the test
+            }
+
+            request->send(200, "text/plain", "It is OK :-)");
+        });
+
         server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
             doorLockController.statusAction(request);
         });
