@@ -1,6 +1,6 @@
 #include "Led.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
     Led::Led(
         DnWiFiDoorLock::Arduino::Hardware &hardware,

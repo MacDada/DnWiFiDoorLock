@@ -4,7 +4,7 @@
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
     class Led final {
     private:

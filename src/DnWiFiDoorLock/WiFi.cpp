@@ -6,7 +6,7 @@ namespace DnWiFiDoorLock {
     WiFi::WiFi(
         const char *ssid,
         const char *password,
-        Led &led,
+        DnWiFiDoorLock::Arduino::Led &led,
         Logger::ArduinoLogger &logger,
         DnWiFiDoorLock::Arduino::Hardware &hardware,
         ESP8266WiFiClass &esp8266WiFi
