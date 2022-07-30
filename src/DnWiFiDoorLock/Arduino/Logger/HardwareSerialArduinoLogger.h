@@ -2,11 +2,11 @@
 
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class HardwareSerialArduinoLogger final: public ArduinoLogger {
+    class HardwareSerialArduinoLogger final: public Logger {
     public:
         explicit HardwareSerialArduinoLogger(HardwareSerial &serial);
 

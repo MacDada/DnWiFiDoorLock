@@ -3,11 +3,11 @@
 #include <Arduino.h>
 #include <WebSerial.h>
 
-#include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
 
-    class Logger final: public DnWiFiDoorLock::Arduino::Logger::ArduinoLogger {
+    class Logger final: public DnWiFiDoorLock::Arduino::Logger::Logger {
     public:
         explicit Logger(WebSerialClass &serial);
 

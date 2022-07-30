@@ -7,7 +7,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         byte pin,
         int minPulseWidthMicroseconds,
         int maxPulseWidthMicroseconds,
-        Logger::ArduinoLogger &logger
+        DnWiFiDoorLock::Arduino::Logger::Logger &logger
     ):
         servo(servo),
         logger(logger) {

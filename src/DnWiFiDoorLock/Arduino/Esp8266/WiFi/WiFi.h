@@ -8,7 +8,7 @@
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
-#include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Tools.h"
 
@@ -20,7 +20,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             const char *ssid,
             const char *password,
             DnWiFiDoorLock::Arduino::Led &led,
-            DnWiFiDoorLock::Arduino::Logger::ArduinoLogger &logger,
+            DnWiFiDoorLock::Arduino::Logger::Logger &logger,
             DnWiFiDoorLock::Arduino::Hardware &hardware,
             ESP8266WiFiClass &esp8266WiFi
         );
@@ -36,7 +36,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         DnWiFiDoorLock::Arduino::Led &led;
 
-        DnWiFiDoorLock::Arduino::Logger::ArduinoLogger &logger;
+        DnWiFiDoorLock::Arduino::Logger::Logger &logger;
 
         DnWiFiDoorLock::Arduino::Hardware &hardware;
 

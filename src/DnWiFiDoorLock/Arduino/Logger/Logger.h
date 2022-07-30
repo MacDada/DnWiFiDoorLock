@@ -6,7 +6,7 @@
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class ArduinoLogger: public DnWiFiDoorLock::Logger::Logger {
+    class Logger: public DnWiFiDoorLock::Logger::Logger {
     public:
         virtual void log(const String &m) = 0;
 

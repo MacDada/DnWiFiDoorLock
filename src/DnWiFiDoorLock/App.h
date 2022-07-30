@@ -62,7 +62,7 @@ namespace DnWiFiDoorLock {
 
         WebSerialLogger webSerialLogger = WebSerialLogger(WebSerial);
 
-        std::vector<DnWiFiDoorLock::Arduino::Logger::ArduinoLogger *> loggers = {
+        std::vector<DnWiFiDoorLock::Arduino::Logger::Logger *> loggers = {
             &hardwareSerialLogger,
             &webSerialLogger
         };

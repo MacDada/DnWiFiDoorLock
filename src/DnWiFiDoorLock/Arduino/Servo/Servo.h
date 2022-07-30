@@ -3,7 +3,7 @@
 #include <Servo.h>
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
 // todo: servo power supply:
@@ -34,7 +34,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             byte pin,
             int minPulseWidthMicroseconds,
             int maxPulseWidthMicroseconds,
-            Logger::ArduinoLogger &logger
+            DnWiFiDoorLock::Arduino::Logger::Logger &logger
         );
 
         int getAngle() const;
@@ -44,7 +44,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     private:
         ::Servo &servo;
 
-        Logger::ArduinoLogger &logger;
+        DnWiFiDoorLock::Arduino::Logger::Logger &logger;
     };
 
 }
