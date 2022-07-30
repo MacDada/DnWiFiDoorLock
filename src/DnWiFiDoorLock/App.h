@@ -11,6 +11,7 @@
 #include "config.h"
 
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Logger.h"
@@ -21,14 +22,13 @@
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
+#include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/MultipleLoggersArduinoLogger.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/OTAUpdater.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
-#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
-#include "DnWiFiDoorLock/Logger/HardwareSerialArduinoLogger.h"
-#include "DnWiFiDoorLock/Logger/MultipleLoggersArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
 

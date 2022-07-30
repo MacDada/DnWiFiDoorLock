@@ -4,7 +4,7 @@
 
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
 
 namespace DnWiFiDoorLock::Logger {
 

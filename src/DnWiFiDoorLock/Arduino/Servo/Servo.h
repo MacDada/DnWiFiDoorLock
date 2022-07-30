@@ -3,7 +3,7 @@
 #include <Servo.h>
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
+#include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
 // todo: servo power supply:
