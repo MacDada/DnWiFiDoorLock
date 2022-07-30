@@ -1,12 +1,12 @@
 #include "WiFi.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
     WiFi::WiFi(
         const char *ssid,
         const char *password,
         DnWiFiDoorLock::Arduino::Led &led,
-        Logger::ArduinoLogger &logger,
+        DnWiFiDoorLock::Logger::ArduinoLogger &logger,
         DnWiFiDoorLock::Arduino::Hardware &hardware,
         ESP8266WiFiClass &esp8266WiFi
     ):

@@ -14,6 +14,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
@@ -27,7 +28,6 @@
 #include "DnWiFiDoorLock/Logger/HardwareSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/WebSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/MultipleLoggersArduinoLogger.h"
-#include "DnWiFiDoorLock/WiFi.h"
 
 namespace DnWiFiDoorLock {
 
@@ -81,7 +81,7 @@ namespace DnWiFiDoorLock {
 
         Led builtInLed = Led(hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN);
 
-        WiFi wiFi = WiFi(
+        DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi wiFi = DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi(
             WIFI_SSID,
             WIFI_PASSWORD,
             builtInLed,
