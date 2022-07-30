@@ -8,7 +8,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const unsigned int port,
         DoorLockController &doorLockController,
         ServoController &servoController,
-        DnWiFiDoorLock::Logger::ArduinoLogger &logger
+        Logger &logger
     ):
         server(server),
         hostname(hostname),

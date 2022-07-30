@@ -17,7 +17,7 @@
  * typeID(T).name()
  */
 
-namespace DnWiFiDoorLock::Logger {
+namespace DnWiFiDoorLock::Arduino::Logger {
 
     HardwareSerialArduinoLogger::HardwareSerialArduinoLogger(
         HardwareSerial &serial

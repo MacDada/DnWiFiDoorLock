@@ -35,8 +35,10 @@ namespace DnWiFiDoorLock {
     class App final: public Arduino::SetupAndLoopAware {
         using DoorLock                      = DnWiFiDoorLock::Arduino::DoorLock;
         using DoorLockController            = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
+        using HardwareSerialLogger          = DnWiFiDoorLock::Arduino::Logger::HardwareSerialArduinoLogger;
         using Led                           = DnWiFiDoorLock::Arduino::Led;
         using LoopAwareSignalStrengthLogger = DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
+        using MultipleLoggersLogger         = DnWiFiDoorLock::Arduino::Logger::MultipleLoggersArduinoLogger;
         using ServerSetup                   = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
         using ServoController               = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
         using WebSerialLogger               = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Logger;
@@ -56,16 +58,16 @@ namespace DnWiFiDoorLock {
 
         DnWiFiDoorLock::Arduino::Hardware hardware;
 
-        Logger::HardwareSerialArduinoLogger hardwareSerialLogger = Logger::HardwareSerialArduinoLogger(Serial);
+        HardwareSerialLogger hardwareSerialLogger = HardwareSerialLogger(Serial);
 
         WebSerialLogger webSerialLogger = WebSerialLogger(WebSerial);
 
-        std::vector<Logger::ArduinoLogger *> loggers = {
+        std::vector<DnWiFiDoorLock::Arduino::Logger::ArduinoLogger *> loggers = {
             &hardwareSerialLogger,
             &webSerialLogger
         };
 
-        Logger::MultipleLoggersArduinoLogger logger = Logger::MultipleLoggersArduinoLogger{loggers};
+        MultipleLoggersLogger logger = MultipleLoggersLogger{loggers};
 
         ::Servo arduinoServo;
 

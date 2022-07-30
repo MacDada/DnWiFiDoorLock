@@ -7,7 +7,7 @@
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
 
-    class Logger final: public DnWiFiDoorLock::Logger::ArduinoLogger {
+    class Logger final: public DnWiFiDoorLock::Arduino::Logger::ArduinoLogger {
     public:
         explicit Logger(WebSerialClass &serial);
 

@@ -6,11 +6,11 @@
 
 #include "DnWiFiDoorLock/Arduino/Logger/ArduinoLogger.h"
 
-namespace DnWiFiDoorLock::Logger {
+namespace DnWiFiDoorLock::Arduino::Logger {
 
     class MultipleLoggersArduinoLogger final: public ArduinoLogger {
     public:
-        explicit MultipleLoggersArduinoLogger(const std::vector<ArduinoLogger*> &loggers);
+        explicit MultipleLoggersArduinoLogger(const std::vector<ArduinoLogger *> &loggers);
 
         void log(const String &m) override;
 
@@ -25,7 +25,7 @@ namespace DnWiFiDoorLock::Logger {
         void log(float m) override;
 
     private:
-        const std::vector<ArduinoLogger*> &loggers;
+        const std::vector<ArduinoLogger *> &loggers;
     };
 
     static_assert(!std::is_abstract<MultipleLoggersArduinoLogger>());

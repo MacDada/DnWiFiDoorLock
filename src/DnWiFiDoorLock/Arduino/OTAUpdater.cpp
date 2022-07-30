@@ -6,7 +6,7 @@ namespace DnWiFiDoorLock::Arduino {
         const int port,
         const char *host,
         const char *passwordHash,
-        DnWiFiDoorLock::Logger::ArduinoLogger &logger
+        DnWiFiDoorLock::Arduino::Logger::ArduinoLogger &logger
     ):
         port(port),
         host(host),

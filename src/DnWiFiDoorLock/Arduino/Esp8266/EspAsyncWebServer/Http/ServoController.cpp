@@ -4,7 +4,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     ServoController::ServoController(
         Servo &servo,
-        Logger::Logger &logger
+        Logger &logger
     ):
         servo(servo),
         logger(logger) {

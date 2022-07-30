@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit DoorLock(
             Servo::Servo &servo,
-            Logger::Logger &logger,
+            DnWiFiDoorLock::Logger::Logger &logger,
             byte openAngle = Servo::Servo::MIN_ANGLE,
             byte closedAngle = Servo::Servo::MAX_ANGLE
         );
@@ -38,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         Servo::Servo &servo;
 
-        Logger::Logger &logger;
+        DnWiFiDoorLock::Logger::Logger &logger;
 
         byte openAngle;
 

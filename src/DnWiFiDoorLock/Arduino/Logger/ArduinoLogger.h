@@ -4,9 +4,9 @@
 
 #include "DnWiFiDoorLock/Logger/Logger.h"
 
-namespace DnWiFiDoorLock::Logger {
+namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class ArduinoLogger: public Logger {
+    class ArduinoLogger: public DnWiFiDoorLock::Logger::Logger {
     public:
         virtual void log(const String &m) = 0;
 

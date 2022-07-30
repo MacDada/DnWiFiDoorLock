@@ -1,6 +1,6 @@
 #include "MultipleLoggersArduinoLogger.h"
 
-namespace DnWiFiDoorLock::Logger {
+namespace DnWiFiDoorLock::Arduino::Logger {
 
     MultipleLoggersArduinoLogger::MultipleLoggersArduinoLogger(
         const std::vector<ArduinoLogger *> &loggers
