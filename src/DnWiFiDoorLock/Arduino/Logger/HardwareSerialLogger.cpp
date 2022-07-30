@@ -1,4 +1,4 @@
-#include "HardwareSerialArduinoLogger.h"
+#include "HardwareSerialLogger.h"
 
 /**
  * todo: templates so i don't repeat myself?
@@ -19,33 +19,33 @@
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    HardwareSerialArduinoLogger::HardwareSerialArduinoLogger(
+    HardwareSerialLogger::HardwareSerialLogger(
         HardwareSerial &serial
     ):
         serial(serial) {
     }
 
-    void HardwareSerialArduinoLogger::log(const String &m) {
+    void HardwareSerialLogger::log(const String &m) {
         serial.println(m);
     }
 
-    void HardwareSerialArduinoLogger::log(const char *m) {
+    void HardwareSerialLogger::log(const char *m) {
         serial.println(m);
     }
 
-    void HardwareSerialArduinoLogger::log(char *m) {
+    void HardwareSerialLogger::log(char *m) {
         serial.println(m);
     }
 
-    void HardwareSerialArduinoLogger::log(int m) {
+    void HardwareSerialLogger::log(int m) {
         serial.println(m);
     }
 
-    void HardwareSerialArduinoLogger::log(double m) {
+    void HardwareSerialLogger::log(double m) {
         serial.println(m);
     }
 
-    void HardwareSerialArduinoLogger::log(float m) {
+    void HardwareSerialLogger::log(float m) {
         serial.println(m);
     }
 

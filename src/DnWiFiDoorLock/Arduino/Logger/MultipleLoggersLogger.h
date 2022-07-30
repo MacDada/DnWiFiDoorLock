@@ -1,14 +1,16 @@
 #pragma once
 
+#include <vector>
+
 #include <Arduino.h>
 
 #include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class HardwareSerialArduinoLogger final: public Logger {
+    class MultipleLoggersLogger final: public Logger {
     public:
-        explicit HardwareSerialArduinoLogger(HardwareSerial &serial);
+        explicit MultipleLoggersLogger(const std::vector<Logger *> &loggers);
 
         void log(const String &m) override;
 
@@ -23,9 +25,9 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         void log(float m) override;
 
     private:
-        HardwareSerial &serial;
+        const std::vector<Logger *> &loggers;
     };
 
-    static_assert(!std::is_abstract<HardwareSerialArduinoLogger>());
+    static_assert(!std::is_abstract<MultipleLoggersLogger>());
 
 }
