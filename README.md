@@ -4,12 +4,14 @@ DnWiFiDoorLock
 ---
 
 Thank you for all the help I received on [`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
+ 
+- `Arno#7285`
 - `Doctor Bazooka#2461`
 - `DXPower#0133`
+- `Felix#6325`
 - `Fluffles#6709`
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
-- `Arno#7285`
 
 --- 
 
