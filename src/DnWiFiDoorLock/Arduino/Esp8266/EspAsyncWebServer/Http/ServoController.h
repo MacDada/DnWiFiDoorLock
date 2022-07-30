@@ -10,10 +10,10 @@
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
-    using DnWiFiDoorLock::Arduino::Servo::Servo;
-    using Request = AsyncWebServerRequest;
-
     class ServoController final {
+        using Request = AsyncWebServerRequest;
+        using Servo   = DnWiFiDoorLock::Arduino::Servo::Servo;
+
     public:
         explicit ServoController(
             Servo &servo,

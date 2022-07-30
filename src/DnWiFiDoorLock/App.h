@@ -32,15 +32,15 @@
 
 namespace DnWiFiDoorLock {
 
-    using DoorLockImpl = DnWiFiDoorLock::Arduino::DoorLock;
-    using DnWiFiDoorLock::Arduino::Led;
-    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
-    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
-    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
-    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
-    using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
-
     class App final: public Arduino::SetupAndLoopAware {
+        using DoorLock                      = DnWiFiDoorLock::Arduino::DoorLock;
+        using DoorLockController            = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
+        using Led                           = DnWiFiDoorLock::Arduino::Led;
+        using LoopAwareSignalStrengthLogger = DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
+        using ServerSetup                   = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
+        using ServoController               = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
+        using SetupAndLoopAwareWebSerial    = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
+
     public:
         void onSetup() override;
 
@@ -79,7 +79,7 @@ namespace DnWiFiDoorLock {
         //      * setting a smaller range just to be safe
         Arduino::Servo::Servo servo = Arduino::Servo::Servo(arduinoServo, SERVO_PIN, 600, 2400, logger);
 
-        DoorLockImpl doorLock = DoorLockImpl(servo, logger, 0, 180);
+        DoorLock doorLock = DoorLock(servo, logger, 0, 180);
 
         Led builtInLed = Led(hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN);
 

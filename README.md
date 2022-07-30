@@ -9,6 +9,7 @@ Thank you for all the help I received on [`Better C++` Discord server](https://d
 - `Fluffles#6709`
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
+- `Arno#7285`
 
 --- 
 
