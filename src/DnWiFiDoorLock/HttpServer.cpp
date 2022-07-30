@@ -30,15 +30,6 @@ namespace DnWiFiDoorLock {
     }
 
     void HttpServer::onSetup() {
-        const bool mdnsHasStarted = (bool) MDNS.begin(serverHostName);
-
-        if (mdnsHasStarted) {
-            logger.log("MDNS responder started");
-        } else {
-            // todo: better error handling
-            logger.log("There was a problem to start MDNS!");
-        }
-
         // todo; figure out why it crashes when handling "long" requests
         server.on("/test", HTTP_GET, [](AsyncWebServerRequest *request) {
             // 1000 OK, 2000 crash
@@ -69,29 +60,28 @@ namespace DnWiFiDoorLock {
 
         server.begin();
 
-        logServerHasStarted(mdnsHasStarted);
+        logServerHasStarted();
     }
 
-    void HttpServer::logServerHasStarted(const bool mdnsHasStarted) {
+    void HttpServer::logServerHasStarted() {
         String logMessage = "HTTP server has started, open http://";
+
+        // todo: get rid of the global
         logMessage += WiFi.localIP().toString().c_str();
+
         logMessage += ":";
         logMessage += serverPort;
-
-        if (mdnsHasStarted) {
-            logMessage += " or http://";
-            logMessage += serverHostName;
-            logMessage += ".local:";
-            logMessage += serverPort;
-        }
-
+        logMessage += " or http://";
+        logMessage += serverHostName;
+        logMessage += ".local:";
+        logMessage += serverPort;
         logMessage += " in a web browser :)\n";
 
         logger.log(logMessage);
     }
 
     void HttpServer::onLoop() {
-        MDNS.update();
+        // do nothing
     }
 
 }

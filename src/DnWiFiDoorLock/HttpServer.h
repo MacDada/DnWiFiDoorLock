@@ -2,7 +2,6 @@
 
 #include <type_traits>
 
-#include <ESP8266mDNS.h>
 #include <ESPAsyncWebServer.h>
 
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
@@ -48,7 +47,7 @@ namespace DnWiFiDoorLock {
         void handleWebNotFound(AsyncWebServerRequest *request);
 
         // todo: is there a way to avoid declaring private methods in header file? looks unnecessary to me ;)
-        void logServerHasStarted(const bool mdnsHasStarted);
+        void logServerHasStarted();
     };
 
     static_assert(!std::is_abstract<HttpServer>());

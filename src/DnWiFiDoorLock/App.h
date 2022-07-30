@@ -13,6 +13,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/MDNSSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
@@ -91,6 +92,12 @@ namespace DnWiFiDoorLock {
             ::WiFi
         );
 
+        Arduino::Esp8266::MDNSSetupAndLoopAware mdns = Arduino::Esp8266::MDNSSetupAndLoopAware(
+            MDNS,
+            logger,
+            WEB_SERVER_HOST_NAME
+        );
+
         DnWiFiDoorLock::Arduino::OTAUpdater otaUpdater = DnWiFiDoorLock::Arduino::OTAUpdater(
             OTA_UPDATE_PORT,
             OTA_UPDATE_HOST,
@@ -142,12 +149,13 @@ namespace DnWiFiDoorLock {
         );
 
         // todo: vector, so that me-the-dumbass dont forget about changing the size
-        std::array<Arduino::SetupAndLoopAware *, 8> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *, 9> setupAndLoopAwares = {
             &hardwareSerialSetup,
             &wiFi,
             &throttledLoopIndicator,
             &setupAndLoopAwareWebSerial,
             &otaUpdater,
+            &mdns,
             &server,
             &throttledWiFiSignalStrengthLogger,
             &doorLock
