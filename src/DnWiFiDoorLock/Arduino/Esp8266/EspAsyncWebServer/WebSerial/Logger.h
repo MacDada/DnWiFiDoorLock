@@ -5,11 +5,11 @@
 
 #include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 
-namespace DnWiFiDoorLock::Logger {
+namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
 
-    class WebSerialArduinoLogger final: public ArduinoLogger {
+    class Logger final: public DnWiFiDoorLock::Logger::ArduinoLogger {
     public:
-        explicit WebSerialArduinoLogger(WebSerialClass &serial);
+        explicit Logger(WebSerialClass &serial);
 
         void log(const String &m) override;
 
@@ -27,6 +27,6 @@ namespace DnWiFiDoorLock::Logger {
         WebSerialClass &serial;
     };
 
-    static_assert(!std::is_abstract<WebSerialArduinoLogger>());
+    static_assert(!std::is_abstract<Logger>());
 
 }

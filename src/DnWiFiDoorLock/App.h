@@ -13,6 +13,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/MDNSSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
@@ -27,7 +28,6 @@
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
 #include "DnWiFiDoorLock/Logger/HardwareSerialArduinoLogger.h"
-#include "DnWiFiDoorLock/Logger/WebSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/MultipleLoggersArduinoLogger.h"
 
 namespace DnWiFiDoorLock {
@@ -39,6 +39,7 @@ namespace DnWiFiDoorLock {
         using LoopAwareSignalStrengthLogger = DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
         using ServerSetup                   = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
         using ServoController               = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
+        using WebSerialLogger               = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Logger;
         using WebSerialSetup                = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Setup;
 
     public:
@@ -57,7 +58,7 @@ namespace DnWiFiDoorLock {
 
         Logger::HardwareSerialArduinoLogger hardwareSerialLogger = Logger::HardwareSerialArduinoLogger(Serial);
 
-        Logger::WebSerialArduinoLogger webSerialLogger = Logger::WebSerialArduinoLogger(WebSerial);
+        WebSerialLogger webSerialLogger = WebSerialLogger(WebSerial);
 
         std::vector<Logger::ArduinoLogger *> loggers = {
             &hardwareSerialLogger,
