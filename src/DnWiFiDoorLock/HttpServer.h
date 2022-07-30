@@ -44,7 +44,7 @@ namespace DnWiFiDoorLock {
 
         Logger::ArduinoLogger &logger;
 
-        void handleWebNotFound(AsyncWebServerRequest *request);
+        void handleWebNotFound(AsyncWebServerRequest &request);
 
         // todo: is there a way to avoid declaring private methods in header file? looks unnecessary to me ;)
         void logServerHasStarted();

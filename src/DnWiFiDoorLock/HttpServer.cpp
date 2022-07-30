@@ -18,15 +18,15 @@ namespace DnWiFiDoorLock {
         logger(logger) {
     }
 
-    void HttpServer::handleWebNotFound(AsyncWebServerRequest *request) {
+    void HttpServer::handleWebNotFound(AsyncWebServerRequest &request) {
         String message = "File Not Found\n\n";
         message += "URI: ";
-        message += request->url();
+        message += request.url();
         message += "\nMethod: ";
-        message += request->methodToString();
+        message += request.methodToString();
         message += "\n";
 
-        request->send(404, "text/plain", message);
+        request.send(404, "text/plain", message);
     }
 
     void HttpServer::onSetup() {
@@ -42,12 +42,16 @@ namespace DnWiFiDoorLock {
             request->send(200, "text/plain", "It is OK :-)");
         });
 
+        // todo: declare const?
+        // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
+        //
+        // todo: can i get null here instead of the object? o.O
         server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
-            doorLockController.statusAction(request);
+            doorLockController.statusAction(*request);
         });
 
         server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
-            doorLockController.switchAction(request);
+            doorLockController.switchAction(*request);
         });
 
         server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *request) {
@@ -55,7 +59,7 @@ namespace DnWiFiDoorLock {
         });
 
         server.onNotFound([&](AsyncWebServerRequest *request) {
-            handleWebNotFound(request);
+            handleWebNotFound(*request);
         });
 
         server.begin();

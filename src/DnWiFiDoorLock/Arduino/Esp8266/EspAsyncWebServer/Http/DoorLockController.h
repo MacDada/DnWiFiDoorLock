@@ -15,9 +15,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             DnWiFiDoorLock::Arduino::DoorLock &doorLock
         );
 
-        void statusAction(AsyncWebServerRequest *request);
+        void statusAction(AsyncWebServerRequest &request);
 
-        void switchAction(AsyncWebServerRequest *request);
+        void switchAction(AsyncWebServerRequest &request);
 
     private:
         // todo: extract enum/class

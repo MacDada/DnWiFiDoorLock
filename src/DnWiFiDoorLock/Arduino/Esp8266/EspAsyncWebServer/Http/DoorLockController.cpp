@@ -11,14 +11,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         doorLock(doorLock) {
     }
 
-    // todo: declare const?
-    // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
-    //
-    // todo: can i get null here instead of the object? o.O
-    void DoorLockController::statusAction(AsyncWebServerRequest *request) {
+    void DoorLockController::statusAction(AsyncWebServerRequest &request) {
         Time uptime = hardware.getUptime();
 
-        request->send(
+        request.send(
             HTTP_RESPONSE_STATUS_OK,
             HTTP_RESPONSE_CONTENT_TYPE_HTML,
             Tools::format(
@@ -60,13 +56,13 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void DoorLockController::switchAction(AsyncWebServerRequest *request) {
+    void DoorLockController::switchAction(AsyncWebServerRequest &request) {
         doorLock.switchOpenClose();
 
         // request->redirect("/") is wrong as it sends 302
-        AsyncWebServerResponse *response = request->beginResponse(HTTP_RESPONSE_STATUS_REDIRECT);
+        AsyncWebServerResponse *response = request.beginResponse(HTTP_RESPONSE_STATUS_REDIRECT);
         response->addHeader("Location", "/");
-        request->send(response);
+        request.send(response);
     }
 
 }
