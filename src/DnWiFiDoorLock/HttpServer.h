@@ -19,8 +19,8 @@ namespace DnWiFiDoorLock {
     public:
         HttpServer(
             AsyncWebServer &server,
-            const char *serverHostName,
-            const unsigned int serverPort,
+            const char *hostname,
+            const unsigned int port,
             DoorLockController &doorLockController,
             ServoController &servoController,
             Logger::ArduinoLogger &logger
@@ -33,9 +33,9 @@ namespace DnWiFiDoorLock {
     private:
         AsyncWebServer &server;
 
-        const char *serverHostName;
+        const char *hostname;
 
-        unsigned int serverPort;
+        unsigned int port;
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
         DoorLockController &doorLockController;

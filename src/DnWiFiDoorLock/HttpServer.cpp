@@ -4,15 +4,15 @@ namespace DnWiFiDoorLock {
 
     HttpServer::HttpServer(
         AsyncWebServer &server,
-        const char *serverHostName,
-        const unsigned int serverPort,
+        const char *hostname,
+        const unsigned int port,
         DoorLockController &doorLockController,
         ServoController &servoController,
         Logger::ArduinoLogger &logger
     ):
         server(server),
-        serverHostName(serverHostName),
-        serverPort(serverPort),
+        hostname(hostname),
+        port(port),
         doorLockController(doorLockController),
         servoController(servoController),
         logger(logger) {
@@ -64,20 +64,20 @@ namespace DnWiFiDoorLock {
     }
 
     void HttpServer::logServerHasStarted() {
-        String logMessage = "HTTP server has started, open http://";
+        String message = "HTTP server has started, open http://";
 
         // todo: get rid of the global
-        logMessage += WiFi.localIP().toString().c_str();
+        message += WiFi.localIP().toString().c_str();
 
-        logMessage += ":";
-        logMessage += serverPort;
-        logMessage += " or http://";
-        logMessage += serverHostName;
-        logMessage += ".local:";
-        logMessage += serverPort;
-        logMessage += " in a web browser :)\n";
+        message += ":";
+        message += port;
+        message += " or http://";
+        message += hostname;
+        message += ".local:";
+        message += port;
+        message += " in a web browser :)\n";
 
-        logger.log(logMessage);
+        logger.log(message);
     }
 
     void HttpServer::onLoop() {
