@@ -2,16 +2,19 @@
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
-    // todo: logging actions
     DoorLockController::DoorLockController(
         DnWiFiDoorLock::Arduino::Hardware &hardware,
-        DnWiFiDoorLock::Arduino::DoorLock &doorLock
+        DnWiFiDoorLock::Arduino::DoorLock &doorLock,
+        DnWiFiDoorLock::Logger::Logger &logger
     ):
         hardware(hardware),
-        doorLock(doorLock) {
+        doorLock(doorLock),
+        logger(logger) {
     }
 
     void DoorLockController::statusAction(AsyncWebServerRequest &request) {
+        logger.log("DoorLockController::statusAction()");
+
         Time uptime = hardware.getUptime();
 
         request.send(
@@ -57,6 +60,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void DoorLockController::switchAction(AsyncWebServerRequest &request) {
+        logger.log("DoorLockController::switchAction()");
+
         doorLock.switchOpenClose();
 
         // request->redirect("/") is wrong as it sends 302

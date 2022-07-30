@@ -117,7 +117,7 @@ namespace DnWiFiDoorLock {
             WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
         );
 
-        DoorLockController doorLockHttpController = DoorLockController(hardware, doorLock);
+        DoorLockController doorLockHttpController = DoorLockController(hardware, doorLock, logger);
 
         // todo: in the end we don't need that, but it is useful for calibration
         ServoController servoHttpController = ServoController(servo, logger);
