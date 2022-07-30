@@ -32,7 +32,7 @@
 
 namespace DnWiFiDoorLock {
 
-    using DnWiFiDoorLock::Arduino::DoorLock;
+    using DoorLockImpl = DnWiFiDoorLock::Arduino::DoorLock;
     using DnWiFiDoorLock::Arduino::Led;
     using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
     using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
@@ -79,7 +79,7 @@ namespace DnWiFiDoorLock {
         //      * setting a smaller range just to be safe
         Arduino::Servo::Servo servo = Arduino::Servo::Servo(arduinoServo, SERVO_PIN, 600, 2400, logger);
 
-        DoorLock doorLock = DoorLock(servo, logger, 0, 180);
+        DoorLockImpl doorLock = DoorLockImpl(servo, logger, 0, 180);
 
         Led builtInLed = Led(hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN);
 

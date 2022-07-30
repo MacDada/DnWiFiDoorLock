@@ -2,7 +2,6 @@
 
 namespace DnWiFiDoorLock::Arduino {
 
-    // todo: extract virtual base
     DoorLock::DoorLock(
         Servo::Servo &servo,
         Logger::Logger &logger,

@@ -2,13 +2,16 @@
 
 #include <type_traits>
 
+#include "DnWiFiDoorLock/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
-    class DoorLock final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+    class DoorLock final:
+        public DnWiFiDoorLock::Arduino::SetupAndLoopAware,
+        public DnWiFiDoorLock::DoorLock {
     public:
         explicit DoorLock(
             Servo::Servo &servo,
@@ -18,15 +21,15 @@ namespace DnWiFiDoorLock::Arduino {
         );
 
         // todo: "Clang-Tidy: Function 'isOpen' should be marked [[nodiscard]]"?
-        bool isOpen() const;
+        bool isOpen() const override;
 
-        bool isClosed() const;
+        bool isClosed() const override;
 
-        void open();
+        void open() override;
 
-        void close();
+        void close() override;
 
-        void switchOpenClose();
+        void switchOpenClose() override;
 
         void onSetup() override;
 
