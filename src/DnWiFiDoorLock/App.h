@@ -25,7 +25,7 @@
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
-#include "DnWiFiDoorLock/HttpServer.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
 #include "DnWiFiDoorLock/Logger/HardwareSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/WebSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/MultipleLoggersArduinoLogger.h"
@@ -35,6 +35,7 @@ namespace DnWiFiDoorLock {
     using DnWiFiDoorLock::Arduino::DoorLock;
     using DnWiFiDoorLock::Arduino::Led;
     using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
+    using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
     using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
     using DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
     using DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
@@ -123,7 +124,7 @@ namespace DnWiFiDoorLock {
 
         AsyncWebServer espServer = AsyncWebServer(WEB_SERVER_PORT);
 
-        HttpServer server = HttpServer(
+        ServerSetup server = ServerSetup(
             espServer,
             WEB_SERVER_HOST_NAME,
             WEB_SERVER_PORT,

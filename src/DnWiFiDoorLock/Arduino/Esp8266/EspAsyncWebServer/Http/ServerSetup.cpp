@@ -1,14 +1,14 @@
-#include "DnWiFiDoorLock/HttpServer.h"
+#include "ServerSetup.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
-    HttpServer::HttpServer(
+    ServerSetup::ServerSetup(
         AsyncWebServer &server,
         const char *hostname,
         const unsigned int port,
         DoorLockController &doorLockController,
         ServoController &servoController,
-        Logger::ArduinoLogger &logger
+        DnWiFiDoorLock::Logger::ArduinoLogger &logger
     ):
         server(server),
         hostname(hostname),
@@ -18,7 +18,7 @@ namespace DnWiFiDoorLock {
         logger(logger) {
     }
 
-    void HttpServer::handleWebNotFound(AsyncWebServerRequest &request) {
+    void ServerSetup::handleWebNotFound(AsyncWebServerRequest &request) {
         String message = "File Not Found\n\n";
         message += "URI: ";
         message += request.url();
@@ -29,7 +29,7 @@ namespace DnWiFiDoorLock {
         request.send(404, "text/plain", message);
     }
 
-    void HttpServer::onSetup() {
+    void ServerSetup::onSetup() {
         // todo; figure out why it crashes when handling "long" requests
         server.on("/test", HTTP_GET, [](AsyncWebServerRequest *request) {
             // 1000 OK, 2000 crash
@@ -67,7 +67,7 @@ namespace DnWiFiDoorLock {
         logServerHasStarted();
     }
 
-    void HttpServer::logServerHasStarted() {
+    void ServerSetup::logServerHasStarted() {
         String message = "HTTP server has started, open http://";
 
         // todo: get rid of the global
@@ -84,7 +84,7 @@ namespace DnWiFiDoorLock {
         logger.log(message);
     }
 
-    void HttpServer::onLoop() {
+    void ServerSetup::onLoop() {
         // do nothing
     }
 

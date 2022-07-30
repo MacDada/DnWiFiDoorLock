@@ -10,20 +10,17 @@
 #include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
-    using Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController;
-    using Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
-
-    class HttpServer final: public Arduino::SetupAndLoopAware {
+    class ServerSetup final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
-        HttpServer(
+        ServerSetup(
             AsyncWebServer &server,
             const char *hostname,
             const unsigned int port,
             DoorLockController &doorLockController,
             ServoController &servoController,
-            Logger::ArduinoLogger &logger
+            DnWiFiDoorLock::Logger::ArduinoLogger &logger
         );
 
         void onSetup() override;
@@ -42,7 +39,7 @@ namespace DnWiFiDoorLock {
 
         ServoController &servoController;
 
-        Logger::ArduinoLogger &logger;
+        DnWiFiDoorLock::Logger::ArduinoLogger &logger;
 
         void handleWebNotFound(AsyncWebServerRequest &request);
 
@@ -50,6 +47,6 @@ namespace DnWiFiDoorLock {
         void logServerHasStarted();
     };
 
-    static_assert(!std::is_abstract<HttpServer>());
+    static_assert(!std::is_abstract<ServerSetup>());
 
 }
