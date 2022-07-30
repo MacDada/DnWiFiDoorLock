@@ -18,18 +18,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         logger(logger) {
     }
 
-    void ServerSetup::handleWebNotFound(AsyncWebServerRequest &request) {
-        String message = "File Not Found\n\n";
-        message += "URI: ";
-        message += request.url();
-        message += "\nMethod: ";
-        message += request.methodToString();
-        message += "\n";
+    void ServerSetup::onSetup() {
+        setupRouting();
 
-        request.send(404, "text/plain", message);
+        server.begin();
+
+        logServerHasStarted();
     }
 
-    void ServerSetup::onSetup() {
+    void ServerSetup::setupRouting() {
         // todo; figure out why it crashes when handling "long" requests
         server.on("/test", HTTP_GET, [](AsyncWebServerRequest *request) {
             // 1000 OK, 2000 crash
@@ -61,10 +58,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         server.onNotFound([&](AsyncWebServerRequest *request) {
             handleWebNotFound(*request);
         });
+    }
 
-        server.begin();
+    void ServerSetup::handleWebNotFound(AsyncWebServerRequest &request) {
+        String message = "File Not Found\n\n";
+        message += "URI: ";
+        message += request.url();
+        message += "\nMethod: ";
+        message += request.methodToString();
+        message += "\n";
 
-        logServerHasStarted();
+        request.send(404, "text/plain", message);
     }
 
     void ServerSetup::logServerHasStarted() {

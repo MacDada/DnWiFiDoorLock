@@ -43,6 +43,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         void handleWebNotFound(AsyncWebServerRequest &request);
 
+        void setupRouting();
+
         // todo: is there a way to avoid declaring private methods in header file? looks unnecessary to me ;)
         void logServerHasStarted();
     };
