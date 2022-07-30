@@ -1,12 +1,12 @@
 #include "OTAUpdater.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
     OTAUpdater::OTAUpdater(
         const int port,
         const char *host,
         const char *passwordHash,
-        Logger::ArduinoLogger &logger
+        DnWiFiDoorLock::Logger::ArduinoLogger &logger
     ):
         port(port),
         host(host),

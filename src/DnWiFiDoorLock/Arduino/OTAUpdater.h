@@ -8,15 +8,15 @@
 #include "DnWiFiDoorLock/Logger/ArduinoLogger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
-namespace DnWiFiDoorLock {
+namespace DnWiFiDoorLock::Arduino {
 
-    class OTAUpdater final: public Arduino::SetupAndLoopAware {
+    class OTAUpdater final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         OTAUpdater(
             const int port,
             const char *host,
             const char *passwordHash,
-            Logger::ArduinoLogger &logger
+            DnWiFiDoorLock::Logger::ArduinoLogger &logger
         );
 
         void onSetup() override;
@@ -30,7 +30,7 @@ namespace DnWiFiDoorLock {
 
         const char *passwordHash;
 
-        Logger::ArduinoLogger &logger;
+        DnWiFiDoorLock::Logger::ArduinoLogger &logger;
 
         const char *otaErrorToString(ota_error_t error);
     };

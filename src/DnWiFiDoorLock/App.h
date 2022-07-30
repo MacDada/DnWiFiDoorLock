@@ -19,6 +19,7 @@
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
+#include "DnWiFiDoorLock/Arduino/OTAUpdater.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
@@ -26,7 +27,6 @@
 #include "DnWiFiDoorLock/Logger/HardwareSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/WebSerialArduinoLogger.h"
 #include "DnWiFiDoorLock/Logger/MultipleLoggersArduinoLogger.h"
-#include "DnWiFiDoorLock/OTAUpdater.h"
 #include "DnWiFiDoorLock/WiFi.h"
 
 namespace DnWiFiDoorLock {
@@ -91,7 +91,7 @@ namespace DnWiFiDoorLock {
             ::WiFi
         );
 
-        OTAUpdater otaUpdater = OTAUpdater(
+        DnWiFiDoorLock::Arduino::OTAUpdater otaUpdater = DnWiFiDoorLock::Arduino::OTAUpdater(
             OTA_UPDATE_PORT,
             OTA_UPDATE_HOST,
             OTA_UPDATE_PASSWORD_MD5,
