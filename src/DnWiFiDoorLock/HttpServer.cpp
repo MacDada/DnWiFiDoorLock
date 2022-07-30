@@ -67,7 +67,7 @@ namespace DnWiFiDoorLock {
         String message = "HTTP server has started, open http://";
 
         // todo: get rid of the global
-        message += WiFi.localIP().toString().c_str();
+        message += WiFi.localIP().toString();
 
         message += ":";
         message += port;
@@ -75,7 +75,7 @@ namespace DnWiFiDoorLock {
         message += hostname;
         message += ".local:";
         message += port;
-        message += " in a web browser :)\n";
+        message += " in a web browser :)";
 
         logger.log(message);
     }
