@@ -12,7 +12,7 @@
 
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
-#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/SetupAndLoopAwareWebSerial.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/MDNSSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
@@ -39,7 +39,7 @@ namespace DnWiFiDoorLock {
         using LoopAwareSignalStrengthLogger = DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger;
         using ServerSetup                   = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup;
         using ServoController               = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController;
-        using SetupAndLoopAwareWebSerial    = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::SetupAndLoopAwareWebSerial;
+        using WebSerialSetup                = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Setup;
 
     public:
         void onSetup() override;
@@ -139,7 +139,7 @@ namespace DnWiFiDoorLock {
             SERIAL_BITS_PER_SECOND
         );
 
-        SetupAndLoopAwareWebSerial setupAndLoopAwareWebSerial = SetupAndLoopAwareWebSerial(WebSerial, espServer);
+        WebSerialSetup setupAndLoopAwareWebSerial = WebSerialSetup(WebSerial, espServer);
 
         Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
 

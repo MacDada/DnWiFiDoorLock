@@ -1,8 +1,8 @@
-#include "SetupAndLoopAwareWebSerial.h"
+#include "Setup.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
 
-    SetupAndLoopAwareWebSerial::SetupAndLoopAwareWebSerial(
+    Setup::Setup(
         WebSerialClass &serial,
         AsyncWebServer &server
     ):
@@ -10,7 +10,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         server(server) {
     }
 
-    void SetupAndLoopAwareWebSerial::onSetup() {
+    void Setup::onSetup() {
         serial.begin(&server);
 
         serial.msgCallback([&](uint8_t *message, size_t messageLength) {
@@ -18,11 +18,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         });
     }
 
-    void SetupAndLoopAwareWebSerial::onLoop() {
+    void Setup::onLoop() {
         // do nothing
     }
 
-    void SetupAndLoopAwareWebSerial::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
+    void Setup::onWebSerialIncoming(uint8_t *message, size_t messageLength) {
         String command = "";
 
         for (size_t i = 0; i < messageLength; i++) {
