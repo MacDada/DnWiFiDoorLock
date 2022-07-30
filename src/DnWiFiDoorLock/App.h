@@ -58,16 +58,16 @@ namespace DnWiFiDoorLock {
 
         DnWiFiDoorLock::Arduino::Hardware hardware;
 
-        HardwareSerialLogger hardwareSerialLogger = HardwareSerialLogger(Serial);
+        HardwareSerialLogger hardwareSerialLogger{Serial};
 
-        WebSerialLogger webSerialLogger = WebSerialLogger(WebSerial);
+        WebSerialLogger webSerialLogger{WebSerial};
 
         std::vector<DnWiFiDoorLock::Arduino::Logger::Logger *> loggers = {
             &hardwareSerialLogger,
             &webSerialLogger
         };
 
-        MultipleLoggersLogger logger = MultipleLoggersLogger{loggers};
+        MultipleLoggersLogger logger{loggers};
 
         ::Servo arduinoServo;
 
@@ -80,13 +80,13 @@ namespace DnWiFiDoorLock {
         //          - according to the specs i dont know what to think, but i guess it should be 800-2200?
         //      * verified values that work OK: 500-2500
         //      * setting a smaller range just to be safe
-        Arduino::Servo::Servo servo = Arduino::Servo::Servo(arduinoServo, SERVO_PIN, 600, 2400, logger);
+        Arduino::Servo::Servo servo{arduinoServo, SERVO_PIN, 600, 2400, logger};
 
-        DoorLock doorLock = DoorLock(servo, logger, 0, 180);
+        DoorLock doorLock{servo, logger, 0, 180};
 
-        Led builtInLed = Led(hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN);
+        Led builtInLed{hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
 
-        DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi wiFi = DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi(
+        DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi wiFi{
             WIFI_SSID,
             WIFI_PASSWORD,
             builtInLed,
@@ -94,63 +94,63 @@ namespace DnWiFiDoorLock {
             hardwareSerialLogger,
             hardware,
             ::WiFi
-        );
+        };
 
-        Arduino::Esp8266::MDNSSetupAndLoopAware mdns = Arduino::Esp8266::MDNSSetupAndLoopAware(
+        Arduino::Esp8266::MDNSSetupAndLoopAware mdns{
             MDNS,
             logger,
             WEB_SERVER_HOST_NAME
-        );
+        };
 
-        DnWiFiDoorLock::Arduino::OTAUpdater otaUpdater = DnWiFiDoorLock::Arduino::OTAUpdater(
+        DnWiFiDoorLock::Arduino::OTAUpdater otaUpdater{
             OTA_UPDATE_PORT,
             OTA_UPDATE_HOST,
             OTA_UPDATE_PASSWORD_MD5,
             logger
-        );
+        };
 
-        LoopAwareSignalStrengthLogger wifiSignalStrengthLogger = LoopAwareSignalStrengthLogger(
+        LoopAwareSignalStrengthLogger wifiSignalStrengthLogger{
             ::WiFi,
             logger
-        );
+        };
 
-        Arduino::ThrottledLoopAware throttledWiFiSignalStrengthLogger = Arduino::ThrottledLoopAware(
+        Arduino::ThrottledLoopAware throttledWiFiSignalStrengthLogger{
             wifiSignalStrengthLogger,
             hardware,
             WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
-        );
+        };
 
-        DoorLockController doorLockHttpController = DoorLockController(hardware, doorLock, logger);
+        DoorLockController doorLockHttpController{hardware, doorLock, logger};
 
         // todo: in the end we don't need that, but it is useful for calibration
-        ServoController servoHttpController = ServoController(servo, logger);
+        ServoController servoHttpController{servo, logger};
 
-        AsyncWebServer espServer = AsyncWebServer(WEB_SERVER_PORT);
+        AsyncWebServer espServer{WEB_SERVER_PORT};
 
-        ServerSetup server = ServerSetup(
+        ServerSetup server{
             espServer,
             WEB_SERVER_HOST_NAME,
             WEB_SERVER_PORT,
             doorLockHttpController,
             servoHttpController,
             logger
-        );
+        };
 
-        Arduino::HardwareSerialSetup hardwareSerialSetup = Arduino::HardwareSerialSetup(
+        Arduino::HardwareSerialSetup hardwareSerialSetup{
             Serial,
             hardware,
             SERIAL_BITS_PER_SECOND
-        );
+        };
 
-        WebSerialSetup setupAndLoopAwareWebSerial = WebSerialSetup(WebSerial, espServer);
+        WebSerialSetup setupAndLoopAwareWebSerial{WebSerial, espServer};
 
-        Arduino::LoopIndicator loopIndicator = Arduino::LoopIndicator(builtInLed, logger);
+        Arduino::LoopIndicator loopIndicator{builtInLed, logger};
 
-        Arduino::ThrottledLoopAware throttledLoopIndicator = Arduino::ThrottledLoopAware(
+        Arduino::ThrottledLoopAware throttledLoopIndicator{
             loopIndicator,
             hardware,
             LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
-        );
+        };
 
         // todo: vector, so that me-the-dumbass dont forget about changing the size
         std::array<Arduino::SetupAndLoopAware *, 9> setupAndLoopAwares = {
