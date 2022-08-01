@@ -6,6 +6,7 @@
 
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
@@ -22,6 +23,12 @@ namespace DnWiFiDoorLock::Arduino {
         void onLoop() override;
 
     private:
+        static constexpr const char *const VT100_FORMAT_RESET = "\e[0m";
+
+        static constexpr const char *const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
+
+        static constexpr const char *const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
+
         HardwareSerial &serial;
 
         DnWiFiDoorLock::Arduino::Hardware &hardware;

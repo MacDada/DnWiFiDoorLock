@@ -24,7 +24,27 @@ namespace DnWiFiDoorLock::Arduino {
         while (!Serial && hardware.getUptime().getSeconds() < 5);
 
         // todo: do not hardcode app name
-        serial.println("\n\n\n\n\n\n\n\n\n============\n\nHello from `DnWiFiDoorLock`!\n\n============");
+        serial.print(Tools::format(
+            "\n\n\n\n\n\n\n\n\n"
+            "%s"
+            "================================"
+            "%s"
+            "\n\n"
+            "%s"
+            "  Hello from `DnWiFiDoorLock`!"
+            "%s"
+            "\n\n"
+            "%s"
+            "================================"
+            "%s"
+            "\n\n\n",
+            VT100_FORMAT_BOLD_BLUE,
+            VT100_FORMAT_RESET,
+            VT100_FORMAT_BOLD_GREEN,
+            VT100_FORMAT_RESET,
+            VT100_FORMAT_BOLD_BLUE,
+            VT100_FORMAT_RESET
+        ).get());
     }
 
     void HardwareSerialSetup::onLoop() {
