@@ -28,6 +28,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     void ServerSetup::setupRouting() {
         // todo; figure out why it crashes when handling "long" requests
+        //       https://forum.arduino.cc/t/soft-wdt-reset-nodemcu/425567
+        //       put yield() in the loop?
         server.on("/test", HTTP_GET, [](AsyncWebServerRequest *request) {
             // 1000 OK, 2000 crash
             auto end = millis() + 2000;

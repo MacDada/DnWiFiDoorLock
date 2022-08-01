@@ -15,6 +15,24 @@ Thank you for all the help I received on [`Better C++` Discord server](https://d
 
 --- 
 
+Compile and upload to the device:
+
+`pio run -t upload`
+
+Serial monitor:
+
+`pio run -t monitor`
+
+**When serial monitor is active, the code cannot be uploaded**,
+BUT we can combine both commands to run one after another:
+
+`pio run -t upload -t monitor`
+
+todo: why doesn't `pio run -t upload, monitor` work?
+[in the docs they say `, ` should work](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#projectconf-targets).
+
+---
+
 To be used eventually?
 `std::unordered_map<key type, value type>`
 
