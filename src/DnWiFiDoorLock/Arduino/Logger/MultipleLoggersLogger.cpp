@@ -8,29 +8,29 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         loggers(loggers) {
     }
 
-    void MultipleLoggersLogger::log(const String &m) {
+    void MultipleLoggersLogger::log(const String &message) {
         // todo: maybe macro to generate those methods? since i think templates cant do that
-        doLog(m);
+        doLog(message);
     }
 
-    void MultipleLoggersLogger::log(const char *m) {
-        doLog(m);
+    void MultipleLoggersLogger::log(const char *message) {
+        doLog(message);
     }
 
-    void MultipleLoggersLogger::log(char *m) {
-        doLog(m);
+    void MultipleLoggersLogger::log(char *message) {
+        doLog(message);
     }
 
-    void MultipleLoggersLogger::log(int m) {
-        doLog(m);
+    void MultipleLoggersLogger::log(int message) {
+        doLog(message);
     }
 
-    void MultipleLoggersLogger::log(double m) {
-        doLog(m);
+    void MultipleLoggersLogger::log(double message) {
+        doLog(message);
     }
 
-    void MultipleLoggersLogger::log(float m) {
-        doLog(m);
+    void MultipleLoggersLogger::log(float message) {
+        doLog(message);
     }
 
 }
