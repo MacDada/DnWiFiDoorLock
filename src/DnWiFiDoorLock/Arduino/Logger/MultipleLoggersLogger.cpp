@@ -9,40 +9,28 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     }
 
     void MultipleLoggersLogger::log(const String &m) {
-        // todo: get rid of copy–paste
-        for (auto &logger : loggers) {
-            logger->log(m);
-        }
+        // todo: maybe macro to generate those methods? since i think templates cant do that
+        doLog(m);
     }
 
     void MultipleLoggersLogger::log(const char *m) {
-        for (auto &logger : loggers) {
-            logger->log(m);
-        }
+        doLog(m);
     }
 
     void MultipleLoggersLogger::log(char *m) {
-        for (auto &logger : loggers) {
-            logger->log(m);
-        }
+        doLog(m);
     }
 
     void MultipleLoggersLogger::log(int m) {
-        for (auto &logger : loggers) {
-            logger->log(m);
-        }
+        doLog(m);
     }
 
     void MultipleLoggersLogger::log(double m) {
-        for (auto &logger : loggers) {
-            logger->log(m);
-        }
+        doLog(m);
     }
 
     void MultipleLoggersLogger::log(float m) {
-        for (auto &logger : loggers) {
-            logger->log(m);
-        }
+        doLog(m);
     }
 
 }

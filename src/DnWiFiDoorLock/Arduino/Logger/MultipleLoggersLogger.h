@@ -26,6 +26,13 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
     private:
         const std::vector<Logger *> &loggers;
+
+        template <typename MessageType>
+        void doLog(MessageType m) {
+            for (auto &logger : loggers) {
+                logger->log(m);
+            }
+        }
     };
 
     static_assert(!std::is_abstract<MultipleLoggersLogger>());
