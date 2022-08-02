@@ -25,6 +25,10 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         void log(float message) override;
 
     private:
+        /**
+         * vector cannot store abstract classes as values,
+         * but we can store pointers to them
+         */
         const std::vector<Logger *> &loggers;
 
         template <typename MessageType>

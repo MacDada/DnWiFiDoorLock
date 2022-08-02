@@ -1,5 +1,9 @@
 // based on "config.h.dist"
 
+// todo: use platformio.ini instead
+//       https://docs.platformio.org/en/latest/projectconf/section_env_build.html#stringification
+//       maybe nah if it any change forces recompiling EVERYTHING, including the libs…
+
 #pragma once
 
 // todo: change to const types
