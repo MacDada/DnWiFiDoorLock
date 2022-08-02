@@ -29,7 +29,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     void WiFi::connect() {
         esp8266WiFi.begin(this->ssid, this->password);
 
-        logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid).get());
+        logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid));
         logger.log("Connecting");
 
         hardware.pause(1000);
@@ -39,7 +39,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         logger.log(Tools::format(
             "Connected, IP address: %s",
             esp8266WiFi.localIP().toString().c_str()
-        ).get());
+        ));
     }
 
     void WiFi::waitForConnection() {
@@ -74,7 +74,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
                 "WiFi is still not connected, status: %s (%d)",
                 wiFiConnectionStatusToString(status),
                 (int) status
-            ).get());
+            ));
         }
     }
 

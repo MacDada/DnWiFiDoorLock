@@ -10,6 +10,8 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     public:
         virtual void log(const String &message) = 0;
 
+        virtual void log(std::unique_ptr<char[]> message) override = 0;
+
         virtual void log(const char *message) override = 0;
 
         virtual void log(char *message) override = 0;

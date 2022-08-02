@@ -39,11 +39,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServoController::newAngleSetResponse(Request &request, int oldAngle, int newAngle) {
-        // todo: logger could accept the smart pointer directly
         logger.log(Tools::format(
             "ServoController: new angle was set: \"%d\"",
             newAngle
-        ).get());
+        ));
 
         request.send(
             HTTP_RESPONSE_STATUS_ACCEPTED,
@@ -56,7 +55,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         logger.log(Tools::format(
             "ServoController: invalid angle given: \"%d\"",
             newAngle
-        ).get());
+        ));
 
         request.send(
             HTTP_RESPONSE_STATUS_BAD_REQUEST,
@@ -69,7 +68,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         logger.log(Tools::format(
             "ServoController: showing current angle: \"%d\"",
             oldAngle
-        ).get());
+        ));
 
         request.send(
             HTTP_RESPONSE_STATUS_OK,

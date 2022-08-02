@@ -37,11 +37,11 @@ namespace DnWiFiDoorLock::Arduino {
         });
 
         ArduinoOTA.onProgress([&](unsigned int progress, unsigned int total) {
-            logger.log(Tools::format("Progress: %u%%", progress / (total / 100)).get());
+            logger.log(Tools::format("Progress: %u%%", progress / (total / 100)));
         });
 
         ArduinoOTA.onError([&](ota_error_t error) {
-            logger.log(Tools::format("Error[%u]: %s", error, otaErrorToString(error)).get());
+            logger.log(Tools::format("Error[%u]: %s", error, otaErrorToString(error)));
         });
 
         ArduinoOTA.begin();
