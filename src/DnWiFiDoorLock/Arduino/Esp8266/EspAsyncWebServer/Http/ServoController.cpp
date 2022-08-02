@@ -153,13 +153,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         return content;
     }
 
-    std::optional<String> ServoController::getRequestPostParameter(
-        Request &request,
-        const char *parameterName
-    ) const {
-        return request.hasParam(parameterName, true)
-               ? request.getParam(parameterName, true)->value()
-               : std::optional<String>{};
-    }
-
 }
