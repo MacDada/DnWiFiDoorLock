@@ -19,7 +19,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ServerSetup(
             AsyncWebServer &server,
             const char *hostname,
-            const unsigned int port,
+            unsigned int port,
             DoorLockController &doorLockController,
             ServoController &servoController,
             Logger &logger

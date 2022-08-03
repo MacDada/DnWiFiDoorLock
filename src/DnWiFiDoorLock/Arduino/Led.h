@@ -12,13 +12,13 @@ namespace DnWiFiDoorLock::Arduino {
         byte pin;
 
     public:
-        Led(DnWiFiDoorLock::Arduino::Hardware &hardware, const byte pin);
+        Led(DnWiFiDoorLock::Arduino::Hardware &hardware, byte pin);
 
         void on();
 
         void off();
 
-        void blinkFast(const int count);
+        void blinkFast(int count);
 
         bool isOn();
 

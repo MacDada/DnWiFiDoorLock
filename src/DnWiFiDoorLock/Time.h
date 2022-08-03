@@ -14,7 +14,7 @@ namespace DnWiFiDoorLock {
         byte days;
 
     public:
-        explicit Time(const unsigned long milliseconds);
+        explicit Time(unsigned long milliseconds);
 
         unsigned long getMilliseconds();
 

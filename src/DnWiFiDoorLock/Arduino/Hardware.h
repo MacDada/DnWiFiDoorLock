@@ -10,19 +10,19 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         static const byte BUILT_IN_LED_PIN = LED_BUILTIN;
 
-        void pause(const unsigned long milliseconds);
+        void pause(unsigned long milliseconds);
 
         Time getUptime();
 
-        void setPinToOutputMode(const byte pin);
+        void setPinToOutputMode(byte pin);
 
-        void digitalWriteHigh(const byte pin);
+        void digitalWriteHigh(byte pin);
 
-        void digitalWriteLow(const byte pin);
+        void digitalWriteLow(byte pin);
 
-        bool isPinHigh(const byte pin);
+        bool isPinHigh(byte pin);
 
-        bool isPinLow(const byte pin);
+        bool isPinLow(byte pin);
     };
 
 }

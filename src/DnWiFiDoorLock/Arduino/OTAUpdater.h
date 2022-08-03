@@ -13,7 +13,7 @@ namespace DnWiFiDoorLock::Arduino {
     class OTAUpdater final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         OTAUpdater(
-            const int port,
+            int port,
             const char *host,
             const char *passwordHash,
             DnWiFiDoorLock::Arduino::Logger::Logger &logger
