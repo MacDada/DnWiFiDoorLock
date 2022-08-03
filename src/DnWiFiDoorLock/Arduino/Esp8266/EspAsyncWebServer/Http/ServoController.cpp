@@ -34,11 +34,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         newAngleSetResponse(request, oldAngle, newAngle);
     }
 
-    bool ServoController::isValidAngle(int angle) const {
+    bool ServoController::isValidAngle(const int angle) const {
         return angle >= Servo::MIN_ANGLE && angle <= Servo::MAX_ANGLE;
     }
 
-    void ServoController::newAngleSetResponse(Request &request, int oldAngle, int newAngle) {
+    void ServoController::newAngleSetResponse(Request &request, const int oldAngle, const int newAngle) {
         logger.log(Tools::format(
             "ServoController: new angle was set: \"%d\"",
             newAngle
@@ -51,7 +51,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void ServoController::invalidAngleGivenResponse(Request &request, int oldAngle, int newAngle) {
+    void ServoController::invalidAngleGivenResponse(Request &request, const int oldAngle, const int newAngle) {
         logger.log(Tools::format(
             "ServoController: invalid angle given: \"%d\"",
             newAngle
@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void ServoController::showCurrentAngleResponse(Request &request, int oldAngle) {
+    void ServoController::showCurrentAngleResponse(Request &request, const int oldAngle) {
         logger.log(Tools::format(
             "ServoController: showing current angle: \"%d\"",
             oldAngle
@@ -78,9 +78,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     String ServoController::renderAngleResponse(
-        int oldAngle,
-        std::optional<int> newAngle,
-        bool invalidAngle
+        const int oldAngle,
+        const std::optional<int> newAngle,
+        const bool invalidAngle
     ) const {
         // todo: extract some kind of templates?
         //       or use a template engine?

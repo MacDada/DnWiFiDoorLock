@@ -24,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         DnWiFiDoorLock::Arduino::Hardware &hardware;
 
-        int throttleMilliseconds;
+        const int throttleMilliseconds;
 
         unsigned long lastOtherAwareCallMilliseconds = 0;
 

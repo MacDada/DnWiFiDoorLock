@@ -24,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
         void onLoop() override;
 
     private:
-        int port;
+        const int port;
 
         const char *const host;
 

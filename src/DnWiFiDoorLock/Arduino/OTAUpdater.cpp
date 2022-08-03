@@ -36,11 +36,11 @@ namespace DnWiFiDoorLock::Arduino {
             logger.log("End");
         });
 
-        ArduinoOTA.onProgress([&](unsigned int progress, unsigned int total) {
+        ArduinoOTA.onProgress([&](const unsigned int progress, const unsigned int total) {
             logger.log(Tools::format("Progress: %u%%", progress / (total / 100)));
         });
 
-        ArduinoOTA.onError([&](ota_error_t error) {
+        ArduinoOTA.onError([&](const ota_error_t error) {
             logger.log(Tools::format("Error[%u]: %s", error, otaErrorToString(error)));
         });
 
@@ -52,7 +52,7 @@ namespace DnWiFiDoorLock::Arduino {
     }
 
     // todo: `const ota_error_t &error`?
-    const char *OTAUpdater::otaErrorToString(ota_error_t error) {
+    const char *OTAUpdater::otaErrorToString(const ota_error_t error) {
         switch (error) {
             case OTA_AUTH_ERROR:
                 return "OTA_AUTH_ERROR";

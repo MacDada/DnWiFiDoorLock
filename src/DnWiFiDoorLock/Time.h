@@ -7,11 +7,15 @@ namespace DnWiFiDoorLock {
     class Time final {
     private:
         // todo: unify declarations order style across classes
-        unsigned long milliseconds;
-        long seconds;
-        long minutes;
-        int hours;
-        byte days;
+        const unsigned long milliseconds;
+
+        const long seconds;
+
+        const long minutes;
+
+        const int hours;
+
+        const byte days;
 
     public:
         explicit Time(unsigned long milliseconds);

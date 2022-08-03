@@ -5,7 +5,7 @@ namespace DnWiFiDoorLock::Arduino {
     ThrottledLoopAware::ThrottledLoopAware(
         SetupAndLoopAware &otherAware,
         DnWiFiDoorLock::Arduino::Hardware &hardware,
-        int throttleMilliseconds
+        const int throttleMilliseconds
     ):
         otherAware(otherAware),
         hardware(hardware),

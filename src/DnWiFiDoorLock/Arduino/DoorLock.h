@@ -40,9 +40,9 @@ namespace DnWiFiDoorLock::Arduino {
 
         DnWiFiDoorLock::Logger::Logger &logger;
 
-        byte openAngle;
+        const byte openAngle;
 
-        byte closedAngle;
+        const byte closedAngle;
     };
 
     static_assert(!std::is_abstract<DoorLock>());

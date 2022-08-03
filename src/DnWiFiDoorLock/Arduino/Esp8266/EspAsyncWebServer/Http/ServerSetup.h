@@ -34,7 +34,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         const char *const hostname;
 
-        unsigned int port;
+        const unsigned int port;
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
         DoorLockController &doorLockController;

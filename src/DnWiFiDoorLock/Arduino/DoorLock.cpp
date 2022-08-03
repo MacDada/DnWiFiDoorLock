@@ -5,8 +5,8 @@ namespace DnWiFiDoorLock::Arduino {
     DoorLock::DoorLock(
         Servo::Servo &servo,
         DnWiFiDoorLock::Logger::Logger &logger,
-        byte openAngle,
-        byte closedAngle
+        const byte openAngle,
+        const byte closedAngle
     ):
         servo(servo),
         logger(logger),

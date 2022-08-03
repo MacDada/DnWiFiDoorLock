@@ -32,7 +32,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             printer(printer) {
         };
 
-        void log(std::unique_ptr<char[]> message) override {
+        void log(const std::unique_ptr<char[]> message) override {
             doLog(message.get());
         }
 
@@ -48,15 +48,15 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             doLog(message);
         };
 
-        void log(int message) override {
+        void log(const int message) override {
             doLog(message);
         };
 
-        void log(double message) override {
+        void log(const double message) override {
             doLog(message);
         };
 
-        void log(float message) override {
+        void log(const float message) override {
             doLog(message);
         };
 
@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         Printer &printer;
 
         template <typename MessageType>
-        void doLog(MessageType message) {
+        void doLog(const MessageType message) {
             printer.println(message);
         }
     };

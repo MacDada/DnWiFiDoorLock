@@ -8,7 +8,7 @@ namespace DnWiFiDoorLock {
         va_list args;
         va_start(args, format);
 
-        size_t needed = 1 + vsnprintf(nullptr, 0, format, args);
+        const size_t needed = 1 + vsnprintf(nullptr, 0, format, args);
 
         auto buffer = std::make_unique<char[]>(needed);
 

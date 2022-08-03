@@ -13,16 +13,16 @@ namespace DnWiFiDoorLock {
     // a crash? or `millis()` will just give a wrong result?
     //
     // another question: does static `const` for arg make any difference?
-    Time::Time(const unsigned long milliseconds) {
+    Time::Time(const unsigned long milliseconds):
+        milliseconds(milliseconds),
+        seconds(milliseconds / 1000),
+        minutes(seconds / 60),
+        hours(minutes / 60),
+        days(hours / 24) {
         // potential RAM saving:
         //   calculate on demand,
         //   instead of storing precalculated values,
         //   4 bytes each ;-)
-        this->milliseconds = milliseconds;
-        seconds = milliseconds / 1000;
-        minutes = seconds / 60;
-        hours = minutes / 60;
-        days = hours / 24;
     }
 
     unsigned long Time::getMilliseconds() {

@@ -34,8 +34,8 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         const std::vector<Logger *> &loggers;
 
         template <typename MessageType>
-        void doLog(MessageType message) {
-            for (auto &logger : loggers) {
+        void doLog(const MessageType message) {
+            for (const auto &logger : loggers) {
                 logger->log(message);
             }
         }

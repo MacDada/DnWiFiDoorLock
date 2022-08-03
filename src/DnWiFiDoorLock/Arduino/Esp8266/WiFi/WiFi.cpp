@@ -66,7 +66,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         }
     }
 
-    void WiFi::informAboutConnectingIssue(int tries, int status) {
+    void WiFi::informAboutConnectingIssue(const int tries, const int status) {
         led.blinkFast(3);
 
         if (0 == tries % 5) {
@@ -79,7 +79,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     }
 
     // todo: `const uint8_t &status`?
-    const char *WiFi::wiFiConnectionStatusToString(uint8_t status) {
+    const char *WiFi::wiFiConnectionStatusToString(const uint8_t status) {
         switch (status) {
             case WL_NO_SHIELD:
                 return "WL_NO_SHIELD";
