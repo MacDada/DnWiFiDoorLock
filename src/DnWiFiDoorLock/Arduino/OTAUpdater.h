@@ -26,9 +26,9 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         int port;
 
-        const char *host;
+        const char *const host;
 
-        const char *passwordHash;
+        const char *const passwordHash;
 
         DnWiFiDoorLock::Arduino::Logger::Logger &logger;
 

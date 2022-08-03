@@ -62,6 +62,8 @@ namespace DnWiFiDoorLock {
 
         WebSerialLogger webSerialLogger{WebSerial};
 
+        // todo: smart pointers?
+        //       https://discord.com/channels/583251190591258624/583254410218700800/1004433192889102336
         std::vector<DnWiFiDoorLock::Arduino::Logger::Logger *> loggers = {
             &hardwareSerialLogger,
             &webSerialLogger
@@ -153,7 +155,7 @@ namespace DnWiFiDoorLock {
         };
 
         // todo: vector, so that me-the-dumbass dont forget about changing the size
-        std::array<Arduino::SetupAndLoopAware *, 9> setupAndLoopAwares = {
+        std::array<Arduino::SetupAndLoopAware *const, 9> setupAndLoopAwares = {
             &hardwareSerialSetup,
             &wiFi,
             &throttledLoopIndicator,

@@ -4,8 +4,8 @@ namespace DnWiFiDoorLock::Arduino {
 
     OTAUpdater::OTAUpdater(
         const int port,
-        const char *host,
-        const char *passwordHash,
+        const char *const host,
+        const char *const passwordHash,
         DnWiFiDoorLock::Arduino::Logger::Logger &logger
     ):
         port(port),

@@ -19,11 +19,11 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         doLog(message.get());
     }
 
-    void MultipleLoggersLogger::log(const char *message) {
+    void MultipleLoggersLogger::log(const char *const message) {
         doLog(message);
     }
 
-    void MultipleLoggersLogger::log(char *message) {
+    void MultipleLoggersLogger::log(char *const message) {
         doLog(message);
     }
 

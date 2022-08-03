@@ -3,8 +3,8 @@
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
     WiFi::WiFi(
-        const char *ssid,
-        const char *password,
+        const char *const ssid,
+        const char *const password,
         DnWiFiDoorLock::Arduino::Led &led,
         DnWiFiDoorLock::Arduino::Logger::Logger &logger,
         DnWiFiDoorLock::Arduino::Hardware &hardware,

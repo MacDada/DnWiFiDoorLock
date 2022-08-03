@@ -29,7 +29,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266 {
 
         Logger &logger;
 
-        const char *hostname;
+        const char *const hostname;
     };
 
     static_assert(!std::is_abstract<MDNSSetupAndLoopAware>());

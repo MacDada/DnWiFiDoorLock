@@ -30,9 +30,9 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         void onLoop() override;
 
     private:
-        const char *ssid;
+        const char *const ssid;
 
-        const char *password;
+        const char *const password;
 
         DnWiFiDoorLock::Arduino::Led &led;
 

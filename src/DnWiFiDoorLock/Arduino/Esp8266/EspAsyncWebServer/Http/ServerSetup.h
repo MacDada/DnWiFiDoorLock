@@ -32,7 +32,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     private:
         AsyncWebServer &server;
 
-        const char *hostname;
+        const char *const hostname;
 
         unsigned int port;
 

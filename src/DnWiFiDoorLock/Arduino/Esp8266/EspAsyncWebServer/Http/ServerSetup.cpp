@@ -4,7 +4,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     ServerSetup::ServerSetup(
         AsyncWebServer &server,
-        const char *hostname,
+        const char *const hostname,
         const unsigned int port,
         DoorLockController &doorLockController,
         ServoController &servoController,
@@ -31,19 +31,19 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
         //
         // todo: can i get null here instead of the object? o.O
-        server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request) {
+        server.on("/", HTTP_GET, [&](AsyncWebServerRequest *const request) {
             doorLockController.statusAction(*request);
         });
 
-        server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *request) {
+        server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *const request) {
             doorLockController.switchAction(*request);
         });
 
-        server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *request) {
+        server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {
             servoController.angleAction(*request);
         });
 
-        server.onNotFound([&](AsyncWebServerRequest *request) {
+        server.onNotFound([&](AsyncWebServerRequest *const request) {
             handleWebNotFound(*request);
         });
     }
