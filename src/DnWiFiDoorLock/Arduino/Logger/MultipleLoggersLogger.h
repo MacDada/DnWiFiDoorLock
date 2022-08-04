@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <vector>
 
 #include <Arduino.h>
@@ -10,7 +11,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
     class MultipleLoggersLogger final: public Logger {
     public:
-        explicit MultipleLoggersLogger(const std::vector<Logger *> &loggers);
+        explicit MultipleLoggersLogger(const std::vector<LoggerReference> &loggers);
 
         void log(std::unique_ptr<char[]> message) override;
 
@@ -31,12 +32,12 @@ namespace DnWiFiDoorLock::Arduino::Logger {
          * vector cannot store abstract classes as values,
          * but we can store pointers to them
          */
-        const std::vector<Logger *> &loggers;
+        const std::vector<LoggerReference> &loggers;
 
         template <typename MessageType>
         void doLog(const MessageType message) const {
             for (const auto &logger : loggers) {
-                logger->log(message);
+                logger.get().log(message);
             }
         }
     };

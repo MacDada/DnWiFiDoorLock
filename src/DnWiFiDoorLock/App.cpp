@@ -6,13 +6,13 @@ namespace DnWiFiDoorLock {
         builtInLed.blinkFast(5);
 
         for (auto &setupAndLoopAware: setupAndLoopAwares) {
-            setupAndLoopAware->onSetup();
+            setupAndLoopAware.get().onSetup();
         }
     }
 
     void App::onLoop() {
         for (auto &setupAndLoopAware: setupAndLoopAwares) {
-            setupAndLoopAware->onLoop();
+            setupAndLoopAware.get().onLoop();
         }
 
         // todo: secure server

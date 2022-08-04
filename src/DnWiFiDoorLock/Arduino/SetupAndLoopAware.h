@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 namespace DnWiFiDoorLock::Arduino {
 
     class SetupAndLoopAware {
@@ -8,5 +10,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         virtual void onLoop() = 0;
     };
+
+    using SetupAndLoopAwareReference = std::reference_wrapper<SetupAndLoopAware>;
 
 }

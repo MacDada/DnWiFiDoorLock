@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include <Arduino.h>
 
 #include "DnWiFiDoorLock/Logger/Logger.h"
@@ -22,5 +24,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         virtual void log(float message) override = 0;
     };
+
+    using LoggerReference = std::reference_wrapper<Logger>;
 
 }
