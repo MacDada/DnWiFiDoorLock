@@ -11,8 +11,6 @@ namespace DnWiFiDoorLock {
     // which is given by `millis()`?
     // what will happen after 49 days?
     // a crash? or `millis()` will just give a wrong result?
-    //
-    // another question: does static `const` for arg make any difference?
     Time::Time(const unsigned long milliseconds):
         milliseconds(milliseconds),
         seconds(milliseconds / 1000),
@@ -25,40 +23,40 @@ namespace DnWiFiDoorLock {
         //   4 bytes each ;-)
     }
 
-    unsigned long Time::getMilliseconds() {
+    unsigned long Time::getMilliseconds() const {
         return milliseconds;
     }
 
-    long Time::getSeconds() {
+    long Time::getSeconds() const {
         return seconds;
     }
 
-    long Time::getMinutes() {
+    long Time::getMinutes() const {
         return minutes;
     }
 
-    int Time::getHours() {
+    int Time::getHours() const {
         return hours;
     }
 
     // `byte` is enough, we won't be going longer than 49 days xD
-    byte Time::getDays() {
+    byte Time::getDays() const {
         return days;
     }
 
-    int Time::getRemainingMilliseconds() {
+    int Time::getRemainingMilliseconds() const {
         return milliseconds % 1000;
     }
 
-    byte Time::getRemainingSeconds() {
+    byte Time::getRemainingSeconds() const {
         return seconds % 60;
     }
 
-    byte Time::getRemainingMinutes() {
+    byte Time::getRemainingMinutes() const {
         return minutes % 60;
     }
 
-    byte Time::getRemainingHours() {
+    byte Time::getRemainingHours() const {
         return hours % 24;
     }
 

@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         Printer &printer;
 
         template <typename MessageType>
-        void doLog(const MessageType message) {
+        void doLog(const MessageType message) const {
             printer.println(message);
         }
     };

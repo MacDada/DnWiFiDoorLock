@@ -79,7 +79,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     }
 
     // todo: `const uint8_t &status`?
-    const char *WiFi::wiFiConnectionStatusToString(const uint8_t status) {
+    const char *WiFi::wiFiConnectionStatusToString(const uint8_t status) const {
         switch (status) {
             case WL_NO_SHIELD:
                 return "WL_NO_SHIELD";

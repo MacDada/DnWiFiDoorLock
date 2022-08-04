@@ -20,23 +20,23 @@ namespace DnWiFiDoorLock {
     public:
         explicit Time(unsigned long milliseconds);
 
-        unsigned long getMilliseconds();
+        unsigned long getMilliseconds() const;
 
-        long getSeconds();
+        long getSeconds() const;
 
-        long getMinutes();
+        long getMinutes() const;
 
-        int getHours();
+        int getHours() const;
 
-        byte getDays();
+        byte getDays() const;
 
-        int getRemainingMilliseconds();
+        int getRemainingMilliseconds() const;
 
-        byte getRemainingSeconds();
+        byte getRemainingSeconds() const;
 
-        byte getRemainingMinutes();
+        byte getRemainingMinutes() const;
 
-        byte getRemainingHours();
+        byte getRemainingHours() const;
     };
 
 }

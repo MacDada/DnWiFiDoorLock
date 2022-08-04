@@ -32,7 +32,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         DnWiFiDoorLock::Arduino::Logger::Logger &logger;
 
-        const char *otaErrorToString(ota_error_t error);
+        const char *otaErrorToString(ota_error_t error) const;
     };
 
     static_assert(!std::is_abstract<OTAUpdater>());

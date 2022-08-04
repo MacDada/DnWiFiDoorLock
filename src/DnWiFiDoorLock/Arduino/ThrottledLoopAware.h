@@ -28,7 +28,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         unsigned long lastOtherAwareCallMilliseconds = 0;
 
-        bool isItTime();
+        bool isItTime() const;
     };
 
     static_assert(!std::is_abstract<ThrottledLoopAware>());

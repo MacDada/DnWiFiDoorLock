@@ -46,7 +46,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         void waitForConnection();
 
-        const char *wiFiConnectionStatusToString(uint8_t status);
+        const char *wiFiConnectionStatusToString(uint8_t status) const;
 
         void informAboutConnectingIssue(int tries, int status);
     };
