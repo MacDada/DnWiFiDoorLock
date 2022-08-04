@@ -13,7 +13,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class DoorLockController final: public Controller {
     public:
         DoorLockController(
-            DnWiFiDoorLock::Arduino::Hardware &hardware,
+            const DnWiFiDoorLock::Arduino::Hardware &hardware,
             DnWiFiDoorLock::Arduino::DoorLock &doorLock,
             DnWiFiDoorLock::Logger::Logger &logger
         );
@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void switchAction(AsyncWebServerRequest &request);
 
     private:
-        DnWiFiDoorLock::Arduino::Hardware &hardware;
+        const DnWiFiDoorLock::Arduino::Hardware &hardware;
 
         DnWiFiDoorLock::Arduino::DoorLock &doorLock;
 

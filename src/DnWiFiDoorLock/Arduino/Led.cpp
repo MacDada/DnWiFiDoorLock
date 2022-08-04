@@ -3,7 +3,7 @@
 namespace DnWiFiDoorLock::Arduino {
 
     Led::Led(
-        DnWiFiDoorLock::Arduino::Hardware &hardware,
+        const DnWiFiDoorLock::Arduino::Hardware &hardware,
         const byte pin
     ):
         hardware(hardware),

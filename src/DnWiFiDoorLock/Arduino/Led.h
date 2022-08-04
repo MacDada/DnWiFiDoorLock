@@ -8,11 +8,11 @@ namespace DnWiFiDoorLock::Arduino {
 
     class Led final {
     private:
-        DnWiFiDoorLock::Arduino::Hardware &hardware;
-        byte pin;
+        const DnWiFiDoorLock::Arduino::Hardware &hardware;
+        const byte pin;
 
     public:
-        Led(DnWiFiDoorLock::Arduino::Hardware &hardware, byte pin);
+        Led(const DnWiFiDoorLock::Arduino::Hardware &hardware, byte pin);
 
         void on() const;
 

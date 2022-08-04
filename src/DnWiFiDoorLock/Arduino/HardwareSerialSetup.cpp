@@ -4,7 +4,7 @@ namespace DnWiFiDoorLock::Arduino {
 
     HardwareSerialSetup::HardwareSerialSetup(
         HardwareSerial &serial,
-        DnWiFiDoorLock::Arduino::Hardware &hardware,
+        const DnWiFiDoorLock::Arduino::Hardware &hardware,
         const long bitsPerSecond
     ):
         serial(serial),

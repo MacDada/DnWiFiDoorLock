@@ -12,14 +12,14 @@ namespace DnWiFiDoorLock::Arduino {
 
     class LoopIndicator final: public SetupAndLoopAware {
     public:
-        LoopIndicator(Led &led, Logger::Logger &logger);
+        LoopIndicator(const Led &led, Logger::Logger &logger);
 
         void onSetup() override;
 
         void onLoop() override;
 
     private:
-        Led &led;
+        const Led &led;
 
         Logger::Logger &logger;
 

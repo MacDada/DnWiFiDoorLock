@@ -56,7 +56,7 @@ namespace DnWiFiDoorLock {
 
         static const int LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
 
-        DnWiFiDoorLock::Arduino::Hardware hardware;
+        const DnWiFiDoorLock::Arduino::Hardware hardware{};
 
         HardwareSerialLogger hardwareSerialLogger{Serial};
 
@@ -86,7 +86,7 @@ namespace DnWiFiDoorLock {
 
         DoorLock doorLock{servo, logger, 0, 180};
 
-        Led builtInLed{hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
+        const Led builtInLed{hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
 
         DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi wiFi{
             WIFI_SSID,
