@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 #include <vector>
 
 #include <Arduino.h>
@@ -262,9 +261,8 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        // todo: vector, so that me-the-dumbass dont forget about changing the size
         auto &getSetupAndLoopAwares() {
-            static std::array<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference, 9> service{
+            static std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference> service{
                 getHardwareSerialSetup(),
                 getWiFi(),
                 getThrottledLoopIndicator(),
