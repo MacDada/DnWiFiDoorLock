@@ -51,7 +51,6 @@ namespace DnWiFiDoorLock::Arduino {
         ArduinoOTA.handle();
     }
 
-    // todo: `const ota_error_t &error`?
     const char *OTAUpdater::otaErrorToString(const ota_error_t error) const {
         switch (error) {
             case OTA_AUTH_ERROR:
