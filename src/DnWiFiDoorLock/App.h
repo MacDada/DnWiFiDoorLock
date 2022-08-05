@@ -20,6 +20,7 @@
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
+#include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
 #include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialLogger.h"
 #include "DnWiFiDoorLock/Arduino/Logger/MultipleLoggersLogger.h"
@@ -262,8 +263,17 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        auto &getSetupStartIndicator() {
+            static auto service = DnWiFiDoorLock::Arduino::LambdaSetupAndLoopAware::createSetupAware([&]() {
+                getBuiltInLed().blinkFast(5);
+            });
+
+            return service;
+        }
+
         auto &getSetupAndLoopAwares() {
             static std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference> service{
+                getSetupStartIndicator(),
                 getHardwareSerialSetup(),
                 getWiFi(),
                 getThrottledLoopIndicator(),
