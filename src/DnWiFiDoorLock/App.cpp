@@ -5,15 +5,11 @@ namespace DnWiFiDoorLock {
     void App::onSetup() {
         getBuiltInLed().blinkFast(5);
 
-        for (auto &setupAndLoopAware: getSetupAndLoopAwares()) {
-            setupAndLoopAware.get().onSetup();
-        }
+        getAppSetupAndLoopAwares().onSetup();
     }
 
     void App::onLoop() {
-        for (auto &setupAndLoopAware: getSetupAndLoopAwares()) {
-            setupAndLoopAware.get().onLoop();
-        }
+        getAppSetupAndLoopAwares().onLoop();
 
         // todo: secure server
         // todo: handling door open/close with servo

@@ -24,6 +24,7 @@
 #include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialLogger.h"
 #include "DnWiFiDoorLock/Arduino/Logger/MultipleLoggersLogger.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
+#include "DnWiFiDoorLock/Arduino/MultipleSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/OTAUpdater.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
@@ -272,6 +273,14 @@ namespace DnWiFiDoorLock {
                 getServer(),
                 getThrottledWiFiSignalStrengthLogger(),
                 getDoorLock()
+            };
+
+            return service;
+        }
+
+        auto &getAppSetupAndLoopAwares() {
+            static DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware service{
+                getSetupAndLoopAwares()
             };
 
             return service;
