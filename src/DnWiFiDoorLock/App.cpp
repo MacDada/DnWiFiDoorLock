@@ -3,15 +3,15 @@
 namespace DnWiFiDoorLock {
 
     void App::onSetup() {
-        builtInLed.blinkFast(5);
+        getBuiltInLed().blinkFast(5);
 
-        for (auto &setupAndLoopAware: setupAndLoopAwares) {
+        for (auto &setupAndLoopAware: getSetupAndLoopAwares()) {
             setupAndLoopAware.get().onSetup();
         }
     }
 
     void App::onLoop() {
-        for (auto &setupAndLoopAware: setupAndLoopAwares) {
+        for (auto &setupAndLoopAware: getSetupAndLoopAwares()) {
             setupAndLoopAware.get().onLoop();
         }
 

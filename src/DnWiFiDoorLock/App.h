@@ -56,20 +56,46 @@ namespace DnWiFiDoorLock {
 
         static const int LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
 
-        const DnWiFiDoorLock::Arduino::Hardware hardware{};
+        const DnWiFiDoorLock::Arduino::Hardware &getHardware() {
+            static const DnWiFiDoorLock::Arduino::Hardware service{};
 
-        HardwareSerialLogger hardwareSerialLogger{Serial};
+            return service;
+        }
 
-        WebSerialLogger webSerialLogger{WebSerial};
+        HardwareSerialLogger &getHardwareSerialLogger() {
+            static HardwareSerialLogger service{Serial};
 
-        std::vector<DnWiFiDoorLock::Arduino::Logger::LoggerReference> loggers{
-            hardwareSerialLogger,
-            webSerialLogger
-        };
+            return service;
+        }
 
-        MultipleLoggersLogger logger{loggers};
+        WebSerialLogger &getWebSerialLogger() {
+            static WebSerialLogger service{WebSerial};
 
-        ::Servo arduinoServo;
+            return service;
+        }
+
+        std::vector<DnWiFiDoorLock::Arduino::Logger::LoggerReference> &getLoggers() {
+            static std::vector<DnWiFiDoorLock::Arduino::Logger::LoggerReference> service{
+                getHardwareSerialLogger(),
+                getWebSerialLogger()
+            };
+
+            return service;
+        }
+
+        DnWiFiDoorLock::Arduino::Logger::Logger &getLogger() {
+            static MultipleLoggersLogger service{
+                getLoggers()
+            };
+
+            return service;
+        }
+
+        ::Servo &getArduinoServo() {
+            static ::Servo service;
+
+            return service;
+        }
 
         // todo: why the servo does not reach proper 0-180 degree angles by default?
         //      * https://www.arduino.cc/reference/en/libraries/servo/attach/
@@ -80,90 +106,158 @@ namespace DnWiFiDoorLock {
         //          - according to the specs i dont know what to think, but i guess it should be 800-2200?
         //      * verified values that work OK: 500-2500
         //      * setting a smaller range just to be safe
-        Arduino::Servo::Servo servo{arduinoServo, SERVO_PIN, 600, 2400, logger};
+        Arduino::Servo::Servo &getServo() {
+            static Arduino::Servo::Servo service{getArduinoServo(), SERVO_PIN, 600, 2400, getLogger()};
 
-        DoorLock doorLock{servo, logger, 0, 180};
+            return service;
+        }
 
-        const Led builtInLed{hardware, DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
+        DoorLock &getDoorLock() {
+            static DoorLock service{getServo(), getLogger(), 0, 180};
 
-        DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi wiFi{
-            WIFI_SSID,
-            WIFI_PASSWORD,
-            builtInLed,
-            // WebSerial(Logger) cannot be injected, runtime crash for some reason
-            hardwareSerialLogger,
-            hardware,
-            ::WiFi
-        };
+            return service;
+        }
 
-        Arduino::Esp8266::MDNSSetupAndLoopAware mdns{
-            MDNS,
-            logger,
-            WEB_SERVER_HOST_NAME
-        };
+        const Led &getBuiltInLed() {
+            static const Led service{getHardware(), DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
 
-        DnWiFiDoorLock::Arduino::OTAUpdater otaUpdater{
-            OTA_UPDATE_PORT,
-            OTA_UPDATE_HOST,
-            OTA_UPDATE_PASSWORD_MD5,
-            logger
-        };
+            return service;
+        }
 
-        LoopAwareSignalStrengthLogger wifiSignalStrengthLogger{
-            ::WiFi,
-            logger
-        };
+        DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi &getWiFi() {
+            static DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi service{
+                WIFI_SSID,
+                WIFI_PASSWORD,
+                getBuiltInLed(),
+                // WebSerial(Logger) cannot be injected, runtime crash for some reason
+                getHardwareSerialLogger(),
+                getHardware(),
+                ::WiFi
+            };
 
-        Arduino::ThrottledLoopAware throttledWiFiSignalStrengthLogger{
-            wifiSignalStrengthLogger,
-            hardware,
-            WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
-        };
+            return service;
+        }
 
-        DoorLockController doorLockHttpController{hardware, doorLock, logger};
+        Arduino::Esp8266::MDNSSetupAndLoopAware &getMdns() {
+            static Arduino::Esp8266::MDNSSetupAndLoopAware service{
+                MDNS,
+                getLogger(),
+                WEB_SERVER_HOST_NAME
+            };
+
+            return service;
+        }
+
+        DnWiFiDoorLock::Arduino::OTAUpdater &getOtaUpdater() {
+            static DnWiFiDoorLock::Arduino::OTAUpdater service{
+                OTA_UPDATE_PORT,
+                OTA_UPDATE_HOST,
+                OTA_UPDATE_PASSWORD_MD5,
+                getLogger()
+            };
+
+            return service;
+        }
+
+        LoopAwareSignalStrengthLogger &getWifiSignalStrengthLogger() {
+             static LoopAwareSignalStrengthLogger service{
+                 ::WiFi,
+                getLogger()
+             };
+
+             return service;
+        }
+
+        Arduino::ThrottledLoopAware &getThrottledWiFiSignalStrengthLogger() {
+            static Arduino::ThrottledLoopAware service{
+                getWifiSignalStrengthLogger(),
+                getHardware(),
+                WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
+            };
+
+            return service;
+        }
+
+        DoorLockController &getDoorLockHttpController() {
+            static DoorLockController service{getHardware(), getDoorLock(), getLogger()};
+
+            return service;
+        }
 
         // todo: in the end we don't need that, but it is useful for calibration
-        ServoController servoHttpController{servo, logger};
+        ServoController &getServoHttpController() {
+            static ServoController service{getServo(), getLogger()};
 
-        AsyncWebServer espServer{WEB_SERVER_PORT};
+            return service;
+        }
 
-        ServerSetup server{
-            espServer,
-            WEB_SERVER_HOST_NAME,
-            WEB_SERVER_PORT,
-            doorLockHttpController,
-            servoHttpController,
-            logger
-        };
+        AsyncWebServer &getEspServer() {
+            static AsyncWebServer service{WEB_SERVER_PORT};
 
-        Arduino::HardwareSerialSetup hardwareSerialSetup{
-            Serial,
-            hardware,
-            SERIAL_BITS_PER_SECOND
-        };
+            return service;
+        }
 
-        WebSerialSetup setupAndLoopAwareWebSerial{WebSerial, espServer};
+        ServerSetup &getServer() {
+            static ServerSetup service{
+                getEspServer(),
+                WEB_SERVER_HOST_NAME,
+                WEB_SERVER_PORT,
+                getDoorLockHttpController(),
+                getServoHttpController(),
+                getLogger()
+            };
 
-        Arduino::LoopIndicator loopIndicator{builtInLed, logger};
+            return service;
+        }
 
-        Arduino::ThrottledLoopAware throttledLoopIndicator{
-            loopIndicator,
-            hardware,
-            LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
-        };
+        Arduino::HardwareSerialSetup &getHardwareSerialSetup() {
+            static Arduino::HardwareSerialSetup service{
+                Serial,
+                getHardware(),
+                SERIAL_BITS_PER_SECOND
+            };
+
+            return service;
+        }
+
+        WebSerialSetup &getSetupAndLoopAwareWebSerial() {
+            static WebSerialSetup service{WebSerial, getEspServer()};
+
+            return service;
+        }
+
+        Arduino::LoopIndicator &getLoopIndicator() {
+            static Arduino::LoopIndicator service{getBuiltInLed(), getLogger()};
+
+            return service;
+        }
+
+        Arduino::ThrottledLoopAware &getThrottledLoopIndicator() {
+            static Arduino::ThrottledLoopAware service{
+                getLoopIndicator(),
+                getHardware(),
+                LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
+            };
+
+            return service;
+        }
 
         // todo: vector, so that me-the-dumbass dont forget about changing the size
-        std::array<Arduino::SetupAndLoopAwareReference, 9> setupAndLoopAwares{
-            hardwareSerialSetup,
-            wiFi,
-            throttledLoopIndicator,
-            setupAndLoopAwareWebSerial,
-            otaUpdater,
-            mdns,
-            server,
-            throttledWiFiSignalStrengthLogger,
-            doorLock
-        };
+        std::array<Arduino::SetupAndLoopAwareReference, 9> &getSetupAndLoopAwares() {
+            static std::array<Arduino::SetupAndLoopAwareReference, 9> service{
+                getHardwareSerialSetup(),
+                getWiFi(),
+                getThrottledLoopIndicator(),
+                getSetupAndLoopAwareWebSerial(),
+                getOtaUpdater(),
+                getMdns(),
+                getServer(),
+                getThrottledWiFiSignalStrengthLogger(),
+                getDoorLock()
+            };
+
+            return service;
+        }
     };
 
 }
