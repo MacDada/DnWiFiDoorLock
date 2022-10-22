@@ -47,51 +47,49 @@ namespace DnWiFiDoorLock {
 
         static const int LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
 
-        template<typename T>
-        T &shared() {
-            static T service{};
-
-            return service;
-        }
-
-        template<typename T, typename ...Args>
-        T &shared(Args &&... args) {
-            static T service{std::forward<Args>(args)...};
-
-            return service;
-        }
-
         auto &getHardware() {
-            return shared<const DnWiFiDoorLock::Arduino::Hardware>();
+            static const DnWiFiDoorLock::Arduino::Hardware service{};
+
+            return service;
         }
 
         auto &getHardwareSerialLogger() {
-            return shared<DnWiFiDoorLock::Arduino::Logger::HardwareSerialLogger>(
+            static DnWiFiDoorLock::Arduino::Logger::HardwareSerialLogger service{
                 Serial
-            );
+            };
+
+            return service;
         }
 
         auto &getWebSerialLogger() {
-            return shared<DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Logger>(
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Logger service{
                 WebSerial
-            );
+            };
+
+            return service;
         }
 
         auto &getLoggers() {
-            return shared<std::vector<DnWiFiDoorLock::Arduino::Logger::LoggerReference>>(
+            static std::vector<DnWiFiDoorLock::Arduino::Logger::LoggerReference> service{
                 getHardwareSerialLogger(),
                 getWebSerialLogger()
-            );
+            };
+
+            return service;
         }
 
         auto &getLogger() {
-            return shared<DnWiFiDoorLock::Arduino::Logger::MultipleLoggersLogger>(
+            static DnWiFiDoorLock::Arduino::Logger::MultipleLoggersLogger service{
                 getLoggers()
-            );
+            };
+
+            return service;
         }
 
         auto &getArduinoServo() {
-            return shared<::Servo>();
+            static ::Servo service{};
+
+            return service;
         }
 
         // todo: why the servo does not reach proper 0-180 degree angles by default?
@@ -104,17 +102,19 @@ namespace DnWiFiDoorLock {
         //      * verified values that work OK: 500-2500
         //      * setting a smaller range just to be safe
         auto &getServo() {
-            return shared<DnWiFiDoorLock::Arduino::Servo::Servo>(
+            static DnWiFiDoorLock::Arduino::Servo::Servo service{
                 getArduinoServo(),
                 (byte) SERVO_PIN,
                 600,
                 2400,
                 getLogger()
-            );
+            };
+
+            return service;
         }
 
         auto &getDoorLock() {
-            return shared<DnWiFiDoorLock::Arduino::DoorLock>(
+            static DnWiFiDoorLock::Arduino::DoorLock service{
                 getServo(),
                 getLogger(),
                 // todo: CLion bug report
@@ -122,7 +122,9 @@ namespace DnWiFiDoorLock {
                 //       https://discord.com/channels/583251190591258624/742849025191051326/1005133740370055229
                 (byte) 0,
                 (byte) 180
-            );
+            };
+
+            return service;
         }
 
         auto &getBuiltInLed() {
@@ -144,7 +146,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto &getWiFi() {
-            return shared<DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi>(
+            static DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi service{
                 WIFI_SSID,
                 WIFI_PASSWORD,
                 getBuiltInLedBlinker(),
@@ -152,103 +154,129 @@ namespace DnWiFiDoorLock {
                 getHardwareSerialLogger(),
                 getHardware(),
                 ::WiFi
-            );
+            };
+
+            return service;
         }
 
         auto &getMdns() {
-            return shared<DnWiFiDoorLock::Arduino::Esp8266::MDNSSetupAndLoopAware>(
+            static DnWiFiDoorLock::Arduino::Esp8266::MDNSSetupAndLoopAware service{
                 MDNS,
                 getLogger(),
                 WEB_SERVER_HOST_NAME
-            );
+            };
+
+            return service;
         }
 
         auto &getOtaUpdater() {
-            return shared<DnWiFiDoorLock::Arduino::OTAUpdater>(
+            static DnWiFiDoorLock::Arduino::OTAUpdater service{
                 OTA_UPDATE_PORT,
                 OTA_UPDATE_HOST,
                 OTA_UPDATE_PASSWORD_MD5,
                 getLogger()
-            );
+            };
+
+            return service;
         }
 
         auto &getWifiSignalStrengthLogger() {
-             return shared<DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger>(
+             static DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger service{
                  ::WiFi,
                  getLogger()
-             );
+             };
+
+            return service;
         }
 
         auto &getThrottledWiFiSignalStrengthLogger() {
-            return shared<DnWiFiDoorLock::Arduino::ThrottledLoopAware>(
+            static DnWiFiDoorLock::Arduino::ThrottledLoopAware service{
                 getWifiSignalStrengthLogger(),
                 getHardware(),
                 WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
-            );
+            };
+
+            return service;
         }
 
         auto &getDoorLockHttpController() {
-            return shared<DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController>(
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController service{
                 getHardware(),
                 getDoorLock(),
                 getLogger()
-            );
+            };
+
+            return service;
         }
 
         // todo: in the end we don't need that, but it is useful for calibration
         auto &getServoHttpController() {
-            return shared<DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController>(
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController service{
                 getServo(),
                 getLogger()
-            );
+            };
+
+            return service;
         }
 
         auto &getEspServer() {
-            return shared<AsyncWebServer>(
+            static AsyncWebServer service{
                 (byte) WEB_SERVER_PORT
-            );
+            };
+
+            return service;
         }
 
         auto &getServer() {
-            return shared<DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup>(
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup service{
                 getEspServer(),
                 WEB_SERVER_HOST_NAME,
                 (byte) WEB_SERVER_PORT,
                 getDoorLockHttpController(),
                 getServoHttpController(),
                 getLogger()
-            );
+            };
+
+            return service;
         }
 
         auto &getHardwareSerialSetup() {
-            return shared<DnWiFiDoorLock::Arduino::HardwareSerialSetup>(
+            static DnWiFiDoorLock::Arduino::HardwareSerialSetup service{
                 Serial,
                 getHardware(),
                 SERIAL_BITS_PER_SECOND
-            );
+            };
+
+            return service;
         }
 
         auto &getSetupAndLoopAwareWebSerial() {
-            return shared<DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Setup>(
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Setup service{
                 WebSerial,
                 getEspServer()
-            );
+            };
+
+            return service;
         }
 
         auto &getLoopIndicator() {
-            return shared<DnWiFiDoorLock::Arduino::LoopIndicator>(
+            static DnWiFiDoorLock::Arduino::LoopIndicator service{
                 getBuiltInLed(),
                 getBuiltInLedBlinker(),
                 getLogger()
-            );
+            };
+
+            return service;
         }
 
         auto &getThrottledLoopIndicator() {
-            return shared<DnWiFiDoorLock::Arduino::ThrottledLoopAware>(
+            static DnWiFiDoorLock::Arduino::ThrottledLoopAware service{
                 getLoopIndicator(),
                 getHardware(),
                 LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
-            );
+            };
+
+            return service;
         }
 
         auto &getSetupStartIndicator() {
@@ -263,10 +291,8 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-
-
         auto &getSetupAndLoopAwares() {
-            return shared<std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference>>(
+            static std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference> service{
                 getSetupStartIndicator(),
                 getHardwareSerialSetup(),
                 getWiFi(),
@@ -277,13 +303,17 @@ namespace DnWiFiDoorLock {
                 getServer(),
                 getThrottledWiFiSignalStrengthLogger(),
                 getDoorLock()
-            );
+            };
+
+            return service;
         }
 
         auto &getAppSetupAndLoopAwares() {
-            return shared<DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware>(
+            static DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware service{
                 getSetupAndLoopAwares()
-            );
+            };
+
+            return service;
         }
     };
 
