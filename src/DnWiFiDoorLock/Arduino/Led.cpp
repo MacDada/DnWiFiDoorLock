@@ -12,14 +12,22 @@ namespace DnWiFiDoorLock::Arduino {
     }
 
     void Led::on() const {
-        // todo: it is inverted for built–in led => so it should be high for normal led
+        // it is inverted for built–in led => so it should be high for normal led
         // https://github.com/nodemcu/nodemcu-devkit-v1.0/issues/16
         // https://stackoverflow.com/questions/46087828/why-is-nodemcu-triggering-gpio-in-reverse-when-using-lua
-        hardware.digitalWriteLow(pin);
+        if (LED_BUILTIN == pin) {
+            hardware.digitalWriteLow(pin);
+        } else {
+            hardware.digitalWriteHigh(pin);
+        }
     }
 
     void Led::off() const {
-        hardware.digitalWriteHigh(pin);
+        if (LED_BUILTIN == pin) {
+            hardware.digitalWriteHigh(pin);
+        } else {
+            hardware.digitalWriteLow(pin);
+        }
     }
 
     void Led::toggle() const {
@@ -31,11 +39,19 @@ namespace DnWiFiDoorLock::Arduino {
     }
 
     bool Led::isOn() const {
-        return hardware.isPinLow(pin);
+        if (LED_BUILTIN == pin) {
+            return hardware.isPinLow(pin);
+        } else {
+            return hardware.isPinHigh(pin);
+        }
     }
 
     bool Led::isOff() const {
-        return hardware.isPinHigh(pin);
+        if (LED_BUILTIN == pin) {
+            return hardware.isPinHigh(pin);
+        } else {
+            return hardware.isPinLow(pin);
+        }
     }
 
     void Led::blinkFast(const int count) const {
