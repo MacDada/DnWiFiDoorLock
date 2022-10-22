@@ -14,6 +14,8 @@ namespace DnWiFiDoorLock::Arduino {
 
         Time getUptime() const;
 
+        void setPinToInputMode(byte pin) const;
+
         void setPinToOutputMode(byte pin) const;
 
         void digitalWriteHigh(byte pin) const;

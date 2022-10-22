@@ -10,6 +10,10 @@ namespace DnWiFiDoorLock::Arduino {
         return Time(millis());
     }
 
+    void Hardware::setPinToInputMode(const byte pin) const {
+        pinMode(pin, INPUT);
+    }
+
     void Hardware::setPinToOutputMode(const byte pin) const {
         pinMode(pin, OUTPUT);
     }
