@@ -5,14 +5,14 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     WiFi::WiFi(
         const char *const ssid,
         const char *const password,
-        const DnWiFiDoorLock::Arduino::Led &led,
+        const DnWiFiDoorLock::Arduino::LedBlinker &ledBlinker,
         DnWiFiDoorLock::Arduino::Logger::Logger &logger,
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
         ESP8266WiFiClass &esp8266WiFi
     ):
         ssid(ssid),
         password(password),
-        led(led),
+        ledBlinker(ledBlinker),
         logger(logger),
         hardware(hardware),
         esp8266WiFi(esp8266WiFi) {
@@ -67,7 +67,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     }
 
     void WiFi::informAboutConnectingIssue(const int tries, const int status) {
-        led.blinkFast(3);
+        ledBlinker.blinkFast(3);
 
         if (0 == tries % 5) {
             logger.log(Tools::format(

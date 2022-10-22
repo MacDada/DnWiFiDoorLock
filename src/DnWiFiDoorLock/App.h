@@ -22,6 +22,7 @@
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
+#include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialLogger.h"
 #include "DnWiFiDoorLock/Arduino/Logger/MultipleLoggersLogger.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
@@ -125,17 +126,28 @@ namespace DnWiFiDoorLock {
         }
 
         auto &getBuiltInLed() {
-            return shared<const DnWiFiDoorLock::Arduino::Led>(
+            static auto service = DnWiFiDoorLock::Arduino::Led{
                 getHardware(),
                 DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN
-            );
+            };
+
+            return service;
+        }
+
+        auto &getBuiltInLedBlinker() {
+            static auto service = DnWiFiDoorLock::Arduino::LedBlinker{
+                getHardware(),
+                getBuiltInLed()
+            };
+
+            return service;
         }
 
         auto &getWiFi() {
             return shared<DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi>(
                 WIFI_SSID,
                 WIFI_PASSWORD,
-                getBuiltInLed(),
+                getBuiltInLedBlinker(),
                 // WebSerial(Logger) cannot be injected, runtime crash for some reason
                 getHardwareSerialLogger(),
                 getHardware(),
@@ -226,6 +238,7 @@ namespace DnWiFiDoorLock {
         auto &getLoopIndicator() {
             return shared<DnWiFiDoorLock::Arduino::LoopIndicator>(
                 getBuiltInLed(),
+                getBuiltInLedBlinker(),
                 getLogger()
             );
         }
@@ -244,11 +257,13 @@ namespace DnWiFiDoorLock {
             //      b.) improve LambdaSetupAndLoopAware to get rid of named constructor
             //          https://boost-ext.github.io/di/tutorial.html – grep "struct width {"
             static auto service = DnWiFiDoorLock::Arduino::LambdaSetupAndLoopAware::createSetupAware([&]() {
-                getBuiltInLed().blinkFast(5);
+                getBuiltInLedBlinker().blinkFast(5);
             });
 
             return service;
         }
+
+
 
         auto &getSetupAndLoopAwares() {
             return shared<std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference>>(

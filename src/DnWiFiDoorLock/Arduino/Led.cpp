@@ -54,13 +54,4 @@ namespace DnWiFiDoorLock::Arduino {
         }
     }
 
-    void Led::blinkFast(const int count) const {
-        for (int i = 0; i < count; ++i) {
-            on();
-            hardware.pause(100);
-            off();
-            hardware.pause(100);
-        }
-    }
-
 }

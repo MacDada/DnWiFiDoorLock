@@ -18,8 +18,6 @@ namespace DnWiFiDoorLock::Arduino {
 
         void off() const;
 
-        void blinkFast(int count) const;
-
         bool isOn() const;
 
         bool isOff() const;

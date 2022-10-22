@@ -2,7 +2,14 @@
 
 namespace DnWiFiDoorLock::Arduino {
 
-    LoopIndicator::LoopIndicator(const Led &led, Logger::Logger &logger): led(led), logger(logger) {
+    LoopIndicator::LoopIndicator(
+        const Led &led,
+        const LedBlinker &ledBlinker,
+        Logger::Logger &logger
+    ) :
+        led(led),
+        ledBlinker(ledBlinker),
+        logger(logger) {
     }
 
     void LoopIndicator::onSetup() {
@@ -16,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino {
     void LoopIndicator::informThatTheLoopHasStarted() {
         if (!hasLoopStarted) {
             logger.log("The Loop has started!");
-            led.blinkFast(5);
+            ledBlinker.blinkFast(5);
 
             hasLoopStarted = true;
         }
