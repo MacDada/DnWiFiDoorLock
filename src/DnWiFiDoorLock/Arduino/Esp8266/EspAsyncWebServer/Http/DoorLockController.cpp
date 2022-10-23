@@ -64,10 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         doorLock.switchOpenClose();
 
-        // request->redirect("/") is wrong as it sends 302
-        AsyncWebServerResponse *const response = request.beginResponse(HTTP_RESPONSE_STATUS_REDIRECT);
-        response->addHeader("Location", "/");
-        request.send(response);
+        redirect(request, "/");
     }
 
 }

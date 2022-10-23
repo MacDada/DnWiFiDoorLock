@@ -21,6 +21,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             AsyncWebServerRequest &request,
             const char *const parameterName
         ) const;
+
+        void redirect(AsyncWebServerRequest &request, const String& location) const;
     };
 
 }
