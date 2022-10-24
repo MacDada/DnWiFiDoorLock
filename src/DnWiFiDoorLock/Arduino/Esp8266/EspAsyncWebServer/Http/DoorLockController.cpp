@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         logger(logger) {
     }
 
-    void DoorLockController::statusAction(AsyncWebServerRequest &request) {
+    void DoorLockController::statusAction(AsyncWebServerRequest &request) const {
         logger.log("DoorLockController::statusAction()");
 
         Time uptime = hardware.getUptime();
