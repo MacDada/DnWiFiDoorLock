@@ -7,6 +7,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const char *const hostname,
         const unsigned int port,
         DoorLockController &doorLockController,
+        FurnaceController &furnaceController,
         ServoController &servoController,
         Logger &logger
     ):
@@ -14,6 +15,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         hostname(hostname),
         port(port),
         doorLockController(doorLockController),
+        furnaceController(furnaceController),
         servoController(servoController),
         logger(logger) {
     }
@@ -27,15 +29,31 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServerSetup::setupRouting() {
+        server.on("/", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            request->redirect("/furnace");
+        });
+
         // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
         //
         // todo: can i get null here instead of the object? o.O
-        server.on("/", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on("/doorlock", HTTP_GET, [&](AsyncWebServerRequest *const request) {
             doorLockController.statusAction(*request);
         });
 
-        server.on("/switch", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+        server.on("/doorlock/switch", HTTP_POST, [&](AsyncWebServerRequest *const request) {
             doorLockController.switchAction(*request);
+        });
+
+        server.on("/furnace", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            furnaceController.statusAction(*request);
+        });
+
+        server.on("/furnace/switch", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+            furnaceController.switchAction(*request);
+        });
+
+        server.on("/api/furnace", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {
+            furnaceController.apiAction(*request);
         });
 
         server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {

@@ -2,6 +2,10 @@
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
+    bool Controller::isRequestMethodPost(const AsyncWebServerRequest &request) const {
+        return 0 == strcmp(request.methodToString(), "POST");
+    }
+
     std::optional<String> Controller::getRequestPostParameter(
         AsyncWebServerRequest &request,
         const char *const parameterName

@@ -16,6 +16,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         static constexpr const char HTTP_RESPONSE_CONTENT_TYPE_PLAIN[] = "text/plain";
         static constexpr const char HTTP_RESPONSE_CONTENT_TYPE_HTML[] = "text/html";
+        static constexpr const char HTTP_RESPONSE_CONTENT_TYPE_JSON[] = "application/json";
+
+        bool isRequestMethodPost(const AsyncWebServerRequest &request) const;
 
         std::optional<String> getRequestPostParameter(
             AsyncWebServerRequest &request,

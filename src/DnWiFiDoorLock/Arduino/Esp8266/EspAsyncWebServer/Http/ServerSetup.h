@@ -5,6 +5,7 @@
 #include <ESPAsyncWebServer.h>
 
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
@@ -21,6 +22,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const char *hostname,
             unsigned int port,
             DoorLockController &doorLockController,
+            FurnaceController &furnaceController,
             ServoController &servoController,
             Logger &logger
         );
@@ -38,6 +40,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
         DoorLockController &doorLockController;
+
+        FurnaceController &furnaceController;
 
         ServoController &servoController;
 

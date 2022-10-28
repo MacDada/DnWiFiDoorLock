@@ -1,19 +1,19 @@
-#include "DoorLockController.h"
+#include "FurnaceController.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
-    DoorLockController::DoorLockController(
+    FurnaceController::FurnaceController(
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
-        DnWiFiDoorLock::Arduino::DoorLock &doorLock,
+        DnWiFiDoorLock::Furnace &furnace,
         DnWiFiDoorLock::Logger::Logger &logger
     ):
         hardware(hardware),
-        doorLock(doorLock),
+        furnace(furnace),
         logger(logger) {
     }
 
-    void DoorLockController::statusAction(AsyncWebServerRequest &request) const {
-        logger.log("DoorLockController::statusAction()");
+    void FurnaceController::statusAction(AsyncWebServerRequest &request) const {
+        logger.log("FurnaceController::statusAction()");
 
         Time uptime = hardware.getUptime();
 
@@ -28,7 +28,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     <html>
                     <head>
                         <meta charset="utf-8">
-                        <title>EspDoorLock: %s</title>
+                        <title>EspDoorLock: ogrzewanie: %s</title>
                         <style>
                             h1 {
                                 font-size: 1000%%;
@@ -37,7 +37,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                         </style>
                     </head>
                     <body>
-                        <form action="/doorlock/switch" method="post">
+                        <form action="/furnace/switch" method="post">
                             <center>
                                 <button type="submit">
                                     <h1>%s</h1>
@@ -49,9 +49,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     </body>
                     </html>)"
                 ),
-                doorLock.isClosed() ? "zamknięte!" : "otwarte!",
-                doorLock.isClosed() ? "&#128274;" : "&#128275;",
-                doorLock.isClosed() ? "Zamknięte!" : "Otwarte!",
+                furnace.isHeaterOn() ? "włączone!" : "wyłączone!",
+                furnace.isHeaterOn() ? "&#128293;" : "&#10060;",
+                furnace.isHeaterOn() ? "włączone!" : "wyłączone!",
                 uptime.getHours(),
                 uptime.getRemainingMinutes(),
                 uptime.getRemainingSeconds()
@@ -59,13 +59,27 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void DoorLockController::switchAction(AsyncWebServerRequest &request) {
-        logger.log("DoorLockController::switchAction()");
+    void FurnaceController::switchAction(AsyncWebServerRequest &request) const {
+        logger.log("FurnaceController::switchAction()");
 
-        doorLock.switchOpenClose();
+        furnace.switchHeater();
 
-        // todo: route generator
-        redirect(request, "/doorlock");
+        redirect(request, "/furnace");
+    }
+
+    void FurnaceController::apiAction(AsyncWebServerRequest &request) const {
+        logger.log("FurnaceController::apiAction()");
+
+        if (isRequestMethodPost(request)) {
+            // todo: ON/OFF instead of switch
+            furnace.switchHeater();
+        }
+
+        request.send(
+            HTTP_RESPONSE_STATUS_OK,
+            HTTP_RESPONSE_CONTENT_TYPE_JSON,
+            furnace.isHeaterOn() ? "true" : "false"
+        );
     }
 
 }

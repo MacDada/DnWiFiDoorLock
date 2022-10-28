@@ -10,6 +10,7 @@
 #include "config.h"
 
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
@@ -18,6 +19,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
+#include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
@@ -28,6 +30,7 @@
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/MultipleSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/OTAUpdater.h"
+#include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
@@ -199,10 +202,43 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        auto &getFurnaceHeaterButton() {
+            static DnWiFiDoorLock::Arduino::Servo::Button service{
+                getHardware(),
+                // todo: a different servo than DoorLock servo? ;p
+                getServo(),
+                // todo: config
+                20, // pressingAngle
+                90, // notPressingAngle
+                2000 // pressingMilliseconds
+            };
+
+            return service;
+        }
+
+        auto &getFurnace() {
+            static DnWiFiDoorLock::Arduino::Furnace service{
+                getFurnaceHeaterButton(),
+                getLogger()
+            };
+
+            return service;
+        }
+
         auto &getDoorLockHttpController() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController service{
                 getHardware(),
                 getDoorLock(),
+                getLogger()
+            };
+
+            return service;
+        }
+
+        auto &getFurnaceHttpController() {
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::FurnaceController service{
+                getHardware(),
+                getFurnace(),
                 getLogger()
             };
 
@@ -233,6 +269,7 @@ namespace DnWiFiDoorLock {
                 WEB_SERVER_HOST_NAME,
                 (byte) WEB_SERVER_PORT,
                 getDoorLockHttpController(),
+                getFurnaceHttpController(),
                 getServoHttpController(),
                 getLogger()
             };
@@ -302,7 +339,8 @@ namespace DnWiFiDoorLock {
                 getMdns(),
                 getServer(),
                 getThrottledWiFiSignalStrengthLogger(),
-                getDoorLock()
+                getDoorLock(),
+                getFurnaceHeaterButton()
             };
 
             return service;
