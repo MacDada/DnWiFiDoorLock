@@ -207,10 +207,9 @@ namespace DnWiFiDoorLock {
                 getHardware(),
                 // todo: a different servo than DoorLock servo? ;p
                 getServo(),
-                // todo: config
-                20, // pressingAngle
-                90, // notPressingAngle
-                2000 // pressingMilliseconds
+                FURNACE_HEATER_BUTTON_PRESSING_ANGLE,
+                FURNACE_HEATER_BUTTON_NOT_PRESSING_ANGLE,
+                FURNACE_HEATER_BUTTON_PRESSING_MILLISECONDS
             };
 
             return service;
