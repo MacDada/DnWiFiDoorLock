@@ -22,7 +22,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         void switchAction(AsyncWebServerRequest &request) const;
 
-        void apiAction(AsyncWebServerRequest &request) const;
+        void apiGetAction(AsyncWebServerRequest &request) const;
+
+        void apiPostAction(AsyncWebServerRequest &request, const String &body) const;
 
     private:
         const DnWiFiDoorLock::Arduino::Hardware &hardware;

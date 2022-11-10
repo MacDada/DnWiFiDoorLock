@@ -53,6 +53,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         // todo: is there a way to avoid declaring private methods in header file? looks unnecessary to me ;)
         void logServerHasStarted();
+
+        String dataToString(const uint8_t *data, size_t dataLength) const;
     };
 
     static_assert(!std::is_abstract<ServerSetup>());

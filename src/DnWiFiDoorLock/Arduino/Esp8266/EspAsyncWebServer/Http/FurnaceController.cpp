@@ -67,16 +67,40 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         redirect(request, "/furnace");
     }
 
-    void FurnaceController::apiAction(AsyncWebServerRequest &request) const {
-        logger.log("FurnaceController::apiAction()");
-
-        if (isRequestMethodPost(request)) {
-            // todo: ON/OFF instead of switch
-            furnace.switchHeater();
-        }
+    void FurnaceController::apiGetAction(AsyncWebServerRequest &request) const {
+        logger.log("FurnaceController::apiGetAction()");
 
         request.send(
             HTTP_RESPONSE_STATUS_OK,
+            HTTP_RESPONSE_CONTENT_TYPE_JSON,
+            furnace.isHeaterOn() ? "true" : "false"
+        );
+    }
+
+    void FurnaceController::apiPostAction(
+        AsyncWebServerRequest &request,
+        const String &body
+    ) const {
+        logger.log("FurnaceController::apiPostAction()");
+
+        if (body.equals("ON")) {
+            furnace.turnOnHeater();
+        } else if (body.equals("OFF")) {
+            furnace.turnOffHeater();
+        } else {
+            logger.log("FurnaceController::apiPostAction(): Invalid value response");
+
+            request.send(
+                HTTP_RESPONSE_STATUS_BAD_REQUEST,
+                HTTP_RESPONSE_CONTENT_TYPE_JSON,
+                "Invalid value"
+            );
+
+            return;
+        }
+
+        request.send(
+            HTTP_RESPONSE_STATUS_ACCEPTED,
             HTTP_RESPONSE_CONTENT_TYPE_JSON,
             furnace.isHeaterOn() ? "true" : "false"
         );

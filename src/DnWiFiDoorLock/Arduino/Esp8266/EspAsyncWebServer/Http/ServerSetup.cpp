@@ -52,8 +52,22 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             furnaceController.switchAction(*request);
         });
 
-        server.on("/api/furnace", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {
-            furnaceController.apiAction(*request);
+        server.on("/api/furnace", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            furnaceController.apiGetAction(*request);
+        });
+
+        server.on("/api/furnace", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+            // ignore, we use the callback with request body
+        }, nullptr, [&](
+            AsyncWebServerRequest *request,
+            uint8_t *bodyData,
+            size_t bodyDataLength,
+            size_t index,
+            size_t total
+        ) {
+            String body = dataToString(bodyData, bodyDataLength);
+
+            furnaceController.apiPostAction(*request, body);
         });
 
         server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {
@@ -102,6 +116,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     void ServerSetup::onLoop() {
         // do nothing
+    }
+
+    String ServerSetup::dataToString(const uint8_t *data, size_t dataLength) const {
+        String string;
+        string.reserve(dataLength);
+
+        for (size_t i = 0; i < dataLength; i++) {
+            string += char(data[i]);
+        }
+
+        return string;
     }
 
 }
