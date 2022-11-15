@@ -19,9 +19,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
     }
 
     void LoopAwareSignalStrengthLogger::log() {
-        String message = "WiFi signal strength: ";
-        message += esp8266WiFi.RSSI();
-        message += " dBm";
+        String message = "WiFi ";
+
+        if (esp8266WiFi.isConnected()) {
+            message += "signal strength: ";
+            message += esp8266WiFi.RSSI();
+            message += " dBm";
+        } else {
+            message += "NOT connected!";
+        }
 
         logger.log(message);
     }

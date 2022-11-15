@@ -42,9 +42,11 @@ To Do
 ---
 
 * [x] door lock open/close by website
+* [x] automatically reconnects to Wi-Fi after lost connection
+* [x] indicates lost Wi-Fi connection by blinking led
 * [ ] physical buttons to open/close
 * [ ] servo cutoff power circuit for energy saving
   > Use one pin with the servo library to control the position
      and use another the other pin with a MOSFET (/(npn switching) transistor (like 2N4401) / relay)
      (or other higher current driver) to turn the power to each servo on and off as you need to.
-* [ ] door lock should work without wi-fi (i.e. being closed by default)
+* [ ] door lock should work without Wi-Fi (i.e. being closed by default)

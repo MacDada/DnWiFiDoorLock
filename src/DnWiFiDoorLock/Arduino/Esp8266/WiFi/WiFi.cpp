@@ -23,7 +23,9 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     }
 
     void WiFi::onLoop() {
-        // do nothing
+        if (!esp8266WiFi.isConnected()) {
+            ledBlinker.blinkFast(2);
+        }
     }
 
     void WiFi::connect() {
