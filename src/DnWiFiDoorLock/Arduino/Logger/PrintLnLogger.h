@@ -38,18 +38,6 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             doLog(message);
         };
 
-        void log(const int message) override {
-            doLog(message);
-        };
-
-        void log(const double message) override {
-            doLog(message);
-        };
-
-        void log(const float message) override {
-            doLog(message);
-        };
-
     private:
         Printer &printer;
 

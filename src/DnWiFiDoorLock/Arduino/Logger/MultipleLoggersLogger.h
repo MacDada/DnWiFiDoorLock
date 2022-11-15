@@ -21,12 +21,6 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         void log(char *message) override;
 
-        void log(int message) override;
-
-        void log(double message) override;
-
-        void log(float message) override;
-
     private:
         /**
          * vector cannot store abstract classes as values,
