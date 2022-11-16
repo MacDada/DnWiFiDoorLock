@@ -80,7 +80,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServerSetup::handleWebNotFound(AsyncWebServerRequest &request) {
-        logger.log(Tools::format(
+        logger.log(Logger::LOG_LEVEL::WARNING, Tools::format(
             "HttpServer: page not found! URI: %s, method: %s",
             request.url().c_str(),
             request.methodToString()
@@ -111,7 +111,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         message += port;
         message += " in a web browser :)";
 
-        logger.log(message);
+        logger.log(Logger::LOG_LEVEL::INFO, message);
     }
 
     void ServerSetup::onLoop() {

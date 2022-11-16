@@ -13,13 +13,13 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     public:
         explicit MultipleLoggersLogger(const std::vector<LoggerReference> &loggers);
 
-        void log(std::unique_ptr<char[]> message) override;
+        void log(LOG_LEVEL level, std::unique_ptr<char[]> message) override;
 
-        void log(const String &message) override;
+        void log(LOG_LEVEL level, const String &message) override;
 
-        void log(const char *message) override;
+        void log(LOG_LEVEL level, const char *message) override;
 
-        void log(char *message) override;
+        void log(LOG_LEVEL level, char *message) override;
 
     private:
         /**
@@ -29,9 +29,9 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         const std::vector<LoggerReference> &loggers;
 
         template <typename MessageType>
-        void doLog(const MessageType message) const {
+        void doLog(LOG_LEVEL level, const MessageType message) const {
             for (const auto &logger : loggers) {
-                logger.get().log(message);
+                logger.get().log(level, message);
             }
         }
     };

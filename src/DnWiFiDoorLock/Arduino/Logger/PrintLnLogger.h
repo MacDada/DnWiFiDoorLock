@@ -22,27 +22,30 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             printer(printer) {
         };
 
-        void log(const std::unique_ptr<char[]> message) override {
-            doLog(message.get());
+        void log(LOG_LEVEL level, std::unique_ptr<char[]> message) override {
+            doLog(level, message.get());
         }
 
-        void log(const String &message) override {
-            doLog(message);
+        void log(LOG_LEVEL level, const String &message) override {
+            doLog(level, message);
         };
 
-        void log(const char *const message) override {
-            doLog(message);
+        void log(LOG_LEVEL level, const char *message) override {
+            doLog(level, message);
         };
 
-        void log(char *const message) override {
-            doLog(message);
+        void log(LOG_LEVEL level, char *message) override {
+            doLog(level, message);
         };
 
     private:
         Printer &printer;
 
         template <typename MessageType>
-        void doLog(const MessageType message) const {
+        void doLog(LOG_LEVEL level, const MessageType message) const {
+            printer.print("[");
+            printer.print(LOG_LEVELS[static_cast<int>(level)]);
+            printer.print("] ");
             printer.println(message);
         }
     };

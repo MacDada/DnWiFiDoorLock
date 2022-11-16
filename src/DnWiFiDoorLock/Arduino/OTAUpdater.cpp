@@ -29,19 +29,22 @@ namespace DnWiFiDoorLock::Arduino {
             }
 
             // NOTE: if updating FS this would be the place to unmount FS using FS.end()
-            logger.log("Start updating " + type);
+            logger.log(Logger::Logger::LOG_LEVEL::INFO, "Start updating " + type);
         });
 
         ArduinoOTA.onEnd([&]() {
-            logger.log("End");
+            logger.log(Logger::Logger::LOG_LEVEL::INFO, "End");
         });
 
         ArduinoOTA.onProgress([&](const unsigned int progress, const unsigned int total) {
-            logger.log(Tools::format("Progress: %u%%", progress / (total / 100)));
+            logger.log(Logger::Logger::LOG_LEVEL::INFO, Tools::format("Progress: %u%%", progress / (total / 100)));
         });
 
         ArduinoOTA.onError([&](const ota_error_t error) {
-            logger.log(Tools::format("Error[%u]: %s", error, otaErrorToString(error)));
+            logger.log(
+                Logger::Logger::LOG_LEVEL::ERROR,
+                Tools::format("Error[%u]: %s", error, otaErrorToString(error))
+            );
         });
 
         ArduinoOTA.begin();

@@ -31,14 +31,14 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     void WiFi::connect() {
         esp8266WiFi.begin(this->ssid, this->password);
 
-        logger.log(Tools::format("WiFi selected: \"%s\"", this->ssid));
-        logger.log("Connecting");
+        logger.log(Logger::Logger::LOG_LEVEL::INFO, Tools::format("WiFi selected: \"%s\"", this->ssid));
+        logger.log(Logger::Logger::LOG_LEVEL::INFO, "Connecting");
 
         hardware.pause(1000);
 
         waitForConnection();
 
-        logger.log(Tools::format(
+        logger.log(Logger::Logger::LOG_LEVEL::INFO, Tools::format(
             "Connected, IP address: %s",
             esp8266WiFi.localIP().toString().c_str()
         ));
@@ -60,7 +60,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             connectingMessage += ".";
 
-            logger.log(connectingMessage);
+            logger.log(Logger::Logger::LOG_LEVEL::INFO, connectingMessage);
 
             if (++tries > 20) {
                 informAboutConnectingIssue(tries, status);
@@ -72,7 +72,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         ledBlinker.blinkFast(3);
 
         if (0 == tries % 5) {
-            logger.log(Tools::format(
+            logger.log(Logger::Logger::LOG_LEVEL::WARNING, Tools::format(
                 "WiFi is still not connected, status: %s (%d)",
                 wiFiConnectionStatusToString(status),
                 (int) status

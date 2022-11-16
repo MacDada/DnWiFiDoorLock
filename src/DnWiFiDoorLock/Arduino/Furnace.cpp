@@ -20,24 +20,24 @@ namespace DnWiFiDoorLock::Arduino {
 
     void Furnace::turnOnHeater() {
         if (heaterOn) {
-            logger.log("Furnace: heater is already on");
+            logger.log(Logger::Logger::LOG_LEVEL::WARNING, "Furnace: heater is already on");
 
             return;
         }
 
-        logger.log("Furnace: turning on heater");
+        logger.log(Logger::Logger::LOG_LEVEL::INFO, "Furnace: turning on heater");
         heaterButton.press();
         heaterOn = true;
     }
 
     void Furnace::turnOffHeater() {
         if (!heaterOn) {
-            logger.log("Furnace: heater is already off");
+            logger.log(Logger::Logger::LOG_LEVEL::WARNING, "Furnace: heater is already off");
 
             return;
         }
 
-        logger.log("Furnace: turning off heater");
+        logger.log(Logger::Logger::LOG_LEVEL::INFO, "Furnace: turning off heater");
         heaterButton.press();
         heaterOn = false;
     }

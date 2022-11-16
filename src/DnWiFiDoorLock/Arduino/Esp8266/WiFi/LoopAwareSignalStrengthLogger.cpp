@@ -25,11 +25,13 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
             message += "signal strength: ";
             message += esp8266WiFi.RSSI();
             message += " dBm";
+
+            logger.log(Logger::LOG_LEVEL::INFO, message);
         } else {
             message += "NOT connected!";
-        }
 
-        logger.log(message);
+            logger.log(Logger::LOG_LEVEL::ERROR, message);
+        }
     }
 
 }
