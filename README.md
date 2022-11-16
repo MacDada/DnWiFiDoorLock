@@ -5,6 +5,7 @@ DnWiFiDoorLock
 
 Thank you for all the help I received on [`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
  
+- `alex88#9252`
 - `Arno#7285`
 - `Doctor Bazooka#2461`
 - `DXPower#0133`
