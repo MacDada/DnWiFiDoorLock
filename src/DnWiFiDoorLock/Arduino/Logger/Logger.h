@@ -10,13 +10,11 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
     class Logger: public DnWiFiDoorLock::Logger::Logger {
     public:
-        virtual void log(LOG_LEVEL level, const String &message) = 0;
+        using DnWiFiDoorLock::Logger::Logger::log;
 
-        virtual void log(LOG_LEVEL level, std::unique_ptr<char[]> message) override = 0;
-
-        virtual void log(LOG_LEVEL level, const char *message) override = 0;
-
-        virtual void log(LOG_LEVEL level, char *message) override = 0;
+        void log(LOG_LEVEL level, const String &message) {
+            log(level, message.c_str());
+        }
     };
 
     using LoggerReference = std::reference_wrapper<Logger>;

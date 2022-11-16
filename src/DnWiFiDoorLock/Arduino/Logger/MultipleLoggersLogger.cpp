@@ -8,18 +8,11 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         loggers(loggers) {
     }
 
-    void MultipleLoggersLogger::log(LOG_LEVEL level, const String &message) {
+    void MultipleLoggersLogger::log(LOG_LEVEL level, const char *message) {
         // todo: DRY those methods?
         //       * maybe macro to generate those methods? since i think templates cant do that
         //       * or maybe std::any?
-        doLog(level, message);
-    }
-
-    void MultipleLoggersLogger::log(LOG_LEVEL level, std::unique_ptr<char[]> message) {
-        doLog(level, message.get());
-    }
-
-    void MultipleLoggersLogger::log(LOG_LEVEL level, const char *message) {
+        //       * or maybe i can define it somehow in the base class and get rid of the template functions?
         doLog(level, message);
     }
 

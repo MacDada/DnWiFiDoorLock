@@ -22,16 +22,18 @@ namespace DnWiFiDoorLock::Logger {
             "critical"
         };
 
-        virtual void log(LOG_LEVEL level, std::unique_ptr<char[]> message) = 0;
+        // ATTENTION!
+        // https://isocpp.org/wiki/faq/strange-inheritance#hiding-rule
+        void log(LOG_LEVEL level, std::unique_ptr<char[]> message) {
+            log(level, message.get());
+        }
 
         virtual void log(LOG_LEVEL level, const char *message) = 0;
 
         virtual void log(LOG_LEVEL level, char *message) = 0;
 
         void debug(std::unique_ptr<char[]> message) {
-            // unique_ptr is not CopyConstructible, must be moved:
-            // https://discord.com/channels/583251190591258624/1011060751630352414/1042248128532856975
-            log(LOG_LEVEL::DEBUG, std::move(message));
+            log(LOG_LEVEL::DEBUG, message.get());
         };
 
         void debug(const char *message) {
@@ -43,7 +45,7 @@ namespace DnWiFiDoorLock::Logger {
         };
 
         void info(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::INFO, std::move(message));
+            log(LOG_LEVEL::INFO, message.get());
         };
 
         void info(const char *message) {
@@ -55,7 +57,7 @@ namespace DnWiFiDoorLock::Logger {
         };
 
         void warning(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::WARNING, std::move(message));
+            log(LOG_LEVEL::WARNING, message.get());
         };
 
         void warning(const char *message) {
@@ -67,7 +69,7 @@ namespace DnWiFiDoorLock::Logger {
         };
 
         void error(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::ERROR, std::move(message));
+            log(LOG_LEVEL::ERROR, message.get());
         };
 
         void error(const char *message) {
@@ -79,7 +81,7 @@ namespace DnWiFiDoorLock::Logger {
         };
 
         void critical(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::CRITICAL, std::move(message));
+            log(LOG_LEVEL::CRITICAL, message.get());
         };
 
         void critical(const char *message) {
