@@ -25,6 +25,7 @@
 #include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Led.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
+#include "DnWiFiDoorLock/Arduino/Logger/FreeHeapDecoratorLogger.h"
 #include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialLogger.h"
 #include "DnWiFiDoorLock/Arduino/Logger/MultipleLoggersLogger.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
@@ -81,9 +82,17 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto &getLogger() {
+        auto &getMultipleLoggersLogger() {
             static DnWiFiDoorLock::Arduino::Logger::MultipleLoggersLogger service{
                 getLoggers()
+            };
+
+            return service;
+        }
+
+        auto &getLogger() {
+            static Arduino::Logger::FreeHeapDecoratorLogger service{
+                getMultipleLoggersLogger()
             };
 
             return service;
