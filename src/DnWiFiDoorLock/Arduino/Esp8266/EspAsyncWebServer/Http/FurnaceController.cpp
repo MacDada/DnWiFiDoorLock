@@ -13,7 +13,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void FurnaceController::statusAction(AsyncWebServerRequest &request) const {
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "FurnaceController::statusAction()");
+        logger.info("FurnaceController::statusAction()");
 
         Time uptime = hardware.getUptime();
 
@@ -60,7 +60,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void FurnaceController::switchAction(AsyncWebServerRequest &request) const {
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "FurnaceController::switchAction()");
+        logger.info("FurnaceController::switchAction()");
 
         furnace.switchHeater();
 
@@ -68,7 +68,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void FurnaceController::apiGetAction(AsyncWebServerRequest &request) const {
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "FurnaceController::apiGetAction()");
+        logger.info("FurnaceController::apiGetAction()");
 
         request.send(
             HTTP_RESPONSE_STATUS_OK,
@@ -81,14 +81,14 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         AsyncWebServerRequest &request,
         const String &body
     ) const {
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "FurnaceController::apiPostAction()");
+        logger.info("FurnaceController::apiPostAction()");
 
         if (body.equals("ON")) {
             furnace.turnOnHeater();
         } else if (body.equals("OFF")) {
             furnace.turnOffHeater();
         } else {
-            logger.log(Logger::Logger::LOG_LEVEL::WARNING, "FurnaceController::apiPostAction(): Invalid value response");
+            logger.warning("FurnaceController::apiPostAction(): Invalid value response");
 
             request.send(
                 HTTP_RESPONSE_STATUS_BAD_REQUEST,

@@ -43,13 +43,13 @@ namespace DnWiFiDoorLock::Arduino {
     }
 
     void DoorLock::open() {
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "DoorLock: opening");
+        logger.info("DoorLock: opening");
 
         servo.setAngle(openAngle);
     }
 
     void DoorLock::close() {
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "DoorLock: closing");
+        logger.info("DoorLock: closing");
 
         servo.setAngle(closedAngle);
     }

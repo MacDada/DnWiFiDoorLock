@@ -31,8 +31,8 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     void WiFi::connect() {
         esp8266WiFi.begin(this->ssid, this->password);
 
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, Tools::format("WiFi selected: \"%s\"", this->ssid));
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, "Connecting");
+        logger.info(Tools::format("WiFi selected: \"%s\"", this->ssid));
+        logger.info("Connecting");
 
         hardware.pause(1000);
 

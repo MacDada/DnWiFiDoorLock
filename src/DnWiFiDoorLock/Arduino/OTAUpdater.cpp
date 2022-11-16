@@ -33,7 +33,7 @@ namespace DnWiFiDoorLock::Arduino {
         });
 
         ArduinoOTA.onEnd([&]() {
-            logger.log(Logger::Logger::LOG_LEVEL::INFO, "End");
+            logger.info("End");
         });
 
         ArduinoOTA.onProgress([&](const unsigned int progress, const unsigned int total) {
