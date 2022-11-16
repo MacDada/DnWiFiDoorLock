@@ -22,74 +22,74 @@ namespace DnWiFiDoorLock::Logger {
             "critical"
         };
 
+        virtual void log(LOG_LEVEL level, char *message) = 0;
+
+        virtual void log(LOG_LEVEL level, const char *message) = 0;
+
         // ATTENTION!
         // https://isocpp.org/wiki/faq/strange-inheritance#hiding-rule
         void log(LOG_LEVEL level, std::unique_ptr<char[]> message) {
             log(level, message.get());
         }
 
-        virtual void log(LOG_LEVEL level, const char *message) = 0;
-
-        virtual void log(LOG_LEVEL level, char *message) = 0;
-
-        void debug(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::DEBUG, message.get());
+        void debug(char *message) {
+            log(LOG_LEVEL::DEBUG, message);
         };
 
         void debug(const char *message) {
             log(LOG_LEVEL::DEBUG, message);
         };
 
-        void debug(char *message) {
-            log(LOG_LEVEL::DEBUG, message);
-        };
-
-        void info(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::INFO, message.get());
-        };
-
-        void info(const char *message) {
-            log(LOG_LEVEL::INFO, message);
+        void debug(std::unique_ptr<char[]> message) {
+            log(LOG_LEVEL::DEBUG, message.get());
         };
 
         void info(char *message) {
             log(LOG_LEVEL::INFO, message);
         };
 
-        void warning(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::WARNING, message.get());
+        void info(const char *message) {
+            log(LOG_LEVEL::INFO, message);
         };
 
-        void warning(const char *message) {
-            log(LOG_LEVEL::WARNING, message);
+        void info(std::unique_ptr<char[]> message) {
+            log(LOG_LEVEL::INFO, message.get());
         };
 
         void warning(char *message) {
             log(LOG_LEVEL::WARNING, message);
         };
 
-        void error(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::ERROR, message.get());
+        void warning(const char *message) {
+            log(LOG_LEVEL::WARNING, message);
         };
 
-        void error(const char *message) {
-            log(LOG_LEVEL::ERROR, message);
+        void warning(std::unique_ptr<char[]> message) {
+            log(LOG_LEVEL::WARNING, message.get());
         };
 
         void error(char *message) {
             log(LOG_LEVEL::ERROR, message);
         };
 
-        void critical(std::unique_ptr<char[]> message) {
-            log(LOG_LEVEL::CRITICAL, message.get());
+        void error(const char *message) {
+            log(LOG_LEVEL::ERROR, message);
+        };
+
+        void error(std::unique_ptr<char[]> message) {
+            log(LOG_LEVEL::ERROR, message.get());
+        };
+
+        void critical(char *message) {
+            log(LOG_LEVEL::CRITICAL, message);
         };
 
         void critical(const char *message) {
             log(LOG_LEVEL::CRITICAL, message);
         };
 
-        void critical(char *message) {
-            log(LOG_LEVEL::CRITICAL, message);
+        void critical(std::unique_ptr<char[]> message) {
+            log(LOG_LEVEL::CRITICAL, message.get());
         };
     };
 

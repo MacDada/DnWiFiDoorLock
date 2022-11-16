@@ -24,11 +24,11 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         using Logger::log;
 
-        void log(LOG_LEVEL level, const char *message) override {
+        void log(LOG_LEVEL level, char *message) override {
             doLog(level, message);
         };
 
-        void log(LOG_LEVEL level, char *message) override {
+        void log(LOG_LEVEL level, const char *message) override {
             doLog(level, message);
         };
 
