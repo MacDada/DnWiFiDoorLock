@@ -60,7 +60,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             connectingMessage += ".";
 
-            logger.log(Logger::Logger::LOG_LEVEL::INFO, connectingMessage);
+            logger.info(connectingMessage);
 
             if (++tries > 20) {
                 informAboutConnectingIssue(tries, status);

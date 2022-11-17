@@ -111,7 +111,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         message += port;
         message += " in a web browser :)";
 
-        logger.log(Logger::LOG_LEVEL::INFO, message);
+        logger.info(message);
     }
 
     void ServerSetup::onLoop() {
