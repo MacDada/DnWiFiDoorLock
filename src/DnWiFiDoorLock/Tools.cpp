@@ -14,6 +14,8 @@ namespace DnWiFiDoorLock {
 
         vsnprintf(buffer.get(), needed, format, args);
 
+        va_end(args);
+
         return buffer;
     }
 
