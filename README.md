@@ -29,9 +29,6 @@ BUT we can combine both commands to run one after another:
 
 `pio run -t upload -t monitor`
 
-todo: why doesn't `pio run -t upload, monitor` work?
-[in the docs they say `, ` should work](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#projectconf-targets).
-
 Code quality
 ===
 
