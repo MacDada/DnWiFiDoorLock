@@ -32,6 +32,11 @@ BUT we can combine both commands to run one after another:
 todo: why doesn't `pio run -t upload, monitor` work?
 [in the docs they say `, ` should work](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#projectconf-targets).
 
+Code quality
+===
+
+`pio check`
+
 ---
 
 To be used eventually?
@@ -51,3 +56,5 @@ To Do
      and use another the other pin with a MOSFET (/(npn switching) transistor (like 2N4401) / relay)
      (or other higher current driver) to turn the power to each servo on and off as you need to.
 * [ ] door lock should work without Wi-Fi (i.e. being closed by default)
+* [ ] configure `pio check` so it does not analyse external libraries
+      https://docs.platformio.org/en/latest/core/userguide/cmd_check.html
