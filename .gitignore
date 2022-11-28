@@ -1,4 +1,4 @@
 .pio
 CMakeListsPrivate.txt
 cmake-build-*/
-/platformio_secret.ini
+/config/secret.ini
