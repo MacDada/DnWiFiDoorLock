@@ -1,6 +1,5 @@
 DnWiFiDoorLock
 ===
-
 ---
 
 Thank you for all the help I received on [`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
@@ -14,7 +13,13 @@ Thank you for all the help I received on [`Better C++` Discord server](https://d
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
 
---- 
+Thank you for all the help I received on [`PlatformIO Community` forum](https://community.platformio.org/)!
+
+- [`maxgerhardt`](https://community.platformio.org/t/there-is-no-simple-build-target-to-run/30564/2)
+
+---
+A few notes
+---
 
 Compile and upload to the device:
 
@@ -30,17 +35,11 @@ BUT we can combine both commands to run one after another:
 `pio run -t upload -t monitor`
 
 Code quality
-===
+---
 
 `pio check`
 
 ---
-
-To be used eventually?
-`std::unordered_map<key type, value type>`
-
----
-
 To Do
 ---
 
@@ -55,3 +54,13 @@ To Do
 * [ ] door lock should work without Wi-Fi (i.e. being closed by default)
 * [ ] configure `pio check` so it does not analyse external libraries
       https://docs.platformio.org/en/latest/core/userguide/cmd_check.html
+* [ ] serial monitor output colors
+  * [ ] [possible issue](https://community.platformio.org/t/monitor-configure-colors-for-line-with-tags/8625/10)
+* [ ] To be used eventually? `std::unordered_map<key type, value type>`
+* [ ] [Configure GH Workflows CI](https://piolabs.com/blog/insights/unit-testing-part-3.html)
+* [ ] configure [simulator(s)](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/index.html)
+  * [ ] [QEMU](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
+  * [ ] [Renode](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/renode.html)
+  * [ ] [SimAVR](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/simavr.html)
+
+---
