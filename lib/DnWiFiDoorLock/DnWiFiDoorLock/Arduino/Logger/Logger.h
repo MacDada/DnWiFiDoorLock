@@ -4,19 +4,19 @@
 
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/Logger/Logger.h"
+#include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class Logger: public DnWiFiDoorLock::Logger::Logger {
+    class Logger: public DnApp::Logger::Logger {
     public:
         // we need this NOT to hide base implementations
-        using DnWiFiDoorLock::Logger::Logger::log;
-        using DnWiFiDoorLock::Logger::Logger::debug;
-        using DnWiFiDoorLock::Logger::Logger::info;
-        using DnWiFiDoorLock::Logger::Logger::warning;
-        using DnWiFiDoorLock::Logger::Logger::error;
-        using DnWiFiDoorLock::Logger::Logger::critical;
+        using DnApp::Logger::Logger::log;
+        using DnApp::Logger::Logger::debug;
+        using DnApp::Logger::Logger::info;
+        using DnApp::Logger::Logger::warning;
+        using DnApp::Logger::Logger::error;
+        using DnApp::Logger::Logger::critical;
 
         void log(LOG_LEVEL level, const String &message) {
             log(level, message.c_str());

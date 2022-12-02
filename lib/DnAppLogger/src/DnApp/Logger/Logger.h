@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace DnWiFiDoorLock::Logger {
+namespace DnApp::Logger {
 
     class Logger {
     public:

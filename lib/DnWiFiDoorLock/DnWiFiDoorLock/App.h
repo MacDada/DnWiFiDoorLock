@@ -100,7 +100,7 @@ namespace DnWiFiDoorLock {
         auto &getLogger() {
             static Arduino::Logger::LogLevelThresholdFilteringLogger service{
                 getFreeHeapDecoratorLogger(),
-                Logger::Logger::LOG_LEVEL::INFO
+                DnApp::Logger::Logger::LOG_LEVEL::INFO
             };
 
             return service;

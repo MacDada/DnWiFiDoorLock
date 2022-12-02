@@ -5,7 +5,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
 #include "DnWiFiDoorLock/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "DnWiFiDoorLock/Logger/Logger.h"
+#include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         explicit FurnaceController(
             const DnWiFiDoorLock::Arduino::Hardware &hardware,
             DnWiFiDoorLock::Furnace &furnace,
-            DnWiFiDoorLock::Logger::Logger &logger
+            DnApp::Logger::Logger &logger
         );
 
         void statusAction(AsyncWebServerRequest &request) const;
@@ -31,7 +31,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnWiFiDoorLock::Furnace &furnace;
 
-        DnWiFiDoorLock::Logger::Logger &logger;
+        DnApp::Logger::Logger &logger;
     };
 
     static_assert(!std::is_abstract<FurnaceController>());

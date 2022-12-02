@@ -5,7 +5,7 @@
 #include "DnWiFiDoorLock/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Logger/Logger.h"
+#include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit DoorLock(
             Servo::Servo &servo,
-            DnWiFiDoorLock::Logger::Logger &logger,
+            DnApp::Logger::Logger &logger,
             byte openAngle = Servo::Servo::MIN_ANGLE,
             byte closedAngle = Servo::Servo::MAX_ANGLE
         );
@@ -38,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         Servo::Servo &servo;
 
-        DnWiFiDoorLock::Logger::Logger &logger;
+        DnApp::Logger::Logger &logger;
 
         const byte openAngle;
 

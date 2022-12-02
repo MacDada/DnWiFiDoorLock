@@ -4,7 +4,7 @@
 
 #include "DnWiFiDoorLock/Button.h"
 #include "DnWiFiDoorLock/Furnace.h"
-#include "DnWiFiDoorLock/Logger/Logger.h"
+#include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino {
 
@@ -13,7 +13,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit Furnace(
             Button &heaterButton,
-            DnWiFiDoorLock::Logger::Logger &logger
+            DnApp::Logger::Logger &logger
         );
 
         bool isHeaterOn() const override;
@@ -29,7 +29,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         Button &heaterButton;
 
-        DnWiFiDoorLock::Logger::Logger &logger;
+        DnApp::Logger::Logger &logger;
 
         bool heaterOn = false;
     };

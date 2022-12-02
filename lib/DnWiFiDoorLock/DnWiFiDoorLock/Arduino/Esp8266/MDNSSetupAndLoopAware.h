@@ -5,13 +5,13 @@
 #include <ESP8266mDNS.h>
 
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Logger/Logger.h"
+#include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266 {
 
     class MDNSSetupAndLoopAware final: public SetupAndLoopAware {
         using MDNSResponder = esp8266::MDNSImplementation::MDNSResponder;
-        using Logger        = DnWiFiDoorLock::Logger::Logger;
+        using Logger        = DnApp::Logger::Logger;
 
     public:
         explicit MDNSSetupAndLoopAware(

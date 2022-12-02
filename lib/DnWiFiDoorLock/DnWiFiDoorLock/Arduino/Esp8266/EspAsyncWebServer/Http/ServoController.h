@@ -7,12 +7,12 @@
 
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
-#include "DnWiFiDoorLock/Logger/Logger.h"
+#include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     class ServoController final: public Controller {
-        using Logger  = DnWiFiDoorLock::Logger::Logger;
+        using Logger  = DnApp::Logger::Logger;
         using Request = AsyncWebServerRequest;
         using Servo   = DnWiFiDoorLock::Arduino::Servo::Servo;
 
