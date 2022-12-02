@@ -21,19 +21,38 @@ Thank you for all the help I received on [`PlatformIO Community` forum](https://
 A few notes
 ---
 
-Compile and upload to the device:
+* There are 3 environments:
 
-`pio run -t upload`
+  * `nodemcu` to upload to `NodeMCU DevKit 1.0`,
+  * `native` to run unit tests for pure C++,
+  * `native_arduino` to run unit tests with Arduino framework mocked.
 
-Serial monitor:
+* In general, `pio run` builds `src` dir, while `pio test` builds `test` dir.
 
-`pio run -t monitor`
+* `pio run -e nodemcu` and `pio run -e native` both build `src` directory, but with a configured file.
 
-**When serial monitor is active, the code cannot be uploaded**,
-BUT we can combine both commands to run one after another:
+* `pio run -t upload` builds and uploads to the board.
 
-`pio run -t upload -t monitor`
+* `pio run -t monitor` – serial monitor (over USB cable)
 
+* `pio run -t upload -t monitor` – upload and monitor combined
+
+  **When serial monitor is active, the code cannot be uploaded!**
+  
+  That is why we need to combine this into one command, 
+  instead of having the monitor always in the background.
+
+* `pio run -e native` builds native (desktop / command line) env.
+
+* `pio run -e native -t exec` builds and runs the native "app".
+
+* `pio test -e native` builds and runs tests in `test/native/` directory.
+
+* `pio test -e nodemcu` basically does nothing, as it would build tests do deploy on the embedded device.
+
+* `rm -rf .pio` – a quick way to get rid of the `PIO`'s generated files.
+
+---
 Code quality
 ---
 
@@ -62,5 +81,6 @@ To Do
   * [ ] [QEMU](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
   * [ ] [Renode](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/renode.html)
   * [ ] [SimAVR](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/simavr.html)
+* [ ] configure file watcher [to run build/test as soon as I make changes](https://community.platformio.org/t/a-new-pio-tdd-workflow/21431/4)
 
 ---
