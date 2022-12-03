@@ -106,6 +106,10 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        auto &getArduinoLogger() {
+            return getLogger();
+        }
+
         auto &getArduinoServo() {
             static ::Servo service{};
 
@@ -127,7 +131,7 @@ namespace DnWiFiDoorLock {
                 (byte) SERVO_PIN,
                 600,
                 2400,
-                getLogger()
+                getArduinoLogger()
             };
 
             return service;
@@ -194,7 +198,7 @@ namespace DnWiFiDoorLock {
                 OTA_UPDATE_PORT,
                 OTA_UPDATE_HOST,
                 OTA_UPDATE_PASSWORD_MD5,
-                getLogger()
+                getArduinoLogger()
             };
 
             return service;
@@ -203,7 +207,7 @@ namespace DnWiFiDoorLock {
         auto &getWifiSignalStrengthLogger() {
              static DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger service{
                  ::WiFi,
-                 getLogger()
+                 getArduinoLogger()
              };
 
             return service;
@@ -287,7 +291,7 @@ namespace DnWiFiDoorLock {
                 getDoorLockHttpController(),
                 getFurnaceHttpController(),
                 getServoHttpController(),
-                getLogger()
+                getArduinoLogger()
             };
 
             return service;
@@ -316,7 +320,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::LoopIndicator service{
                 getBuiltInLed(),
                 getBuiltInLedBlinker(),
-                getLogger()
+                getArduinoLogger()
             };
 
             return service;
