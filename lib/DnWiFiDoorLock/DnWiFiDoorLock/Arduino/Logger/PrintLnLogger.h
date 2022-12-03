@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/Logger.h"
 
 /**
  * todo: accept to log any kind of thingy?
@@ -14,7 +14,7 @@
 namespace DnWiFiDoorLock::Arduino::Logger {
 
     template <typename Printer>
-    class PrintLnLogger final: public Logger {
+    class PrintLnLogger final: public DnApp::Arduino::Logger::Logger {
     public:
         explicit PrintLnLogger(
             Printer &printer

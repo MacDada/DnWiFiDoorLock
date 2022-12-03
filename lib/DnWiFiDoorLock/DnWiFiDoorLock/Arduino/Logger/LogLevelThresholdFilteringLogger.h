@@ -2,12 +2,12 @@
 
 #include <type_traits>
 
-#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class LogLevelThresholdFilteringLogger final: public Logger {
+    class LogLevelThresholdFilteringLogger final: public DnApp::Arduino::Logger::Logger {
     public:
         // required because otherwise our log() methods hide base class declarations
         using Logger::log;

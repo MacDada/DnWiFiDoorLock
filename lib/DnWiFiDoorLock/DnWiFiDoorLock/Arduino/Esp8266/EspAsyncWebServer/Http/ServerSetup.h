@@ -4,17 +4,17 @@
 
 #include <ESPAsyncWebServer.h>
 
+#include "DnApp/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
-#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     class ServerSetup final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
-        using Logger = DnWiFiDoorLock::Arduino::Logger::Logger;
+        using Logger = DnApp::Arduino::Logger::Logger;
 
     public:
         ServerSetup(

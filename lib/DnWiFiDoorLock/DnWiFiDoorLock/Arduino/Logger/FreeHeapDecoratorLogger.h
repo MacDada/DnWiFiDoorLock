@@ -2,15 +2,15 @@
 
 #include <type_traits>
 
-#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class FreeHeapDecoratorLogger final: public Logger {
+    class FreeHeapDecoratorLogger final: public DnApp::Arduino::Logger::Logger {
     public:
         // required because otherwise our log() methods hide base class declarations
-        using Logger::log;
+        using DnApp::Arduino::Logger::Logger::log;
 
         explicit FreeHeapDecoratorLogger(Logger &logger):
             logger(logger) {

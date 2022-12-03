@@ -6,7 +6,7 @@
 
 #include "DnApp/Logger/Logger.h"
 
-namespace DnWiFiDoorLock::Arduino::Logger {
+namespace DnApp::Arduino::Logger {
 
     class Logger: public DnApp::Logger::Logger {
     public:

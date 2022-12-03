@@ -7,7 +7,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         const byte pin,
         const int minPulseWidthMicroseconds,
         const int maxPulseWidthMicroseconds,
-        DnWiFiDoorLock::Arduino::Logger::Logger &logger
+        DnApp::Arduino::Logger::Logger &logger
     ):
         servo(servo),
         logger(logger) {
@@ -25,7 +25,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             degrees = MAX_ANGLE;
         }
 
-        logger.log(Logger::Logger::LOG_LEVEL::INFO, Tools::format("Servo: setAngle: write: %d", degrees));
+        logger.log(DnApp::Arduino::Logger::Logger::LOG_LEVEL::INFO, Tools::format("Servo: setAngle: write: %d", degrees));
 
         servo.write(degrees);
     }

@@ -6,13 +6,13 @@
 
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class MultipleLoggersLogger final: public Logger {
+    class MultipleLoggersLogger final: public DnApp::Arduino::Logger::Logger {
     public:
-        explicit MultipleLoggersLogger(const std::vector<LoggerReference> &loggers);
+        explicit MultipleLoggersLogger(const std::vector<DnApp::Arduino::Logger::LoggerReference> &loggers);
 
         using Logger::log;
 
@@ -25,7 +25,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
          * vector cannot store abstract classes as values,
          * but we can store pointers to them
          */
-        const std::vector<LoggerReference> &loggers;
+        const std::vector<DnApp::Arduino::Logger::LoggerReference> &loggers;
 
         template <typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {
