@@ -52,6 +52,8 @@ A few notes
 
 * `rm -rf .pio` – a quick way to get rid of the `PIO`'s generated files.
 
+* `pio init --ide clion`
+
 ---
 Code quality
 ---
@@ -81,6 +83,10 @@ To Do
   * [ ] [QEMU](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
   * [ ] [Renode](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/renode.html)
   * [ ] [SimAVR](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/simavr.html)
-* [ ] configure file watcher [to run build/test as soon as I make changes](https://community.platformio.org/t/a-new-pio-tdd-workflow/21431/4)
+* [ ] configure file watcher [to run build/test as soon as I make changes]
+  * https://community.platformio.org/t/a-new-pio-tdd-workflow/21431/4)
+  * https://www.jetbrains.com/help/clion/using-file-watchers.html#transpilerBehaviour
+  * [x] `pio run` when `platformio.ini` changes
+  * [ ] `pio run && pio test` with specific `pio` `env` when code changes (full build is slow)
 
 ---
