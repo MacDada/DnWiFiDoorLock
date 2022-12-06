@@ -24,29 +24,33 @@ A few notes
 ---
 
 * There are 3 environments:
-
   * `nodemcu` to upload to `NodeMCU DevKit 1.0`,
   * `native` to run unit tests for pure C++,
   * `native_arduino` to run unit tests with Arduino framework mocked.
-
 * In general, `pio run` builds `src` dir, while `pio test` builds `test` dir.
+* `rm -rf .pio` – a quick way to get rid of the `PIO`'s generated files.
+* `pio init --ide clion`
 
-* `pio run -e nodemcu` and `pio run -e native` both build `src` directory, but with a configured file.
+---
+Building, uploading, running, monitoring
+---
 
+* `pio run -e nodemcu` and `pio run -e native` both build `src` directory, but with a given environment config.
 * `pio run -t upload` builds and uploads to the board.
-
 * `pio run -t monitor` – serial monitor (over USB cable)
-
 * `pio run -t upload -t monitor` – upload and monitor combined
 
   **When serial monitor is active, the code cannot be uploaded!**
-  
-  That is why we need to combine this into one command, 
+
+  That is why we need to combine this into one command,
   instead of having the monitor always in the background.
 
 * `pio run -e native` builds native (desktop / command line) env.
-
 * `pio run -e native -t exec` builds and runs the native "app".
+
+---
+Unit Tests
+---
 
 * `pio test -e native` builds and runs tests in `test/native/` directory.
 
@@ -57,11 +61,11 @@ A few notes
   * It is best to configure `External Tools` and `Keymap` in `Clion` to run `tdd.sh`.
   * See more info inside the file.
 
-* `rm -rf .pio` – a quick way to get rid of the `PIO`'s generated files.
+---
+Code quality
+---
 
-* `pio init --ide clion`
-
-* `pio check` – code quality check
+`pio check`
 
 ---
 To Do
