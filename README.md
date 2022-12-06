@@ -15,7 +15,9 @@ Thank you for all the help I received on [`Better C++` Discord server](https://d
 
 Thank you for all the help I received on [`PlatformIO Community` forum](https://community.platformio.org/)!
 
-- [`maxgerhardt`](https://community.platformio.org/t/there-is-no-simple-build-target-to-run/30564/2)
+- [`ivankravets`](https://community.platformio.org/u/ivankravets)
+- [`jcw`](https://community.platformio.org/u/jcw)
+- [`maxgerhardt`](https://community.platformio.org/u/maxgerhardt)
 
 ---
 A few notes
@@ -50,15 +52,16 @@ A few notes
 
 * `pio test -e nodemcu` basically does nothing, as it would build tests do deploy on the embedded device.
 
+* TDD workflow: watches for file changes and runs test(s) immediately, in a continuous loop.
+  * `./tdd.sh native/Foo/test_Foo` – pass path to the test as the first argument.
+  * It is best to configure `External Tools` and `Keymap` in `Clion` to run `tdd.sh`.
+  * See more info inside the file.
+
 * `rm -rf .pio` – a quick way to get rid of the `PIO`'s generated files.
 
 * `pio init --ide clion`
 
----
-Code quality
----
-
-`pio check`
+* `pio check` – code quality check
 
 ---
 To Do
@@ -83,10 +86,5 @@ To Do
   * [ ] [QEMU](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
   * [ ] [Renode](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/renode.html)
   * [ ] [SimAVR](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/simavr.html)
-* [ ] configure file watcher [to run build/test as soon as I make changes]
-  * https://community.platformio.org/t/a-new-pio-tdd-workflow/21431/4)
-  * https://www.jetbrains.com/help/clion/using-file-watchers.html#transpilerBehaviour
-  * [x] `pio run` when `platformio.ini` changes
-  * [ ] `pio run && pio test` with specific `pio` `env` when code changes (full build is slow)
 
 ---

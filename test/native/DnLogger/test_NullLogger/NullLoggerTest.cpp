@@ -1,4 +1,5 @@
 #include <memory>
+
 #include <unity.h>
 
 #include "DnApp/Logger/Logger.h"

@@ -97,7 +97,7 @@ is_not_temporary_file () {
 fswatch --latency 0.1 --recursive ${watch_dirs} |
   while read -r changed_file; do
     if is_not_temporary_file "${changed_file}"; then
-      echo -e "${font_light_gray}File changed: \`${changed_file}\`${font_reset}"
+      echo -e "\n\n${font_light_gray}File changed: \`${changed_file}\`${font_reset}"
       echo -e "${running_message}"
       $test_command
       echo -e "${waiting_message}"
