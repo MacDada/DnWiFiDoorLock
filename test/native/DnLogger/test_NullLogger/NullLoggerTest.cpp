@@ -12,7 +12,7 @@ using DnApp::Logger::NullLogger;
 NullLogger logger;
 
 void test_it_is_a_Logger() {
-    DnApp::Unity::TEST_ASSERT_INSTANCE_OF<Logger>(&logger);
+    TEST_ASSERT_INSTANCE_OF(Logger, &logger);
 }
 
 void test_logging_chars() {

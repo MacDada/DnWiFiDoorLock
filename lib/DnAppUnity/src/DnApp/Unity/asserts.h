@@ -4,14 +4,16 @@
 
 #include "DnApp/Unity/functions.h"
 
-namespace DnApp::Unity {
-    template<typename ExpectedBaseClass, typename ObjectClass>
-    inline void TEST_ASSERT_INSTANCE_OF(const ObjectClass *object) {
-        TEST_ASSERT_TRUE(instance_of<ExpectedBaseClass>(object));
-    }
+#define TEST_ASSERT_INSTANCE_OF(expectedClass, actualObject)                     \
+    UNITY_TEST_ASSERT(                                                           \
+        (DnApp::Unity::instance_of<expectedClass>(actualObject)),                \
+        __LINE__,                                                                \
+        "Expected `" #actualObject "` to be an instance of `" #expectedClass "`" \
+    )
 
-    template<typename ExpectedBaseClass, typename ObjectClass>
-    inline void TEST_ASSERT_NOT_INSTANCE_OF(const ObjectClass *object) {
-        TEST_ASSERT_FALSE(instance_of<ExpectedBaseClass>(object));
-    }
-}
+#define TEST_ASSERT_NOT_INSTANCE_OF(expectedClass, actualObject)                  \
+    UNITY_TEST_ASSERT(                                                            \
+        !(DnApp::Unity::instance_of<expectedClass>(actualObject)),                \
+        __LINE__,                                                                 \
+        "Expected `" #actualObject "` not to an instance of `" #expectedClass "`" \
+    )
