@@ -28,7 +28,7 @@ namespace {
     NullLogger logger;
 
     void test_it_is_a_Logger() {
-        TEST_ASSERT_INSTANCE_OF(Logger, &logger);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
     }
 
     void test_logging_chars() {
