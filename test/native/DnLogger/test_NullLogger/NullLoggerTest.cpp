@@ -1,62 +1,28 @@
-#include <memory>
-
 #include <unity.h>
 
-#include "DnApp/Logger/Logger.h"
 #include "DnApp/Logger/NullLogger.h"
-#include "DnApp/Unity/asserts.h"
 
-#define DN_APP_LOGGER_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(message) { \
-    logger.log(Logger::LOG_LEVEL::DEBUG, message); \
-    logger.log(Logger::LOG_LEVEL::DEBUG, message); \
-    logger.log(Logger::LOG_LEVEL::INFO, message); \
-    logger.log(Logger::LOG_LEVEL::WARNING, message); \
-    logger.log(Logger::LOG_LEVEL::ERROR, message); \
-    logger.log(Logger::LOG_LEVEL::CRITICAL, message); \
-    \
-    logger.debug(message); \
-    logger.info(message); \
-    logger.warning(message); \
-    logger.error(message); \
-    logger.critical(message); \
-}
+#include "../LoggerTest.h"
 
 namespace {
-    using DnApp::Logger::Logger;
-    using DnApp::Logger::NullLogger;
+    DnApp::Logger::NullLogger nullLogger;
+}
 
-    NullLogger logger;
+namespace DnApp::Logger::LoggerTest {
+    DnApp::Logger::Logger &logger = nullLogger;
 
-    void test_it_is_a_Logger() {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
-    }
-
-    void test_logging_chars() {
-        char foo[4] = "foo";
-
-        DN_APP_LOGGER_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo);
-    }
-
-    void test_logging_const_chars() {
-        const char foo[4] = "foo";
-
-        DN_APP_LOGGER_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo);
-    }
-
-    void test_logging_unique_ptr_of_chars() {
-        auto foo = std::make_unique<char[]>(4);
-
-        DN_APP_LOGGER_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(std::make_unique<char[]>(4));
+    void run_tests() {
+        RUN_TEST(test_it_is_a_Logger);
+        RUN_TEST(test_logging_chars);
+        RUN_TEST(test_logging_const_chars);
+        RUN_TEST(test_logging_unique_ptr_of_chars);
     }
 }
 
 int main() {
     UNITY_BEGIN();
 
-    RUN_TEST(test_it_is_a_Logger);
-    RUN_TEST(test_logging_chars);
-    RUN_TEST(test_logging_const_chars);
-    RUN_TEST(test_logging_unique_ptr_of_chars);
+    DnApp::Logger::LoggerTest::run_tests();
 
     return UNITY_END();
 }
