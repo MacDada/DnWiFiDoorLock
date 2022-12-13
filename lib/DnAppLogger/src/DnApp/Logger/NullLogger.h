@@ -7,7 +7,7 @@
 namespace DnApp::Logger {
     class NullLogger final: public Logger {
     public:
-        // required because otherwise our log() methods hide base class declarations
+        // required for our log() implementations not to hide existing base log() methods
         using Logger::log;
 
         void log(LOG_LEVEL level, char *message) override {
