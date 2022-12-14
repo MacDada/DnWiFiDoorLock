@@ -7,7 +7,9 @@
 #include "DnApp/Logger/Logger.h"
 
 namespace DnApp::Arduino::Logger {
-
+    /**
+     * Added sugar methods to handle Arduino's `String`.
+     */
     class Logger: public DnApp::Logger::Logger {
     public:
         // we need this NOT to hide base implementations
@@ -44,5 +46,4 @@ namespace DnApp::Arduino::Logger {
     };
 
     using LoggerReference = std::reference_wrapper<Logger>;
-
 }

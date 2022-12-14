@@ -3,7 +3,6 @@
 #include <memory>
 
 namespace DnApp::Logger {
-
     /**
      * Use `debug(<message>)`, `info(<message>)`, `warning(<message>)`
      * `error(<message>)`, `critical(<message>)` in most cases.
@@ -101,5 +100,4 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::CRITICAL, message.get());
         };
     };
-
 }
