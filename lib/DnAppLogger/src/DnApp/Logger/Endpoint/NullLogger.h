@@ -4,7 +4,7 @@
 
 #include "DnApp/Logger/Logger.h"
 
-namespace DnApp::Logger {
+namespace DnApp::Logger::Endpoint {
     class NullLogger final: public Logger {
     public:
         // required for our log() implementations not to hide existing base log() methods

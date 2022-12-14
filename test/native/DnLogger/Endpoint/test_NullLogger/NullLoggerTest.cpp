@@ -2,7 +2,7 @@
 
 #include <unity.h>
 
-#include "DnApp/Logger/NullLogger.h"
+#include "DnApp/Logger/Endpoint/NullLogger.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Unity/asserts.h"
 
@@ -23,7 +23,7 @@
 namespace {
     using DnApp::Logger::Logger;
 
-    DnApp::Logger::NullLogger logger;
+    DnApp::Logger::Endpoint::NullLogger logger;
 
     void test_it_is_a_Logger() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
