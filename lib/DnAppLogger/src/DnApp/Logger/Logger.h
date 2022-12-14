@@ -4,6 +4,15 @@
 
 namespace DnApp::Logger {
 
+    /**
+     * Use `debug(<message>)`, `info(<message>)`, `warning(<message>)`
+     * `error(<message>)`, `critical(<message>)` in most cases.
+     *
+     * Use `log(<log level>, <message>)` when dynamic log level needed.
+     *
+     * For all logging methods, you can pass 3 types of messages:
+     * `char[]`, `const char[]` and `std::unique_ptr<char[]>`.
+     */
     class Logger {
     public:
         enum struct LOG_LEVEL {

@@ -4,15 +4,7 @@
 
 #include "DnApp/Arduino/Logger/Logger.h"
 
-/**
- * todo: accept to log any kind of thingy?
- * https://discord.com/channels/583251190591258624/742849025191051326/995776740892885112
- *
- * typeID(T).name()
- */
-
 namespace DnWiFiDoorLock::Arduino::Logger {
-
     template <typename Printer>
     class PrintLnLogger final: public DnApp::Arduino::Logger::Logger {
     public:
@@ -31,7 +23,6 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         void log(LOG_LEVEL level, const char *message) override {
             doLog(level, message);
         };
-
     private:
         Printer &printer;
 
@@ -43,5 +34,4 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             printer.println(message);
         }
     };
-
 }
