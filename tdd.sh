@@ -56,8 +56,8 @@ font_italic="${font_escape}3m"
 script_name=$(basename "${0}")
 
 waiting_message="
-${font_bold_blue}\
----
+${font_bold_blue}\n\n\n\
+------------------------------------
 ${script_name}: \
 waiting for changes to run...
   \`\
@@ -65,15 +65,14 @@ ${font_regular_blue}\
 ${font_italic}\
 ${test_command}\
 ${font_bold_blue}\`
----\
+------------------------------------\
 ${font_reset}\
 "
 
 running_message="
 ${font_bold_blue}\
----
-${script_name}: \
-running...
+------------------------------------
+${script_name}: running...
   \`\
 ${font_regular_blue}\
 ${font_italic}\
@@ -81,7 +80,7 @@ ${test_command}\
 ${font_reset}\
 ${font_bold_blue}\
 \`
----\
+------------------------------------\
 ${font_reset}
 "
 
@@ -97,9 +96,14 @@ is_not_temporary_file () {
 fswatch --latency 0.1 --recursive ${watch_dirs} |
   while read -r changed_file; do
     if is_not_temporary_file "${changed_file}"; then
-      echo -e "\n\n${font_light_gray}File changed: \`${changed_file}\`${font_reset}"
+      echo -e "${font_light_gray}"
+      echo -e "\n\n\n\n\n\n\n---------------------"
+      echo -e "${script_name}: file changed:"
+      echo -e "  \`${changed_file}\`"
+      echo -e "---------------------"
+      echo -e "${font_reset}"
       echo -e "${running_message}"
       $test_command
-      echo -e "${waiting_message}"
+      echo -e "\n\n${waiting_message}"
     fi
   done
