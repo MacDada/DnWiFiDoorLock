@@ -29,6 +29,10 @@ namespace {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
     }
 
+    void test_logging_literals() {
+        DN_APP_LOGGER_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+    }
+
     void test_logging_chars() {
         char foo[4] = "foo";
 
@@ -52,6 +56,7 @@ int main() {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Logger);
+    RUN_TEST(test_logging_literals);
     RUN_TEST(test_logging_chars);
     RUN_TEST(test_logging_const_chars);
     RUN_TEST(test_logging_unique_ptr_of_chars);
