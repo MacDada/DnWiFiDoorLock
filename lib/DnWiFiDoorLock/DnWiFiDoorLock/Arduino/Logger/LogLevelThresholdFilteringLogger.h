@@ -7,7 +7,8 @@
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
-    class LogLevelThresholdFilteringLogger final: public DnApp::Arduino::Logger::Logger {
+    class LogLevelThresholdFilteringLogger final:
+        public DnApp::Arduino::Logger::Logger {
     public:
         // required because otherwise our log() methods hide base class declarations
         using Logger::log;
