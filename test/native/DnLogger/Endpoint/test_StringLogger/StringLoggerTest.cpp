@@ -11,14 +11,19 @@ namespace {
 
     DnApp::Logger::Endpoint::StringLogger logger{};
 
-    const int TEST_MESSAGE_SIZE = 21;
-
     auto makeUniquePtrOfChars(const char testMessage[]) {
-        auto ptr = std::make_unique<char[]>(TEST_MESSAGE_SIZE);
+        auto ptr = std::make_unique<char[]>(strlen(testMessage) + 1);
 
         strcpy(ptr.get(), testMessage);
 
         return ptr;
+    }
+
+    void test_making_unique_ptr_of_chars() {
+        TEST_ASSERT_EQUAL_STRING(
+            "FooBarBaz",
+            makeUniquePtrOfChars("FooBarBaz").get()
+        );
     }
 
     void test_it_is_a_Logger() {
@@ -224,6 +229,7 @@ void setUp() {
 int main() {
     UNITY_BEGIN();
 
+    RUN_TEST(test_making_unique_ptr_of_chars);
     RUN_TEST(test_it_is_a_Logger);
     RUN_TEST(test_it_is_empty_at_start);
     RUN_TEST(test_clear);

@@ -10,6 +10,7 @@ Thank you for all the help I received on [`Better C++` Discord server](https://d
 - `DXPower#0133`
 - `Felix#6325`
 - `Fluffles#6709`
+- `Jérôme#1807`
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
 

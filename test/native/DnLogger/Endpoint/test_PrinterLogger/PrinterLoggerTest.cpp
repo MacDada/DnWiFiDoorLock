@@ -40,10 +40,8 @@ namespace {
 
     DnApp::Logger::Endpoint::PrinterLogger logger{printer};
 
-    const int TEST_MESSAGE_SIZE = 21;
-
     auto makeUniquePtrOfChars(const char testMessage[]) {
-        auto ptr = std::make_unique<char[]>(TEST_MESSAGE_SIZE);
+        auto ptr = std::make_unique<char[]>(strlen(testMessage) + 1);
 
         strcpy(ptr.get(), testMessage);
 
