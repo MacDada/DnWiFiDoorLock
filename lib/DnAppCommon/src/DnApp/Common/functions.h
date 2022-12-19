@@ -2,10 +2,10 @@
 
 #include <type_traits>
 
-namespace DnApp::Unity {
+namespace DnApp::Common {
     // https://stackoverflow.com/a/25231384/666907
     template<typename BaseClass, typename ObjectClass>
-    inline bool instance_of(const ObjectClass *) {
+    inline bool instanceOf(const ObjectClass *) {
         return std::is_base_of<BaseClass, ObjectClass>::value;
     }
 }
