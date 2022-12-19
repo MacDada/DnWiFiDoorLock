@@ -2,6 +2,7 @@
 
 #include <unity.h>
 
+#include "DnApp/Common/functions.h"
 #include "DnApp/Logger/Endpoint/StringLogger.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Unity/asserts.h"
@@ -10,21 +11,6 @@ namespace {
     using DnApp::Logger::Logger;
 
     DnApp::Logger::Endpoint::StringLogger logger{};
-
-    auto makeUniquePtrOfChars(const char testMessage[]) {
-        auto ptr = std::make_unique<char[]>(strlen(testMessage) + 1);
-
-        strcpy(ptr.get(), testMessage);
-
-        return ptr;
-    }
-
-    void test_making_unique_ptr_of_chars() {
-        TEST_ASSERT_EQUAL_STRING(
-            "FooBarBaz",
-            makeUniquePtrOfChars("FooBarBaz").get()
-        );
-    }
 
     void test_it_is_a_Logger() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Logger::Logger, &logger);
@@ -182,7 +168,7 @@ namespace {
     }
 
     void test_logging_unique_ptr_of_chars() {
-        constexpr auto f = makeUniquePtrOfChars;
+        constexpr auto f = DnApp::Common::makeUniquePtrOfChars;
 
         logger.log(Logger::LOG_LEVEL::DEBUG, f("log debug message"));
         logger.log(Logger::LOG_LEVEL::INFO, f("log info message"));
@@ -229,7 +215,6 @@ void setUp() {
 int main() {
     UNITY_BEGIN();
 
-    RUN_TEST(test_making_unique_ptr_of_chars);
     RUN_TEST(test_it_is_a_Logger);
     RUN_TEST(test_it_is_empty_at_start);
     RUN_TEST(test_clear);
