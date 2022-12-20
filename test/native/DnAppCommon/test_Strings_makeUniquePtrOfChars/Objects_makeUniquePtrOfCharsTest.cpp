@@ -1,12 +1,12 @@
 #include "unity.h"
 
-#include "DnApp/Common/functions.h"
+#include "DnApp/Common/Strings.h"
 
 namespace {
     void test_making_unique_ptr_of_chars() {
         TEST_ASSERT_EQUAL_STRING(
             "FooBarBaz",
-            DnApp::Common::makeUniquePtrOfChars("FooBarBaz").get()
+            DnApp::Common::Strings::makeUniquePtrOfChars("FooBarBaz").get()
         );
     }
 }

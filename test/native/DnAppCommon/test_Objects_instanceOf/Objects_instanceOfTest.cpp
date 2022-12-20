@@ -1,9 +1,9 @@
 #include <unity.h>
 
-#include "DnApp/Common/functions.h"
+#include "DnApp/Common/Objects.h"
 
 namespace {
-    using DnApp::Common::instanceOf;
+    using DnApp::Common::Objects::instanceOf;
 
     class Parent {} parent;
 

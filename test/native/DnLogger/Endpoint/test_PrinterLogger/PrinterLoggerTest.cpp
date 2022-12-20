@@ -3,7 +3,7 @@
 
 #include <unity.h>
 
-#include "DnApp/Common/functions.h"
+#include "DnApp/Common/Strings.h"
 #include "DnApp/Logger/Endpoint/PrinterLogger.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Unity/asserts.h"
@@ -161,7 +161,7 @@ namespace {
 
 
     void test_logging_unique_ptr_of_chars() {
-        constexpr auto f = DnApp::Common::makeUniquePtrOfChars;
+        constexpr auto f = DnApp::Common::Strings::makeUniquePtrOfChars;
 
         logger.log(Logger::LOG_LEVEL::DEBUG, f("log debug message"));
         logger.log(Logger::LOG_LEVEL::INFO, f("log info message"));
