@@ -6,13 +6,13 @@
 #include "DnApp/Common/Strings.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
-
     class FreeHeapDecoratorLogger final: public DnApp::Arduino::Logger::Logger {
     public:
         // required because otherwise our log() methods hide base class declarations
         using DnApp::Arduino::Logger::Logger::log;
 
-        explicit FreeHeapDecoratorLogger(Logger &logger):
+        explicit
+        FreeHeapDecoratorLogger(Logger &logger):
             logger(logger) {
         };
 
@@ -37,5 +37,4 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     };
 
     static_assert(!std::is_abstract<FreeHeapDecoratorLogger>());
-
 }

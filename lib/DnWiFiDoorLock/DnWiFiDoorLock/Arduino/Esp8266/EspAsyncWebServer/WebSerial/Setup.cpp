@@ -1,7 +1,6 @@
 #include "Setup.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
-
     Setup::Setup(
         WebSerialClass &serial,
         AsyncWebServer &server
@@ -34,5 +33,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
             command.c_str()
         ).get());
     }
-
 }

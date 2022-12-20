@@ -5,12 +5,10 @@
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class Led final {
     private:
         const DnWiFiDoorLock::Arduino::Hardware &hardware;
         const byte pin;
-
     public:
         Led(const DnWiFiDoorLock::Arduino::Hardware &hardware, byte pin);
 
@@ -24,5 +22,4 @@ namespace DnWiFiDoorLock::Arduino {
 
         void toggle() const;
     };
-
 }

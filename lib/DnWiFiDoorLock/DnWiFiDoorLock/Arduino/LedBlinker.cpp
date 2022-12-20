@@ -1,7 +1,6 @@
 #include "LedBlinker.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     LedBlinker::LedBlinker(
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
         const Led &led
@@ -18,5 +17,4 @@ namespace DnWiFiDoorLock::Arduino {
             hardware.pause(100);
         }
     }
-
 }

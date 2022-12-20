@@ -5,7 +5,6 @@
 #include <ESPAsyncWebServer.h>
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     class Controller {
     protected:
         static const int HTTP_RESPONSE_STATUS_OK = 200;
@@ -27,5 +26,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         void redirect(AsyncWebServerRequest &request, const String& location) const;
     };
-
 }

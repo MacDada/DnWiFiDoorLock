@@ -5,7 +5,6 @@ namespace {
 }
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
-
     WiFi::WiFi(
         const char *const ssid,
         const char *const password,
@@ -108,5 +107,4 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
                 return "WL_UNKNOWN_STATUS";
         }
     }
-
 }

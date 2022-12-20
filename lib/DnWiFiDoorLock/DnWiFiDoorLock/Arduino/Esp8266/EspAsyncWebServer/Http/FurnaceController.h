@@ -9,7 +9,6 @@
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     class FurnaceController final: public Controller {
     public:
         explicit FurnaceController(
@@ -25,7 +24,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void apiGetAction(AsyncWebServerRequest &request) const;
 
         void apiPostAction(AsyncWebServerRequest &request, const String &body) const;
-
     private:
         const DnWiFiDoorLock::Arduino::Hardware &hardware;
 
@@ -35,5 +33,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     };
 
     static_assert(!std::is_abstract<FurnaceController>());
-
 }

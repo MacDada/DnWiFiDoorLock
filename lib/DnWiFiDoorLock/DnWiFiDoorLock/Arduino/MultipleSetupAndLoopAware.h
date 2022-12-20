@@ -8,7 +8,8 @@ namespace DnWiFiDoorLock::Arduino {
 
     class MultipleSetupAndLoopAware final: public SetupAndLoopAware {
     public:
-        explicit MultipleSetupAndLoopAware(
+        explicit
+        MultipleSetupAndLoopAware(
             const std::vector<SetupAndLoopAwareReference> &awares
         );
 

@@ -8,12 +8,12 @@
 #include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class DoorLock final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware,
         public DnWiFiDoorLock::DoorLock {
     public:
-        explicit DoorLock(
+        explicit
+        DoorLock(
             Servo::Servo &servo,
             DnApp::Logger::Logger &logger,
             byte openAngle = Servo::Servo::MIN_ANGLE,
@@ -34,7 +34,6 @@ namespace DnWiFiDoorLock::Arduino {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         Servo::Servo &servo;
 
@@ -46,5 +45,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<DoorLock>());
-
 }

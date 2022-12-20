@@ -9,17 +9,19 @@
 #include "DnApp/Arduino/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
-
-    class MultipleLoggersLogger final: public DnApp::Arduino::Logger::Logger {
+    class MultipleLoggersLogger final:
+        public DnApp::Arduino::Logger::Logger {
     public:
-        explicit MultipleLoggersLogger(const std::vector<DnApp::Arduino::Logger::LoggerReference> &loggers);
+        explicit
+        MultipleLoggersLogger(
+            const std::vector<DnApp::Arduino::Logger::LoggerReference> &loggers
+        );
 
         using Logger::log;
 
         void log(LOG_LEVEL level, const char *message) override;
 
         void log(LOG_LEVEL level, char *message) override;
-
     private:
         /**
          * vector cannot store abstract classes as values,
@@ -36,5 +38,4 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     };
 
     static_assert(!std::is_abstract<MultipleLoggersLogger>());
-
 }

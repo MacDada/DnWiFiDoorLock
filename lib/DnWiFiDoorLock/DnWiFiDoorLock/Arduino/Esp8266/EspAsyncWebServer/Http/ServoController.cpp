@@ -5,7 +5,6 @@ namespace {
 }
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     ServoController::ServoController(
         Servo &servo,
         Logger &logger
@@ -154,7 +153,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         content.replace("{{ servo_min_angle }}", String(Servo::MIN_ANGLE));
         content.replace("{{ servo_max_angle }}", String(Servo::MAX_ANGLE));
 
-        content.replace("{{ invalid_angle_error }}", invalidAngle ? "<p>ERROR: INVALID ANGLE!</p>" : "");
+        content.replace(
+            "{{ invalid_angle_error }}",
+            invalidAngle ? "<p>ERROR: INVALID ANGLE!</p>" : ""
+        );
 
         content.replace("{{ old_or_current }}", newAngle ? "Old" : "Current");
         content.replace("{{ old_angle }}", String(oldAngle));
@@ -173,5 +175,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         return content;
     }
-
 }

@@ -8,7 +8,6 @@
 #include "DnWiFiDoorLock/Button.h"
 
 namespace DnWiFiDoorLock::Arduino::Servo {
-
     class Button final:
         public DnWiFiDoorLock::Button,
         public SetupAndLoopAware {
@@ -26,7 +25,6 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         const Hardware &hardware;
 
@@ -50,5 +48,4 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     };
 
     static_assert(!std::is_abstract<Button>());
-
 }

@@ -23,7 +23,6 @@
 //      * red: power
 //      * orange: control
 namespace DnWiFiDoorLock::Arduino::Servo {
-
     class Servo final {
     public:
         static const int MIN_ANGLE = 0;
@@ -40,11 +39,9 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         int getAngle() const;
 
         void setAngle(int degrees);
-
     private:
         ::Servo &servo;
 
         DnApp::Arduino::Logger::Logger &logger;
     };
-
 }

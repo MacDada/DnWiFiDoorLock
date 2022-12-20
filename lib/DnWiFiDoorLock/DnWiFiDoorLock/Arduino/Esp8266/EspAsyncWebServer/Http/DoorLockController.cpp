@@ -1,7 +1,6 @@
 #include "DoorLockController.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     DoorLockController::DoorLockController(
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
         DnWiFiDoorLock::Arduino::DoorLock &doorLock,
@@ -67,5 +66,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         // todo: route generator
         redirect(request, "/doorlock");
     }
-
 }

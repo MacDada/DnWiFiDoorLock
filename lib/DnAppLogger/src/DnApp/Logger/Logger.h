@@ -22,7 +22,9 @@ namespace DnApp::Logger {
             CRITICAL
         };
 
-        static constexpr const char *LOG_LEVELS[] = {
+        static
+        constexpr
+        const char *LOG_LEVELS[] = {
             "debug",
             "info",
             "warning",
@@ -30,9 +32,11 @@ namespace DnApp::Logger {
             "critical"
         };
 
-        virtual void log(LOG_LEVEL level, char *message) = 0;
+        virtual
+        void log(LOG_LEVEL level, char *message) = 0;
 
-        virtual void log(LOG_LEVEL level, const char *message) = 0;
+        virtual
+        void log(LOG_LEVEL level, const char *message) = 0;
 
         // ATTENTION!
         // https://isocpp.org/wiki/faq/strange-inheritance#hiding-rule

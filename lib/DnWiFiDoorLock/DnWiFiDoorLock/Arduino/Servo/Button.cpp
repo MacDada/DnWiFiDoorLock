@@ -1,7 +1,6 @@
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 
 namespace DnWiFiDoorLock::Arduino::Servo {
-
     Button::Button(
         const Hardware &hardware,
         Servo &servo,
@@ -53,5 +52,4 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     unsigned long Button::getUptimeMilliseconds() const {
         return hardware.getUptime().getMilliseconds();
     }
-
 }

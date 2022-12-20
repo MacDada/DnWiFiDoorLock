@@ -1,7 +1,6 @@
 #include "OTAUpdater.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     OTAUpdater::OTAUpdater(
         const int port,
         const char *const host,
@@ -80,5 +79,4 @@ namespace DnWiFiDoorLock::Arduino {
                 return "OTA_UNKNOWN_ERROR";
         }
     }
-
 }

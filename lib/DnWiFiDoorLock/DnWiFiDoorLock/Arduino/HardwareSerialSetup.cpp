@@ -1,7 +1,6 @@
 #include "HardwareSerialSetup.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     HardwareSerialSetup::HardwareSerialSetup(
         HardwareSerial &serial,
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
@@ -50,5 +49,4 @@ namespace DnWiFiDoorLock::Arduino {
     void HardwareSerialSetup::onLoop() {
         // do nothing
     }
-
 }

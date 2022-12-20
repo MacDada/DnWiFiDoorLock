@@ -9,8 +9,8 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
-    class OTAUpdater final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+    class OTAUpdater final:
+        public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         OTAUpdater(
             int port,
@@ -22,7 +22,6 @@ namespace DnWiFiDoorLock::Arduino {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         const int port;
 
@@ -36,5 +35,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<OTAUpdater>());
-
 }

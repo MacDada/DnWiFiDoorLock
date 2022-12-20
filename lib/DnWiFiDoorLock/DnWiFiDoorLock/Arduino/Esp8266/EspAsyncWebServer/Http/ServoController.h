@@ -11,20 +11,18 @@
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     class ServoController final: public Controller {
         using Logger  = DnApp::Logger::Logger;
         using Request = AsyncWebServerRequest;
         using Servo   = DnWiFiDoorLock::Arduino::Servo::Servo;
-
     public:
-        explicit ServoController(
+        explicit
+        ServoController(
             Servo &servo,
             Logger &logger
         );
 
         void angleAction(AsyncWebServerRequest &request);
-
     private:
         Servo &servo;
 
@@ -46,5 +44,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     };
 
     static_assert(!std::is_abstract<ServoController>());
-
 }

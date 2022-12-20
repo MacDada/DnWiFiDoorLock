@@ -9,7 +9,6 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class HardwareSerialSetup: public SetupAndLoopAware {
     public:
         HardwareSerialSetup(
@@ -21,7 +20,6 @@ namespace DnWiFiDoorLock::Arduino {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         static constexpr const char *const VT100_FORMAT_RESET = "\e[0m";
 
@@ -37,5 +35,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<HardwareSerialSetup>());
-
 }

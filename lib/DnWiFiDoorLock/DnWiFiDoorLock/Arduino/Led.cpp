@@ -1,7 +1,6 @@
 #include "Led.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     Led::Led(
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
         const byte pin
@@ -53,5 +52,4 @@ namespace DnWiFiDoorLock::Arduino {
             return hardware.isPinLow(pin);
         }
     }
-
 }

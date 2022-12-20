@@ -1,7 +1,6 @@
 #include "LoopAwareSignalStrengthLogger.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
-
     LoopAwareSignalStrengthLogger::LoopAwareSignalStrengthLogger(
         ESP8266WiFiClass &esp8266WiFi,
         Logger &logger
@@ -33,5 +32,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
             logger.error(message);
         }
     }
-
 }

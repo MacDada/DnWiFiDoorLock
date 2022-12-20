@@ -36,13 +36,12 @@
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
 
 namespace DnWiFiDoorLock {
-
-    class App final: public Arduino::SetupAndLoopAware {
+    class App final:
+        public Arduino::SetupAndLoopAware {
     public:
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         static const int MILLISECONDS_IN_SECOND = 1000;
 
@@ -374,5 +373,4 @@ namespace DnWiFiDoorLock {
             return service;
         }
     };
-
 }

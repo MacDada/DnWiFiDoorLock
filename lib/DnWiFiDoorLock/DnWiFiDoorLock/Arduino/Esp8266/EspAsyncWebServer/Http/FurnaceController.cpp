@@ -1,7 +1,6 @@
 #include "FurnaceController.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     FurnaceController::FurnaceController(
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
         DnWiFiDoorLock::Furnace &furnace,
@@ -105,5 +104,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             furnace.isHeaterOn() ? "true" : "false"
         );
     }
-
 }

@@ -1,7 +1,6 @@
 #include "LoopIndicator.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     LoopIndicator::LoopIndicator(
         const Led &led,
         const LedBlinker &ledBlinker,
@@ -34,5 +33,4 @@ namespace DnWiFiDoorLock::Arduino {
 
         led.toggle();
     }
-
 }

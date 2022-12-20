@@ -1,7 +1,6 @@
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     DoorLock::DoorLock(
         Servo::Servo &servo,
         DnApp::Logger::Logger &logger,
@@ -61,5 +60,4 @@ namespace DnWiFiDoorLock::Arduino {
             open();
         }
     }
-
 }

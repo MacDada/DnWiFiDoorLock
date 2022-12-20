@@ -13,7 +13,6 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
-
     class WiFi final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         WiFi(
@@ -28,7 +27,6 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         const char *const ssid;
 
@@ -52,5 +50,4 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     };
 
     static_assert(!std::is_abstract<WiFi>());
-
 }

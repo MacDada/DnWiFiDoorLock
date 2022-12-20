@@ -1,8 +1,9 @@
 #include "Controller.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
-    bool Controller::isRequestMethodPost(const AsyncWebServerRequest &request) const {
+    bool Controller::isRequestMethodPost(
+        const AsyncWebServerRequest &request
+    ) const {
         return 0 == strcmp(request.methodToString(), "POST");
     }
 
@@ -15,11 +16,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
            : std::optional<String>{};
     }
 
-    void Controller::redirect(AsyncWebServerRequest &request, const String& location) const {
+    void Controller::redirect(
+        AsyncWebServerRequest &request,
+        const String& location
+    ) const {
         // request->redirect("/") is wrong as it sends 302
-        AsyncWebServerResponse *const response = request.beginResponse(HTTP_RESPONSE_STATUS_REDIRECT);
+        AsyncWebServerResponse *const response = request.beginResponse(
+            HTTP_RESPONSE_STATUS_REDIRECT
+        );
         response->addHeader("Location", location);
         request.send(response);
     }
-
 }

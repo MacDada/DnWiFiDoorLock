@@ -1,7 +1,6 @@
 #include "Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     void Hardware::pause(const unsigned long milliseconds) const {
         delay(milliseconds);
     }
@@ -33,5 +32,4 @@ namespace DnWiFiDoorLock::Arduino {
     bool Hardware::isPinLow(const byte pin) const {
         return digitalRead(pin) == LOW;
     }
-
 }

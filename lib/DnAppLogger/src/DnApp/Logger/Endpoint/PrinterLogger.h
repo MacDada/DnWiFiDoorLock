@@ -4,11 +4,13 @@
 
 namespace DnApp::Logger::Endpoint {
     template <typename Printer>
-    class PrinterLogger final: public DnApp::Logger::Logger {
+    class PrinterLogger final:
+        public DnApp::Logger::Logger {
     public:
         using DnApp::Logger::Logger::log;
 
-        explicit PrinterLogger (Printer &printer) noexcept:
+        explicit
+        PrinterLogger (Printer &printer) noexcept:
             printer(printer) {
         }
 

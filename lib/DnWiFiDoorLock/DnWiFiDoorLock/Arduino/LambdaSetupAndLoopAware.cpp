@@ -3,7 +3,6 @@
 #include <utility>
 
 namespace DnWiFiDoorLock::Arduino {
-
     LambdaSetupAndLoopAware LambdaSetupAndLoopAware::createSetupAware(
         std::function<void()> onSetupCallback
     ) {
@@ -37,5 +36,4 @@ namespace DnWiFiDoorLock::Arduino {
     void LambdaSetupAndLoopAware::onLoop() {
         onLoopCallback();
     }
-
 }

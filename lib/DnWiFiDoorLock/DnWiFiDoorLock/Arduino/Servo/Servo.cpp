@@ -1,7 +1,6 @@
 #include "Servo.h"
 
 namespace DnWiFiDoorLock::Arduino::Servo {
-
     Servo::Servo(
         ::Servo &servo,
         const byte pin,
@@ -35,5 +34,4 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         servo.write(degrees);
     }
-
 }

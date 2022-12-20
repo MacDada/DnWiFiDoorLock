@@ -3,7 +3,6 @@
 #include <Arduino.h>
 
 namespace DnWiFiDoorLock {
-
     class Time final {
     private:
         // todo: unify declarations order style across classes
@@ -16,9 +15,9 @@ namespace DnWiFiDoorLock {
         const int hours;
 
         const byte days;
-
     public:
-        explicit Time(unsigned long milliseconds);
+        explicit
+        Time(unsigned long milliseconds);
 
         unsigned long getMilliseconds() const;
 
@@ -38,5 +37,4 @@ namespace DnWiFiDoorLock {
 
         byte getRemainingHours() const;
     };
-
 }

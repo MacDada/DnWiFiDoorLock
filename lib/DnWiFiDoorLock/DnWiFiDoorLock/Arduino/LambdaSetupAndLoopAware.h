@@ -6,18 +6,21 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
-    class LambdaSetupAndLoopAware final: public SetupAndLoopAware {
+    class LambdaSetupAndLoopAware final:
+        public SetupAndLoopAware {
     public:
-        static LambdaSetupAndLoopAware createSetupAware(
+        static
+        LambdaSetupAndLoopAware createSetupAware(
             std::function<void()> onSetupCallback
         );
 
-        static LambdaSetupAndLoopAware createLoopAware(
+        static
+        LambdaSetupAndLoopAware createLoopAware(
             std::function<void()> onLoopCallback
         );
 
-        explicit LambdaSetupAndLoopAware(
+        explicit
+        LambdaSetupAndLoopAware(
             std::function<void()> onSetupCallback,
             std::function<void()> onLoopCallback
         );
@@ -25,7 +28,6 @@ namespace DnWiFiDoorLock::Arduino {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         const std::function<void()> onSetupCallback;
 
@@ -33,5 +35,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<LambdaSetupAndLoopAware>());
-
 }

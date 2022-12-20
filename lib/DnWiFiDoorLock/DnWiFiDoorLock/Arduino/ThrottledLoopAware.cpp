@@ -1,7 +1,6 @@
 #include "ThrottledLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     ThrottledLoopAware::ThrottledLoopAware(
         SetupAndLoopAware &otherAware,
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
@@ -27,5 +26,4 @@ namespace DnWiFiDoorLock::Arduino {
     bool ThrottledLoopAware::isItTime() const {
         return hardware.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
     }
-
 }

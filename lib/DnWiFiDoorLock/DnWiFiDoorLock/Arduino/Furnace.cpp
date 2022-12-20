@@ -1,7 +1,6 @@
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     Furnace::Furnace(
         Button &heaterButton,
         DnApp::Logger::Logger &logger
@@ -49,5 +48,4 @@ namespace DnWiFiDoorLock::Arduino {
             turnOnHeater();
         }
     }
-
 }

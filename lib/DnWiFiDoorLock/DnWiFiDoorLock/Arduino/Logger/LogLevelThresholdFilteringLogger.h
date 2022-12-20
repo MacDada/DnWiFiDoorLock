@@ -5,14 +5,14 @@
 #include "DnApp/Arduino/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
-
     class LogLevelThresholdFilteringLogger final:
         public DnApp::Arduino::Logger::Logger {
     public:
         // required because otherwise our log() methods hide base class declarations
         using Logger::log;
 
-        explicit LogLevelThresholdFilteringLogger(
+        explicit
+        LogLevelThresholdFilteringLogger(
             Logger &logger,
             const Logger::LOG_LEVEL threshold = Logger::LOG_LEVEL::DEBUG
         ):
@@ -49,5 +49,4 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     };
 
     static_assert(!std::is_abstract<LogLevelThresholdFilteringLogger>());
-
 }

@@ -1,7 +1,6 @@
 #include "ServerSetup.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     ServerSetup::ServerSetup(
         AsyncWebServer &server,
         const char *const hostname,
@@ -121,7 +120,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         // do nothing
     }
 
-    String ServerSetup::dataToString(const uint8_t *data, size_t dataLength) const {
+    String ServerSetup::dataToString(
+        const uint8_t *data,
+        size_t dataLength
+    ) const {
         String string;
         string.reserve(dataLength);
 
@@ -131,5 +133,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         return string;
     }
-
 }

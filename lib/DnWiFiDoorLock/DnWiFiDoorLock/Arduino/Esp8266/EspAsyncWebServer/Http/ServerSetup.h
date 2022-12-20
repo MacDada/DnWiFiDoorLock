@@ -12,10 +12,8 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-
     class ServerSetup final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
         using Logger = DnApp::Arduino::Logger::Logger;
-
     public:
         ServerSetup(
             AsyncWebServer &server,
@@ -30,7 +28,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         AsyncWebServer &server;
 
@@ -58,5 +55,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     };
 
     static_assert(!std::is_abstract<ServerSetup>());
-
 }

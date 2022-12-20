@@ -6,7 +6,6 @@
 #include "DnWiFiDoorLock/Arduino/Led.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class LedBlinker final {
     public:
         LedBlinker(
@@ -15,11 +14,9 @@ namespace DnWiFiDoorLock::Arduino {
         );
 
         void blinkFast(int count) const;
-
     private:
         const DnWiFiDoorLock::Arduino::Hardware &hardware;
 
         const DnWiFiDoorLock::Arduino::Led &led;
     };
-
 }

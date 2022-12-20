@@ -7,11 +7,11 @@
 #include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class Furnace final:
         public DnWiFiDoorLock::Furnace {
     public:
-        explicit Furnace(
+        explicit
+        Furnace(
             Button &heaterButton,
             DnApp::Logger::Logger &logger
         );
@@ -25,7 +25,6 @@ namespace DnWiFiDoorLock::Arduino {
         void turnOffHeater() override;
 
         void switchHeater() override;
-
     private:
         Button &heaterButton;
 
@@ -35,5 +34,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<Furnace>());
-
 }

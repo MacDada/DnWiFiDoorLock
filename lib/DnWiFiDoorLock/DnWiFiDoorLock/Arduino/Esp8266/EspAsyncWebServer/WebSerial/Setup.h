@@ -10,7 +10,6 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
-
     class Setup: public SetupAndLoopAware {
     public:
         Setup(WebSerialClass &serial, AsyncWebServer &server);
@@ -18,7 +17,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         WebSerialClass &serial;
 
@@ -28,5 +26,4 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
     };
 
     static_assert(!std::is_abstract<Setup>());
-
 }

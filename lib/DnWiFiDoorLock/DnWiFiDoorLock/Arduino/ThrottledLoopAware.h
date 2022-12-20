@@ -6,7 +6,6 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class ThrottledLoopAware final: public SetupAndLoopAware {
     public:
         ThrottledLoopAware(
@@ -18,7 +17,6 @@ namespace DnWiFiDoorLock::Arduino {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         SetupAndLoopAware &otherAware;
 
@@ -32,5 +30,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<ThrottledLoopAware>());
-
 }

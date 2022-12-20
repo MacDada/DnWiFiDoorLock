@@ -1,7 +1,6 @@
 #include "Time.h"
 
 namespace DnWiFiDoorLock {
-
     // If I count correctly, `unsigned long` gives us max 49 days without restart xD
     // 4294967295/1000/60/60/24 ~= 49
     //
@@ -59,5 +58,4 @@ namespace DnWiFiDoorLock {
     byte Time::getRemainingHours() const {
         return hours % 24;
     }
-
 }

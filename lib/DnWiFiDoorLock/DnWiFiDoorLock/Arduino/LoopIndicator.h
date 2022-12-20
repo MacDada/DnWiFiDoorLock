@@ -10,7 +10,6 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-
     class LoopIndicator final: public SetupAndLoopAware {
     public:
         LoopIndicator(
@@ -22,7 +21,6 @@ namespace DnWiFiDoorLock::Arduino {
         void onSetup() override;
 
         void onLoop() override;
-
     private:
         const Led &led;
 
@@ -38,5 +36,4 @@ namespace DnWiFiDoorLock::Arduino {
     };
 
     static_assert(!std::is_abstract<LoopIndicator>());
-
 }
