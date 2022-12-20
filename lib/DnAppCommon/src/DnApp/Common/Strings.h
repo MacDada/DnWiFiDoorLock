@@ -21,7 +21,7 @@ namespace DnApp::Common::Strings {
         return buffer;
     }
 
-    inline auto makeUniquePtrOfChars(const char string[]) {
+    inline std::unique_ptr<char[]> makeUniquePtrOfChars(const char string[]) {
         auto ptr = std::make_unique<char[]>(strlen(string) + 1);
 
         strcpy(ptr.get(), string);
