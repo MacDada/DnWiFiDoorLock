@@ -6,8 +6,8 @@
 #include <ESPAsyncWebServer.h>
 #include <WebSerial.h>
 
+#include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
 

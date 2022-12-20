@@ -1,5 +1,9 @@
 #include "ServoController.h"
 
+namespace {
+    using DnApp::Common::Strings::format;
+}
+
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     ServoController::ServoController(
@@ -38,8 +42,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         return angle >= Servo::MIN_ANGLE && angle <= Servo::MAX_ANGLE;
     }
 
-    void ServoController::newAngleSetResponse(Request &request, const int oldAngle, const int newAngle) {
-        logger.log(Logger::LOG_LEVEL::INFO, Tools::format(
+    void ServoController::newAngleSetResponse(
+        Request &request,
+        const int oldAngle,
+        const int newAngle
+    ) {
+        logger.log(Logger::LOG_LEVEL::INFO, format(
             "ServoController: new angle was set: \"%d\"",
             newAngle
         ));
@@ -51,8 +59,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void ServoController::invalidAngleGivenResponse(Request &request, const int oldAngle, const int newAngle) {
-        logger.log(Logger::LOG_LEVEL::INFO, Tools::format(
+    void ServoController::invalidAngleGivenResponse(
+        Request &request,
+        const int oldAngle,
+        const int newAngle
+    ) {
+        logger.log(Logger::LOG_LEVEL::INFO, format(
             "ServoController: invalid angle given: \"%d\"",
             newAngle
         ));
@@ -64,8 +76,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void ServoController::showCurrentAngleResponse(Request &request, const int oldAngle) {
-        logger.log(Logger::LOG_LEVEL::INFO, Tools::format(
+    void ServoController::showCurrentAngleResponse(
+        Request &request,
+        const int oldAngle
+    ) {
+        logger.log(Logger::LOG_LEVEL::INFO, format(
             "ServoController: showing current angle: \"%d\"",
             oldAngle
         ));
@@ -144,9 +159,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         content.replace("{{ old_or_current }}", newAngle ? "Old" : "Current");
         content.replace("{{ old_angle }}", String(oldAngle));
 
-        content.replace("{{ new_angle }}", newAngle ? Tools::format("<p>New angle: %d</p>", newAngle.value()).get() : "");
+        content.replace(
+            "{{ new_angle }}",
+            newAngle ? format("<p>New angle: %d</p>", newAngle.value()).get() : ""
+        );
 
-        content.replace("{{ angle_form_value }}", String(newAngle ? newAngle.value() : oldAngle));
+        content.replace(
+            "{{ angle_form_value }}",
+            String(newAngle ? newAngle.value() : oldAngle)
+        );
 
         content.trim();
 

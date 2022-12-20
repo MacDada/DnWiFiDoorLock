@@ -4,9 +4,9 @@
 
 #include <ArduinoOTA.h>
 
+#include "DnApp/Common/Strings.h"
 #include "DnApp/Arduino/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino {
 

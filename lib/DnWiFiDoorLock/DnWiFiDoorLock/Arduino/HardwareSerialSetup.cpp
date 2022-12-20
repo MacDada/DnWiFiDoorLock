@@ -24,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
         while (!Serial && hardware.getUptime().getSeconds() < 5);
 
         // todo: do not hardcode app name
-        serial.print(Tools::format(
+        serial.print(DnApp::Common::Strings::format(
             "\n\n\n\n\n\n\n\n\n"
             "%s"
             "================================"

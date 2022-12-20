@@ -20,7 +20,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         request.send(
             HTTP_RESPONSE_STATUS_OK,
             HTTP_RESPONSE_CONTENT_TYPE_HTML,
-            Tools::format(
+            DnApp::Common::Strings::format(
                 // `PSTR()` loads string from Flash memory, instead of RAM
                 // todo: does that mean it is slower, so should not use if enough memory?
                 PSTR(

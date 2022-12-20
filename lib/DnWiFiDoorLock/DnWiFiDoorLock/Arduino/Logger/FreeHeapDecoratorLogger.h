@@ -3,7 +3,7 @@
 #include <type_traits>
 
 #include "DnApp/Arduino/Logger/Logger.h"
-#include "DnWiFiDoorLock/Tools.h"
+#include "DnApp/Common/Strings.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
@@ -28,7 +28,10 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         template <typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {
-            logger.debug(Tools::format("free heap: %d", system_get_free_heap_size()));
+            logger.debug(DnApp::Common::Strings::format(
+                "free heap: %d",
+                system_get_free_heap_size()
+            ));
             logger.log(level, message);
         }
     };

@@ -7,10 +7,10 @@
 #include <WiFiClient.h>
 
 #include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 

@@ -3,7 +3,6 @@
 #include <type_traits>
 
 #include "DnApp/Arduino/Logger/Logger.h"
-#include "DnWiFiDoorLock/Tools.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
 
