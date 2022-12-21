@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "DnWiFiDoorLock/App.h"
 
 DnWiFiDoorLock::App app;
