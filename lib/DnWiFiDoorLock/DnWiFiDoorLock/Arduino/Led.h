@@ -9,20 +9,20 @@ namespace DnWiFiDoorLock::Arduino {
     class Led final {
     public:
         explicit
-        Led(byte pinId): pinId(pinId), pin(pinId) {
+        Led(byte pinId): pin(pinId) {
             pin.setOutputMode();
         }
 
         bool isOn() const {
-            if (BUILT_IN_LED_PIN_ID == pinId) {
+            if (inverted) {
                 return pin.isLow();
             } else {
                 return pin.isHigh();
             }
-        };
+        }
 
         bool isOff() const {
-            if (BUILT_IN_LED_PIN_ID == pinId) {
+            if (inverted) {
                 return pin.isHigh();
             } else {
                 return pin.isLow();
@@ -30,10 +30,7 @@ namespace DnWiFiDoorLock::Arduino {
         };
 
         void on() const {
-            // it is inverted for built–in led => so it should be high for normal led
-            // https://github.com/nodemcu/nodemcu-devkit-v1.0/issues/16
-            // https://stackoverflow.com/questions/46087828/why-is-nodemcu-triggering-gpio-in-reverse-when-using-lua
-            if (BUILT_IN_LED_PIN_ID == pinId) {
+            if (inverted) {
                 pin.setLow();
             } else {
                 pin.setHigh();
@@ -41,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino {
         };
 
         void off() const {
-            if (BUILT_IN_LED_PIN_ID == pinId) {
+            if (inverted) {
                 pin.setHigh();
             } else {
                 pin.setLow();
@@ -56,12 +53,11 @@ namespace DnWiFiDoorLock::Arduino {
             }
         };
     private:
-        static
-        constexpr
-        const byte BUILT_IN_LED_PIN_ID = DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN;
-
-        const byte pinId;
-
         DnApp::Arduino::Hardware::DigitalPin pin;
+
+        // it is inverted for built–in led
+        // https://github.com/nodemcu/nodemcu-devkit-v1.0/issues/16
+        // https://stackoverflow.com/questions/46087828/why-is-nodemcu-triggering-gpio-in-reverse-when-using-lua
+        const bool inverted = DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN == pin.getId();
     };
 }
