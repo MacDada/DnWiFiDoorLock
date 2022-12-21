@@ -152,7 +152,6 @@ namespace DnWiFiDoorLock {
 
         auto &getBuiltInLed() {
             static auto service = DnWiFiDoorLock::Arduino::Led{
-                getHardware(),
                 DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN
             };
 
