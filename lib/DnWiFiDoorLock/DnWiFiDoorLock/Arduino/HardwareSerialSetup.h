@@ -21,11 +21,17 @@ namespace DnWiFiDoorLock::Arduino {
 
         void onLoop() override;
     private:
-        static constexpr const char *const VT100_FORMAT_RESET = "\e[0m";
+        static
+        constexpr
+        const char *const VT100_FORMAT_RESET = "\e[0m";
 
-        static constexpr const char *const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
+        static
+        constexpr
+        const char *const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
 
-        static constexpr const char *const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
+        static
+        constexpr
+        const char *const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
 
         HardwareSerial &serial;
 
