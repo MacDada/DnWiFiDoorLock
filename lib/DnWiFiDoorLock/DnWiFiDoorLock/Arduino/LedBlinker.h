@@ -2,21 +2,21 @@
 
 #include <Arduino.h>
 
+#include "DnApp/Hardware/Led.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
-#include "DnWiFiDoorLock/Arduino/Led.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class LedBlinker final {
     public:
         LedBlinker(
             const DnWiFiDoorLock::Arduino::Hardware &hardware,
-            const Led &led
+            DnApp::Hardware::Led &led
         );
 
-        void blinkFast(int count) const;
+        void blinkFast(int count);
     private:
         const DnWiFiDoorLock::Arduino::Hardware &hardware;
 
-        const DnWiFiDoorLock::Arduino::Led &led;
+        DnApp::Hardware::Led &led;
     };
 }

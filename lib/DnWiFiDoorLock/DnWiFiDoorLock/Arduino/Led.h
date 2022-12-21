@@ -1,19 +1,23 @@
 #pragma once
 
+#include <type_traits>
+
 #include <Arduino.h>
 
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
+#include "DnApp/Hardware/Led.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-    class Led final {
+    class Led final:
+        public DnApp::Hardware::Led {
     public:
         explicit
         Led(byte pinId): pin(pinId) {
             pin.setOutputMode();
         }
 
-        bool isOn() const {
+        bool isOn() const override {
             if (inverted) {
                 return pin.isLow();
             } else {
@@ -21,7 +25,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
 
-        bool isOff() const {
+        bool isOff() const override {
             if (inverted) {
                 return pin.isHigh();
             } else {
@@ -29,7 +33,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         };
 
-        void on() const {
+        void on() override {
             if (inverted) {
                 pin.setLow();
             } else {
@@ -37,7 +41,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         };
 
-        void off() const {
+        void off() override {
             if (inverted) {
                 pin.setHigh();
             } else {
@@ -45,7 +49,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         };
 
-        void toggle() const {
+        void toggle() override {
             if (isOn()) {
                 off();
             } else {
@@ -60,4 +64,6 @@ namespace DnWiFiDoorLock::Arduino {
         // https://stackoverflow.com/questions/46087828/why-is-nodemcu-triggering-gpio-in-reverse-when-using-lua
         const bool inverted = DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN == pin.getId();
     };
+
+    static_assert(!std::is_abstract<Led>());
 }

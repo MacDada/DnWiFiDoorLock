@@ -5,7 +5,7 @@
 #include <ESP8266WiFi.h>
 
 #include "DnApp/Arduino/Logger/Logger.h"
-#include "DnWiFiDoorLock/Arduino/Led.h"
+#include "DnApp/Hardware/Led.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
@@ -13,8 +13,8 @@ namespace DnWiFiDoorLock::Arduino {
     class LoopIndicator final: public SetupAndLoopAware {
     public:
         LoopIndicator(
-            const Led &led,
-            const LedBlinker &ledBlinker,
+            DnApp::Hardware::Led &led,
+            LedBlinker &ledBlinker,
             DnApp::Arduino::Logger::Logger &logger
         );
 
@@ -22,9 +22,9 @@ namespace DnWiFiDoorLock::Arduino {
 
         void onLoop() override;
     private:
-        const Led &led;
+        DnApp::Hardware::Led &led;
 
-        const LedBlinker &ledBlinker;
+        LedBlinker &ledBlinker;
 
         DnApp::Arduino::Logger::Logger &logger;
 

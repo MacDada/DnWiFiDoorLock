@@ -3,13 +3,13 @@
 namespace DnWiFiDoorLock::Arduino {
     LedBlinker::LedBlinker(
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
-        const Led &led
+        DnApp::Hardware::Led &led
     ):
         hardware(hardware),
         led(led) {
     }
 
-    void LedBlinker::blinkFast(const int count) const {
+    void LedBlinker::blinkFast(const int count) {
         for (int i = 0; i < count; ++i) {
             led.on();
             hardware.pause(100);
