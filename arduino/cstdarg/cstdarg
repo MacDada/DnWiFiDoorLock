@@ -1,0 +1,13 @@
+#pragma once
+
+/**
+ * `<cstdarg>` is required to use `va_*` functions and macros.
+ *
+ * https://en.cppreference.com/w/cpp/header/cstdarg
+ *
+ * For some reason it is not a "lib" included in Arduino's toolchain,
+ * although the stuff works after I just include `Arduino.h`.
+ *
+ * Include this file with `lib_extra_dirs` config in `platformio.ini`.
+ */
+#include <Arduino.h>
