@@ -5,12 +5,13 @@
 #include "DnApp/Hardware/DigitalPin.h"
 #include "DnApp/Hardware/Led.h"
 
-namespace DnWiFiDoorLock::Arduino {
-    class Led final:
+namespace DnApp::Hardware {
+    class LedOnDigitalPin final:
         public DnApp::Hardware::Led {
     public:
         explicit
-        Led(DnApp::Hardware::DigitalPin &pin): pin(pin) {
+        LedOnDigitalPin(DnApp::Hardware::DigitalPin &pin) noexcept:
+            pin(pin) {
             pin.setOutputMode();
         }
 
@@ -41,5 +42,5 @@ namespace DnWiFiDoorLock::Arduino {
         DnApp::Hardware::DigitalPin &pin;
     };
 
-    static_assert(!std::is_abstract<Led>());
+    static_assert(!std::is_abstract<LedOnDigitalPin>());
 }

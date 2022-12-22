@@ -9,6 +9,7 @@
 
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
 #include "DnApp/Hardware/LedInverter.h"
+#include "DnApp/Hardware/LedOnDigitalPin.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
@@ -23,7 +24,6 @@
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Arduino/Led.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/Logger/FreeHeapDecoratorLogger.h"
 #include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialLogger.h"
@@ -157,7 +157,7 @@ namespace DnWiFiDoorLock {
             // https://github.com/nodemcu/nodemcu-devkit-v1.0/issues/16
             // https://stackoverflow.com/questions/46087828/why-is-nodemcu-triggering-gpio-in-reverse-when-using-lua
             static DnApp::Arduino::Hardware::DigitalPin pin{DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
-            static DnWiFiDoorLock::Arduino::Led led{pin};
+            static DnApp::Hardware::LedOnDigitalPin led{pin};
             static DnApp::Hardware::LedInverter service{led};
 
             return service;
