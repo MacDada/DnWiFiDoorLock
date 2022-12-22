@@ -2,10 +2,16 @@
 
 #include "DnApp/Hardware/InMemoryLed.h"
 #include "DnApp/Hardware/LedInverter.h"
+#include "DnApp/Hardware/Led.h"
+#include "DnApp/Unity/asserts.h"
 
 namespace {
     DnApp::Hardware::InMemoryLed led{};
     DnApp::Hardware::LedInverter inverter{led};
+
+    void test_it_is_a_Led() {
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &inverter);
+    }
 
     void test_it_is_inverted_by_default() {
         TEST_ASSERT_EQUAL(led.isOn(), inverter.isOff());
@@ -74,6 +80,7 @@ namespace {
 int main() {
     UNITY_BEGIN();
 
+    RUN_TEST(test_it_is_a_Led);
     RUN_TEST(test_it_is_inverted_by_default);
     RUN_TEST(test_is_on_is_inverted);
     RUN_TEST(test_is_off_is_inverted);

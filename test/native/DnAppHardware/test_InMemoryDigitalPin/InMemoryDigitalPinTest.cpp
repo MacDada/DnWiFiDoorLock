@@ -1,9 +1,15 @@
 #include "unity.h"
 
+#include "DnApp/Hardware/DigitalPin.h"
 #include "DnApp/Hardware/InMemoryDigitalPin.h"
+#include "DnApp/Unity/asserts.h"
 
 namespace {
     DnApp::Hardware::InMemoryDigitalPin pin{};
+
+    void test_it_is_a_DigitalPin() {
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, &pin);
+    }
 
     void test_it_is_low_by_default() {
         TEST_ASSERT_TRUE(pin.isLow());
@@ -42,6 +48,7 @@ namespace {
 int main() {
     UNITY_BEGIN();
 
+    RUN_TEST(test_it_is_a_DigitalPin);
     RUN_TEST(test_it_is_low_by_default);
     RUN_TEST(test_setting_level);
     RUN_TEST(test_it_is_input_mode_by_default);

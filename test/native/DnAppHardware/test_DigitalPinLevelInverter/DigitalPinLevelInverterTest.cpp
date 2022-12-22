@@ -1,11 +1,17 @@
 #include "unity.h"
 
-#include "DnApp/Hardware/InMemoryDigitalPin.h"
+#include "DnApp/Hardware/DigitalPin.h"
 #include "DnApp/Hardware/DigitalPinLevelInverter.h"
+#include "DnApp/Hardware/InMemoryDigitalPin.h"
+#include "DnApp/Unity/asserts.h"
 
 namespace {
     DnApp::Hardware::InMemoryDigitalPin pin{};
     DnApp::Hardware::DigitalPinLevelInverter inverter{pin};
+
+    void test_it_is_a_DigitalPin() {
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, &inverter);
+    }
 
     void test_output_mode_is_normal() {
         inverter.setOutputMode();
@@ -48,6 +54,7 @@ namespace {
 int main() {
     UNITY_BEGIN();
 
+    RUN_TEST(test_it_is_a_DigitalPin);
     RUN_TEST(test_output_mode_is_normal);
     RUN_TEST(test_levels_are_inverted_by_default);
     RUN_TEST(test_setting_high_is_inverted);

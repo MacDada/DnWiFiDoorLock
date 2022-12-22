@@ -1,9 +1,15 @@
 #include "unity.h"
 
 #include "DnApp/Hardware/InMemoryLed.h"
+#include "DnApp/Hardware/Led.h"
+#include "DnApp/Unity/asserts.h"
 
 namespace {
     DnApp::Hardware::InMemoryLed led{};
+
+    void test_it_is_a_Led() {
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &led);
+    }
 
     void test_it_is_off_by_default() {
         TEST_ASSERT_TRUE(led.isOff());
@@ -37,6 +43,7 @@ namespace {
 int main() {
     UNITY_BEGIN();
 
+    RUN_TEST(test_it_is_a_Led);
     RUN_TEST(test_it_is_off_by_default);
     RUN_TEST(test_it_turns_on);
     RUN_TEST(test_it_turns_off);
