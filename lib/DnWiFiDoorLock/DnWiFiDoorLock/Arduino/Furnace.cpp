@@ -2,7 +2,7 @@
 
 namespace DnWiFiDoorLock::Arduino {
     Furnace::Furnace(
-        Button &heaterButton,
+        DnApp::Hardware::Button &heaterButton,
         DnApp::Logger::Logger &logger
     ):
         heaterButton(heaterButton),

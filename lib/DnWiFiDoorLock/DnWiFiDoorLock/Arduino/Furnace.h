@@ -2,9 +2,9 @@
 
 #include <type_traits>
 
-#include "DnWiFiDoorLock/Button.h"
-#include "DnWiFiDoorLock/Furnace.h"
+#include "DnApp/Hardware/Button.h"
 #include "DnApp/Logger/Logger.h"
+#include "DnWiFiDoorLock/Furnace.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class Furnace final:
@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         Furnace(
-            Button &heaterButton,
+            DnApp::Hardware::Button &heaterButton,
             DnApp::Logger::Logger &logger
         );
 
@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         void switchHeater() override;
     private:
-        Button &heaterButton;
+        DnApp::Hardware::Button &heaterButton;
 
         DnApp::Logger::Logger &logger;
 
