@@ -1,6 +1,6 @@
 #pragma once
 
-namespace DnWiFiDoorLock {
+namespace DnApp::Hardware {
     class DoorLock {
     public:
         virtual

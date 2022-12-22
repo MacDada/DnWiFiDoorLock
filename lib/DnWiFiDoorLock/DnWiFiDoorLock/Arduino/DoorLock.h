@@ -2,15 +2,15 @@
 
 #include <type_traits>
 
-#include "DnWiFiDoorLock/DoorLock.h"
+#include "DnApp/Hardware/DoorLock.h"
+#include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
-#include "DnApp/Logger/Logger.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class DoorLock final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware,
-        public DnWiFiDoorLock::DoorLock {
+        public DnApp::Hardware::DoorLock {
     public:
         explicit
         DoorLock(
