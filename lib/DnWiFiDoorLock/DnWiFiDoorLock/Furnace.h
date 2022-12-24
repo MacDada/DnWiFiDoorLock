@@ -16,6 +16,6 @@ namespace DnWiFiDoorLock {
         void turnOffHeater() = 0;
 
         virtual
-        void switchHeater() = 0;
+        void toggleHeater() = 0;
     };
 }

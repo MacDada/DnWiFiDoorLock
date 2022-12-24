@@ -24,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         void turnOffHeater() override;
 
-        void switchHeater() override;
+        void toggleHeater() override;
     private:
         DnApp::Hardware::Button &heaterButton;
 

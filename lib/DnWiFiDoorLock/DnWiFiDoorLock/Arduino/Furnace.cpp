@@ -41,7 +41,7 @@ namespace DnWiFiDoorLock::Arduino {
         heaterOn = false;
     }
 
-    void Furnace::switchHeater() {
+    void Furnace::toggleHeater() {
         if (isHeaterOn()) {
             turnOffHeater();
         } else {

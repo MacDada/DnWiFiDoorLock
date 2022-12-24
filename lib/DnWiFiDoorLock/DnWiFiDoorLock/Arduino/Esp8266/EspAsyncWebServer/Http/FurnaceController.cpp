@@ -61,7 +61,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     void FurnaceController::switchAction(AsyncWebServerRequest &request) const {
         logger.info("FurnaceController::switchAction()");
 
-        furnace.switchHeater();
+        furnace.toggleHeater();
 
         redirect(request, "/furnace");
     }
