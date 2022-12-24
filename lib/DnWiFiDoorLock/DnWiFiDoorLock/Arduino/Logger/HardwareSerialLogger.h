@@ -1,5 +1,7 @@
 #pragma once
 
+#include <type_traits>
+
 #include <Arduino.h>
 
 #include "DnWiFiDoorLock/Arduino/Logger/PrintLnLogger.h"
