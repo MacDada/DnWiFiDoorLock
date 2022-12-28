@@ -24,8 +24,9 @@ Thank you for all the help I received on [`PlatformIO Community` forum](https://
 A few notes
 ---
 
-* There are 3 environments:
+* Building environments:
   * `nodemcu` to upload to `NodeMCU DevKit 1.0`,
+  * `nodemcu_ota` for WiFi uploads
   * `native` to run unit tests for pure C++,
   * `native_arduino` to run unit tests with Arduino framework mocked.
 * In general, `pio run` builds `src` dir, while `pio test` builds `test` dir.
