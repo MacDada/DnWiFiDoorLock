@@ -1,8 +1,21 @@
-DnWiFiDoorLock
+DnApp
 ===
+
+---
+Home automation project(s) with ESP8266 microcontroller
 ---
 
-Thank you for all the help I received on [`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
+Project ideas that are currently work in progress:
+
+* a door lock
+* a furnace (central heating) controller
+
+---
+Big thanks!
+---
+
+Thank you for all the help that I received on 
+[`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
  
 - `alex88#9252`
 - `Arno#7285`
@@ -14,7 +27,8 @@ Thank you for all the help I received on [`Better C++` Discord server](https://d
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
 
-Thank you for all the help I received on [`PlatformIO Community` forum](https://community.platformio.org/)!
+Thank you for all the help that I received on 
+[`PlatformIO Community` forum](https://community.platformio.org/)!
 
 - [`ivankravets`](https://community.platformio.org/u/ivankravets)
 - [`jcw`](https://community.platformio.org/u/jcw)
@@ -37,7 +51,8 @@ A few notes
 Building, uploading, running, monitoring
 ---
 
-* `pio run -e nodemcu` and `pio run -e native` both build `src` directory, but with a given environment config.
+* `pio run -e nodemcu` and `pio run -e native` both build `src` directory,
+   but with a given environment config.
 * `pio run -t upload` builds and uploads to the board.
 * `pio run -t monitor` – serial monitor (over USB cable)
 * `pio run -t upload -t monitor` – upload and monitor combined
@@ -56,7 +71,8 @@ Unit Tests
 
 * `pio test -e native` builds and runs tests in `test/native/` directory.
 
-* `pio test -e nodemcu` basically does nothing, as it would build tests do deploy on the embedded device.
+* `pio test -e nodemcu` basically does nothing,
+   as it would build tests do deploy on the embedded device.
 
 * TDD workflow: watches for file changes and runs test(s) immediately, in a continuous loop.
   * `./tdd.sh native/Foo/test_Foo` – pass path to the test as the first argument.
@@ -92,5 +108,31 @@ To Do
   * [ ] [QEMU](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
   * [ ] [Renode](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/renode.html)
   * [ ] [SimAVR](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/simavr.html)
+
+---
+Will NOT do (non–goals)
+---
+
+Most of the stuff, that _could_ be done, takes precious resources: time and hardware.
+
+This project's focus is on learning and experimenting.
+It is more important to me that I learn stuff doing it,
+than that I achieve some incredible, polished result.
+
+Another thing is that microcontroller hardware is very limited.
+There is always a tradeoff between memory and speed. AND code quality.
+
+* Super pretty web design
+  * It is not a commercial project, that I'd want to advertise as having a shiny interface.
+  * It has to work and be easy to use, not necessarily be pretty.
+  * To spend more time on the looks, means to spend less time on the workings.
+* Support for old web browsers
+  * I don't use old web browsers, you shouldn't either (security reasons for starters).
+* Support for disabled Javascript
+  * It would be nice to have, but it would de facto mean doing and testing yet another UI,
+    that I would not actually use, after all.
+* Support for microcontroller boards I don't have or plan to use.
+* [i18n](https://en.wikipedia.org/wiki/Internationalization_and_localization)
+  – English only (and _maybe_ Polish)
 
 ---
