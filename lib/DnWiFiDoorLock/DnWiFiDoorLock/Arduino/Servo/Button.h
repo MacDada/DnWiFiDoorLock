@@ -22,6 +22,31 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         void press() override;
 
+        byte getPressingAngle() const {
+            return pressingAngle;
+        }
+
+        void setPressingAngle(byte angle) {
+            this->pressingAngle = angle;
+        }
+
+        byte getNotPressingAngle() const {
+            return notPressingAngle;
+        }
+
+        // todo: validation with VO? the VO could be created with std::variant
+        void setNotPressingAngle(byte angle) {
+            this->notPressingAngle = angle;
+        }
+
+        int getPressingMilliseconds() const {
+            return pressingMilliseconds;
+        }
+
+        void setPressingMilliseconds(int milliseconds) {
+            this->pressingMilliseconds = milliseconds;
+        }
+
         void onSetup() override;
 
         void onLoop() override;
@@ -30,11 +55,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         Servo &servo;
 
-        const byte pressingAngle;
+        byte pressingAngle;
 
-        const byte notPressingAngle;
+        byte notPressingAngle;
 
-        const int pressingMilliseconds;
+        int pressingMilliseconds;
 
         unsigned long stopPressingAtUptimeMilliseconds = 0;
 

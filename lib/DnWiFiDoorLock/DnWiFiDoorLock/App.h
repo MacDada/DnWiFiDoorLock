@@ -6,6 +6,7 @@
 #include <ESPAsyncWebServer.h>
 #include <Servo.h>
 #include <WebSerial.h>
+#include <avr/pgmspace.h>
 
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
 #include "DnApp/Hardware/LedInverter.h"
@@ -13,6 +14,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoButtonController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Logger.h"
@@ -286,6 +288,16 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        auto &getServoButtonController() {
+            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoButtonController service{
+                PSTR("Furnace"),
+                getFurnaceHeaterButton(),
+                getArduinoLogger()
+            };
+
+            return service;
+        }
+
         auto &getServer() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup service{
                 getEspServer(),
@@ -293,6 +305,7 @@ namespace DnWiFiDoorLock {
                 (byte) WEB_SERVER_PORT,
                 getDoorLockHttpController(),
                 getFurnaceHttpController(),
+                getServoButtonController(),
                 getServoHttpController(),
                 getArduinoLogger()
             };

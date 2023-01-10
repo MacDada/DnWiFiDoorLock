@@ -7,6 +7,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const unsigned int port,
         DoorLockController &doorLockController,
         FurnaceController &furnaceController,
+        ServoButtonController &servoButtonController,
         ServoController &servoController,
         Logger &logger
     ):
@@ -15,6 +16,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         port(port),
         doorLockController(doorLockController),
         furnaceController(furnaceController),
+        servoButtonController(servoButtonController),
         servoController(servoController),
         logger(logger) {
     }
@@ -67,6 +69,38 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             String body = dataToString(bodyData, bodyDataLength);
 
             furnaceController.apiPostAction(*request, body);
+        });
+
+        server.on("/modal.css", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.modalCssAction(*request);
+        });
+
+        server.on("/modal.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.modalJsAction(*request);
+        });
+
+        server.on("/ajax-form.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.ajaxFormJsAction(*request);
+        });
+
+        server.on("/input-number-buttons.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.inputNumberButtonsJsAction(*request);
+        });
+
+        server.on("/servo-button.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.javascriptAction(*request);
+        });
+
+        server.on("/servo-button.css", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.cssAction(*request);
+        });
+
+        server.on("/servo-button", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.updateSettingsAction(*request);
+        });
+
+        server.on("/servo-button", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            servoButtonController.showSettingsAction(*request);
         });
 
         server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {

@@ -28,6 +28,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         template <typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {
+            // todo: maybe use ESP.getFreeHeap();
             logger.debug(DnApp::Common::Strings::format(
                 "free heap: %d",
                 system_get_free_heap_size()
