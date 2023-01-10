@@ -78,7 +78,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             logger.log(DnApp::Arduino::Logger::Logger::LOG_LEVEL::WARNING, format(
                 "WiFi is still not connected, status: %s (%d)",
                 wiFiConnectionStatusToString(status),
-                (int) status
+                status
             ));
         }
     }
