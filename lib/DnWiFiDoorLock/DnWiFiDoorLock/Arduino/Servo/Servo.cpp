@@ -24,13 +24,10 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             degrees = MAX_ANGLE;
         }
 
-        logger.log(
-            DnApp::Arduino::Logger::Logger::LOG_LEVEL::INFO,
-            DnApp::Common::Strings::format(
-                "Servo: setAngle: write: %d",
-                degrees
-            )
-        );
+        logger.info(DnApp::Common::Strings::format(
+            "Servo: setAngle: write: %d",
+            degrees
+        ));
 
         servo.write(degrees);
     }

@@ -46,7 +46,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const int oldAngle,
         const int newAngle
     ) {
-        logger.log(Logger::LOG_LEVEL::INFO, format(
+        logger.info(format(
             "ServoController: new angle was set: \"%d\"",
             newAngle
         ));
@@ -63,7 +63,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const int oldAngle,
         const int newAngle
     ) {
-        logger.log(Logger::LOG_LEVEL::INFO, format(
+        logger.info(format(
             "ServoController: invalid angle given: \"%d\"",
             newAngle
         ));
@@ -79,7 +79,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         Request &request,
         const int oldAngle
     ) {
-        logger.log(Logger::LOG_LEVEL::INFO, format(
+        logger.info(format(
             "ServoController: showing current angle: \"%d\"",
             oldAngle
         ));
