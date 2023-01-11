@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void FurnaceController::statusAction(AsyncWebServerRequest &request) const {
-        logger.info("FurnaceController::statusAction()");
+        logger.info(PSTR("FurnaceController::statusAction()"));
 
         Time uptime = hardware.getUptime();
 
@@ -20,10 +20,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             HTTP_RESPONSE_STATUS_OK,
             HTTP_RESPONSE_CONTENT_TYPE_HTML,
             DnApp::Common::Strings::format(
-                // `PSTR()` loads string from Flash memory, instead of RAM
-                // todo: does that mean it is slower, so should not use if enough memory?
-                PSTR(
-                    R"(<!DOCTYPE html>
+                PSTR(R"(
+                    <!DOCTYPE html>
                     <html>
                     <head>
                         <meta charset="utf-8">
@@ -46,11 +44,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                             </center>
                         </form>
                     </body>
-                    </html>)"
-                ),
-                furnace.isHeaterOn() ? "włączone!" : "wyłączone!",
-                furnace.isHeaterOn() ? "&#128293;" : "&#10060;",
-                furnace.isHeaterOn() ? "włączone!" : "wyłączone!",
+                    </html>
+                )"),
+                furnace.isHeaterOn() ? PSTR("włączone!") : PSTR("wyłączone!"),
+                furnace.isHeaterOn() ? PSTR("&#128293;") : PSTR("&#10060;"),
+                furnace.isHeaterOn() ? PSTR("włączone!") : PSTR("wyłączone!"),
                 uptime.getHours(),
                 uptime.getRemainingMinutes(),
                 uptime.getRemainingSeconds()
@@ -59,20 +57,20 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void FurnaceController::switchAction(AsyncWebServerRequest &request) const {
-        logger.info("FurnaceController::switchAction()");
+        logger.info(PSTR("FurnaceController::switchAction()"));
 
         furnace.toggleHeater();
 
-        redirect(request, "/furnace");
+        redirect(request, F("/furnace"));
     }
 
     void FurnaceController::apiGetAction(AsyncWebServerRequest &request) const {
-        logger.info("FurnaceController::apiGetAction()");
+        logger.info(PSTR("FurnaceController::apiGetAction()"));
 
         request.send(
             HTTP_RESPONSE_STATUS_OK,
             HTTP_RESPONSE_CONTENT_TYPE_JSON,
-            furnace.isHeaterOn() ? "true" : "false"
+            furnace.isHeaterOn() ? F("true") : F("false")
         );
     }
 
@@ -80,19 +78,19 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         AsyncWebServerRequest &request,
         const String &body
     ) const {
-        logger.info("FurnaceController::apiPostAction()");
+        logger.info(PSTR("FurnaceController::apiPostAction()"));
 
-        if (body.equals("ON")) {
+        if (body.equals(F("ON"))) {
             furnace.turnOnHeater();
-        } else if (body.equals("OFF")) {
+        } else if (body.equals(F("OFF"))) {
             furnace.turnOffHeater();
         } else {
-            logger.warning("FurnaceController::apiPostAction(): Invalid value response");
+            logger.warning(PSTR("FurnaceController::apiPostAction(): Invalid value response"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_BAD_REQUEST,
                 HTTP_RESPONSE_CONTENT_TYPE_JSON,
-                "Invalid value"
+                F("Invalid value")
             );
 
             return;
@@ -101,7 +99,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         request.send(
             HTTP_RESPONSE_STATUS_ACCEPTED,
             HTTP_RESPONSE_CONTENT_TYPE_JSON,
-            furnace.isHeaterOn() ? "true" : "false"
+            furnace.isHeaterOn() ? F("true") : F("false")
         );
     }
 }

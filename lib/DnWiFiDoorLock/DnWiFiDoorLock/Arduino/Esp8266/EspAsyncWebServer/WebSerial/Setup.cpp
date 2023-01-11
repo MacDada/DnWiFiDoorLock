@@ -29,7 +29,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         }
 
         serial.println(DnApp::Common::Strings::format(
-            "Received command: \"%s\"",
+            PSTR("Received command: \"%s\""),
             command.c_str()
         ).get());
     }

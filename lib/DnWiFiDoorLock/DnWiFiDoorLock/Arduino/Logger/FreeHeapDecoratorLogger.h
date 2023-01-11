@@ -2,6 +2,8 @@
 
 #include <type_traits>
 
+#include <WString.h>
+
 #include "DnApp/Arduino/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
 
@@ -30,7 +32,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         void doLog(LOG_LEVEL level, const MessageType message) const {
             // todo: maybe use ESP.getFreeHeap();
             logger.debug(DnApp::Common::Strings::format(
-                "free heap: %d",
+                PSTR("free heap: %d"),
                 system_get_free_heap_size()
             ));
             logger.log(level, message);

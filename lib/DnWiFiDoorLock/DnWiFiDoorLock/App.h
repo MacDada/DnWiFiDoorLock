@@ -6,7 +6,7 @@
 #include <ESPAsyncWebServer.h>
 #include <Servo.h>
 #include <WebSerial.h>
-#include <avr/pgmspace.h>
+#include <WString.h>
 
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
 #include "DnApp/Hardware/LedInverter.h"
@@ -176,8 +176,12 @@ namespace DnWiFiDoorLock {
 
         auto &getWiFi() {
             static DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi service{
+                // todo: figure out why `*ssid` crashes in `::WiFi.begin()` when using `PSTR(WIFI_SSID)`
+                //       * https://discord.com/channels/583251190591258624/1063162264468865047/1063162264468865047
+                //       * https://community.platformio.org/t/esp8266-why-is-pstr-crashing-on-text-in-a-function/31457/1
+                //       * https://forum.arduino.cc/t/esp8266-why-is-pstr-crashing-on-text-in-a-function/1076744/1
                 WIFI_SSID,
-                WIFI_PASSWORD,
+                PSTR(WIFI_PASSWORD),
                 getBuiltInLedBlinker(),
                 // WebSerial(Logger) cannot be injected, runtime crash for some reason
                 getHardwareSerialLogger(),
@@ -192,7 +196,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::Esp8266::MDNSSetupAndLoopAware service{
                 MDNS,
                 getLogger(),
-                WEB_SERVER_HOST_NAME
+                PSTR(WEB_SERVER_HOST_NAME)
             };
 
             return service;
@@ -201,8 +205,8 @@ namespace DnWiFiDoorLock {
         auto &getOtaUpdater() {
             static DnWiFiDoorLock::Arduino::OTAUpdater service{
                 OTA_UPDATE_PORT,
-                OTA_UPDATE_HOST,
-                OTA_UPDATE_PASSWORD_MD5,
+                PSTR(OTA_UPDATE_HOST),
+                PSTR(OTA_UPDATE_PASSWORD_MD5),
                 getArduinoLogger()
             };
 
@@ -301,7 +305,7 @@ namespace DnWiFiDoorLock {
         auto &getServer() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup service{
                 getEspServer(),
-                WEB_SERVER_HOST_NAME,
+                PSTR(WEB_SERVER_HOST_NAME),
                 (byte) WEB_SERVER_PORT,
                 getDoorLockHttpController(),
                 getFurnaceHttpController(),

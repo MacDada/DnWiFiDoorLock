@@ -24,19 +24,21 @@ namespace DnWiFiDoorLock::Arduino {
 
         // todo: do not hardcode app name
         serial.print(DnApp::Common::Strings::format(
-            "\n\n\n\n\n\n\n\n\n"
-            "%s"
-            "================================"
-            "%s"
-            "\n\n"
-            "%s"
-            "  Hello from `DnWiFiDoorLock`!"
-            "%s"
-            "\n\n"
-            "%s"
-            "================================"
-            "%s"
-            "\n\n\n",
+            PSTR(
+                "\n\n\n\n\n\n\n\n\n"
+                "%s"
+                "================================"
+                "%s"
+                "\n\n"
+                "%s"
+                "  Hello from `DnWiFiDoorLock`!"
+                "%s"
+                "\n\n"
+                "%s"
+                "================================"
+                "%s"
+                "\n\n\n"
+            ),
             VT100_FORMAT_BOLD_BLUE,
             VT100_FORMAT_RESET,
             VT100_FORMAT_BOLD_GREEN,

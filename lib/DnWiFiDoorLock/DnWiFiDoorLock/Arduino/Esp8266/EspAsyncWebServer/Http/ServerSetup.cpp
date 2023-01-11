@@ -30,34 +30,34 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServerSetup::setupRouting() {
-        server.on("/", HTTP_GET, [&](AsyncWebServerRequest *const request) {
-            request->redirect("/furnace");
+        server.on(PSTR("/"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
+            request->redirect(F("/furnace"));
         });
 
         // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
         //
         // todo: can i get null here instead of the object? o.O
-        server.on("/doorlock", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/doorlock"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             doorLockController.statusAction(*request);
         });
 
-        server.on("/doorlock/switch", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/doorlock/switch"), HTTP_POST, [&](AsyncWebServerRequest *const request) {
             doorLockController.switchAction(*request);
         });
 
-        server.on("/furnace", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/furnace"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             furnaceController.statusAction(*request);
         });
 
-        server.on("/furnace/switch", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/furnace/switch"), HTTP_POST, [&](AsyncWebServerRequest *const request) {
             furnaceController.switchAction(*request);
         });
 
-        server.on("/api/furnace", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/api/furnace"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             furnaceController.apiGetAction(*request);
         });
 
-        server.on("/api/furnace", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/api/furnace"), HTTP_POST, [&](AsyncWebServerRequest *const request) {
             // ignore, we use the callback with request body
         }, nullptr, [&](
             AsyncWebServerRequest *request,
@@ -71,39 +71,39 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             furnaceController.apiPostAction(*request, body);
         });
 
-        server.on("/modal.css", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/modal.css"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.modalCssAction(*request);
         });
 
-        server.on("/modal.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/modal.js"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.modalJsAction(*request);
         });
 
-        server.on("/ajax-form.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/ajax-form.js"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.ajaxFormJsAction(*request);
         });
 
-        server.on("/input-number-buttons.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/input-number-buttons.js"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.inputNumberButtonsJsAction(*request);
         });
 
-        server.on("/servo-button.js", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/servo-button.js"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.javascriptAction(*request);
         });
 
-        server.on("/servo-button.css", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/servo-button.css"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.cssAction(*request);
         });
 
-        server.on("/servo-button", HTTP_POST, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/servo-button"), HTTP_POST, [&](AsyncWebServerRequest *const request) {
             servoButtonController.updateSettingsAction(*request);
         });
 
-        server.on("/servo-button", HTTP_GET, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/servo-button"), HTTP_GET, [&](AsyncWebServerRequest *const request) {
             servoButtonController.showSettingsAction(*request);
         });
 
-        server.on("/servo", HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {
+        server.on(PSTR("/servo"), HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest *const request) {
             servoController.angleAction(*request);
         });
 
@@ -114,16 +114,16 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
     void ServerSetup::handleWebNotFound(AsyncWebServerRequest &request) {
         logger.warning(DnApp::Common::Strings::format(
-            "HttpServer: page not found! URI: %s, method: %s",
+            PSTR("HttpServer: page not found! URI: %s, method: %s"),
             request.url().c_str(),
             request.methodToString()
         ));
 
         request.send(
             404,
-            "text/plain",
+            F("text/plain"),
             DnApp::Common::Strings::format(
-                "File Not Found\n\nURI: %s\nMethod: %s\n",
+                PSTR("File Not Found\n\nURI: %s\nMethod: %s\n"),
                 request.url().c_str(),
                 request.methodToString()
             ).get()
@@ -131,18 +131,18 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServerSetup::logServerHasStarted() {
-        String message = "HTTP server has started, open http://";
+        String message{F("HTTP server has started, open http://")};
 
         // todo: get rid of the global
         message += WiFi.localIP().toString();
 
-        message += ":";
+        message += F(":");
         message += port;
-        message += " or http://";
+        message += F(" or http://");
         message += hostname;
-        message += ".local:";
+        message += F(".local:");
         message += port;
-        message += " in a web browser :)";
+        message += F(" in a web browser :)");
 
         logger.info(message);
     }

@@ -18,6 +18,7 @@ Thank you for all the help that I received on
 [`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
  
 - `alex88#9252`
+- `Alvin121#2883`
 - `Arno#7285`
 - `Doctor Bazooka#2461`
 - `DXPower#0133`

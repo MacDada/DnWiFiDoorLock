@@ -2,6 +2,8 @@
 
 #include <type_traits>
 
+#include <WString.h>
+
 #include "DnApp/Hardware/Button.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Furnace.h"

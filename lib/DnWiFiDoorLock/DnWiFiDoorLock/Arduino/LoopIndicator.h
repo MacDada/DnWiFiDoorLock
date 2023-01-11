@@ -3,6 +3,7 @@
 #include <type_traits>
 
 #include <ESP8266WiFi.h>
+#include <WString.h>
 
 #include "DnApp/Arduino/Logger/Logger.h"
 #include "DnApp/Hardware/Led.h"

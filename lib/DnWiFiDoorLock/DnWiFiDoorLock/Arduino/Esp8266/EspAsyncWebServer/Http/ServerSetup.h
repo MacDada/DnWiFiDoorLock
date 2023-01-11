@@ -3,6 +3,7 @@
 #include <type_traits>
 
 #include <ESPAsyncWebServer.h>
+#include <WString.h>
 
 #include "DnApp/Arduino/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"

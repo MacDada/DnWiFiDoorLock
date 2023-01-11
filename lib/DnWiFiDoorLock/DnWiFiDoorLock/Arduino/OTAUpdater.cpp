@@ -19,32 +19,32 @@ namespace DnWiFiDoorLock::Arduino {
         ArduinoOTA.setPasswordHash(passwordHash);
 
         ArduinoOTA.onStart([&]() {
-            String type;
+            String message{F("Start updating ")};
 
             if (ArduinoOTA.getCommand() == U_FLASH) {
-                type = "sketch";
+                message += F("sketch");
             } else { // U_FS
-                type = "filesystem";
+                message += F("filesystem");
             }
 
             // NOTE: if updating FS this would be the place to unmount FS using FS.end()
-            logger.info("Start updating " + type);
+            logger.info(message);
         });
 
         ArduinoOTA.onEnd([&]() {
-            logger.info("End");
+            logger.info(F("End"));
         });
 
         ArduinoOTA.onProgress([&](const unsigned int progress, const unsigned int total) {
             logger.info(DnApp::Common::Strings::format(
-                "Progress: %u%%",
+                PSTR("Progress: %u%%"),
                 progress / (total / 100)
             ));
         });
 
         ArduinoOTA.onError([&](const ota_error_t error) {
             logger.error(DnApp::Common::Strings::format(
-                "Error[%u]: %s",
+                PSTR("Error[%u]: %s"),
                 error,
                 otaErrorToString(error)
             ));
@@ -60,17 +60,17 @@ namespace DnWiFiDoorLock::Arduino {
     const char *OTAUpdater::otaErrorToString(const ota_error_t error) const {
         switch (error) {
             case OTA_AUTH_ERROR:
-                return "OTA_AUTH_ERROR";
+                return PSTR("OTA_AUTH_ERROR");
             case OTA_BEGIN_ERROR:
-                return "OTA_BEGIN_ERROR";
+                return PSTR("OTA_BEGIN_ERROR");
             case OTA_CONNECT_ERROR:
-                return "OTA_CONNECT_ERROR";
+                return PSTR("OTA_CONNECT_ERROR");
             case OTA_RECEIVE_ERROR:
-                return "OTA_RECEIVE_ERROR";
+                return PSTR("OTA_RECEIVE_ERROR");
             case OTA_END_ERROR:
-                return "OTA_END_ERROR";
+                return PSTR("OTA_END_ERROR");
             default:
-                return "OTA_UNKNOWN_ERROR";
+                return PSTR("OTA_UNKNOWN_ERROR");
         }
     }
 }

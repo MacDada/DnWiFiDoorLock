@@ -18,17 +18,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
     }
 
     void LoopAwareSignalStrengthLogger::log() {
-        String message = "WiFi ";
+        String message = F("WiFi ");
 
         if (esp8266WiFi.isConnected()) {
-            message += "signal strength: ";
+            message += F("signal strength: ");
             message += esp8266WiFi.RSSI();
-            message += " dBm";
+            message += F(" dBm");
 
             logger.debug(message);
         } else {
             // todo: log that it has reconnected after connection problem
-            message += "NOT connected!";
+            message += F("NOT connected!");
 
             logger.error(message);
         }

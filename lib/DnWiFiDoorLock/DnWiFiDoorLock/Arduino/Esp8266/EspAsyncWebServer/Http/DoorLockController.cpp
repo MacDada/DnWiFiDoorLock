@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void DoorLockController::statusAction(AsyncWebServerRequest &request) const {
-        logger.info("DoorLockController::statusAction()");
+        logger.info(PSTR("DoorLockController::statusAction()"));
 
         Time uptime = hardware.getUptime();
 
@@ -20,10 +20,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             HTTP_RESPONSE_STATUS_OK,
             HTTP_RESPONSE_CONTENT_TYPE_HTML,
             DnApp::Common::Strings::format(
-                // `PSTR()` loads string from Flash memory, instead of RAM
-                // todo: does that mean it is slower, so should not use if enough memory?
-                PSTR(
-                    R"(<!DOCTYPE html>
+                PSTR(R"(
+                    <!DOCTYPE html>
                     <html>
                     <head>
                         <meta charset="utf-8">
@@ -46,11 +44,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                             </center>
                         </form>
                     </body>
-                    </html>)"
-                ),
-                doorLock.isClosed() ? "zamknięte!" : "otwarte!",
-                doorLock.isClosed() ? "&#128274;" : "&#128275;",
-                doorLock.isClosed() ? "Zamknięte!" : "Otwarte!",
+                    </html>
+                )"),
+                doorLock.isClosed() ? PSTR("zamknięte!") : PSTR("otwarte!"),
+                doorLock.isClosed() ? PSTR("&#128274;") : PSTR("&#128275;"),
+                doorLock.isClosed() ? PSTR("Zamknięte!") : PSTR("Otwarte!"),
                 uptime.getHours(),
                 uptime.getRemainingMinutes(),
                 uptime.getRemainingSeconds()
@@ -59,11 +57,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void DoorLockController::switchAction(AsyncWebServerRequest &request) {
-        logger.info("DoorLockController::switchAction()");
+        logger.info(PSTR("DoorLockController::switchAction()"));
 
         doorLock.switchOpenClose();
 
         // todo: route generator
-        redirect(request, "/doorlock");
+        redirect(request, F("/doorlock"));
     }
 }

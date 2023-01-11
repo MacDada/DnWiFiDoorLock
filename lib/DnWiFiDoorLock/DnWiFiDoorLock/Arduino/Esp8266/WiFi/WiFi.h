@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
+#include <WString.h>
 
 #include "DnApp/Arduino/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"

@@ -1,7 +1,6 @@
 #include "MDNSSetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266 {
-
     MDNSSetupAndLoopAware::MDNSSetupAndLoopAware(
         MDNSResponder &mdnsResponder,
         Logger &logger,
@@ -14,15 +13,14 @@ namespace DnWiFiDoorLock::Arduino::Esp8266 {
 
     void MDNSSetupAndLoopAware::onSetup() {
         if (mdnsResponder.begin(hostname)) {
-            logger.info("MDNS responder started");
+            logger.info(PSTR("MDNS responder started"));
         } else {
             // todo: better error handling
-            logger.error("There was a problem to start MDNS!");
+            logger.error(PSTR("There was a problem to start MDNS!"));
         }
     }
 
     void MDNSSetupAndLoopAware::onLoop() {
         mdnsResponder.update();
     }
-
 }

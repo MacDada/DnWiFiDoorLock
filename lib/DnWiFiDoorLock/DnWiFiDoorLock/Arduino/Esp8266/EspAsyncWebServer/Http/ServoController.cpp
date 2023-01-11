@@ -47,7 +47,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const int newAngle
     ) {
         logger.info(format(
-            "ServoController: new angle was set: \"%d\"",
+            PSTR("ServoController: new angle was set: \"%d\""),
             newAngle
         ));
 
@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const int newAngle
     ) {
         logger.info(format(
-            "ServoController: invalid angle given: \"%d\"",
+            PSTR("ServoController: invalid angle given: \"%d\""),
             newAngle
         ));
 
@@ -80,7 +80,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const int oldAngle
     ) {
         logger.info(format(
-            "ServoController: showing current angle: \"%d\"",
+            PSTR("ServoController: showing current angle: \"%d\""),
             oldAngle
         ));
 
@@ -99,11 +99,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         // todo: extract some kind of templates?
         //       or use a template engine?
         //       https://techtutorialsx.com/2021/09/08/esp32-json/
-        // todo: would PSTR() or F() help in any way?
         // todo: for some reason, when I hit enter from the number input, two values are sent:
         //       zero and the input value -> causing the value to be zero after all
         //       it works ok when I click submit instead of hitting enter
-        String content = R"(
+        String content = F(R"(
             <!DOCTYPE html>
             <html>
                 <head>
@@ -148,26 +147,26 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     </form>
                 </body>
             </html>
-        )";
+        )");
 
-        content.replace("{{ servo_min_angle }}", String(Servo::MIN_ANGLE));
-        content.replace("{{ servo_max_angle }}", String(Servo::MAX_ANGLE));
+        content.replace(F("{{ servo_min_angle }}"), String(Servo::MIN_ANGLE));
+        content.replace(F("{{ servo_max_angle }}"), String(Servo::MAX_ANGLE));
 
         content.replace(
-            "{{ invalid_angle_error }}",
-            invalidAngle ? "<p>ERROR: INVALID ANGLE!</p>" : ""
+            F("{{ invalid_angle_error }}"),
+            invalidAngle ? F("<p>ERROR: INVALID ANGLE!</p>") : F("")
         );
 
-        content.replace("{{ old_or_current }}", newAngle ? "Old" : "Current");
-        content.replace("{{ old_angle }}", String(oldAngle));
+        content.replace(F("{{ old_or_current }}"), newAngle ? F("Old") : F("Current"));
+        content.replace(F("{{ old_angle }}"), String(oldAngle));
 
         content.replace(
-            "{{ new_angle }}",
-            newAngle ? format("<p>New angle: %d</p>", newAngle.value()).get() : ""
+            F("{{ new_angle }}"),
+            newAngle ? format(PSTR("<p>New angle: %d</p>"), newAngle.value()).get() : ""
         );
 
         content.replace(
-            "{{ angle_form_value }}",
+            F("{{ angle_form_value }}"),
             String(newAngle ? newAngle.value() : oldAngle)
         );
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Servo.h>
+#include <WString.h>
 
 #include "DnApp/Arduino/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"

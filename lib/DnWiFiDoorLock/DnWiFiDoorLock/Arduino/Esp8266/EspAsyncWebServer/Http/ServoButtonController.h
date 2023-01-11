@@ -58,6 +58,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
+        // todo: include file as a string literal?
+        //       https://forum.arduino.cc/t/how-to-store-a-file-in-code-memory/1075563/5
         void cssAction(AsyncWebServerRequest &request) {
             logger.info(F("ServoButtonController::cssAction()"));
 

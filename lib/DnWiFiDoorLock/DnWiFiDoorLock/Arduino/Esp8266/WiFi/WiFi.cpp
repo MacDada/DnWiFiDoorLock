@@ -34,22 +34,30 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     void WiFi::connect() {
         esp8266WiFi.begin(this->ssid, this->password);
 
-        logger.info(format("WiFi selected: \"%s\"", this->ssid));
-        logger.info("Connecting");
+        logger.info(format(PSTR("WiFi selected: \"%s\""), this->ssid));
+
+        // todo: this is probably casting the literal to String object
+        //       - maybe not the best idea after all?
+        logger.info(F("Connecting"));
 
         hardware.pause(1000);
 
         waitForConnection();
 
         logger.info(format(
-            "Connected, IP address: %s",
+            // todo: why does PSTR work here,
+            //       even though I don't use any special FLASH methods in the format() function?
+            //       * https://forum.arduino.cc/t/esp8266-f-macro-is-unnecessary-on-esp-chips/1075805/1
+            //       * https://community.platformio.org/t/esp8266-arduino-f-macro-is-unnecessary-on-esp-chips/31399
+            //       * https://discord.com/channels/583251190591258624/1062392340783829063/1062392340783829063
+            PSTR("Connected, IP address: %s"),
             esp8266WiFi.localIP().toString().c_str()
         ));
     }
 
     void WiFi::waitForConnection() {
         int tries = 0;
-        String connectingMessage = "Connecting";
+        String connectingMessage{F("Connecting")};
 
         // todo: better error handling
         while (true) {
@@ -61,7 +69,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             hardware.pause(500);
 
-            connectingMessage += ".";
+            connectingMessage += F(".");
 
             logger.info(connectingMessage);
 
@@ -76,7 +84,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         if (0 == tries % 5) {
             logger.warning(format(
-                "WiFi is still not connected, status: %s (%d)",
+                PSTR("WiFi is still not connected, status: %s (%d)"),
                 wiFiConnectionStatusToString(status),
                 status
             ));
@@ -86,25 +94,25 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     const char *WiFi::wiFiConnectionStatusToString(const uint8_t status) const {
         switch (status) {
             case WL_NO_SHIELD:
-                return "WL_NO_SHIELD";
+                return PSTR("WL_NO_SHIELD");
             case WL_IDLE_STATUS:
-                return "WL_IDLE_STATUS";
+                return PSTR("WL_IDLE_STATUS");
             case WL_NO_SSID_AVAIL:
-                return "WL_NO_SSID_AVAIL [invalid SSID?]";
+                return PSTR("WL_NO_SSID_AVAIL [invalid SSID?]");
             case WL_SCAN_COMPLETED:
-                return "WL_SCAN_COMPLETED";
+                return PSTR("WL_SCAN_COMPLETED");
             case WL_CONNECTED:
-                return "WL_CONNECTED";
+                return PSTR("WL_CONNECTED");
             case WL_CONNECT_FAILED:
-                return "WL_CONNECT_FAILED";
+                return PSTR("WL_CONNECT_FAILED");
             case WL_CONNECTION_LOST:
-                return "WL_CONNECTION_LOST";
+                return PSTR("WL_CONNECTION_LOST");
             case WL_WRONG_PASSWORD:
-                return "WL_WRONG_PASSWORD";
+                return PSTR("WL_WRONG_PASSWORD");
             case WL_DISCONNECTED:
-                return "WL_DISCONNECTED";
+                return PSTR("WL_DISCONNECTED");
             default:
-                return "WL_UNKNOWN_STATUS";
+                return PSTR("WL_UNKNOWN_STATUS");
         }
     }
 }

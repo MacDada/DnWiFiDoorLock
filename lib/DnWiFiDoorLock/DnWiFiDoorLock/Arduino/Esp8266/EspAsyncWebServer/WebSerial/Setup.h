@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <ESPAsyncWebServer.h>
 #include <WebSerial.h>
+#include <WString.h>
 
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"

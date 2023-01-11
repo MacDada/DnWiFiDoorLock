@@ -2,6 +2,8 @@
 
 #include <type_traits>
 
+#include <WString.h>
+
 #include "DnApp/Hardware/DoorLock.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"

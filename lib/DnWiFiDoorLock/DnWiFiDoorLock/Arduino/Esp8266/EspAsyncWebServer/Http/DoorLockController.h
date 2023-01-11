@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ESPAsyncWebServer.h>
+#include <WString.h>
 
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"

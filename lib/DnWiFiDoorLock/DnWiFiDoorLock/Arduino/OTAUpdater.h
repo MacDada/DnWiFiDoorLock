@@ -3,6 +3,7 @@
 #include <type_traits>
 
 #include <ArduinoOTA.h>
+#include <WString.h>
 
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Arduino/Logger/Logger.h"

@@ -25,7 +25,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         }
 
         logger.info(DnApp::Common::Strings::format(
-            "Servo: setAngle: write: %d",
+            PSTR("Servo: setAngle: write: %d"),
             degrees
         ));
 
