@@ -18,7 +18,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
         using Logger = DnApp::Arduino::Logger::Logger;
     public:
-        ServerSetup(
+        explicit ServerSetup(
+            ESP8266WiFiClass &wiFi,
             AsyncWebServer &server,
             const char *hostname,
             unsigned int port,
@@ -34,6 +35,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void onLoop() override;
     private:
         AsyncWebServer &server;
+
+        ESP8266WiFiClass &wiFi;
 
         const char *const hostname;
 

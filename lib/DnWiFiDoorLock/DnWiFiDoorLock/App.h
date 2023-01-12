@@ -304,6 +304,7 @@ namespace DnWiFiDoorLock {
 
         auto &getServer() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup service{
+                ::WiFi,
                 getEspServer(),
                 PSTR(WEB_SERVER_HOST_NAME),
                 (byte) WEB_SERVER_PORT,

@@ -2,6 +2,7 @@
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     ServerSetup::ServerSetup(
+        ESP8266WiFiClass &wiFi,
         AsyncWebServer &server,
         const char *const hostname,
         const unsigned int port,
@@ -18,7 +19,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         furnaceController(furnaceController),
         servoButtonController(servoButtonController),
         servoController(servoController),
-        logger(logger) {
+        logger(logger),
+        wiFi(wiFi) {
     }
 
     void ServerSetup::onSetup() {
@@ -133,8 +135,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     void ServerSetup::logServerHasStarted() {
         String message{F("HTTP server has started, open http://")};
 
-        // todo: get rid of the global
-        message += WiFi.localIP().toString();
+        message += wiFi.localIP().toString();
 
         message += F(":");
         message += port;
