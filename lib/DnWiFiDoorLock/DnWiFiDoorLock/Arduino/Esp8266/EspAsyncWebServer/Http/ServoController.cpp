@@ -7,10 +7,12 @@ namespace {
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     ServoController::ServoController(
         Servo &servo,
-        Logger &logger
+        Logger &logger,
+        const char *const appName
     ):
         servo(servo),
-        logger(logger) {
+        logger(logger),
+        appName(appName) {
     }
 
     void ServoController::angleAction(Request &request) {
@@ -107,10 +109,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             <html>
                 <head>
                     <meta charset="utf-8">
-                    <title>Servo :: DnWiFiDoorLock</title>
+                    <title>Servo :: {{ app_name }}</title>
                 </head>
                 <body>
-                    <h1>DnWiFiDoorLock</h1>
+                    <h1>{{ app_name }}</h1>
 
                     <h2>Servo</h2>
 
@@ -148,6 +150,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 </body>
             </html>
         )");
+
+        content.replace(F("{{ app_name }}"), appName);
 
         content.replace(F("{{ servo_min_angle }}"), String(Servo::MIN_ANGLE));
         content.replace(F("{{ servo_max_angle }}"), String(Servo::MAX_ANGLE));

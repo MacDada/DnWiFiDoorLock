@@ -278,7 +278,8 @@ namespace DnWiFiDoorLock {
         auto &getServoHttpController() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController service{
                 getServo(),
-                getLogger()
+                getLogger(),
+                PSTR(APP_NAME)
             };
 
             return service;
@@ -294,7 +295,7 @@ namespace DnWiFiDoorLock {
 
         auto &getServoButtonController() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoButtonController service{
-                PSTR("Furnace"),
+                PSTR(APP_NAME),
                 getFurnaceHeaterButton(),
                 getArduinoLogger()
             };
@@ -322,7 +323,8 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::HardwareSerialSetup service{
                 Serial,
                 getHardware(),
-                SERIAL_BITS_PER_SECOND
+                SERIAL_BITS_PER_SECOND,
+                PSTR(APP_NAME)
             };
 
             return service;

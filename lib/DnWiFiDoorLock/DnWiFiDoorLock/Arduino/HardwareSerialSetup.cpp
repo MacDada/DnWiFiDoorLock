@@ -4,11 +4,13 @@ namespace DnWiFiDoorLock::Arduino {
     HardwareSerialSetup::HardwareSerialSetup(
         HardwareSerial &serial,
         const DnWiFiDoorLock::Arduino::Hardware &hardware,
-        const long bitsPerSecond
+        const long bitsPerSecond,
+        const char *const appName
     ):
         serial(serial),
         hardware(hardware),
-        bitsPerSecond(bitsPerSecond) {
+        bitsPerSecond(bitsPerSecond),
+        appName(appName) {
     }
 
     void HardwareSerialSetup::onSetup() {
@@ -31,7 +33,7 @@ namespace DnWiFiDoorLock::Arduino {
                 "%s"
                 "\n\n"
                 "%s"
-                "  Hello from `DnWiFiDoorLock`!"
+                "  Hello from `%s`!"
                 "%s"
                 "\n\n"
                 "%s"
@@ -42,6 +44,7 @@ namespace DnWiFiDoorLock::Arduino {
             VT100_FORMAT_BOLD_BLUE,
             VT100_FORMAT_RESET,
             VT100_FORMAT_BOLD_GREEN,
+            appName,
             VT100_FORMAT_RESET,
             VT100_FORMAT_BOLD_BLUE,
             VT100_FORMAT_RESET

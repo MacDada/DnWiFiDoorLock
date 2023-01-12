@@ -12,10 +12,12 @@
 namespace DnWiFiDoorLock::Arduino {
     class HardwareSerialSetup: public SetupAndLoopAware {
     public:
+        explicit
         HardwareSerialSetup(
             HardwareSerial &serial,
             const DnWiFiDoorLock::Arduino::Hardware &hardware,
-            long bitsPerSecond
+            const long bitsPerSecond,
+            const char *const appName
         );
 
         void onSetup() override;
@@ -42,6 +44,8 @@ namespace DnWiFiDoorLock::Arduino {
         const DnWiFiDoorLock::Arduino::Hardware &hardware;
 
         const long bitsPerSecond;
+
+        const char *const appName;
     };
 
     static_assert(!std::is_abstract<HardwareSerialSetup>());

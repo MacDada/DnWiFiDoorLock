@@ -20,7 +20,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         explicit
         ServoController(
             Servo &servo,
-            Logger &logger
+            Logger &logger,
+            const char *const appName
         );
 
         void angleAction(AsyncWebServerRequest &request);
@@ -28,6 +29,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         Servo &servo;
 
         Logger &logger;
+
+        const char *const appName;
 
         String renderAngleResponse(
             int oldAngle,
