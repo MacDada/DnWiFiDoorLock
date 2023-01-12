@@ -162,6 +162,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger.info(F("ServoButtonController::modalJsAction()"));
 
             // todo: extract to "statically" served file: LittleFS
+            //       * https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html
+            //       * https://microcontrollerslab.com/esp8266-nodemcu-web-server-using-littlefs-flash-file-system/
+            //       * https://randomnerdtutorials.com/esp32-vs-code-platformio-spiffs/
             // todo: js minify before upload
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
