@@ -1,0 +1,381 @@
+#include <unity.h>
+
+#include "DnApp/Common/Strings.h"
+#include "DnApp/Logger/Decorator/LogLevelThresholdFilteringLogger.h"
+#include "DnApp/Logger/Endpoint/StringLogger.h"
+#include "DnApp/Logger/Logger.h"
+#include "DnApp/Unity/asserts.h"
+
+#define DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(message) {\
+    logger.log(Logger::LOG_LEVEL::DEBUG, message);\
+    logger.log(Logger::LOG_LEVEL::INFO, message);\
+    logger.log(Logger::LOG_LEVEL::WARNING, message);\
+    logger.log(Logger::LOG_LEVEL::ERROR, message);\
+    logger.log(Logger::LOG_LEVEL::CRITICAL, message);\
+    \
+    logger.debug(message);\
+    logger.info(message);\
+    logger.warning(message);\
+    logger.error(message);\
+    logger.critical(message);\
+}
+
+namespace {
+    using DnApp::Logger::Logger;
+    using DnApp::Logger::Endpoint::StringLogger;
+    using DnApp::Logger::Decorator::LogLevelThresholdFilteringLogger;
+
+    StringLogger stringLogger{};
+
+    void test_it_is_a_Logger() {
+        LogLevelThresholdFilteringLogger logger{stringLogger};
+
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
+    }
+
+    void test_threshold_is_debug_by_default() {
+        LogLevelThresholdFilteringLogger logger{stringLogger};
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::DEBUG,
+            logger.getThreshold()
+        );
+    }
+
+    void test_logging_literals() {
+        LogLevelThresholdFilteringLogger logger{stringLogger};
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_logging_chars() {
+        LogLevelThresholdFilteringLogger logger{stringLogger};
+
+        char foo[4] = "foo";
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+
+        TEST_ASSERT_EQUAL_STRING(
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_logging_const_chars() {
+        LogLevelThresholdFilteringLogger logger{stringLogger};
+
+        const char foo[4] = "foo";
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+
+        TEST_ASSERT_EQUAL_STRING(
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_logging_unique_ptr_of_chars() {
+        LogLevelThresholdFilteringLogger logger{stringLogger};
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(
+            DnApp::Common::Strings::makeUniquePtrOfChars("foo")
+        )
+
+        TEST_ASSERT_EQUAL_STRING(
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_debug_threshold_can_be_configured() {
+        LogLevelThresholdFilteringLogger logger{
+            stringLogger,
+            Logger::LOG_LEVEL::DEBUG
+        };
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::DEBUG,
+            logger.getThreshold()
+        );
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "debug\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_info_threshold_can_be_configured() {
+        LogLevelThresholdFilteringLogger logger{
+            stringLogger,
+            Logger::LOG_LEVEL::INFO
+        };
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::INFO,
+            logger.getThreshold()
+        );
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "info\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_warning_threshold_can_be_configured() {
+        LogLevelThresholdFilteringLogger logger{
+            stringLogger,
+            Logger::LOG_LEVEL::WARNING
+        };
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::WARNING,
+            logger.getThreshold()
+        );
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_error_threshold_can_be_configured() {
+        LogLevelThresholdFilteringLogger logger{
+            stringLogger,
+            Logger::LOG_LEVEL::ERROR
+        };
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::ERROR,
+            logger.getThreshold()
+        );
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_critical_threshold_can_be_configured() {
+        LogLevelThresholdFilteringLogger logger{
+            stringLogger,
+            Logger::LOG_LEVEL::CRITICAL
+        };
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::CRITICAL,
+            logger.getThreshold()
+        );
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "critical\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+
+    void test_threshold_can_be_set() {
+        LogLevelThresholdFilteringLogger logger{
+            stringLogger,
+            Logger::LOG_LEVEL::CRITICAL
+        };
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        logger.setThreshold(Logger::LOG_LEVEL::WARNING);
+
+        TEST_ASSERT_EQUAL_INT(
+            Logger::LOG_LEVEL::WARNING,
+            logger.getThreshold()
+        );
+
+        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            "critical\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n"
+            "warning\n"
+            "foo\n"
+            "error\n"
+            "foo\n"
+            "critical\n"
+            "foo\n",
+            stringLogger.getContent()
+        );
+    }
+}
+
+void setUp() {
+    stringLogger.clear();
+}
+
+int main() {
+    UNITY_BEGIN();
+
+    RUN_TEST(test_it_is_a_Logger);
+    RUN_TEST(test_threshold_is_debug_by_default);
+    RUN_TEST(test_logging_literals);
+    RUN_TEST(test_logging_chars);
+    RUN_TEST(test_logging_const_chars);
+    RUN_TEST(test_logging_unique_ptr_of_chars);
+    RUN_TEST(test_debug_threshold_can_be_configured);
+    RUN_TEST(test_info_threshold_can_be_configured);
+    RUN_TEST(test_warning_threshold_can_be_configured);
+    RUN_TEST(test_error_threshold_can_be_configured);
+    RUN_TEST(test_critical_threshold_can_be_configured);
+    RUN_TEST(test_threshold_can_be_set);
+
+    return UNITY_END();
+}
