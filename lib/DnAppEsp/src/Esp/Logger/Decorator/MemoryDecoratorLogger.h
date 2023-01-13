@@ -21,6 +21,10 @@ namespace DnApp::Esp::Logger::Decorator {
             esp(esp) {
         };
 
+        // todo: DRY those methods?
+        //       * maybe macro to generate those methods? since i think templates cant do that
+        //       * or maybe std::any?
+        //       * or maybe i can define it somehow in the base class and get rid of the template functions?
         void log(LOG_LEVEL level, const char* message) override {
             doLog(level, message);
         };
