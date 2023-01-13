@@ -32,6 +32,11 @@ namespace DnApp::Logger {
             "critical"
         };
 
+        static
+        const char* logLevelToString(LOG_LEVEL level) {
+            return LOG_LEVELS[static_cast<int>(level)];
+        }
+
         virtual
         void log(LOG_LEVEL level, char* message) = 0;
 

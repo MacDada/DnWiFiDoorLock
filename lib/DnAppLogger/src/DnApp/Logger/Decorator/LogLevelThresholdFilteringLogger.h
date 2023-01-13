@@ -6,7 +6,7 @@
 
 namespace DnApp::Logger::Decorator {
     class LogLevelThresholdFilteringLogger final:
-        public DnApp::Logger::Logger {
+        public Logger {
     public:
         // required because otherwise our log() methods hide base class declarations
         using Logger::log;
@@ -36,7 +36,7 @@ namespace DnApp::Logger::Decorator {
             doLog(level, message);
         };
     private:
-        DnApp::Logger::Logger& logger;
+        Logger& logger;
 
         Logger::LOG_LEVEL threshold;
 

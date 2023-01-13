@@ -30,7 +30,7 @@ namespace DnApp::Logger::Endpoint {
 
         template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) {
-            string += LOG_LEVELS[static_cast<int>(level)];
+            string += Logger::logLevelToString(level);
             string += "\n";
             string += message;
             string += "\n";

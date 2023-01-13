@@ -30,7 +30,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {
             printer.print("[");
-            printer.print(LOG_LEVELS[static_cast<int>(level)]);
+            printer.print(Logger::logLevelToString(level));
             printer.print("] ");
             printer.println(message);
         }
