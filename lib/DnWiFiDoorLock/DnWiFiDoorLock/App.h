@@ -4,6 +4,7 @@
 
 #include <Arduino.h>
 #include <ESPAsyncWebServer.h>
+#include <Esp.h>
 #include <Servo.h>
 #include <WebSerial.h>
 #include <WString.h>
@@ -94,6 +95,7 @@ namespace DnWiFiDoorLock {
 
         auto& getFreeHeapDecoratorLogger() {
             static Arduino::Logger::FreeHeapDecoratorLogger service{
+                ::ESP,
                 getMultipleLoggersLogger()
             };
 
