@@ -5,20 +5,7 @@
 #include "DnApp/Logger/Endpoint/NullLogger.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Unity/asserts.h"
-
-#define DN_APP_LOGGER_ENDPOINT_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(message) {\
-    logger.log(Logger::LOG_LEVEL::DEBUG, message);\
-    logger.log(Logger::LOG_LEVEL::INFO, message);\
-    logger.log(Logger::LOG_LEVEL::WARNING, message);\
-    logger.log(Logger::LOG_LEVEL::ERROR, message);\
-    logger.log(Logger::LOG_LEVEL::CRITICAL, message);\
-    \
-    logger.debug(message);\
-    logger.info(message);\
-    logger.warning(message);\
-    logger.error(message);\
-    logger.critical(message);\
-}
+#include "../../LoggerTest.h"
 
 namespace {
     using DnApp::Logger::Logger;
@@ -30,23 +17,23 @@ namespace {
     }
 
     void test_logging_literals() {
-        DN_APP_LOGGER_ENDPOINT_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
     }
 
     void test_logging_chars() {
         char foo[4] = "foo";
 
-        DN_APP_LOGGER_ENDPOINT_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
     }
 
     void test_logging_const_chars() {
         const char foo[4] = "foo";
 
-        DN_APP_LOGGER_ENDPOINT_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
     }
 
     void test_logging_unique_ptr_of_chars() {
-        DN_APP_LOGGER_ENDPOINT_NULL_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             std::make_unique<char[]>(4)
         )
     }

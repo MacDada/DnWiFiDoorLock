@@ -5,20 +5,7 @@
 #include "DnApp/Logger/Endpoint/StringLogger.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Unity/asserts.h"
-
-#define DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(message) {\
-    logger.log(Logger::LOG_LEVEL::DEBUG, message);\
-    logger.log(Logger::LOG_LEVEL::INFO, message);\
-    logger.log(Logger::LOG_LEVEL::WARNING, message);\
-    logger.log(Logger::LOG_LEVEL::ERROR, message);\
-    logger.log(Logger::LOG_LEVEL::CRITICAL, message);\
-    \
-    logger.debug(message);\
-    logger.info(message);\
-    logger.warning(message);\
-    logger.error(message);\
-    logger.critical(message);\
-}
+#include "../../LoggerTest.h"
 
 namespace {
     using DnApp::Logger::Logger;
@@ -45,7 +32,7 @@ namespace {
     void test_logging_literals() {
         LogLevelThresholdFilteringLogger logger{stringLogger};
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -77,7 +64,7 @@ namespace {
 
         char foo[4] = "foo";
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -109,7 +96,7 @@ namespace {
 
         const char foo[4] = "foo";
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -139,7 +126,7 @@ namespace {
     void test_logging_unique_ptr_of_chars() {
         LogLevelThresholdFilteringLogger logger{stringLogger};
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS(
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             DnApp::Common::Strings::makeUniquePtrOfChars("foo")
         )
 
@@ -179,7 +166,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -217,7 +204,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "info\n"
@@ -251,7 +238,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "warning\n"
@@ -281,7 +268,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "error\n"
@@ -307,7 +294,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "critical\n"
@@ -324,7 +311,7 @@ namespace {
             Logger::LOG_LEVEL::CRITICAL
         };
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         logger.setThreshold(Logger::LOG_LEVEL::WARNING);
 
@@ -333,7 +320,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_DECORATOR_LOG_LEVEL_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "critical\n"
