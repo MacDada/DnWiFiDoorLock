@@ -24,8 +24,8 @@ namespace DnApp::Logger::Decorator {
             return threshold;
         }
 
-        void setThreshold(LOG_LEVEL threshold) {
-            this->threshold = threshold;
+        void setThreshold(LOG_LEVEL newThreshold) {
+            threshold = newThreshold;
         }
 
         void log(LOG_LEVEL level, const char* message) override {
@@ -38,8 +38,6 @@ namespace DnApp::Logger::Decorator {
     private:
         DnApp::Logger::Logger& logger;
 
-        // todo: CLion complaining about shadowing?
-        //       https://discord.com/channels/583251190591258624/1063376138510028851/1063376138510028851
         Logger::LOG_LEVEL threshold;
 
         template<typename Message>

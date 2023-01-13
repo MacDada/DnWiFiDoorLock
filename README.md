@@ -16,7 +16,8 @@ Big thanks!
 
 Thank you for all the help that I received on 
 [`Better C++` Discord server](https://discord.gg/pJwsdep3Hn)!
- 
+
+- `00001H#8295`
 - `alex88#9252`
 - `Alvin121#2883`
 - `Arno#7285`
@@ -25,6 +26,7 @@ Thank you for all the help that I received on
 - `Felix#6325`
 - `Fluffles#6709`
 - `Jérôme#1807`
+- `Kev#3440`
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
 
