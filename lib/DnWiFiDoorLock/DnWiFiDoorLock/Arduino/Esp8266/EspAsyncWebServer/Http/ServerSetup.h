@@ -18,49 +18,50 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
         using Logger = DnApp::Arduino::Logger::Logger;
     public:
-        explicit ServerSetup(
-            ESP8266WiFiClass &wiFi,
-            AsyncWebServer &server,
-            const char *hostname,
+        explicit
+        ServerSetup(
+            ESP8266WiFiClass& wiFi,
+            AsyncWebServer& server,
+            const char* hostname,
             unsigned int port,
-            DoorLockController &doorLockController,
-            FurnaceController &furnaceController,
-            ServoButtonController &servoButtonController,
-            ServoController &servoController,
-            Logger &logger
+            DoorLockController& doorLockController,
+            FurnaceController& furnaceController,
+            ServoButtonController& servoButtonController,
+            ServoController& servoController,
+            Logger& logger
         );
 
         void onSetup() override;
 
         void onLoop() override;
     private:
-        AsyncWebServer &server;
+        AsyncWebServer& server;
 
-        ESP8266WiFiClass &wiFi;
+        ESP8266WiFiClass& wiFi;
 
-        const char *const hostname;
+        const char* const hostname;
 
         const unsigned int port;
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
-        DoorLockController &doorLockController;
+        DoorLockController& doorLockController;
 
-        FurnaceController &furnaceController;
+        FurnaceController& furnaceController;
 
-        ServoButtonController &servoButtonController;
+        ServoButtonController& servoButtonController;
 
-        ServoController &servoController;
+        ServoController& servoController;
 
-        Logger &logger;
+        Logger& logger;
 
-        void handleWebNotFound(AsyncWebServerRequest &request);
+        void handleWebNotFound(AsyncWebServerRequest& request);
 
         void setupRouting();
 
         // todo: is there a way to avoid declaring private methods in header file? looks unnecessary to me ;)
         void logServerHasStarted();
 
-        String dataToString(const uint8_t *data, size_t dataLength) const;
+        String dataToString(const uint8_t* data, size_t dataLength) const;
     };
 
     static_assert(!std::is_abstract<ServerSetup>());

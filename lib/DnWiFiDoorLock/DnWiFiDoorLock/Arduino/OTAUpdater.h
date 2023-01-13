@@ -15,9 +15,9 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         OTAUpdater(
             int port,
-            const char *host,
-            const char *passwordHash,
-            DnApp::Arduino::Logger::Logger &logger
+            const char* host,
+            const char* passwordHash,
+            DnApp::Arduino::Logger::Logger& logger
         );
 
         void onSetup() override;
@@ -26,13 +26,13 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         const int port;
 
-        const char *const host;
+        const char* const host;
 
-        const char *const passwordHash;
+        const char* const passwordHash;
 
-        DnApp::Arduino::Logger::Logger &logger;
+        DnApp::Arduino::Logger::Logger& logger;
 
-        const char *otaErrorToString(ota_error_t error) const;
+        const char* otaErrorToString(ota_error_t error) const;
     };
 
     static_assert(!std::is_abstract<OTAUpdater>());

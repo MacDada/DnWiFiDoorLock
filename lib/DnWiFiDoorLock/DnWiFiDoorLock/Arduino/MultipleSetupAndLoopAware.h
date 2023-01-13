@@ -10,7 +10,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         MultipleSetupAndLoopAware(
-            const std::vector<SetupAndLoopAwareReference> &awares
+            const std::vector<SetupAndLoopAwareReference>& awares
         );
 
         void onSetup() override;
@@ -18,7 +18,7 @@ namespace DnWiFiDoorLock::Arduino {
         void onLoop() override;
 
     private:
-        const std::vector<SetupAndLoopAwareReference> &awares;
+        const std::vector<SetupAndLoopAwareReference>& awares;
     };
 
     static_assert(!std::is_abstract<MultipleSetupAndLoopAware>());

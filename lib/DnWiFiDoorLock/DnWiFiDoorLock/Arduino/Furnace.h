@@ -14,8 +14,8 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         Furnace(
-            DnApp::Hardware::Button &heaterButton,
-            DnApp::Logger::Logger &logger
+            DnApp::Hardware::Button& heaterButton,
+            DnApp::Logger::Logger& logger
         );
 
         bool isHeaterOn() const override;
@@ -28,9 +28,9 @@ namespace DnWiFiDoorLock::Arduino {
 
         void toggleHeater() override;
     private:
-        DnApp::Hardware::Button &heaterButton;
+        DnApp::Hardware::Button& heaterButton;
 
-        DnApp::Logger::Logger &logger;
+        DnApp::Logger::Logger& logger;
 
         bool heaterOn = false;
     };

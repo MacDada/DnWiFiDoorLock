@@ -14,10 +14,10 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         HardwareSerialSetup(
-            HardwareSerial &serial,
-            const DnWiFiDoorLock::Arduino::Hardware &hardware,
+            HardwareSerial& serial,
+            const DnWiFiDoorLock::Arduino::Hardware& hardware,
             const long bitsPerSecond,
-            const char *const appName
+            const char* const appName
         );
 
         void onSetup() override;
@@ -27,25 +27,25 @@ namespace DnWiFiDoorLock::Arduino {
         static
         PROGMEM
         constexpr
-        const char *const VT100_FORMAT_RESET = "\e[0m";
+        const char* const VT100_FORMAT_RESET = "\e[0m";
 
         static
         PROGMEM
         constexpr
-        const char *const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
+        const char* const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
 
         static
         PROGMEM
         constexpr
-        const char *const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
+        const char* const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
 
-        HardwareSerial &serial;
+        HardwareSerial& serial;
 
-        const DnWiFiDoorLock::Arduino::Hardware &hardware;
+        const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
         const long bitsPerSecond;
 
-        const char *const appName;
+        const char* const appName;
     };
 
     static_assert(!std::is_abstract<HardwareSerialSetup>());

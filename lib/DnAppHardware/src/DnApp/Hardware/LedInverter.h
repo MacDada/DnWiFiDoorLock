@@ -9,7 +9,7 @@ namespace DnApp::Hardware {
         public DnApp::Hardware::Led {
     public:
         explicit
-        LedInverter(Led &led) noexcept:
+        LedInverter(Led& led) noexcept:
             led(led) {
         }
 
@@ -33,7 +33,7 @@ namespace DnApp::Hardware {
             led.toggle();
         };
     private:
-        Led &led;
+        Led& led;
     };
 
     static_assert(!std::is_abstract<LedInverter>());

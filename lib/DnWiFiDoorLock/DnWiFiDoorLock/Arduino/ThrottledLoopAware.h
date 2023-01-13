@@ -9,8 +9,8 @@ namespace DnWiFiDoorLock::Arduino {
     class ThrottledLoopAware final: public SetupAndLoopAware {
     public:
         ThrottledLoopAware(
-            SetupAndLoopAware &otherAware,
-            const DnWiFiDoorLock::Arduino::Hardware &hardware,
+            SetupAndLoopAware& otherAware,
+            const DnWiFiDoorLock::Arduino::Hardware& hardware,
             int throttleMilliseconds
         );
 
@@ -18,9 +18,9 @@ namespace DnWiFiDoorLock::Arduino {
 
         void onLoop() override;
     private:
-        SetupAndLoopAware &otherAware;
+        SetupAndLoopAware& otherAware;
 
-        const DnWiFiDoorLock::Arduino::Hardware &hardware;
+        const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
         const int throttleMilliseconds;
 

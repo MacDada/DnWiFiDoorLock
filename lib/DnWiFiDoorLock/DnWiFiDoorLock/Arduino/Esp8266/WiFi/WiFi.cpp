@@ -6,12 +6,12 @@ namespace {
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     WiFi::WiFi(
-        const char *const ssid,
-        const char *const password,
-        DnWiFiDoorLock::Arduino::LedBlinker &ledBlinker,
-        DnApp::Arduino::Logger::Logger &logger,
-        const DnWiFiDoorLock::Arduino::Hardware &hardware,
-        ESP8266WiFiClass &esp8266WiFi
+        const char* const ssid,
+        const char* const password,
+        DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker,
+        DnApp::Arduino::Logger::Logger& logger,
+        const DnWiFiDoorLock::Arduino::Hardware& hardware,
+        ESP8266WiFiClass& esp8266WiFi
     ):
         ssid(ssid),
         password(password),
@@ -91,7 +91,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         }
     }
 
-    const char *WiFi::wiFiConnectionStatusToString(const uint8_t status) const {
+    const char* WiFi::wiFiConnectionStatusToString(const uint8_t status) const {
         switch (status) {
             case WL_NO_SHIELD:
                 return PSTR("WL_NO_SHIELD");

@@ -14,24 +14,24 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     public:
         explicit
         MultipleLoggersLogger(
-            const std::vector<DnApp::Arduino::Logger::LoggerReference> &loggers
+            const std::vector<DnApp::Arduino::Logger::LoggerReference>& loggers
         );
 
         using Logger::log;
 
-        void log(LOG_LEVEL level, const char *message) override;
+        void log(LOG_LEVEL level, const char* message) override;
 
-        void log(LOG_LEVEL level, char *message) override;
+        void log(LOG_LEVEL level, char* message) override;
     private:
         /**
          * vector cannot store abstract classes as values,
          * but we can store pointers to them
          */
-        const std::vector<DnApp::Arduino::Logger::LoggerReference> &loggers;
+        const std::vector<DnApp::Arduino::Logger::LoggerReference>& loggers;
 
-        template <typename MessageType>
+        template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {
-            for (const auto &logger : loggers) {
+            for (const auto& logger: loggers) {
                 logger.get().log(level, message);
             }
         }

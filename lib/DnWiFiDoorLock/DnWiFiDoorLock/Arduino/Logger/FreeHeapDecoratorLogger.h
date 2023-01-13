@@ -14,21 +14,21 @@ namespace DnWiFiDoorLock::Arduino::Logger {
         using DnApp::Arduino::Logger::Logger::log;
 
         explicit
-        FreeHeapDecoratorLogger(Logger &logger):
+        FreeHeapDecoratorLogger(Logger& logger):
             logger(logger) {
         };
 
-        void log(LOG_LEVEL level, const char *message) override {
+        void log(LOG_LEVEL level, const char* message) override {
             doLog(level, message);
         };
 
-        void log(LOG_LEVEL level, char *message) override {
+        void log(LOG_LEVEL level, char* message) override {
             doLog(level, message);
         };
     private:
-        Logger &logger;
+        Logger& logger;
 
-        template <typename MessageType>
+        template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {
             // todo: maybe use ESP.getFreeHeap();
             logger.debug(DnApp::Common::Strings::format(

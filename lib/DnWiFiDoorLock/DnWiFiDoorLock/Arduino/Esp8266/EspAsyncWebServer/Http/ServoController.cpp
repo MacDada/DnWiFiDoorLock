@@ -6,16 +6,16 @@ namespace {
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     ServoController::ServoController(
-        Servo &servo,
-        Logger &logger,
-        const char *const appName
+        Servo& servo,
+        Logger& logger,
+        const char* const appName
     ):
         servo(servo),
         logger(logger),
         appName(appName) {
     }
 
-    void ServoController::angleAction(Request &request) {
+    void ServoController::angleAction(Request& request) {
         int oldAngle = servo.getAngle();
 
         auto maybeNewAngle = getRequestPostParameter(request, "angle");
@@ -44,7 +44,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServoController::newAngleSetResponse(
-        Request &request,
+        Request& request,
         const int oldAngle,
         const int newAngle
     ) {
@@ -61,7 +61,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServoController::invalidAngleGivenResponse(
-        Request &request,
+        Request& request,
         const int oldAngle,
         const int newAngle
     ) {
@@ -78,7 +78,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void ServoController::showCurrentAngleResponse(
-        Request &request,
+        Request& request,
         const int oldAngle
     ) {
         logger.info(format(

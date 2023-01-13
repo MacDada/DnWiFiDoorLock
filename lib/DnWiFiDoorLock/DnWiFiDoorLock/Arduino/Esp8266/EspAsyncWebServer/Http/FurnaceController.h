@@ -13,24 +13,24 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class FurnaceController final: public Controller {
     public:
         explicit FurnaceController(
-            const DnWiFiDoorLock::Arduino::Hardware &hardware,
-            DnWiFiDoorLock::Furnace &furnace,
-            DnApp::Logger::Logger &logger
+            const DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnWiFiDoorLock::Furnace& furnace,
+            DnApp::Logger::Logger& logger
         );
 
-        void statusAction(AsyncWebServerRequest &request) const;
+        void statusAction(AsyncWebServerRequest& request) const;
 
-        void switchAction(AsyncWebServerRequest &request) const;
+        void switchAction(AsyncWebServerRequest& request) const;
 
-        void apiGetAction(AsyncWebServerRequest &request) const;
+        void apiGetAction(AsyncWebServerRequest& request) const;
 
-        void apiPostAction(AsyncWebServerRequest &request, const String &body) const;
+        void apiPostAction(AsyncWebServerRequest& request, const String& body) const;
     private:
-        const DnWiFiDoorLock::Arduino::Hardware &hardware;
+        const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
-        DnWiFiDoorLock::Furnace &furnace;
+        DnWiFiDoorLock::Furnace& furnace;
 
-        DnApp::Logger::Logger &logger;
+        DnApp::Logger::Logger& logger;
     };
 
     static_assert(!std::is_abstract<FurnaceController>());

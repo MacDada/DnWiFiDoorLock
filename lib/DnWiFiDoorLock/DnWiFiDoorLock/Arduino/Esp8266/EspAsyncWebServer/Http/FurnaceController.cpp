@@ -2,16 +2,16 @@
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     FurnaceController::FurnaceController(
-        const DnWiFiDoorLock::Arduino::Hardware &hardware,
-        DnWiFiDoorLock::Furnace &furnace,
-        DnApp::Logger::Logger &logger
+        const DnWiFiDoorLock::Arduino::Hardware& hardware,
+        DnWiFiDoorLock::Furnace& furnace,
+        DnApp::Logger::Logger& logger
     ):
         hardware(hardware),
         furnace(furnace),
         logger(logger) {
     }
 
-    void FurnaceController::statusAction(AsyncWebServerRequest &request) const {
+    void FurnaceController::statusAction(AsyncWebServerRequest& request) const {
         logger.info(PSTR("FurnaceController::statusAction()"));
 
         Time uptime = hardware.getUptime();
@@ -56,7 +56,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         );
     }
 
-    void FurnaceController::switchAction(AsyncWebServerRequest &request) const {
+    void FurnaceController::switchAction(AsyncWebServerRequest& request) const {
         logger.info(PSTR("FurnaceController::switchAction()"));
 
         furnace.toggleHeater();
@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         redirect(request, F("/furnace"));
     }
 
-    void FurnaceController::apiGetAction(AsyncWebServerRequest &request) const {
+    void FurnaceController::apiGetAction(AsyncWebServerRequest& request) const {
         logger.info(PSTR("FurnaceController::apiGetAction()"));
 
         request.send(
@@ -75,8 +75,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     }
 
     void FurnaceController::apiPostAction(
-        AsyncWebServerRequest &request,
-        const String &body
+        AsyncWebServerRequest& request,
+        const String& body
     ) const {
         logger.info(PSTR("FurnaceController::apiPostAction()"));
 

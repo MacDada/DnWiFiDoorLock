@@ -13,8 +13,8 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         public SetupAndLoopAware {
     public:
         explicit Button(
-            const Hardware &hardware,
-            Servo &servo,
+            const Hardware& hardware,
+            Servo& servo,
             byte pressingAngle,
             byte notPressingAngle,
             int pressingMilliseconds
@@ -51,9 +51,9 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         void onLoop() override;
     private:
-        const Hardware &hardware;
+        const Hardware& hardware;
 
-        Servo &servo;
+        Servo& servo;
 
         byte pressingAngle;
 

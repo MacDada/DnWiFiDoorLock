@@ -3,9 +3,9 @@
 namespace DnWiFiDoorLock::Arduino {
     OTAUpdater::OTAUpdater(
         const int port,
-        const char *const host,
-        const char *const passwordHash,
-        DnApp::Arduino::Logger::Logger &logger
+        const char* const host,
+        const char* const passwordHash,
+        DnApp::Arduino::Logger::Logger& logger
     ):
         port(port),
         host(host),
@@ -57,7 +57,7 @@ namespace DnWiFiDoorLock::Arduino {
         ArduinoOTA.handle();
     }
 
-    const char *OTAUpdater::otaErrorToString(const ota_error_t error) const {
+    const char* OTAUpdater::otaErrorToString(const ota_error_t error) const {
         switch (error) {
             case OTA_AUTH_ERROR:
                 return PSTR("OTA_AUTH_ERROR");

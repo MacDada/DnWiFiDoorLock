@@ -3,13 +3,17 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    class Parent {} parent;
+    class Parent {
+    } parent;
 
-    class OtherParent {} otherParent;
+    class OtherParent {
+    } otherParent;
 
-    class Child: public Parent, OtherParent {} child;
+    class Child: public Parent, OtherParent {
+    } child;
 
-    class GrandChild: public Child {} grandChild;
+    class GrandChild: public Child {
+    } grandChild;
 
     void test_instance_of_itself() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &parent);

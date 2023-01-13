@@ -11,23 +11,24 @@
 namespace DnWiFiDoorLock::Arduino::Esp8266 {
     class MDNSSetupAndLoopAware final: public SetupAndLoopAware {
         using MDNSResponder = esp8266::MDNSImplementation::MDNSResponder;
-        using Logger        = DnApp::Logger::Logger;
+        using Logger = DnApp::Logger::Logger;
     public:
-        explicit MDNSSetupAndLoopAware(
-            MDNSResponder &mdnsResponder,
-            Logger &logger,
-            const char *hostname
+        explicit
+        MDNSSetupAndLoopAware(
+            MDNSResponder& mdnsResponder,
+            Logger& logger,
+            const char* hostname
         );
 
         void onSetup() override;
 
         void onLoop() override;
     private:
-        MDNSResponder &mdnsResponder;
+        MDNSResponder& mdnsResponder;
 
-        Logger &logger;
+        Logger& logger;
 
-        const char *const hostname;
+        const char* const hostname;
     };
 
     static_assert(!std::is_abstract<MDNSSetupAndLoopAware>());

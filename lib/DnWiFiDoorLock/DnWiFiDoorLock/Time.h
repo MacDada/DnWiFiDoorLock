@@ -5,7 +5,6 @@
 namespace DnWiFiDoorLock {
     class Time final {
     private:
-        // todo: unify declarations order style across classes
         const unsigned long milliseconds;
 
         const long seconds;

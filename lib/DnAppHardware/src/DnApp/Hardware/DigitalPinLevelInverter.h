@@ -9,7 +9,7 @@ namespace DnApp::Hardware {
         public DnApp::Hardware::DigitalPin {
     public:
         explicit
-        DigitalPinLevelInverter(DigitalPin &pin) noexcept:
+        DigitalPinLevelInverter(DigitalPin& pin) noexcept:
             pin(pin) {
         }
 
@@ -37,7 +37,7 @@ namespace DnApp::Hardware {
             return pin.isHigh();
         }
     private:
-        DigitalPin &pin;
+        DigitalPin& pin;
     };
 
     static_assert(!std::is_abstract<DigitalPinLevelInverter>());

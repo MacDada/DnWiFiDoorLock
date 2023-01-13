@@ -2,10 +2,10 @@
 
 namespace DnWiFiDoorLock::Arduino {
     HardwareSerialSetup::HardwareSerialSetup(
-        HardwareSerial &serial,
-        const DnWiFiDoorLock::Arduino::Hardware &hardware,
+        HardwareSerial& serial,
+        const DnWiFiDoorLock::Arduino::Hardware& hardware,
         const long bitsPerSecond,
-        const char *const appName
+        const char* const appName
     ):
         serial(serial),
         hardware(hardware),
@@ -20,9 +20,10 @@ namespace DnWiFiDoorLock::Arduino {
         // without it the first Hello message is not printed :/
         hardware.pause(2000);
 
-        // wait for serial port to open
         // taken from https://github.com/khoih-prog/WiFiWebServer/blob/master/examples/HelloServer/HelloServer.ino#L90
-        while (!Serial && hardware.getUptime().getSeconds() < 5);
+        while (!Serial && hardware.getUptime().getSeconds() < 5) {
+            // wait for serial port to open
+        }
 
         // todo: do not hardcode app name
         serial.print(DnApp::Common::Strings::format(

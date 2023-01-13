@@ -13,7 +13,7 @@ namespace {
 
     class Printer {
     public:
-        template <typename Text>
+        template<typename Text>
         void println(Text text) {
             ++callsCount;
 

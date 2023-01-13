@@ -29,13 +29,13 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         // https://stackoverflow.com/a/21098951/666907
         static PROGMEM constexpr const char HTTP_RESPONSE_CONTENT_TYPE_JAVASCRIPT[] = "text/javascript";
 
-        bool isRequestMethodPost(const AsyncWebServerRequest &request) const;
+        bool isRequestMethodPost(const AsyncWebServerRequest& request) const;
 
         std::optional<String> getRequestPostParameter(
-            AsyncWebServerRequest &request,
-            const char *const parameterName
+            AsyncWebServerRequest& request,
+            const char* const parameterName
         ) const;
 
-        void redirect(AsyncWebServerRequest &request, const String& location) const;
+        void redirect(AsyncWebServerRequest& request, const String& location) const;
     };
 }

@@ -7,7 +7,7 @@ namespace DnApp::Common::Strings {
     // adopted from https://stackoverflow.com/a/10388547/666907
     // published at https://stackoverflow.com/a/72875362/666907
     inline
-    std::unique_ptr<char[]> format(const char *const format...) {
+    std::unique_ptr<char[]> format(const char* const format...) {
         // `vsnprintf()` changes `va_list`'s state, so using it after that is UB.
         // We need the args twice, so it is safer to just get two copies.
         va_list args1;

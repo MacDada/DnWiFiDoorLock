@@ -13,7 +13,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         explicit
         LogLevelThresholdFilteringLogger(
-            Logger &logger,
+            Logger& logger,
             const Logger::LOG_LEVEL threshold = Logger::LOG_LEVEL::DEBUG
         ):
             logger(logger),
@@ -28,19 +28,19 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             this->threshold = threshold;
         }
 
-        void log(LOG_LEVEL level, const char *message) override {
+        void log(LOG_LEVEL level, const char* message) override {
             doLog(level, message);
         };
 
-        void log(LOG_LEVEL level, char *message) override {
+        void log(LOG_LEVEL level, char* message) override {
             doLog(level, message);
         };
     private:
-        Logger &logger;
+        Logger& logger;
 
         Logger::LOG_LEVEL threshold;
 
-        template <typename MessageType>
+        template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) {
             if (level >= threshold) {
                 logger.log(level, message);

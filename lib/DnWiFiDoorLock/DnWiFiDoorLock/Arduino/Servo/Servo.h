@@ -30,19 +30,19 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         static const int MAX_ANGLE = 180;
 
         Servo(
-            ::Servo &servo,
+            ::Servo& servo,
             byte pin,
             int minPulseWidthMicroseconds,
             int maxPulseWidthMicroseconds,
-            DnApp::Arduino::Logger::Logger &logger
+            DnApp::Arduino::Logger::Logger& logger
         );
 
         int getAngle() const;
 
         void setAngle(int degrees);
     private:
-        ::Servo &servo;
+        ::Servo& servo;
 
-        DnApp::Arduino::Logger::Logger &logger;
+        DnApp::Arduino::Logger::Logger& logger;
     };
 }

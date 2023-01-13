@@ -13,17 +13,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
         using Logger = DnApp::Arduino::Logger::Logger;
     public:
         LoopAwareSignalStrengthLogger(
-            ESP8266WiFiClass &esp8266WiFi,
-            Logger &logger
+            ESP8266WiFiClass& esp8266WiFi,
+            Logger& logger
         );
 
         void onSetup() override;
 
         void onLoop() override;
     private:
-        ESP8266WiFiClass &esp8266WiFi;
+        ESP8266WiFiClass& esp8266WiFi;
 
-        Logger &logger;
+        Logger& logger;
 
         void log();
     };

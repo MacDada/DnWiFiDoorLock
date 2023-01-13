@@ -10,7 +10,7 @@ namespace DnApp::Hardware {
         public DnApp::Hardware::Led {
     public:
         explicit
-        LedOnDigitalPin(DnApp::Hardware::DigitalPin &pin) noexcept:
+        LedOnDigitalPin(DnApp::Hardware::DigitalPin& pin) noexcept:
             pin(pin) {
             pin.setOutputMode();
         }
@@ -39,7 +39,7 @@ namespace DnApp::Hardware {
             }
         };
     private:
-        DnApp::Hardware::DigitalPin &pin;
+        DnApp::Hardware::DigitalPin& pin;
     };
 
     static_assert(!std::is_abstract<LedOnDigitalPin>());

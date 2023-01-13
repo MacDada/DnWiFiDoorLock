@@ -18,17 +18,17 @@ namespace DnApp::Logger::Endpoint {
             string = "";
         }
 
-        void log(LOG_LEVEL level, char *message) override {
+        void log(LOG_LEVEL level, char* message) override {
             doLog(level, message);
         }
 
-        void log(LOG_LEVEL level, const char *message) override {
+        void log(LOG_LEVEL level, const char* message) override {
             doLog(level, message);
         }
     private:
         std::string string;
 
-        template <typename MessageType>
+        template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) {
             string += LOG_LEVELS[static_cast<int>(level)];
             string += "\n";

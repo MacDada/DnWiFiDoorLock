@@ -2,8 +2,8 @@
 
 namespace DnWiFiDoorLock::Arduino::Servo {
     Button::Button(
-        const Hardware &hardware,
-        Servo &servo,
+        const Hardware& hardware,
+        Servo& servo,
         const byte pressingAngle,
         const byte notPressingAngle,
         const int pressingMilliseconds
@@ -46,7 +46,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
     bool Button::isItTimeToStopPressing() const {
         return stopPressingAtUptimeMilliseconds
-           && getUptimeMilliseconds() > stopPressingAtUptimeMilliseconds;
+            && getUptimeMilliseconds() > stopPressingAtUptimeMilliseconds;
     }
 
     unsigned long Button::getUptimeMilliseconds() const {

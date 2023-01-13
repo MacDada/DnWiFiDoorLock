@@ -5,13 +5,17 @@
 namespace {
     using DnApp::Common::Objects::instanceOf;
 
-    class Parent {} parent;
+    class Parent {
+    } parent;
 
-    class OtherParent {} otherParent;
+    class OtherParent {
+    } otherParent;
 
-    class Child: public Parent, OtherParent {} child;
+    class Child: public Parent, OtherParent {
+    } child;
 
-    class GrandChild: public Child {} grandChild;
+    class GrandChild: public Child {
+    } grandChild;
 
     void test_instance_of_itself() {
         TEST_ASSERT_TRUE(instanceOf<Parent>(&parent));

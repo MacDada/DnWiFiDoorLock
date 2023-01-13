@@ -24,7 +24,7 @@ namespace DnApp::Logger {
 
         static
         constexpr
-        const char *LOG_LEVELS[] = {
+        const char* LOG_LEVELS[] = {
             "debug",
             "info",
             "warning",
@@ -33,10 +33,10 @@ namespace DnApp::Logger {
         };
 
         virtual
-        void log(LOG_LEVEL level, char *message) = 0;
+        void log(LOG_LEVEL level, char* message) = 0;
 
         virtual
-        void log(LOG_LEVEL level, const char *message) = 0;
+        void log(LOG_LEVEL level, const char* message) = 0;
 
         // ATTENTION!
         // https://isocpp.org/wiki/faq/strange-inheritance#hiding-rule
@@ -44,11 +44,11 @@ namespace DnApp::Logger {
             log(level, message.get());
         }
 
-        void debug(char *message) {
+        void debug(char* message) {
             log(LOG_LEVEL::DEBUG, message);
         };
 
-        void debug(const char *message) {
+        void debug(const char* message) {
             log(LOG_LEVEL::DEBUG, message);
         };
 
@@ -56,11 +56,11 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::DEBUG, message.get());
         };
 
-        void info(char *message) {
+        void info(char* message) {
             log(LOG_LEVEL::INFO, message);
         };
 
-        void info(const char *message) {
+        void info(const char* message) {
             log(LOG_LEVEL::INFO, message);
         };
 
@@ -68,11 +68,11 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::INFO, message.get());
         };
 
-        void warning(char *message) {
+        void warning(char* message) {
             log(LOG_LEVEL::WARNING, message);
         };
 
-        void warning(const char *message) {
+        void warning(const char* message) {
             log(LOG_LEVEL::WARNING, message);
         };
 
@@ -80,11 +80,11 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::WARNING, message.get());
         };
 
-        void error(char *message) {
+        void error(char* message) {
             log(LOG_LEVEL::ERROR, message);
         };
 
-        void error(const char *message) {
+        void error(const char* message) {
             log(LOG_LEVEL::ERROR, message);
         };
 
@@ -92,11 +92,11 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::ERROR, message.get());
         };
 
-        void critical(char *message) {
+        void critical(char* message) {
             log(LOG_LEVEL::CRITICAL, message);
         };
 
-        void critical(const char *message) {
+        void critical(const char* message) {
             log(LOG_LEVEL::CRITICAL, message);
         };
 

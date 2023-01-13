@@ -9,14 +9,14 @@ namespace DnWiFiDoorLock::Arduino {
     class LedBlinker final {
     public:
         LedBlinker(
-            const DnWiFiDoorLock::Arduino::Hardware &hardware,
-            DnApp::Hardware::Led &led
+            const DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnApp::Hardware::Led& led
         );
 
         void blinkFast(int count);
     private:
-        const DnWiFiDoorLock::Arduino::Hardware &hardware;
+        const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
-        DnApp::Hardware::Led &led;
+        DnApp::Hardware::Led& led;
     };
 }
