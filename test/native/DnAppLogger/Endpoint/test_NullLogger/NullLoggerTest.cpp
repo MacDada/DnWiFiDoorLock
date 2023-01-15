@@ -17,23 +17,24 @@ namespace {
     }
 
     void test_logging_literals() {
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
     }
 
     void test_logging_chars() {
         char foo[4] = "foo";
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
     }
 
     void test_logging_const_chars() {
         const char foo[4] = "foo";
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
     }
 
     void test_logging_unique_ptr_of_chars() {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
+            logger,
             std::make_unique<char[]>(4)
         )
     }

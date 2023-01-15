@@ -32,7 +32,7 @@ namespace {
     void test_logging_literals() {
         LogLevelThresholdFilteringLogger logger{stringLogger};
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -64,7 +64,7 @@ namespace {
 
         char foo[4] = "foo";
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -96,7 +96,7 @@ namespace {
 
         const char foo[4] = "foo";
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(foo)
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -127,6 +127,7 @@ namespace {
         LogLevelThresholdFilteringLogger logger{stringLogger};
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
+            logger,
             DnApp::Common::Strings::makeUniquePtrOfChars("foo")
         )
 
@@ -166,7 +167,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "debug\n"
@@ -204,7 +205,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "info\n"
@@ -238,7 +239,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "warning\n"
@@ -268,7 +269,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "error\n"
@@ -294,7 +295,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "critical\n"
@@ -311,7 +312,7 @@ namespace {
             Logger::LOG_LEVEL::CRITICAL
         };
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         logger.setThreshold(Logger::LOG_LEVEL::WARNING);
 
@@ -320,7 +321,7 @@ namespace {
             logger.getThreshold()
         );
 
-        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS("foo")
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
             "critical\n"
