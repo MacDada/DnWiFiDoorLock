@@ -17,6 +17,8 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             const std::vector<DnApp::Arduino::Logger::LoggerReference>& loggers
         );
 
+        // Required, because otherwise our `log()` methods
+        // would hide base class declarations.
         using Logger::log;
 
         void log(LOG_LEVEL level, const char* message) override;

@@ -8,7 +8,8 @@ namespace DnApp::Logger::Decorator {
     class LogLevelThresholdFilteringLogger final:
         public Logger {
     public:
-        // required because otherwise our log() methods hide base class declarations
+        // Required, because otherwise our `log()` methods
+        // would hide base class declarations.
         using Logger::log;
 
         explicit

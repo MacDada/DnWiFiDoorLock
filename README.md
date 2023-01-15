@@ -29,6 +29,7 @@ Thank you for all the help that I received on
 - `Kev#3440`
 - `Pickleas Cage#4209`
 - `SlyBach#4412`
+- `The Dreams Wind#1949`
 
 Thank you for all the help that I received on 
 [`PlatformIO Community` forum](https://community.platformio.org/)!
