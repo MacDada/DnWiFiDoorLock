@@ -4,7 +4,7 @@ namespace DnWiFiDoorLock::Arduino {
     LoopIndicator::LoopIndicator(
         DnApp::Hardware::Led& led,
         LedBlinker& ledBlinker,
-        DnApp::Arduino::Logger::Logger& logger
+        DnApp::Arduino::Logger::WithArduinoStringLogger& logger
     ):
         led{led},
         ledBlinker{ledBlinker},

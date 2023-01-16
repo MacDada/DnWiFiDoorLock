@@ -5,18 +5,18 @@
 #include <Esp.h>
 #include <WString.h>
 
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
     class FreeHeapDecoratorLogger final:
-        public DnApp::Arduino::Logger::Logger {
+        public DnApp::Arduino::Logger::WithArduinoStringLogger {
     public:
         // required because otherwise our log() methods hide base class declarations
-        using DnApp::Arduino::Logger::Logger::log;
+        using DnApp::Arduino::Logger::WithArduinoStringLogger::log;
 
         explicit
-        FreeHeapDecoratorLogger(EspClass& esp, Logger& logger):
+        FreeHeapDecoratorLogger(EspClass& esp, WithArduinoStringLogger& logger):
             logger{logger},
             esp{esp} {
         };
@@ -31,7 +31,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     private:
         EspClass& esp;
 
-        Logger& logger;
+        WithArduinoStringLogger& logger;
 
         template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {

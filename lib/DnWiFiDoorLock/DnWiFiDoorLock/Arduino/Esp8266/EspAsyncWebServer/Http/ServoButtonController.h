@@ -5,7 +5,7 @@
 #include "ESPAsyncWebServer.h"
 #include <WString.h>
 
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ServoButtonController(
             const char* const appName,
             DnWiFiDoorLock::Arduino::Servo::Button& button,
-            DnApp::Arduino::Logger::Logger& logger
+            DnApp::Arduino::Logger::WithArduinoStringLogger& logger
         ):
             appName{appName},
             button{button},
@@ -399,7 +399,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnWiFiDoorLock::Arduino::Servo::Button& button;
 
-        DnApp::Arduino::Logger::Logger& logger;
+        DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 
         String renderSettingsFormPage() const {
             // todo: make PrependMessageDecoratorLogger to stop repeating class' name

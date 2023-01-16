@@ -7,7 +7,7 @@
 #include <WiFiClient.h>
 #include <WString.h>
 
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
@@ -21,7 +21,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             const char* ssid,
             const char* password,
             DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker,
-            DnApp::Arduino::Logger::Logger& logger,
+            DnApp::Arduino::Logger::WithArduinoStringLogger& logger,
             const DnWiFiDoorLock::Arduino::Hardware& hardware,
             ESP8266WiFiClass& esp8266WiFi
         );
@@ -36,7 +36,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker;
 
-        DnApp::Arduino::Logger::Logger& logger;
+        DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 
         const DnWiFiDoorLock::Arduino::Hardware& hardware;
 

@@ -3,7 +3,7 @@
 #include <Servo.h>
 #include <WString.h>
 
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
@@ -34,7 +34,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             byte pin,
             int minPulseWidthMicroseconds,
             int maxPulseWidthMicroseconds,
-            DnApp::Arduino::Logger::Logger& logger
+            DnApp::Arduino::Logger::WithArduinoStringLogger& logger
         );
 
         int getAngle() const;
@@ -43,6 +43,6 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     private:
         ::Servo& servo;
 
-        DnApp::Arduino::Logger::Logger& logger;
+        DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
     };
 }

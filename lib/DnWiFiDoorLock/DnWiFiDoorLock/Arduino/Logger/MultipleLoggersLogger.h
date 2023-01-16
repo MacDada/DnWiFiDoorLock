@@ -6,20 +6,20 @@
 
 #include <Arduino.h>
 
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
     class MultipleLoggersLogger final:
-        public DnApp::Arduino::Logger::Logger {
+        public DnApp::Arduino::Logger::WithArduinoStringLogger {
     public:
         explicit
         MultipleLoggersLogger(
-            const std::vector<DnApp::Arduino::Logger::LoggerReference>& loggers
+            const std::vector<DnApp::Arduino::Logger::WithArduinoStringLoggerReference>& loggers
         );
 
         // Required, because otherwise our `log()` methods
         // would hide base class declarations.
-        using Logger::log;
+        using WithArduinoStringLogger::log;
 
         void log(LOG_LEVEL level, const char* message) override;
 
@@ -29,7 +29,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
          * vector cannot store abstract classes as values,
          * but we can store pointers to them
          */
-        const std::vector<DnApp::Arduino::Logger::LoggerReference>& loggers;
+        const std::vector<DnApp::Arduino::Logger::WithArduinoStringLoggerReference>& loggers;
 
         template<typename MessageType>
         void doLog(LOG_LEVEL level, const MessageType message) const {

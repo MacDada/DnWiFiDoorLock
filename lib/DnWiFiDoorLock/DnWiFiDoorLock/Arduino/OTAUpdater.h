@@ -6,7 +6,7 @@
 #include <WString.h>
 
 #include "DnApp/Common/Strings.h"
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
@@ -17,7 +17,7 @@ namespace DnWiFiDoorLock::Arduino {
             int port,
             const char* host,
             const char* passwordHash,
-            DnApp::Arduino::Logger::Logger& logger
+            DnApp::Arduino::Logger::WithArduinoStringLogger& logger
         );
 
         void onSetup() override;
@@ -30,7 +30,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         const char* const passwordHash;
 
-        DnApp::Arduino::Logger::Logger& logger;
+        DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 
         const char* otaErrorToString(ota_error_t error) const;
     };

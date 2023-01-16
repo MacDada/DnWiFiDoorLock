@@ -2,19 +2,19 @@
 
 #include <type_traits>
 
-#include "DnApp/Arduino/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 
 namespace DnWiFiDoorLock::Arduino::Logger {
     class LogLevelThresholdFilteringLogger final:
-        public DnApp::Arduino::Logger::Logger {
+        public DnApp::Arduino::Logger::WithArduinoStringLogger {
     public:
         // required because otherwise our log() methods hide base class declarations
-        using Logger::log;
+        using WithArduinoStringLogger::log;
 
         explicit
         LogLevelThresholdFilteringLogger(
-            Logger& logger,
-            const Logger::LOG_LEVEL threshold = Logger::LOG_LEVEL::DEBUG
+            WithArduinoStringLogger& logger,
+            const WithArduinoStringLogger::LOG_LEVEL threshold = WithArduinoStringLogger::LOG_LEVEL::DEBUG
         ):
             logger{logger},
             threshold{threshold} {
@@ -36,9 +36,9 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             doLog(level, message);
         };
     private:
-        Logger& logger;
+        WithArduinoStringLogger& logger;
 
-        Logger::LOG_LEVEL threshold;
+        WithArduinoStringLogger::LOG_LEVEL threshold;
 
         template<typename Message>
         void doLog(LOG_LEVEL level, const Message message) {
