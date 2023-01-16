@@ -140,3 +140,15 @@ There is always a tradeoff between memory and speed. AND code quality.
   – English only (and _maybe_ Polish)
 
 ---
+Code style, conventions, decisions
+---
+
+* 4 spaces for indents
+* Better have more lines, but keep them short
+* What can be tested (and I know how), shall be tested (I mean automated testing ofc)
+* OOP, SOLID
+* `explicit` constructors (almost?) everywhere
+* Always using `{}` for initialization, not `()`
+* Marking classes as `final` unless I actually need to extend over them
+
+---

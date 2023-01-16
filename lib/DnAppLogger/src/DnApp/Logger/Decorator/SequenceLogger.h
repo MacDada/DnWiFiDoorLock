@@ -19,6 +19,11 @@ namespace DnApp::Logger::Decorator {
          //       I could do it with Templates, but then there is no clear interface,
          //       to see what methods I need,
          //       without reading all the code, to notice the usage.
+         // todo: use array instead of vector?
+         //       * https://stackoverflow.com/questions/50942556/
+         //       * https://stackoverflow.com/questions/26351587/
+         //       * https://quuxplusone.github.io/blog/2020/08/06/array-size/
+         //       * https://en.cppreference.com/w/cpp/container/array/deduction_guides
         using Loggers = std::vector<std::reference_wrapper<Logger>>;
 
         explicit
