@@ -8,11 +8,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         const byte notPressingAngle,
         const int pressingMilliseconds
     ):
-        hardware(hardware),
-        servo(servo),
-        pressingAngle(pressingAngle),
-        notPressingAngle(notPressingAngle),
-        pressingMilliseconds(pressingMilliseconds) {
+        hardware{hardware},
+        servo{servo},
+        pressingAngle{pressingAngle},
+        notPressingAngle{notPressingAngle},
+        pressingMilliseconds{pressingMilliseconds} {
     }
 
     // pressing the button, while it is being pressed,

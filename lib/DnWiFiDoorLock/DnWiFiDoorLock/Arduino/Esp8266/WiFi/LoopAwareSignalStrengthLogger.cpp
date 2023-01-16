@@ -5,8 +5,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
         ESP8266WiFiClass& esp8266WiFi,
         Logger& logger
     ):
-        esp8266WiFi(esp8266WiFi),
-        logger(logger) {
+        esp8266WiFi{esp8266WiFi},
+        logger{logger} {
     }
 
     void LoopAwareSignalStrengthLogger::onSetup() {

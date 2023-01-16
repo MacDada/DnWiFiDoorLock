@@ -6,9 +6,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         DnWiFiDoorLock::Furnace& furnace,
         DnApp::Logger::Logger& logger
     ):
-        hardware(hardware),
-        furnace(furnace),
-        logger(logger) {
+        hardware{hardware},
+        furnace{furnace},
+        logger{logger} {
     }
 
     void FurnaceController::statusAction(AsyncWebServerRequest& request) const {

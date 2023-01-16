@@ -6,9 +6,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         DnWiFiDoorLock::Arduino::DoorLock& doorLock,
         DnApp::Logger::Logger& logger
     ):
-        hardware(hardware),
-        doorLock(doorLock),
-        logger(logger) {
+        hardware{hardware},
+        doorLock{doorLock},
+        logger{logger} {
     }
 
     void DoorLockController::statusAction(AsyncWebServerRequest& request) const {

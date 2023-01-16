@@ -6,8 +6,10 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-    class ThrottledLoopAware final: public SetupAndLoopAware {
+    class ThrottledLoopAware final:
+        public SetupAndLoopAware {
     public:
+        explicit
         ThrottledLoopAware(
             SetupAndLoopAware& otherAware,
             const DnWiFiDoorLock::Arduino::Hardware& hardware,

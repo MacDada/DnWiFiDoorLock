@@ -1,6 +1,6 @@
 #include "DnWiFiDoorLock/App.h"
 
-DnWiFiDoorLock::App app;
+DnWiFiDoorLock::App app{};
 
 void setup() {
     app.onSetup();

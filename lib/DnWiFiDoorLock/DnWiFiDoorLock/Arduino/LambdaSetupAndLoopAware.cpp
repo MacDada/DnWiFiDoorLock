@@ -25,8 +25,8 @@ namespace DnWiFiDoorLock::Arduino {
         std::function<void()> onSetupCallback,
         std::function<void()> onLoopCallback
     ):
-        onSetupCallback(std::move(onSetupCallback)),
-        onLoopCallback(std::move(onLoopCallback)) {
+        onSetupCallback{std::move(onSetupCallback)},
+        onLoopCallback{std::move(onLoopCallback)} {
     }
 
     void LambdaSetupAndLoopAware::onSetup() {

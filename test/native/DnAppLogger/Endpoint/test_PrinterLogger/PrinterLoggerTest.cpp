@@ -37,7 +37,9 @@ namespace {
         int callsCount = 0;
 
         std::string result;
-    } printer;
+    };
+
+    Printer printer{};
 
     DnApp::Logger::Endpoint::PrinterLogger logger{printer};
 

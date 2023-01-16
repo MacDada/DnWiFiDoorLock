@@ -10,9 +10,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         Logger& logger,
         const char* const appName
     ):
-        servo(servo),
-        logger(logger),
-        appName(appName) {
+        servo{servo},
+        logger{logger},
+        appName{appName} {
     }
 
     void ServoController::angleAction(Request& request) {

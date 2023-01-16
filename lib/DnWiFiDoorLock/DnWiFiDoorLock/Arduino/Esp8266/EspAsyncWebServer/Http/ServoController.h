@@ -12,7 +12,9 @@
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-    class ServoController final: public Controller {
+    class ServoController final:
+        public Controller {
+        // todo: does it matter if `using` is in public/private section?
         using Logger = DnApp::Logger::Logger;
         using Request = AsyncWebServerRequest;
         using Servo = DnWiFiDoorLock::Arduino::Servo::Servo;

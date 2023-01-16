@@ -7,10 +7,10 @@ namespace DnWiFiDoorLock::Arduino {
         const char* const passwordHash,
         DnApp::Arduino::Logger::Logger& logger
     ):
-        port(port),
-        host(host),
-        passwordHash(passwordHash),
-        logger(logger) {
+        port{port},
+        host{host},
+        passwordHash{passwordHash},
+        logger{logger} {
     }
 
     void OTAUpdater::onSetup() {

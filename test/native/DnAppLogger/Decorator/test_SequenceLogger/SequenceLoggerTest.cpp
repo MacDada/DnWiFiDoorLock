@@ -54,7 +54,7 @@ namespace {
     }
 
     void test_it_works_with_no_inner_loggers() {
-        const std::vector<std::reference_wrapper<Logger>> emptyVector;
+        const std::vector<std::reference_wrapper<Logger>> emptyVector{};
 
         SequenceLogger loggerWithEmptyVector{emptyVector};
 

@@ -5,8 +5,8 @@ namespace DnWiFiDoorLock::Arduino {
         const DnWiFiDoorLock::Arduino::Hardware& hardware,
         DnApp::Hardware::Led& led
     ):
-        hardware(hardware),
-        led(led) {
+        hardware{hardware},
+        led{led} {
     }
 
     void LedBlinker::blinkFast(const int count) {

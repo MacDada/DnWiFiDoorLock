@@ -11,7 +11,7 @@ namespace DnApp::Hardware {
     public:
         explicit
         LedOnDigitalPin(DnApp::Hardware::DigitalPin& pin) noexcept:
-            pin(pin) {
+            pin{pin} {
             pin.setOutputMode();
         }
 

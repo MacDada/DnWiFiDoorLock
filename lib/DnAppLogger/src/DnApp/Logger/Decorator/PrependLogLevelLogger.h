@@ -14,7 +14,7 @@ namespace DnApp::Logger::Decorator {
 
         explicit
         PrependLogLevelLogger(Logger& logger) noexcept:
-            logger(logger) {
+            logger{logger} {
         }
 
         void log(LOG_LEVEL level, const char* message) override {

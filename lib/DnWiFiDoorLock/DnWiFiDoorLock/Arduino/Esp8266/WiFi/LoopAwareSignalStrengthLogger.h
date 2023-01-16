@@ -9,7 +9,8 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
-    class LoopAwareSignalStrengthLogger final: public Arduino::SetupAndLoopAware {
+    class LoopAwareSignalStrengthLogger final:
+        public Arduino::SetupAndLoopAware {
         using Logger = DnApp::Arduino::Logger::Logger;
     public:
         LoopAwareSignalStrengthLogger(

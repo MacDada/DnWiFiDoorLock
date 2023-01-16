@@ -17,8 +17,8 @@ namespace DnApp::Logger::Decorator {
             Logger& logger,
             const Logger::LOG_LEVEL threshold = Logger::LOG_LEVEL::DEBUG
         ) noexcept:
-            logger(logger),
-            threshold(threshold) {
+            logger{logger},
+            threshold{threshold} {
         }
 
         LOG_LEVEL getThreshold() const {

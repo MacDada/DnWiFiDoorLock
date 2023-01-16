@@ -5,8 +5,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         WebSerialClass& serial,
         AsyncWebServer& server
     ):
-        serial(serial),
-        server(server) {
+        serial{serial},
+        server{server} {
     }
 
     void Setup::onSetup() {

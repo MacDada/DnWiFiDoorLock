@@ -8,8 +8,8 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         const int maxPulseWidthMicroseconds,
         DnApp::Arduino::Logger::Logger& logger
     ):
-        servo(servo),
-        logger(logger) {
+        servo{servo},
+        logger{logger} {
         servo.attach(pin, minPulseWidthMicroseconds, maxPulseWidthMicroseconds);
     }
 

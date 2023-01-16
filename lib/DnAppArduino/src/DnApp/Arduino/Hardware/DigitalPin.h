@@ -12,7 +12,7 @@ namespace DnApp::Arduino::Hardware {
     public:
         explicit
         DigitalPin(const byte id):
-            id(id) {
+            id{id} {
         }
 
         byte getId() const {

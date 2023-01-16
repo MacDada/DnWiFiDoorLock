@@ -11,7 +11,8 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-    class LoopIndicator final: public SetupAndLoopAware {
+    class LoopIndicator final:
+        public SetupAndLoopAware {
     public:
         LoopIndicator(
             DnApp::Hardware::Led& led,

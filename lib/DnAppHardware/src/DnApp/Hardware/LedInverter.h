@@ -10,7 +10,7 @@ namespace DnApp::Hardware {
     public:
         explicit
         LedInverter(Led& led) noexcept:
-            led(led) {
+            led{led} {
         }
 
         bool isOn() const override {

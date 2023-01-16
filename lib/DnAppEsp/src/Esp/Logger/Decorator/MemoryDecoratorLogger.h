@@ -17,7 +17,7 @@ namespace DnApp::Esp::Logger::Decorator {
 
         explicit
         MemoryDecoratorLogger(EspClass& esp, Logger& logger):
-            logger(logger),
+            logger{logger},
             esp(esp) {
         };
 

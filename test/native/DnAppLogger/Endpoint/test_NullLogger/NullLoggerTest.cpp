@@ -10,7 +10,7 @@
 namespace {
     using DnApp::Logger::Logger;
 
-    DnApp::Logger::Endpoint::NullLogger logger;
+    DnApp::Logger::Endpoint::NullLogger logger{};
 
     void test_it_is_a_Logger() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);

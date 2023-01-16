@@ -13,12 +13,12 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         const DnWiFiDoorLock::Arduino::Hardware& hardware,
         ESP8266WiFiClass& esp8266WiFi
     ):
-        ssid(ssid),
-        password(password),
-        ledBlinker(ledBlinker),
-        logger(logger),
-        hardware(hardware),
-        esp8266WiFi(esp8266WiFi) {
+        ssid{ssid},
+        password{password},
+        ledBlinker{ledBlinker},
+        logger{logger},
+        hardware{hardware},
+        esp8266WiFi{esp8266WiFi} {
     }
 
     void WiFi::onSetup() {

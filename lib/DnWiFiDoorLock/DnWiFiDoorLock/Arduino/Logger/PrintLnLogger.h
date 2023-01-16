@@ -6,13 +6,14 @@
 
 namespace DnWiFiDoorLock::Arduino::Logger {
     template<typename Printer>
-    class PrintLnLogger final: public DnApp::Arduino::Logger::Logger {
+    class PrintLnLogger final:
+        public DnApp::Arduino::Logger::Logger {
     public:
         explicit
         PrintLnLogger(
             Printer& printer
         ):
-            printer(printer) {
+            printer{printer} {
         };
 
         using Logger::log;

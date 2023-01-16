@@ -10,7 +10,7 @@ namespace DnApp::Hardware {
     public:
         explicit
         DigitalPinLevelInverter(DigitalPin& pin) noexcept:
-            pin(pin) {
+            pin{pin} {
         }
 
         void setOutputMode() override {

@@ -10,7 +10,8 @@
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
-    class DoorLockController final: public Controller {
+    class DoorLockController final:
+        public Controller {
     public:
         DoorLockController(
             const DnWiFiDoorLock::Arduino::Hardware& hardware,

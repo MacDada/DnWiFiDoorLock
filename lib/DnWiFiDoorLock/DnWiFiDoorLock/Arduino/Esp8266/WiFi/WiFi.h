@@ -14,7 +14,8 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
-    class WiFi final: public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+    class WiFi final:
+        public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         WiFi(
             const char* ssid,

@@ -4,16 +4,26 @@
 
 namespace {
     class Parent {
-    } parent;
+    };
 
     class OtherParent {
-    } otherParent;
+    };
 
-    class Child: public Parent, OtherParent {
-    } child;
+    class Child:
+        public Parent, OtherParent {
+    };
 
-    class GrandChild: public Child {
-    } grandChild;
+    class GrandChild:
+        public Child {
+    };
+
+    Parent parent{};
+
+    OtherParent otherParent{};
+
+    Child child{};
+
+    GrandChild grandChild{};
 
     void test_instance_of_itself() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &parent);

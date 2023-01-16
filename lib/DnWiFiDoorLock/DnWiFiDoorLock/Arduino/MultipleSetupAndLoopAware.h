@@ -6,7 +6,8 @@
 
 namespace DnWiFiDoorLock::Arduino {
 
-    class MultipleSetupAndLoopAware final: public SetupAndLoopAware {
+    class MultipleSetupAndLoopAware final:
+        public SetupAndLoopAware {
     public:
         explicit
         MultipleSetupAndLoopAware(

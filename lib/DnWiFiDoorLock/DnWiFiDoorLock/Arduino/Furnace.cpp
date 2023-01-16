@@ -5,8 +5,8 @@ namespace DnWiFiDoorLock::Arduino {
         DnApp::Hardware::Button& heaterButton,
         DnApp::Logger::Logger& logger
     ):
-        heaterButton(heaterButton),
-        logger(logger) {
+        heaterButton{heaterButton},
+        logger{logger} {
     }
 
     bool Furnace::isHeaterOn() const {

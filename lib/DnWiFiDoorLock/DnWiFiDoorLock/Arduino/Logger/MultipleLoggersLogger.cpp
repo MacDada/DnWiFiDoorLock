@@ -5,7 +5,7 @@ namespace DnWiFiDoorLock::Arduino::Logger {
     MultipleLoggersLogger::MultipleLoggersLogger(
         const std::vector<std::reference_wrapper<Logger>>& loggers
     ):
-        loggers(loggers) {
+        loggers{loggers} {
     }
 
     void MultipleLoggersLogger::log(LOG_LEVEL level, char* message) {

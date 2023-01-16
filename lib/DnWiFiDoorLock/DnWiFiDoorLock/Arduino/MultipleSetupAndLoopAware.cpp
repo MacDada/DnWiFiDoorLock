@@ -4,7 +4,7 @@ namespace DnWiFiDoorLock::Arduino {
     MultipleSetupAndLoopAware::MultipleSetupAndLoopAware(
         const std::vector<SetupAndLoopAwareReference>& awares
     ):
-        awares(awares) {
+        awares{awares} {
     }
 
     void MultipleSetupAndLoopAware::onSetup() {

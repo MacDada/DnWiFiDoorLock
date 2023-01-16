@@ -11,7 +11,7 @@ namespace DnApp::Logger::Endpoint {
 
         explicit
         PrinterLogger(Printer& printer) noexcept:
-            printer(printer) {
+            printer{printer} {
         }
 
         void log(LOG_LEVEL level, char* message) override {

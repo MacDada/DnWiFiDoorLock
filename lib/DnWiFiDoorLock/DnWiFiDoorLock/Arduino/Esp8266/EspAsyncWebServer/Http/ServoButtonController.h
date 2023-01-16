@@ -25,9 +25,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             DnWiFiDoorLock::Arduino::Servo::Button& button,
             DnApp::Arduino::Logger::Logger& logger
         ):
-            appName(appName),
-            button(button),
-            logger(logger) {
+            appName{appName},
+            button{button},
+            logger{logger} {
         };
 
         void showSettingsAction(AsyncWebServerRequest& request) {

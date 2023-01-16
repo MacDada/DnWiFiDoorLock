@@ -16,8 +16,8 @@ namespace DnWiFiDoorLock::Arduino::Logger {
             Logger& logger,
             const Logger::LOG_LEVEL threshold = Logger::LOG_LEVEL::DEBUG
         ):
-            logger(logger),
-            threshold(threshold) {
+            logger{logger},
+            threshold{threshold} {
         };
 
         LOG_LEVEL getThreshold() const {

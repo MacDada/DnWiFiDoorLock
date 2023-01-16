@@ -7,10 +7,10 @@ namespace DnWiFiDoorLock::Arduino {
         const long bitsPerSecond,
         const char* const appName
     ):
-        serial(serial),
-        hardware(hardware),
-        bitsPerSecond(bitsPerSecond),
-        appName(appName) {
+        serial{serial},
+        hardware{hardware},
+        bitsPerSecond{bitsPerSecond},
+        appName{appName} {
     }
 
     void HardwareSerialSetup::onSetup() {

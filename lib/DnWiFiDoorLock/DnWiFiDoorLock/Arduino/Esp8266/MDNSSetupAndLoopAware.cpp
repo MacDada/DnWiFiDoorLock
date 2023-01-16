@@ -6,9 +6,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266 {
         Logger& logger,
         const char* const hostname
     ):
-        mdnsResponder(mdnsResponder),
-        logger(logger),
-        hostname(hostname) {
+        mdnsResponder{mdnsResponder},
+        logger{logger},
+        hostname{hostname} {
     }
 
     void MDNSSetupAndLoopAware::onSetup() {
