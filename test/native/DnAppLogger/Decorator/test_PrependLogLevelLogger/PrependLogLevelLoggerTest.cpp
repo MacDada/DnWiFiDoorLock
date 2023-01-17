@@ -12,6 +12,28 @@ namespace {
     using DnApp::Logger::Endpoint::StringLogger;
     using DnApp::Logger::Decorator::PrependLogLevelLogger;
 
+    const auto expectedOutputForFoo = ""
+        "debug\n"
+        "[debug] foo\n"
+        "info\n"
+        "[info] foo\n"
+        "warning\n"
+        "[warning] foo\n"
+        "error\n"
+        "[error] foo\n"
+        "critical\n"
+        "[critical] foo\n"
+        "debug\n"
+        "[debug] foo\n"
+        "info\n"
+        "[info] foo\n"
+        "warning\n"
+        "[warning] foo\n"
+        "error\n"
+        "[error] foo\n"
+        "critical\n"
+        "[critical] foo\n";
+
     StringLogger stringLogger{};
     PrependLogLevelLogger logger{stringLogger};
 
@@ -23,26 +45,7 @@ namespace {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n"
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n",
+            expectedOutputForFoo,
             stringLogger.getContent()
         );
     }
@@ -53,26 +56,7 @@ namespace {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
 
         TEST_ASSERT_EQUAL_STRING(
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n"
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n",
+            expectedOutputForFoo,
             stringLogger.getContent()
         );
     }
@@ -83,26 +67,7 @@ namespace {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
 
         TEST_ASSERT_EQUAL_STRING(
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n"
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n",
+            expectedOutputForFoo,
             stringLogger.getContent()
         );
     }
@@ -114,26 +79,7 @@ namespace {
         )
 
         TEST_ASSERT_EQUAL_STRING(
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n"
-            "debug\n"
-            "[debug] foo\n"
-            "info\n"
-            "[info] foo\n"
-            "warning\n"
-            "[warning] foo\n"
-            "error\n"
-            "[error] foo\n"
-            "critical\n"
-            "[critical] foo\n",
+            expectedOutputForFoo,
             stringLogger.getContent()
         );
     }
