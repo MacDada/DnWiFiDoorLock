@@ -9,7 +9,7 @@
 #include "DnApp/Logger/Endpoint/StringLogger.h"
 #include "DnApp/Logger/Decorator/SequenceLogger.h"
 #include "DnApp/Unity/asserts.h"
-#include "../../LoggerTest.h"
+#include "../../../../_common/LoggerTest.h"
 
 namespace {
     using DnApp::Logger::Logger;

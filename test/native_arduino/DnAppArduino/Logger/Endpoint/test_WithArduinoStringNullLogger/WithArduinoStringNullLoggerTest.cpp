@@ -1,19 +1,23 @@
 #include <memory>
 
+#include <WString.h>
 #include <unity.h>
 
-#include "DnApp/Logger/Endpoint/NullLogger.h"
-#include "DnApp/Logger/Logger.h"
+#include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringNullLogger.h"
+#include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Unity/asserts.h"
-#include "../../../../_common/LoggerTest.h"
+#include "../../../../../_common/LoggerTest.h"
 
 namespace {
-    using DnApp::Logger::Logger;
+    using DnApp::Arduino::Logger::WithArduinoStringLogger;
 
-    DnApp::Logger::Endpoint::NullLogger logger{};
+    DnApp::Arduino::Logger::Endpoint::WithArduinoStringNullLogger logger{};
 
-    void test_it_is_a_Logger() {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
+    void test_it_is_a_WithArduinoStringLogger() {
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(
+            WithArduinoStringLogger,
+            &logger
+        );
     }
 
     void test_logging_literals() {
@@ -38,16 +42,24 @@ namespace {
             std::make_unique<char[]>(4)
         )
     }
+
+    void test_logging_arduino_string() {
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
+            logger,
+            String("foo")
+        )
+    }
 }
 
 int main() {
     UNITY_BEGIN();
 
-    RUN_TEST(test_it_is_a_Logger);
+    RUN_TEST(test_it_is_a_WithArduinoStringLogger);
     RUN_TEST(test_logging_literals);
     RUN_TEST(test_logging_chars);
     RUN_TEST(test_logging_const_chars);
     RUN_TEST(test_logging_unique_ptr_of_chars);
+    RUN_TEST(test_logging_arduino_string);
 
     return UNITY_END();
 }

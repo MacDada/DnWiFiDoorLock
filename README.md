@@ -146,9 +146,16 @@ Code style, conventions, decisions
 * 4 spaces for indents
 * Better have more lines, but keep them short
 * What can be tested (and I know how), shall be tested (I mean automated testing ofc)
-* OOP, SOLID
+* `OOP`, `SOLID`
 * `explicit` constructors (almost?) everywhere
 * Always using `{}` for initialization, not `()`
-* Marking classes as `final` unless I actually need to extend over them
+* Marking classes as `final`, unless I actually need to extend over them
+* One class definition per file
+* Header files only, where possible
+  * `.h` are enough most of the time to what I do.
+  * Potential slower compilation does not bother me (it is still quick enough).
+  * It sucks to maintain two files (`.h` and `.cpp`) for each class I make.
+  * Readability is not a problem when you keep your classes short, 
+    and doing one thing only, as required by `SRP`.
 
 ---

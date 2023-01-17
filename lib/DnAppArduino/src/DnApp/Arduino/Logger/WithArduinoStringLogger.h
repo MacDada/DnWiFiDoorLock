@@ -2,7 +2,7 @@
 
 #include <functional>
 
-#include <Arduino.h>
+#include <WString.h>
 
 #include "DnApp/Logger/Logger.h"
 
