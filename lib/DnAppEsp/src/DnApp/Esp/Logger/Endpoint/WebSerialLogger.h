@@ -2,8 +2,8 @@
 
 #include <WebSerial.h>
 
-#include "DnApp/Logger/Endpoint/PrinterLogger.h
+#include "DnApp/Logger/Endpoint/PrinterLogger.h"
 
 namespace DnApp::Esp::Logger::Endpoint {
-    using WebSerialLogger = DnApp::Logger::Endpoint::Printer<WebSerialClass>;
+    using WebSerialLogger = DnApp::Logger::Endpoint::PrinterLogger<WebSerialClass>;
 }
