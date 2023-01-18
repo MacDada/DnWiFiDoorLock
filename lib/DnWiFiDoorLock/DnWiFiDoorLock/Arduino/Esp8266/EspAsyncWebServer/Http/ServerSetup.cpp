@@ -12,6 +12,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ServoController& servoController,
         Logger& logger
     ):
+        wiFi{wiFi},
         server{server},
         hostname{hostname},
         port{port},
@@ -19,8 +20,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         furnaceController{furnaceController},
         servoButtonController{servoButtonController},
         servoController{servoController},
-        logger{logger},
-        wiFi{wiFi} {
+        logger{logger} {
     }
 
     void ServerSetup::onSetup() {

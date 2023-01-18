@@ -7,9 +7,9 @@
 
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
-#include "ServoButtonController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
+#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoButtonController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
@@ -35,9 +35,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         void onLoop() override;
     private:
-        AsyncWebServer& server;
-
         ESP8266WiFiClass& wiFi;
+
+        AsyncWebServer& server;
 
         const char* const hostname;
 
