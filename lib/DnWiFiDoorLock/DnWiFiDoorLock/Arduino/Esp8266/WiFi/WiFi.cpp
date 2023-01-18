@@ -9,7 +9,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         const char* const ssid,
         const char* const password,
         DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker,
-        DnApp::Arduino::Logger::WithArduinoStringLogger& logger,
+        DnApp::Logger::Logger& logger,
         const DnWiFiDoorLock::Arduino::Hardware& hardware,
         ESP8266WiFiClass& esp8266WiFi
     ):
@@ -36,9 +36,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         logger.info(format(PSTR("WiFi selected: \"%s\""), this->ssid));
 
-        // todo: this is probably casting the literal to String object
-        //       - maybe not the best idea after all?
-        logger.info(F("Connecting"));
+        logger.info(PSTR("Connecting"));
 
         hardware.pause(1000);
 
@@ -71,7 +69,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             connectingMessage += F(".");
 
-            logger.info(connectingMessage);
+            logger.info(connectingMessage.c_str());
 
             if (++tries > 20) {
                 informAboutConnectingIssue(tries, status);

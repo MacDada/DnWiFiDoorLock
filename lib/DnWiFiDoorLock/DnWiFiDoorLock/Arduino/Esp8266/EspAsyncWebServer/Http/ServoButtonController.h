@@ -31,6 +31,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         };
 
         void showSettingsAction(AsyncWebServerRequest& request) {
+            // todo: this is probably casting the literal to String object
+            //       - maybe not the best idea after all?
             logger.info(F("ServoButtonController::showSettingsAction()"));
 
             request.send(

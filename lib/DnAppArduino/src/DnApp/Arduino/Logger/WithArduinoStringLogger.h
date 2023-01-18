@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-
 #include <WString.h>
 
 #include "DnApp/Logger/Logger.h"
@@ -45,6 +43,4 @@ namespace DnApp::Arduino::Logger {
             log(LOG_LEVEL::CRITICAL, message.c_str());
         }
     };
-
-    using WithArduinoStringLoggerReference = std::reference_wrapper<WithArduinoStringLogger>;
 }

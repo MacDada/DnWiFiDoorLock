@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <vector>
 
 #include <Arduino.h>
@@ -10,15 +11,21 @@
 #include <WString.h>
 
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
+#include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
+#include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
+#include "DnApp/Esp/Logger/Decorator/MemoryDecoratorLogger.h"
+#include "DnApp/Esp/Logger/Endpoint/WebSerialLogger.h"
 #include "DnApp/Hardware/LedInverter.h"
 #include "DnApp/Hardware/LedOnDigitalPin.h"
+#include "DnApp/Logger/Decorator/LogLevelThresholdFilteringLogger.h"
+#include "DnApp/Logger/Decorator/PrependLogLevelLogger.h"
+#include "DnApp/Logger/Decorator/SequenceLogger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServerSetup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoButtonController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
-#include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/MDNSSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
@@ -28,10 +35,6 @@
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
-#include "DnWiFiDoorLock/Arduino/Logger/FreeHeapDecoratorLogger.h"
-#include "DnWiFiDoorLock/Arduino/Logger/HardwareSerialLogger.h"
-#include "DnWiFiDoorLock/Arduino/Logger/LogLevelThresholdFilteringLogger.h"
-#include "DnWiFiDoorLock/Arduino/Logger/MultipleLoggersLogger.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/MultipleSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/OTAUpdater.h"
@@ -61,23 +64,23 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getHardwareSerialLogger() {
-            static DnWiFiDoorLock::Arduino::Logger::HardwareSerialLogger service{
-                Serial
+            static DnApp::Arduino::Logger::Endpoint::HardwareSerialLogger service{
+                ::Serial
             };
 
             return service;
         }
 
         auto& getWebSerialLogger() {
-            static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Logger service{
-                WebSerial
+            static DnApp::Esp::Logger::Endpoint::WebSerialLogger service{
+                ::WebSerial
             };
 
             return service;
         }
 
         auto& getLoggers() {
-            static std::vector<DnApp::Arduino::Logger::WithArduinoStringLoggerReference> service{
+            static std::vector<std::reference_wrapper<DnApp::Logger::Logger>> service{
                 getHardwareSerialLogger(),
                 getWebSerialLogger()
             };
@@ -86,24 +89,32 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getMultipleLoggersLogger() {
-            static DnWiFiDoorLock::Arduino::Logger::MultipleLoggersLogger service{
+            static DnApp::Logger::Decorator::SequenceLogger service{
                 getLoggers()
             };
 
             return service;
         }
 
-        auto& getFreeHeapDecoratorLogger() {
-            static Arduino::Logger::FreeHeapDecoratorLogger service{
-                ::ESP,
+        auto& getPrependLogLevelLogger() {
+            static DnApp::Logger::Decorator::PrependLogLevelLogger service{
                 getMultipleLoggersLogger()
             };
 
             return service;
         }
 
+        auto& getFreeHeapDecoratorLogger() {
+            static DnApp::Esp::Logger::Decorator::MemoryDecoratorLogger service{
+                ::ESP,
+                getPrependLogLevelLogger()
+            };
+
+            return service;
+        }
+
         auto& getLogger() {
-            static Arduino::Logger::LogLevelThresholdFilteringLogger service{
+            static DnApp::Logger::Decorator::LogLevelThresholdFilteringLogger service{
                 getFreeHeapDecoratorLogger(),
                 DnApp::Logger::Logger::LOG_LEVEL::INFO
             };
@@ -112,7 +123,11 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getArduinoLogger() {
-            return getLogger();
+            static auto service = DnApp::Arduino::Logger::Endpoint::WithArduinoStringLoggerToLogger{
+                getLogger()
+            };
+
+            return service;
         }
 
         auto& getArduinoServo() {
