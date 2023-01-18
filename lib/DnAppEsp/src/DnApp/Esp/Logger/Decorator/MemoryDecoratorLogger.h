@@ -17,8 +17,8 @@ namespace DnApp::Esp::Logger::Decorator {
 
         explicit
         MemoryDecoratorLogger(EspClass& esp, Logger& logger):
-            logger{logger},
-            esp(esp) {
+            esp(esp),
+            logger{logger} {
         };
 
         // todo: DRY those methods?

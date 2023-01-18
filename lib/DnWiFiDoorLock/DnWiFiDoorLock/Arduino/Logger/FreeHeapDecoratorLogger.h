@@ -17,8 +17,8 @@ namespace DnWiFiDoorLock::Arduino::Logger {
 
         explicit
         FreeHeapDecoratorLogger(EspClass& esp, WithArduinoStringLogger& logger):
-            logger{logger},
-            esp{esp} {
+            esp{esp},
+            logger{logger} {
         };
 
         void log(LOG_LEVEL level, const char* message) override {
