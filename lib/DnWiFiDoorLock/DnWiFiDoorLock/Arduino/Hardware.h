@@ -10,8 +10,12 @@ namespace DnWiFiDoorLock::Arduino {
         static
         const byte BUILT_IN_LED_PIN = LED_BUILTIN;
 
-        void pause(unsigned long milliseconds) const;
+        void pause(const unsigned long milliseconds) const {
+            delay(milliseconds);
+        }
 
-        Time getUptime() const;
+        Time getUptime() const {
+            return Time(millis());
+        }
     };
 }

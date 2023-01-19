@@ -12,22 +12,39 @@ namespace DnWiFiDoorLock::Arduino {
         static
         LambdaSetupAndLoopAware createSetupAware(
             std::function<void()> onSetupCallback
-        );
+        ) {
+            return LambdaSetupAndLoopAware(
+                std::move(onSetupCallback),
+                []() {}
+            );
+        }
 
         static
         LambdaSetupAndLoopAware createLoopAware(
             std::function<void()> onLoopCallback
-        );
+        ) {
+            return LambdaSetupAndLoopAware(
+                []() {},
+                std::move(onLoopCallback)
+            );
+        }
 
         explicit
         LambdaSetupAndLoopAware(
             std::function<void()> onSetupCallback,
             std::function<void()> onLoopCallback
-        );
+        ):
+            onSetupCallback{std::move(onSetupCallback)},
+            onLoopCallback{std::move(onLoopCallback)} {
+        }
 
-        void onSetup() override;
+        void onSetup() override {
+            onSetupCallback();
+        }
 
-        void onLoop() override;
+        void onLoop() override {
+            onLoopCallback();
+        }
     private:
         const std::function<void()> onSetupCallback;
 

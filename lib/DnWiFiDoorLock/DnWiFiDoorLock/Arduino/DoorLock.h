@@ -18,24 +18,64 @@ namespace DnWiFiDoorLock::Arduino {
         DoorLock(
             Servo::Servo& servo,
             DnApp::Logger::Logger& logger,
-            byte openAngle = Servo::Servo::MIN_ANGLE,
-            byte closedAngle = Servo::Servo::MAX_ANGLE
-        );
+            const byte openAngle,
+            const byte closedAngle
+        ):
+            servo{servo},
+            logger{logger},
+            openAngle{openAngle},
+            closedAngle{closedAngle} {
+        }
 
+        // warning! it only shows what we asked the servo to do
+        //          we have no feedback as for the servo succeeded to open the door or not
+        //
         // todo: "Clang-Tidy: Function 'isOpen' should be marked [[nodiscard]]"?
-        bool isOpen() const override;
+        bool isOpen() const override {
+            // we're not checking for openAngle,
+            // because if we have any other angle than the closedAngle
+            // then it's better to assume the door is open
+            return !isClosed();
+        }
 
-        bool isClosed() const override;
+        // warning! it only shows what we asked the servo to do
+        //          we have no feedback as for the servo succeeded to close the door or not
+        bool isClosed() const override {
+            return servo.getAngle() == closedAngle;
+        }
 
-        void open() override;
+        void open() override {
+            logger.info(PSTR("DoorLock: opening"));
 
-        void close() override;
+            servo.setAngle(openAngle);
+        }
 
-        void switchOpenClose() override;
+        void close() override {
+            logger.info(PSTR("DoorLock: closing"));
 
-        void onSetup() override;
+            servo.setAngle(closedAngle);
+        }
 
-        void onLoop() override;
+        void switchOpenClose() override {
+            if (isOpen()) {
+                close();
+            } else {
+                open();
+            }
+        }
+
+        void onSetup() override {
+            // the door should be closed by default for security reasons
+            // (for example unexpected device restart)
+            //
+            // we're doing it in the setup, not in the constructor,
+            // because the dependencies need their setup as well
+            close();
+        }
+
+        void onLoop() override {
+            // do nothing
+        }
     private:
         Servo::Servo& servo;
 

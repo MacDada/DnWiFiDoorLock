@@ -13,16 +13,62 @@ namespace DnWiFiDoorLock::Arduino {
     class OTAUpdater final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
+        explicit
         OTAUpdater(
-            int port,
-            const char* host,
-            const char* passwordHash,
+            const int port,
+            const char* const host,
+            const char* const passwordHash,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger
-        );
+        ):
+            port{port},
+            host{host},
+            passwordHash{passwordHash},
+            logger{logger} {
+        }
 
-        void onSetup() override;
+        void onSetup() override {
+            ArduinoOTA.setPort(port);
+            ArduinoOTA.setHostname(host);
+            ArduinoOTA.setPasswordHash(passwordHash);
 
-        void onLoop() override;
+            ArduinoOTA.onStart([&]() {
+                String message{F("Starting the OTA update of the ")};
+
+                if (ArduinoOTA.getCommand() == U_FLASH) {
+                    message += F("sketch!");
+                } else { // U_FS
+                    message += F("filesystem!");
+                }
+
+                // NOTE: if updating FS this would be the place to unmount FS using FS.end()
+                logger.warning(message);
+            });
+
+            ArduinoOTA.onEnd([&]() {
+                logger.warning(F("OTA update finished!"));
+            });
+
+            ArduinoOTA.onProgress([&](const unsigned int progress, const unsigned int total) {
+                logger.warning(DnApp::Common::Strings::format(
+                    PSTR("Progress: %u%%"),
+                    progress / (total / 100)
+                ));
+            });
+
+            ArduinoOTA.onError([&](const ota_error_t error) {
+                logger.error(DnApp::Common::Strings::format(
+                    PSTR("OTA update error[%u]: %s"),
+                    error,
+                    otaErrorToString(error)
+                ));
+            });
+
+            ArduinoOTA.begin();
+        }
+
+        void onLoop() override {
+            ArduinoOTA.handle();
+        }
     private:
         const int port;
 
@@ -32,7 +78,22 @@ namespace DnWiFiDoorLock::Arduino {
 
         DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 
-        const char* otaErrorToString(ota_error_t error) const;
+        const char* otaErrorToString(const ota_error_t error) const {
+            switch (error) {
+                case OTA_AUTH_ERROR:
+                    return PSTR("OTA_AUTH_ERROR");
+                case OTA_BEGIN_ERROR:
+                    return PSTR("OTA_BEGIN_ERROR");
+                case OTA_CONNECT_ERROR:
+                    return PSTR("OTA_CONNECT_ERROR");
+                case OTA_RECEIVE_ERROR:
+                    return PSTR("OTA_RECEIVE_ERROR");
+                case OTA_END_ERROR:
+                    return PSTR("OTA_END_ERROR");
+                default:
+                    return PSTR("OTA_UNKNOWN_ERROR");
+            }
+        }
     };
 
     static_assert(!std::is_abstract<OTAUpdater>());

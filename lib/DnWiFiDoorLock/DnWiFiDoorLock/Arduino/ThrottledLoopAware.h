@@ -13,12 +13,24 @@ namespace DnWiFiDoorLock::Arduino {
         ThrottledLoopAware(
             SetupAndLoopAware& otherAware,
             const DnWiFiDoorLock::Arduino::Hardware& hardware,
-            int throttleMilliseconds
-        );
+            const int throttleMilliseconds
+        ):
+            otherAware{otherAware},
+            hardware{hardware},
+            throttleMilliseconds{throttleMilliseconds} {
+        }
 
-        void onSetup() override;
+        void onSetup() override {
+            otherAware.onSetup();
+        }
 
-        void onLoop() override;
+        void onLoop() override {
+            if (isItTime()) {
+                otherAware.onLoop();
+
+                lastOtherAwareCallMilliseconds = hardware.getUptime().getMilliseconds();
+            }
+        }
     private:
         SetupAndLoopAware& otherAware;
 
@@ -28,7 +40,9 @@ namespace DnWiFiDoorLock::Arduino {
 
         unsigned long lastOtherAwareCallMilliseconds = 0;
 
-        bool isItTime() const;
+        bool isItTime() const {
+            return hardware.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
+        }
     };
 
     static_assert(!std::is_abstract<ThrottledLoopAware>());

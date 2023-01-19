@@ -15,25 +15,63 @@ namespace DnWiFiDoorLock {
 
         const byte days;
     public:
+        // If I count correctly, `unsigned long` gives us max 49 days without restart xD
+        // 4294967295/1000/60/60/24 ~= 49
+        //
+        // btw, I used to have `int` here:
+        // how is that the compiler did not warn me
+        // that the potential value coming here could me `unsigned long`,
+        // which is given by `millis()`?
+        // what will happen after 49 days?
+        // a crash? or `millis()` will just give a wrong result?
         explicit
-        Time(unsigned long milliseconds);
+        Time(const unsigned long milliseconds):
+            milliseconds(milliseconds),
+            seconds(milliseconds / 1000),
+            minutes(seconds / 60),
+            hours(minutes / 60),
+            days(hours / 24) {
+            // potential RAM saving:
+            //   calculate on demand,
+            //   instead of storing precalculated values,
+            //   4 bytes each ;-)
+        }
 
-        unsigned long getMilliseconds() const;
+        unsigned long getMilliseconds() const {
+            return milliseconds;
+        }
 
-        long getSeconds() const;
+        long getSeconds() const {
+            return seconds;
+        }
 
-        long getMinutes() const;
+        long getMinutes() const {
+            return minutes;
+        }
 
-        int getHours() const;
+        int getHours() const {
+            return hours;
+        }
 
-        byte getDays() const;
+        // `byte` is enough, we won't be going longer than 49 days xD
+        byte getDays() const {
+            return days;
+        }
 
-        int getRemainingMilliseconds() const;
+        int getRemainingMilliseconds() const {
+            return milliseconds % 1000;
+        }
 
-        byte getRemainingSeconds() const;
+        byte getRemainingSeconds() const {
+            return seconds % 60;
+        }
 
-        byte getRemainingMinutes() const;
+        byte getRemainingMinutes() const {
+            return minutes % 60;
+        }
 
-        byte getRemainingHours() const;
+        byte getRemainingHours() const {
+            return hours % 24;
+        }
     };
 }

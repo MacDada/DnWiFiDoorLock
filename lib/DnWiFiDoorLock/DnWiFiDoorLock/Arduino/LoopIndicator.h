@@ -14,15 +14,24 @@ namespace DnWiFiDoorLock::Arduino {
     class LoopIndicator final:
         public SetupAndLoopAware {
     public:
+        explicit
         LoopIndicator(
             DnApp::Hardware::Led& led,
             LedBlinker& ledBlinker,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger
-        );
+        ):
+            led{led},
+            ledBlinker{ledBlinker},
+            logger{logger} {
+        }
 
-        void onSetup() override;
+        void onSetup() override {
+            // do nothing
+        }
 
-        void onLoop() override;
+        void onLoop() override {
+            informTheLoopIsRunning();
+        }
     private:
         DnApp::Hardware::Led& led;
 
@@ -32,9 +41,20 @@ namespace DnWiFiDoorLock::Arduino {
 
         bool hasLoopStarted = false;
 
-        void informTheLoopIsRunning();
+        void informThatTheLoopHasStarted() {
+            if (!hasLoopStarted) {
+                logger.info(F("The Loop has started!"));
+                ledBlinker.blinkFast(5);
 
-        void informThatTheLoopHasStarted();
+                hasLoopStarted = true;
+            }
+        }
+
+        void informTheLoopIsRunning() {
+            informThatTheLoopHasStarted();
+
+            led.toggle();
+        }
     };
 
     static_assert(!std::is_abstract<LoopIndicator>());
