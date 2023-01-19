@@ -65,7 +65,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const int oldAngle,
         const int newAngle
     ) {
-        logger.info(format(
+        logger.warning(format(
             PSTR("ServoController: invalid angle given: \"%d\""),
             newAngle
         ));

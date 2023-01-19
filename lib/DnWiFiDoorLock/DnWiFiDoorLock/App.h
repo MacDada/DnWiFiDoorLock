@@ -116,7 +116,8 @@ namespace DnWiFiDoorLock {
         auto& getLogger() {
             static DnApp::Logger::Decorator::LogLevelThresholdFilteringLogger service{
                 getFreeHeapDecoratorLogger(),
-                DnApp::Logger::Logger::LOG_LEVEL::INFO
+                // lets not filter out anything by default
+                DnApp::Logger::Logger::LOG_LEVEL::DEBUG
             };
 
             return service;
@@ -230,10 +231,20 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getWifiSignalStrengthLogger() {
+        auto& getWifiSignalStrengthLoggingLoopAware() {
+            static DnApp::Logger::Decorator::LogLevelThresholdFilteringLogger filtered{
+                getLogger(),
+                // switch to DEBUG when needed, to debug Wi-Fi issues
+                DnApp::Logger::Logger::LOG_LEVEL::INFO
+            };
+
+            static DnApp::Arduino::Logger::Endpoint::WithArduinoStringLoggerToLogger logger{
+                filtered
+            };
+
             static DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger service{
                 ::WiFi,
-                getArduinoLogger()
+                logger
             };
 
             return service;
@@ -241,7 +252,7 @@ namespace DnWiFiDoorLock {
 
         auto& getThrottledWiFiSignalStrengthLogger() {
             static DnWiFiDoorLock::Arduino::ThrottledLoopAware service{
-                getWifiSignalStrengthLogger(),
+                getWifiSignalStrengthLoggingLoopAware(),
                 getHardware(),
                 WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
             };
