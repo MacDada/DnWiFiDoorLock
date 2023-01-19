@@ -7,12 +7,14 @@ namespace DnApp::Logger::Endpoint {
     class PrinterLogger final:
         public DnApp::Logger::Logger {
     public:
-        using DnApp::Logger::Logger::log;
-
         explicit
         PrinterLogger(Printer& printer) noexcept:
             printer{printer} {
         }
+
+        // Required, because otherwise our `log()` methods
+        // would hide base class declarations.
+        using DnApp::Logger::Logger::log;
 
         void log(LOG_LEVEL level, char* message) override {
             printer.println(message);

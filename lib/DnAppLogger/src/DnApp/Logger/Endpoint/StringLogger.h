@@ -8,8 +8,6 @@ namespace DnApp::Logger::Endpoint {
     class StringLogger final:
         public DnApp::Logger::Logger {
     public:
-        using DnApp::Logger::Logger::log;
-
         const char* getContent() const {
             return string.c_str();
         }
@@ -17,6 +15,10 @@ namespace DnApp::Logger::Endpoint {
         void clear() {
             string = "";
         }
+
+        // Required, because otherwise our `log()` methods
+        // would hide base class declarations.
+        using DnApp::Logger::Logger::log;
 
         void log(LOG_LEVEL level, char* message) override {
             doLog(level, message);

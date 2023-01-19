@@ -16,6 +16,7 @@
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class ServerSetup final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+    private:
         using Logger = DnApp::Arduino::Logger::WithArduinoStringLogger;
     public:
         explicit

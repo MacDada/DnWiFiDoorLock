@@ -87,7 +87,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getLoggers() {
-            static std::vector<std::reference_wrapper<DnApp::Logger::Logger>> service{
+            static DnApp::Logger::Decorator::SequenceLogger::Loggers service{
                 getHardwareSerialLogger(),
                 getWebSerialLogger()
             };
