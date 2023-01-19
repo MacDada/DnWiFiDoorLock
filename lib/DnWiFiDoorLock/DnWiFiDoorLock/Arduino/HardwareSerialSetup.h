@@ -37,7 +37,6 @@ namespace DnWiFiDoorLock::Arduino {
                 // wait for serial port to open
             }
 
-            // todo: do not hardcode app name
             serial.print(DnApp::Common::Strings::format(
                 PSTR(
                     "\n\n\n\n\n\n\n\n\n"
