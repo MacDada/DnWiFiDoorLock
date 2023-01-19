@@ -6,11 +6,11 @@
 
 #include "DnApp/Hardware/Button.h"
 #include "DnApp/Logger/Logger.h"
-#include "DnWiFiDoorLock/Furnace.h"
+#include "DnApp/Hardware/Furnace.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class Furnace final:
-        public DnWiFiDoorLock::Furnace {
+        public DnApp::Hardware::Furnace {
     public:
         explicit
         Furnace(

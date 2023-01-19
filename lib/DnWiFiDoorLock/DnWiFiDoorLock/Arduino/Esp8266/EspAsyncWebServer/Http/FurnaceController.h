@@ -5,8 +5,8 @@
 
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
+#include "DnApp/Hardware/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
-#include "DnWiFiDoorLock/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
@@ -16,7 +16,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         explicit
         FurnaceController(
             const DnWiFiDoorLock::Arduino::Hardware& hardware,
-            DnWiFiDoorLock::Furnace& furnace,
+            DnApp::Hardware::Furnace& furnace,
             DnApp::Logger::Logger& logger
         );
 
@@ -30,7 +30,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     private:
         const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
-        DnWiFiDoorLock::Furnace& furnace;
+        DnApp::Hardware::Furnace& furnace;
 
         DnApp::Logger::Logger& logger;
     };
