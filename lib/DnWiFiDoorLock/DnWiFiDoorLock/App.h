@@ -46,6 +46,17 @@
 namespace DnWiFiDoorLock {
     class App final:
         public Arduino::SetupAndLoopAware {
+    public:
+        void onSetup() override {
+            getAppSetupAndLoopAwares().onSetup();
+        }
+
+        void onLoop() override {
+            getAppSetupAndLoopAwares().onLoop();
+
+            // todo: secure server
+            // todo: handling door open/close with servo
+        }
     private:
         static const int MILLISECONDS_IN_SECOND = 1000;
 
@@ -413,24 +424,13 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getAppSetupAndLoopAwares() {
+        // cannot have `auto` return type, as order of methods declaration matters then
+        DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware& getAppSetupAndLoopAwares() {
             static DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware service{
                 getSetupAndLoopAwares()
             };
 
             return service;
-        }
-    // todo: why it cannot be on top of the file? complaining about `auto` ;p
-    public:
-        void onSetup() override {
-            getAppSetupAndLoopAwares().onSetup();
-        }
-
-        void onLoop() override {
-            getAppSetupAndLoopAwares().onLoop();
-
-            // todo: secure server
-            // todo: handling door open/close with servo
         }
     };
 }
