@@ -156,7 +156,7 @@ namespace DnWiFiDoorLock {
         auto& getServo() {
             static DnWiFiDoorLock::Arduino::Servo::Servo service{
                 getArduinoServo(),
-                (byte) SERVO_PIN,
+                SERVO_PIN,
                 600,
                 2400,
                 getArduinoLogger()
@@ -169,11 +169,8 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::DoorLock service{
                 getServo(),
                 getLogger(),
-                // todo: CLion bug report
-                //       https://discord.com/channels/583251190591258624/742849025191051326/1005110176363319436
-                //       https://discord.com/channels/583251190591258624/742849025191051326/1005133740370055229
-                (byte) 0,
-                (byte) 180
+                0,
+                180
             };
 
             return service;
@@ -322,7 +319,7 @@ namespace DnWiFiDoorLock {
 
         auto& getEspServer() {
             static AsyncWebServer service{
-                (byte) WEB_SERVER_PORT
+                WEB_SERVER_PORT
             };
 
             return service;
@@ -343,7 +340,7 @@ namespace DnWiFiDoorLock {
                 ::WiFi,
                 getEspServer(),
                 PSTR(WEB_SERVER_HOST_NAME),
-                (byte) WEB_SERVER_PORT,
+                WEB_SERVER_PORT,
                 getDoorLockHttpController(),
                 getFurnaceHttpController(),
                 getServoButtonController(),
