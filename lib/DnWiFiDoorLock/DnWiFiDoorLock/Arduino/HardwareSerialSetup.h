@@ -5,24 +5,22 @@
 #include <HardwareSerial.h>
 #include <WString.h>
 
-#include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-    class HardwareSerialSetup: public SetupAndLoopAware {
+    class HardwareSerialSetup final:
+        public SetupAndLoopAware {
     public:
         explicit
         HardwareSerialSetup(
             HardwareSerial& serial,
             const DnWiFiDoorLock::Arduino::Hardware& hardware,
-            const long bitsPerSecond,
-            const char* const appName
+            const long bitsPerSecond
         ):
             serial{serial},
             hardware{hardware},
-            bitsPerSecond{bitsPerSecond},
-            appName{appName} {
+            bitsPerSecond{bitsPerSecond} {
         }
 
         void onSetup() override {
@@ -37,58 +35,18 @@ namespace DnWiFiDoorLock::Arduino {
                 // wait for serial port to open
             }
 
-            serial.print(DnApp::Common::Strings::format(
-                PSTR(
-                    "\n\n\n\n\n\n\n\n\n"
-                    "%s"
-                    "================================"
-                    "%s"
-                    "\n\n"
-                    "%s"
-                    "  Hello from `%s`!"
-                    "%s"
-                    "\n\n"
-                    "%s"
-                    "================================"
-                    "%s"
-                    "\n\n\n"
-                ),
-                VT100_FORMAT_BOLD_BLUE,
-                VT100_FORMAT_RESET,
-                VT100_FORMAT_BOLD_GREEN,
-                appName,
-                VT100_FORMAT_RESET,
-                VT100_FORMAT_BOLD_BLUE,
-                VT100_FORMAT_RESET
-            ).get());
+            serial.print(PSTR("\n\n\n\nHardwareSerial is working.\n"));
         }
 
         void onLoop() override {
             // do nothing
         }
     private:
-        static
-        PROGMEM
-        constexpr
-        const char* const VT100_FORMAT_RESET = "\e[0m";
-
-        static
-        PROGMEM
-        constexpr
-        const char* const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
-
-        static
-        PROGMEM
-        constexpr
-        const char* const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
-
         HardwareSerial& serial;
 
         const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
         const long bitsPerSecond;
-
-        const char* const appName;
     };
 
     static_assert(!std::is_abstract<HardwareSerialSetup>());

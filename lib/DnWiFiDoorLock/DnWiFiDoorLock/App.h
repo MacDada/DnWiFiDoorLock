@@ -38,6 +38,7 @@
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/MultipleSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
+#include "DnWiFiDoorLock/Arduino/PrintWelcomeMessageSetup.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
@@ -355,8 +356,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::HardwareSerialSetup service{
                 Serial,
                 getHardware(),
-                SERIAL_BITS_PER_SECOND,
-                PSTR(APP_NAME)
+                SERIAL_BITS_PER_SECOND
             };
 
             return service;
@@ -403,10 +403,20 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        auto& getHardwareSerialWelcomeMessageSetup() {
+            static DnWiFiDoorLock::Arduino::PrintWelcomeMessageSetup service{
+                ::Serial,
+                PSTR(APP_NAME)
+            };
+
+            return service;
+        }
+
         auto& getSetupAndLoopAwares() {
             static std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference> service{
                 getSetupStartIndicator(),
                 getHardwareSerialSetup(),
+                getHardwareSerialWelcomeMessageSetup(),
                 getWiFi(),
                 getThrottledLoopIndicator(),
                 getSetupAndLoopAwareWebSerial(),
