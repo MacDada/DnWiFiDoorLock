@@ -37,7 +37,7 @@
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/MultipleSetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Arduino/OTAUpdater.h"
+#include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
@@ -214,7 +214,7 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getMdns() {
+        auto& getMDNSSetupAndLoopAware() {
             static DnWiFiDoorLock::Arduino::Esp8266::MDNSSetupAndLoopAware service{
                 MDNS,
                 getLogger(),
@@ -224,8 +224,8 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getOtaUpdater() {
-            static DnWiFiDoorLock::Arduino::OTAUpdater service{
+        auto& getOTAUploaderSetupAndLoopAware() {
+            static DnWiFiDoorLock::Arduino::OTAUploaderSetupAndLoopAware service{
                 OTA_UPLOAD_PORT,
                 PSTR(OTA_UPLOAD_HOSTNAME),
                 PSTR(OTA_UPLOAD_PASSWORD_MD5),
@@ -254,7 +254,7 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getThrottledWiFiSignalStrengthLogger() {
+        auto& getThrottledWiFiSignalStrengthLoggingLoopAware() {
             static DnWiFiDoorLock::Arduino::ThrottledLoopAware service{
                 getWifiSignalStrengthLoggingLoopAware(),
                 getHardware(),
@@ -410,10 +410,10 @@ namespace DnWiFiDoorLock {
                 getWiFi(),
                 getThrottledLoopIndicator(),
                 getSetupAndLoopAwareWebSerial(),
-                getOtaUpdater(),
-                getMdns(),
+                getOTAUploaderSetupAndLoopAware(),
+                getMDNSSetupAndLoopAware(),
                 getServer(),
-                getThrottledWiFiSignalStrengthLogger(),
+                getThrottledWiFiSignalStrengthLoggingLoopAware(),
                 getDoorLock(),
                 getFurnaceHeaterButton()
             };

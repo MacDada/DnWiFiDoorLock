@@ -10,11 +10,11 @@
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
-    class OTAUpdater final:
+    class OTAUploaderSetupAndLoopAware final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
     public:
         explicit
-        OTAUpdater(
+        OTAUploaderSetupAndLoopAware(
             const int port,
             const char* const hostname,
             const char* const passwordHash,
@@ -96,5 +96,5 @@ namespace DnWiFiDoorLock::Arduino {
         }
     };
 
-    static_assert(!std::is_abstract<OTAUpdater>());
+    static_assert(!std::is_abstract<OTAUploaderSetupAndLoopAware>());
 }
