@@ -218,7 +218,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::Esp8266::MDNSSetupAndLoopAware service{
                 MDNS,
                 getLogger(),
-                PSTR(WEB_SERVER_HOST_NAME)
+                PSTR(WEB_SERVER_HOSTNAME)
             };
 
             return service;
@@ -226,9 +226,9 @@ namespace DnWiFiDoorLock {
 
         auto& getOtaUpdater() {
             static DnWiFiDoorLock::Arduino::OTAUpdater service{
-                OTA_UPDATE_PORT,
-                PSTR(OTA_UPDATE_HOST),
-                PSTR(OTA_UPDATE_PASSWORD_MD5),
+                OTA_UPLOAD_PORT,
+                PSTR(OTA_UPLOAD_HOSTNAME),
+                PSTR(OTA_UPLOAD_PASSWORD_MD5),
                 getArduinoLogger()
             };
 
@@ -339,7 +339,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup service{
                 ::WiFi,
                 getEspServer(),
-                PSTR(WEB_SERVER_HOST_NAME),
+                PSTR(WEB_SERVER_HOSTNAME),
                 WEB_SERVER_PORT,
                 getDoorLockHttpController(),
                 getFurnaceHttpController(),

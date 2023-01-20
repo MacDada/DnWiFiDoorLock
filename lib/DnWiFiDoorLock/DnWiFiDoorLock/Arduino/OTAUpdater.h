@@ -16,19 +16,19 @@ namespace DnWiFiDoorLock::Arduino {
         explicit
         OTAUpdater(
             const int port,
-            const char* const host,
+            const char* const hostname,
             const char* const passwordHash,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger
         ):
             port{port},
-            host{host},
+            hostname{hostname},
             passwordHash{passwordHash},
             logger{logger} {
         }
 
         void onSetup() override {
             ArduinoOTA.setPort(port);
-            ArduinoOTA.setHostname(host);
+            ArduinoOTA.setHostname(hostname);
             ArduinoOTA.setPasswordHash(passwordHash);
 
             ArduinoOTA.onStart([&]() {
@@ -72,7 +72,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         const int port;
 
-        const char* const host;
+        const char* const hostname;
 
         const char* const passwordHash;
 
