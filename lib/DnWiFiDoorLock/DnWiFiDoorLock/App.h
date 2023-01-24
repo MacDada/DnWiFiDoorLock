@@ -51,6 +51,8 @@ namespace DnWiFiDoorLock {
         struct Config final {
             const char* const name;
 
+            const char* const buildGitCommitHash;
+
             const int serialBitsPerSecond;
 
             const byte servoPin;
@@ -446,10 +448,11 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getHardwareSerialWelcomeMessageSetup() {
+        auto& getHardwareSerialWelcomeMessageSetup() const {
             static DnWiFiDoorLock::Arduino::PrintWelcomeMessageSetup service{
                 ::Serial,
-                config.name
+                config.name,
+                {.gitCommitHash = config.buildGitCommitHash}
             };
 
             return service;

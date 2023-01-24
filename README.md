@@ -151,6 +151,7 @@ Code style, conventions, decisions
 * Always using `{}` for initialization, not `()`
 * Marking classes as `final`, unless I actually need to extend over them
 * One class definition per file
+  * With the exception of internal, NOT reusable classes: so class in a class is allowed.
 * Header files only, where possible
   * `.h` are enough most of the time to what I do.
   * Potential slower compilation does not bother me (it is still quick enough).

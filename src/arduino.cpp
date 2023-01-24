@@ -2,6 +2,7 @@
 
 DnWiFiDoorLock::App app{{
     .name = APP_NAME,
+    .buildGitCommitHash = BUILD_GIT_COMMIT_HASH,
     .serialBitsPerSecond = SERIAL_BITS_PER_SECOND,
     .servoPin = SERVO_PIN,
     .wiFi = {

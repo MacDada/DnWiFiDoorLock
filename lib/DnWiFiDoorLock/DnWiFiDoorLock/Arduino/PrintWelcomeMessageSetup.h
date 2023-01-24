@@ -12,36 +12,56 @@ namespace DnWiFiDoorLock::Arduino {
     class PrintWelcomeMessageSetup final:
         public SetupAndLoopAware {
     public:
+        struct Build final {
+            const char* const gitCommitHash;
+
+            // Defaults are taken from the preprocessor run,
+            // so we can assume that it is the latest timestamp
+            // of ANY file changed, not only this one.
+            // https://gcc.gnu.org/onlinedocs/cpp/Standard-Predefined-Macros.html
+            const char* const date = __DATE__;
+
+            const char* const time = __TIME__;
+        };
+
         explicit
         PrintWelcomeMessageSetup(
             Print& printer,
-            const char* const appName
+            const char* const appName,
+            Build build
         ):
             printer{printer},
-            appName{appName} {
+            appName{appName},
+            build(build) {
         }
 
         void onSetup() override {
             printer.print(DnApp::Common::Strings::format(
                 PSTR(
                     "\n\n\n"
-                    "%s"
+                    "%s" // bold blue
                     "================================"
-                    "%s"
+                    "%s" // reset
                     "\n\n"
-                    "%s"
-                    "  Hello from `%s`!"
-                    "%s"
+                    "%s" // bold green
+                    "  DnApp: `%s`!" // appName
                     "\n\n"
-                    "%s"
+                    // build.date, build.time, build.gitCommitHash
+                    "  Built: %s @ %s @ %s"
+                    "%s" // reset
+                    "\n\n"
+                    "%s" // bold blue
                     "================================"
-                    "%s"
+                    "%s" // reset
                     "\n\n\n"
                 ),
                 VT100_FORMAT_BOLD_BLUE,
                 VT100_FORMAT_RESET,
                 VT100_FORMAT_BOLD_GREEN,
                 appName,
+                build.date,
+                build.time,
+                build.gitCommitHash,
                 VT100_FORMAT_RESET,
                 VT100_FORMAT_BOLD_BLUE,
                 VT100_FORMAT_RESET
@@ -70,6 +90,8 @@ namespace DnWiFiDoorLock::Arduino {
         Print& printer;
 
         const char* const appName;
+
+        Build build;
     };
 
     static_assert(!std::is_abstract<PrintWelcomeMessageSetup>());

@@ -12,6 +12,7 @@ namespace DnApp::Common::Strings {
         // We need the args twice, so it is safer to just get two copies.
         va_list args1;
         va_list args2;
+
         va_start(args1, format);
         va_start(args2, format);
 
