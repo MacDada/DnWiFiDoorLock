@@ -48,6 +48,47 @@ namespace DnWiFiDoorLock {
     class App final:
         public Arduino::SetupAndLoopAware {
     public:
+        struct Config final {
+            const char* const name;
+
+            const int serialBitsPerSecond;
+
+            const byte servoPin;
+
+            struct {
+                const char* const ssid;
+
+                const char* const password;
+            } wiFi;
+
+            struct {
+                const char* const hostname;
+
+                const unsigned short port;
+            } webServer;
+
+            struct {
+                const char* const hostname;
+
+                const int port;
+
+                const char* const passwordMd5;
+            } otaUpload;
+
+            struct {
+                const byte pressingAngle;
+
+                const byte notPressingAngle;
+
+                const int pressingMilliseconds;
+            } furnaceHeaterButton;
+        };
+
+        explicit
+        App(Config config):
+            config{config} {
+        }
+
         void onSetup() override {
             getAppSetupAndLoopAwares().onSetup();
         }
@@ -64,6 +105,8 @@ namespace DnWiFiDoorLock {
         static const int WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
 
         static const int LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS = MILLISECONDS_IN_SECOND;
+
+        const Config config;
 
         auto& getHardware() {
             static const DnWiFiDoorLock::Arduino::Hardware service{};
@@ -157,7 +200,7 @@ namespace DnWiFiDoorLock {
         auto& getServo() {
             static DnWiFiDoorLock::Arduino::Servo::Servo service{
                 getArduinoServo(),
-                SERVO_PIN,
+                config.servoPin,
                 600,
                 2400,
                 getArduinoLogger()
@@ -199,12 +242,12 @@ namespace DnWiFiDoorLock {
 
         auto& getWiFi() {
             static DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi service{
-                // todo: figure out why `*ssid` crashes in `::WiFi.begin()` when using `PSTR(WIFI_SSID)`
+                // todo: figure out why `*ssid` crashes in `::WiFi.begin()` when using `PSTR("the ssid")`
                 //       * https://discord.com/channels/583251190591258624/1063162264468865047/1063162264468865047
                 //       * https://community.platformio.org/t/esp8266-why-is-pstr-crashing-on-text-in-a-function/31457/1
                 //       * https://forum.arduino.cc/t/esp8266-why-is-pstr-crashing-on-text-in-a-function/1076744/1
-                WIFI_SSID,
-                PSTR(WIFI_PASSWORD),
+                config.wiFi.ssid,
+                config.wiFi.password,
                 getBuiltInLedBlinker(),
                 // WebSerial(Logger) cannot be injected, runtime crash for some reason
                 getHardwareSerialLogger(),
@@ -217,9 +260,9 @@ namespace DnWiFiDoorLock {
 
         auto& getMDNSSetupAndLoopAware() {
             static DnWiFiDoorLock::Arduino::Esp8266::MDNSSetupAndLoopAware service{
-                MDNS,
+                ::MDNS,
                 getLogger(),
-                PSTR(WEB_SERVER_HOSTNAME)
+                config.webServer.hostname
             };
 
             return service;
@@ -227,9 +270,9 @@ namespace DnWiFiDoorLock {
 
         auto& getOTAUploaderSetupAndLoopAware() {
             static DnWiFiDoorLock::Arduino::OTAUploaderSetupAndLoopAware service{
-                OTA_UPLOAD_PORT,
-                PSTR(OTA_UPLOAD_HOSTNAME),
-                PSTR(OTA_UPLOAD_PASSWORD_MD5),
+                config.otaUpload.port,
+                config.otaUpload.hostname,
+                config.otaUpload.passwordMd5,
                 getArduinoLogger()
             };
 
@@ -270,9 +313,9 @@ namespace DnWiFiDoorLock {
                 getHardware(),
                 // todo: a different servo than DoorLock servo? ;p
                 getServo(),
-                FURNACE_HEATER_BUTTON_PRESSING_ANGLE,
-                FURNACE_HEATER_BUTTON_NOT_PRESSING_ANGLE,
-                FURNACE_HEATER_BUTTON_PRESSING_MILLISECONDS
+                config.furnaceHeaterButton.pressingAngle,
+                config.furnaceHeaterButton.notPressingAngle,
+                config.furnaceHeaterButton.pressingMilliseconds
             };
 
             return service;
@@ -312,7 +355,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoController service{
                 getServo(),
                 getLogger(),
-                PSTR(APP_NAME)
+                config.name
             };
 
             return service;
@@ -320,7 +363,7 @@ namespace DnWiFiDoorLock {
 
         auto& getEspServer() {
             static AsyncWebServer service{
-                WEB_SERVER_PORT
+                config.webServer.port
             };
 
             return service;
@@ -328,7 +371,7 @@ namespace DnWiFiDoorLock {
 
         auto& getServoButtonController() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServoButtonController service{
-                PSTR(APP_NAME),
+                config.name,
                 getFurnaceHeaterButton(),
                 getArduinoLogger()
             };
@@ -340,8 +383,8 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::ServerSetup service{
                 ::WiFi,
                 getEspServer(),
-                PSTR(WEB_SERVER_HOSTNAME),
-                WEB_SERVER_PORT,
+                config.webServer.hostname,
+                config.webServer.port,
                 getDoorLockHttpController(),
                 getFurnaceHttpController(),
                 getServoButtonController(),
@@ -356,7 +399,7 @@ namespace DnWiFiDoorLock {
             static DnWiFiDoorLock::Arduino::HardwareSerialSetup service{
                 Serial,
                 getHardware(),
-                SERIAL_BITS_PER_SECOND
+                config.serialBitsPerSecond
             };
 
             return service;
@@ -364,7 +407,7 @@ namespace DnWiFiDoorLock {
 
         auto& getSetupAndLoopAwareWebSerial() {
             static DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial::Setup service{
-                WebSerial,
+                ::WebSerial,
                 getEspServer()
             };
 
@@ -406,7 +449,7 @@ namespace DnWiFiDoorLock {
         auto& getHardwareSerialWelcomeMessageSetup() {
             static DnWiFiDoorLock::Arduino::PrintWelcomeMessageSetup service{
                 ::Serial,
-                PSTR(APP_NAME)
+                config.name
             };
 
             return service;
