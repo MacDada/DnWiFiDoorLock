@@ -38,9 +38,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         }
 
         void onLoop() override {
-            if (!esp8266WiFi.isConnected()) {
-                ledBlinker.blinkFast(2);
-            }
+            watchForDisconnection();
         }
     private:
         const char* const ssid;
@@ -54,6 +52,8 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
         ESP8266WiFiClass& esp8266WiFi;
+
+        bool disconnected = false;
 
         static
         constexpr
@@ -115,6 +115,36 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
                     status
                 ));
             }
+        }
+
+        void watchForDisconnection() {
+            if (!esp8266WiFi.isConnected()) {
+                onDisconnected();
+            } else if (disconnected) {
+                onReconnected();
+            }
+        }
+
+        void onDisconnected() {
+            if (!disconnected) {
+                disconnected = true;
+
+                const uint8_t status = esp8266WiFi.status();
+
+                logger.error(format(
+                    PSTR("WiFi disconnected! Status: %s (%d)"),
+                    wiFiConnectionStatusToString(status),
+                    status
+                ));
+            }
+
+            ledBlinker.blinkFast(2);
+        }
+
+        void onReconnected() {
+            disconnected = false;
+
+            logger.info(PSTR("WiFi reconnected!"));
         }
 
         const char* wiFiConnectionStatusToString(const uint8_t status) const {

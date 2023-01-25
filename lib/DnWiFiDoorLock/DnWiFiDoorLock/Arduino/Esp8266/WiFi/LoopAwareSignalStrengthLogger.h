@@ -46,8 +46,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
 
                 logger.debug(message);
             } else {
-                // todo: log that it has reconnected after connection problem
-                message += F("NOT connected!");
+                message += F("is NOT connected!");
 
                 logger.error(message);
             }
