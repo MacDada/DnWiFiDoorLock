@@ -79,7 +79,6 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             int tries = 0;
 
-            // todo: better error handling
             while (true) {
                 const int status = esp8266WiFi.status();
 
