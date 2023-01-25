@@ -74,7 +74,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             furnace.toggleHeater();
 
-            redirect(request, F("/furnace"));
+            redirect(request, PSTR("/furnace"));
         }
 
         void apiGetAction(AsyncWebServerRequest& request) const {
@@ -83,7 +83,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
                 HTTP_RESPONSE_CONTENT_TYPE_JSON,
-                furnace.isHeaterOn() ? F("true") : F("false")
+                furnace.isHeaterOn() ? PSTR("true") : PSTR("false")
             );
         }
 
@@ -93,9 +93,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ) const {
             logger.info(PSTR("FurnaceController::apiPostAction()"));
 
-            if (body.equals(F("ON"))) {
+            if (body.equals(PSTR("ON"))) {
                 furnace.turnOnHeater();
-            } else if (body.equals(F("OFF"))) {
+            } else if (body.equals(PSTR("OFF"))) {
                 furnace.turnOffHeater();
             } else {
                 logger.warning(PSTR(
@@ -105,7 +105,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 request.send(
                     HTTP_RESPONSE_STATUS_BAD_REQUEST,
                     HTTP_RESPONSE_CONTENT_TYPE_JSON,
-                    F("Invalid value")
+                    PSTR("Invalid value")
                 );
 
                 return;
@@ -114,7 +114,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             request.send(
                 HTTP_RESPONSE_STATUS_ACCEPTED,
                 HTTP_RESPONSE_CONTENT_TYPE_JSON,
-                furnace.isHeaterOn() ? F("true") : F("false")
+                furnace.isHeaterOn() ? PSTR("true") : PSTR("false")
             );
         }
     private:

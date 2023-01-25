@@ -75,7 +75,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             doorLock.switchOpenClose();
 
             // todo: route generator
-            redirect(request, F("/doorlock"));
+            redirect(request, PSTR("/doorlock"));
         }
     private:
         const DnWiFiDoorLock::Arduino::Hardware& hardware;

@@ -32,12 +32,12 @@ namespace DnWiFiDoorLock::Arduino {
             ArduinoOTA.setPasswordHash(passwordHash);
 
             ArduinoOTA.onStart([&]() {
-                String message{F("Starting the OTA update of the ")};
+                String message{PSTR("Starting the OTA update of the ")};
 
                 if (ArduinoOTA.getCommand() == U_FLASH) {
-                    message += F("sketch!");
+                    message += PSTR("sketch!");
                 } else { // U_FS
-                    message += F("filesystem!");
+                    message += PSTR("filesystem!");
                 }
 
                 // NOTE: if updating FS this would be the place to unmount FS using FS.end()
@@ -45,7 +45,7 @@ namespace DnWiFiDoorLock::Arduino {
             });
 
             ArduinoOTA.onEnd([&]() {
-                logger.warning(F("OTA update finished!"));
+                logger.warning(PSTR("OTA update finished!"));
             });
 
             ArduinoOTA.onProgress([&](const unsigned int progress, const unsigned int total) {

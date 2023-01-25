@@ -82,7 +82,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             request.send(
                 404,
-                F("text/plain"),
+                PSTR("text/plain"),
                 DnApp::Common::Strings::format(
                     PSTR("File Not Found\n\nURI: %s\nMethod: %s\n"),
                     request.url().c_str(),
@@ -93,7 +93,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         void setupRouting() {
             server.on(PSTR("/"), HTTP_GET, [&](AsyncWebServerRequest* const request) {
-                request->redirect(F("/furnace"));
+                request->redirect(PSTR("/furnace"));
             });
 
             // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
@@ -175,17 +175,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void logServerHasStarted() {
-            String message{F("HTTP server has started, open http://")};
+            String message{PSTR("HTTP server has started, open http://")};
 
             message += wiFi.localIP().toString();
 
-            message += F(":");
+            message += PSTR(":");
             message += port;
-            message += F(" or http://");
+            message += PSTR(" or http://");
             message += hostname;
-            message += F(".local:");
+            message += PSTR(".local:");
             message += port;
-            message += F(" in a web browser :)");
+            message += PSTR(" in a web browser :)");
 
             logger.info(message);
         }

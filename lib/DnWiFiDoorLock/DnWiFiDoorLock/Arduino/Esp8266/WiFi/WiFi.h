@@ -67,18 +67,13 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             waitForConnection();
 
             logger.info(format(
-                // todo: why does PSTR work here,
-                //       even though I don't use any special FLASH methods in the format() function?
-                //       * https://forum.arduino.cc/t/esp8266-f-macro-is-unnecessary-on-esp-chips/1075805/1
-                //       * https://community.platformio.org/t/esp8266-arduino-f-macro-is-unnecessary-on-esp-chips/31399
-                //       * https://discord.com/channels/583251190591258624/1062392340783829063/1062392340783829063
                 PSTR("Connected, IP address: %s"),
                 esp8266WiFi.localIP().toString().c_str()
             ));
         }
 
         void waitForConnection() {
-            String connectingMessage{F("Connecting")};
+            String connectingMessage{PSTR("Connecting")};
 
             logger.info(connectingMessage.c_str());
 
@@ -94,7 +89,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
                 hardware.pause(500);
 
-                connectingMessage += F(".");
+                connectingMessage += PSTR(".");
 
                 logger.info(connectingMessage.c_str());
 

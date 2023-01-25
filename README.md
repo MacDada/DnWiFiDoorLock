@@ -151,12 +151,23 @@ Code style, conventions, decisions
 * Always using `{}` for initialization, not `()`
 * Marking classes as `final`, unless I actually need to extend over them
 * One class definition per file
-  * With the exception of internal, NOT reusable classes: so class in a class is allowed.
+  * With the exception for internal, NOT reusable classes: so class in a class is allowed.
 * Header files only, where possible
   * `.h` are enough most of the time to what I do.
   * Potential slower compilation does not bother me (it is still quick enough).
   * It sucks to maintain two files (`.h` and `.cpp`) for each class I make.
   * Readability is not a problem when you keep your classes short, 
     and doing one thing only, as required by `SRP`.
+* Using `PROGMEM` everywhere I can (keeping strings in Flash, instead of RAM)
+  * _Everywhere I can_, meaning the Arduino–related code, skipping for generic C++ code
+  * `F` macro is not needed, `PSTR()` macro is enough.
+    * Even for the code that is not Flash storage aware. 
+      * At least on ESP-8266 it works.
+        * It is [Von Neumann architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture)
+          - there is one address space for both instructions and data.
+      * If I'd ever want to make it compatible with the "real" Arduinos,
+        therefore having [Harvard architecture](https://en.wikipedia.org/wiki/Harvard_architecture),
+        where instructions and data are separate,
+        the code would have to be strongly redesigned anyway.
 
 ---

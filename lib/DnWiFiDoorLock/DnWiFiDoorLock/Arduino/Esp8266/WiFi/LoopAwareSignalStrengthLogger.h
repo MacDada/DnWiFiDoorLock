@@ -37,16 +37,16 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
         Logger& logger;
 
         void log() {
-            String message = F("WiFi ");
+            String message = PSTR("WiFi ");
 
             if (esp8266WiFi.isConnected()) {
-                message += F("signal strength: ");
+                message += PSTR("signal strength: ");
                 message += esp8266WiFi.RSSI();
-                message += F(" dBm");
+                message += PSTR(" dBm");
 
                 logger.debug(message);
             } else {
-                message += F("is NOT connected!");
+                message += PSTR("is NOT connected!");
 
                 logger.error(message);
             }

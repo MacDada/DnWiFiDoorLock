@@ -129,7 +129,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             // todo: for some reason, when I hit enter from the number input, two values are sent:
             //       zero and the input value -> causing the value to be zero after all
             //       it works ok when I click submit instead of hitting enter
-            String content = F(R"(
+            String content = PSTR(R"(
                 <!DOCTYPE html>
                 <html>
                     <head>
@@ -176,26 +176,26 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 </html>
             )");
 
-            content.replace(F("{{ app_name }}"), appName);
+            content.replace(PSTR("{{ app_name }}"), appName);
 
-            content.replace(F("{{ servo_min_angle }}"), String(Servo::MIN_ANGLE));
-            content.replace(F("{{ servo_max_angle }}"), String(Servo::MAX_ANGLE));
+            content.replace(PSTR("{{ servo_min_angle }}"), String(Servo::MIN_ANGLE));
+            content.replace(PSTR("{{ servo_max_angle }}"), String(Servo::MAX_ANGLE));
 
             content.replace(
-                F("{{ invalid_angle_error }}"),
-                invalidAngle ? F("<p>ERROR: INVALID ANGLE!</p>") : F("")
+                PSTR("{{ invalid_angle_error }}"),
+                invalidAngle ? PSTR("<p>ERROR: INVALID ANGLE!</p>") : PSTR("")
             );
 
-            content.replace(F("{{ old_or_current }}"), newAngle ? F("Old") : F("Current"));
-            content.replace(F("{{ old_angle }}"), String(oldAngle));
+            content.replace(PSTR("{{ old_or_current }}"), newAngle ? PSTR("Old") : PSTR("Current"));
+            content.replace(PSTR("{{ old_angle }}"), String(oldAngle));
 
             content.replace(
-                F("{{ new_angle }}"),
+                PSTR("{{ new_angle }}"),
                 newAngle ? format(PSTR("<p>New angle: %d</p>"), newAngle.value()).get() : ""
             );
 
             content.replace(
-                F("{{ angle_form_value }}"),
+                PSTR("{{ angle_form_value }}"),
                 String(newAngle ? newAngle.value() : oldAngle)
             );
 

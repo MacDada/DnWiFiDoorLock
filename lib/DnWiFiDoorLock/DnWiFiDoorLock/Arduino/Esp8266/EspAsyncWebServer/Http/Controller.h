@@ -52,7 +52,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             AsyncWebServerResponse* const response = request.beginResponse(
                 HTTP_RESPONSE_STATUS_REDIRECT
             );
-            response->addHeader(F("Location"), location);
+            response->addHeader(PSTR("Location"), location);
             request.send(response);
         }
     };
