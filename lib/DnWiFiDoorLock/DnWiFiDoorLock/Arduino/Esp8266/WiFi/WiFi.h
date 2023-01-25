@@ -64,10 +64,6 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             logger.info(format(PSTR("WiFi selected: \"%s\""), this->ssid));
 
-            logger.info(PSTR("Connecting"));
-
-            hardware.pause(1000);
-
             waitForConnection();
 
             logger.info(format(
@@ -82,12 +78,15 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         }
 
         void waitForConnection() {
-            int tries = 0;
             String connectingMessage{F("Connecting")};
+
+            logger.info(connectingMessage.c_str());
+
+            int tries = 0;
 
             // todo: better error handling
             while (true) {
-                int status = esp8266WiFi.status();
+                const int status = esp8266WiFi.status();
 
                 if (WL_CONNECTED == status) {
                     return;
