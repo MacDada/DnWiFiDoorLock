@@ -53,6 +53,8 @@ namespace DnWiFiDoorLock::Arduino {
         void informTheLoopIsRunning() {
             informThatTheLoopHasStarted();
 
+            // todo: maybe it would be possible to dim the led a bit?
+            //       so that there would be a bright and dark version?
             led.toggle();
         }
     };

@@ -252,6 +252,7 @@ namespace DnWiFiDoorLock {
                 config.wiFi.password,
                 getBuiltInLedBlinker(),
                 // WebSerial(Logger) cannot be injected, runtime crash for some reason
+                // todo: find a way to inject full logger or at least add decorators
                 getHardwareSerialLogger(),
                 getHardware(),
                 ::WiFi
