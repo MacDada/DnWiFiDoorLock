@@ -39,26 +39,32 @@ namespace DnWiFiDoorLock::Arduino {
             printer.print(DnApp::Common::Strings::format(
                 PSTR(
                     "\n\n\n"
+                    "%s" // reset
                     "%s" // bold blue
-                    "================================"
+                    "==========================================="
                     "%s" // reset
                     "\n\n"
                     "%s" // bold green
                     "  DnApp: `%s`!" // appName
+                    "%s" // reset
                     "\n\n"
+                    "%s" // bold green
                     // build.date, build.time, build.gitCommitHash
                     "  Built: %s @ %s @ %s"
                     "%s" // reset
                     "\n\n"
                     "%s" // bold blue
-                    "================================"
+                    "==========================================="
                     "%s" // reset
                     "\n\n\n"
                 ),
+                VT100_FORMAT_RESET,
                 VT100_FORMAT_BOLD_BLUE,
                 VT100_FORMAT_RESET,
                 VT100_FORMAT_BOLD_GREEN,
                 appName,
+                VT100_FORMAT_RESET,
+                VT100_FORMAT_GREEN,
                 build.date,
                 build.time,
                 build.gitCommitHash,
@@ -86,6 +92,11 @@ namespace DnWiFiDoorLock::Arduino {
         PROGMEM
         constexpr
         const char* const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
+
+        static
+        PROGMEM
+        constexpr
+        const char* const VT100_FORMAT_GREEN = "\e[0;32m";
 
         Print& printer;
 
