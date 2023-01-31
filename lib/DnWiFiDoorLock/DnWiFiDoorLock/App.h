@@ -157,18 +157,9 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
-        auto& getFreeHeapDecoratorLogger() {
-            static DnApp::Esp::Logger::Decorator::MemoryDecoratorLogger service{
-                ::ESP,
-                getPrependLogLevelLogger()
-            };
-
-            return service;
-        }
-
         auto& getLogLevelThresholdFilteringLogger() {
             static DnApp::Logger::Decorator::LogLevelThresholdFilteringLogger service{
-                getFreeHeapDecoratorLogger(),
+                getPrependLogLevelLogger(),
                 // lets not filter out anything by default
                 DnApp::Logger::Logger::LOG_LEVEL::DEBUG
             };
@@ -176,8 +167,17 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        auto& getFreeHeapDecoratorLogger() {
+            static DnApp::Esp::Logger::Decorator::MemoryDecoratorLogger service{
+                ::ESP,
+                getLogLevelThresholdFilteringLogger()
+            };
+
+            return service;
+        }
+
         auto& getLogger() {
-            return getLogLevelThresholdFilteringLogger();
+            return getFreeHeapDecoratorLogger();
         }
 
         auto& getArduinoLogger() {
