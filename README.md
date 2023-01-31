@@ -112,6 +112,45 @@ To Do
   * [ ] [QEMU](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
   * [ ] [Renode](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/renode.html)
   * [ ] [SimAVR](https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/simavr.html)
+* [ ] [update](https://github.com/esp8266/Arduino/issues/8779) and test fix
+
+---
+Ideas
+---
+
+* NodeMCU has 2 built–in LEDs -> I'm only using one for now, maybe I could use both.
+  * https://lowvoltage.github.io/2017/07/09/Onboard-LEDs-NodeMCU-Got-Two
+  * https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/
+  * https://rabbithole.wwwdotorg.org/2017/03/28/esp8266-gpio.html
+  * `D0` / `GPIO16`
+    * on board
+    * `high` at boot, falls to `low` after ~110ms
+    * `USER`: whatever that means
+    * `WAKE`: used to wake up from deep sleep
+    * input: no interrupt
+    * output: no PWM or I2C support
+    * low output level isn’t the expected `0V`, but rather about `1V`
+    * it is "inverted" – LED is bright on `low`, not on `high`
+  * `D4` / `GPIO2`
+    * on chip
+    * `high` at boot, according to [1](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/);
+       varies at boot and stabilizes at `high` ~70ms after boot,
+       while can be set to `low` ~110ms after boot,
+       according to [2](https://rabbithole.wwwdotorg.org/2017/03/28/esp8266-gpio.html)
+    * `TXD1`: whatever that means
+    * `U1TXD`: it is probably the reason it flashes during chip programming
+    * boot fails if pulled LOW
+    * input: pulled up
+    * output: OK
+    * it is "inverted" – LED is bright on `low`, not on `high`
+    * it is the `LED_BUILTIN` in the source code
+    * I'm using this one currently to indicate app's status.
+* LED brightness can be regulated with `analogWrite`, instead of just turning it on with `digitalWrite`
+  * PWM must be supported on the PIN
+  * For the loop indicator, I could use a soft heartbeat blinking,
+    while using hard–bright blinking for error indication.
+  * Must remember: `digitalRead` and `analogRead` give "wrong" results after `analogWrite`
+    – if I want to track the state, I have to do it with a code var. 
 
 ---
 Will NOT do (non–goals)
