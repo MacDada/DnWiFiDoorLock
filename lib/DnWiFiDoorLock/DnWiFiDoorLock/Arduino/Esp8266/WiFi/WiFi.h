@@ -7,6 +7,7 @@
 #include <WiFiClient.h>
 #include <WString.h>
 
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Hardware.h"
@@ -16,6 +17,11 @@
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     class WiFi final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+    private:
+        using PrefixingLogger = DnApp
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
     public:
         WiFi(
             const char* const ssid,
@@ -28,7 +34,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             ssid{ssid},
             password{password},
             ledBlinker{ledBlinker},
-            logger{logger},
+            logger{PrefixingLogger{logger, PSTR("WiFi: ")}},
             hardware{hardware},
             esp8266WiFi{esp8266WiFi} {
         }
@@ -47,7 +53,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker;
 
-        DnApp::Logger::Logger& logger;
+        PrefixingLogger logger;
 
         const DnWiFiDoorLock::Arduino::Hardware& hardware;
 
@@ -62,7 +68,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         void connect() {
             esp8266WiFi.begin(this->ssid, this->password);
 
-            logger.info(format(PSTR("WiFi selected: \"%s\""), this->ssid));
+            logger.info(format(PSTR("Selected: \"%s\""), this->ssid));
 
             waitForConnection();
 
@@ -103,7 +109,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
             if (0 == tries % 5) {
                 logger.warning(format(
-                    PSTR("WiFi is still not connected, status: %s (%d)"),
+                    PSTR("Still not connected, status: %s (%d)"),
                     wiFiConnectionStatusToString(status),
                     status
                 ));
@@ -125,7 +131,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
                 const uint8_t status = esp8266WiFi.status();
 
                 logger.error(format(
-                    PSTR("WiFi disconnected! Status: %s (%d)"),
+                    PSTR("Disconnected! Status: %s (%d)"),
                     wiFiConnectionStatusToString(status),
                     status
                 ));
@@ -137,7 +143,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         void onReconnected() {
             disconnected = false;
 
-            logger.info(PSTR("WiFi reconnected!"));
+            logger.info(PSTR("Reconnected!"));
         }
 
         const char* wiFiConnectionStatusToString(const uint8_t status) const {

@@ -5,6 +5,7 @@
 #include <WString.h>
 
 #include "DnApp/Hardware/DoorLock.h"
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
@@ -13,6 +14,11 @@ namespace DnWiFiDoorLock::Arduino {
     class DoorLock final:
         public DnWiFiDoorLock::Arduino::SetupAndLoopAware,
         public DnApp::Hardware::DoorLock {
+    private:
+        using PrefixingLogger = DnApp
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
     public:
         explicit
         DoorLock(
@@ -22,7 +28,7 @@ namespace DnWiFiDoorLock::Arduino {
             const byte closedAngle
         ):
             servo{servo},
-            logger{logger},
+            logger{PrefixingLogger{logger, PSTR("DoorLock: ")}},
             openAngle{openAngle},
             closedAngle{closedAngle} {
         }
@@ -45,13 +51,13 @@ namespace DnWiFiDoorLock::Arduino {
         }
 
         void open() override {
-            logger.info(PSTR("DoorLock: opening"));
+            logger.info(PSTR("Opening"));
 
             servo.setAngle(openAngle);
         }
 
         void close() override {
-            logger.info(PSTR("DoorLock: closing"));
+            logger.info(PSTR("Closing"));
 
             servo.setAngle(closedAngle);
         }
@@ -79,7 +85,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         Servo::Servo& servo;
 
-        DnApp::Logger::Logger& logger;
+        PrefixingLogger logger;
 
         const byte openAngle;
 

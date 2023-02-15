@@ -526,7 +526,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             if (!maybeNewPressingAngle
                 || !maybeNewNotPressingAngle
                 || !maybeNewMilliseconds
-                ) {
+            ) {
                 return PSTR("No required data given");
             }
 

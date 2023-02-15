@@ -5,12 +5,18 @@
 #include <WString.h>
 
 #include "DnApp/Hardware/Button.h"
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Hardware/Furnace.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class Furnace final:
         public DnApp::Hardware::Furnace {
+    private:
+        using PrefixingLogger = DnApp
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
     public:
         explicit
         Furnace(
@@ -18,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
             DnApp::Logger::Logger& logger
         ):
             heaterButton{heaterButton},
-            logger{logger} {
+            logger{PrefixingLogger{logger, PSTR("Furnace: ")}} {
         }
 
         bool isHeaterOn() const override {
@@ -31,24 +37,24 @@ namespace DnWiFiDoorLock::Arduino {
 
         void turnOnHeater() override {
             if (heaterOn) {
-                logger.warning(PSTR("Furnace: the heater is already on"));
+                logger.warning(PSTR("The heater is already on"));
 
                 return;
             }
 
-            logger.info(PSTR("Furnace: turning on the heater"));
+            logger.info(PSTR("Turning on the heater"));
             heaterButton.press();
             heaterOn = true;
         }
 
         void turnOffHeater() override {
             if (!heaterOn) {
-                logger.warning(PSTR("Furnace: the heater is already off"));
+                logger.warning(PSTR("The heater is already off"));
 
                 return;
             }
 
-            logger.info(PSTR("Furnace: turning off the heater"));
+            logger.info(PSTR("Turning off the heater"));
             heaterButton.press();
             heaterOn = false;
         }
@@ -63,7 +69,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         DnApp::Hardware::Button& heaterButton;
 
-        DnApp::Logger::Logger& logger;
+        PrefixingLogger logger;
 
         bool heaterOn = false;
     };

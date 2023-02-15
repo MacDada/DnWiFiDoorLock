@@ -3,6 +3,7 @@
 #include <ESPAsyncWebServer.h>
 #include <WString.h>
 
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
@@ -12,6 +13,11 @@
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class DoorLockController final:
         public Controller {
+    private:
+        using PrefixingLogger = DnApp
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
     public:
         explicit
         DoorLockController(
@@ -21,11 +27,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ):
             hardware{hardware},
             doorLock{doorLock},
-            logger{logger} {
+            logger{PrefixingLogger{logger, PSTR("DoorLockController::")}} {
         }
 
-        void statusAction(AsyncWebServerRequest& request) const {
-            logger.info(PSTR("DoorLockController::statusAction()"));
+        void statusAction(AsyncWebServerRequest& request) {
+            logger.info(PSTR("statusAction()"));
 
             Time uptime = hardware.getUptime();
 
@@ -70,7 +76,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void switchAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("DoorLockController::switchAction()"));
+            logger.info(PSTR("switchAction()"));
 
             doorLock.switchOpenClose();
 
@@ -82,7 +88,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnWiFiDoorLock::Arduino::DoorLock& doorLock;
 
-        DnApp::Logger::Logger& logger;
+        PrefixingLogger logger;
     };
 
     static_assert(!std::is_abstract<DoorLockController>());

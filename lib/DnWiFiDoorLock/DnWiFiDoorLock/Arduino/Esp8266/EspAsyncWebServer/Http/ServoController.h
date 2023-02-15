@@ -6,6 +6,7 @@
 #include <ESPAsyncWebServer.h>
 #include <WString.h>
 
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
@@ -17,6 +18,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     private:
         using Logger = DnApp::Logger::Logger;
         using Request = AsyncWebServerRequest;
+        using PrefixingLogger = DnApp
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
         using Servo = DnWiFiDoorLock::Arduino::Servo::Servo;
     public:
         explicit
@@ -26,7 +31,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const char* const appName
         ):
             servo{servo},
-            logger{logger},
+            logger{PrefixingLogger{logger, PSTR("ServoController: ")}},
             appName{appName} {
         }
 
@@ -56,7 +61,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     private:
         Servo& servo;
 
-        Logger& logger;
+        PrefixingLogger logger;
 
         const char* const appName;
 
@@ -74,7 +79,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const int newAngle
         ) {
             logger.info(format(
-                PSTR("ServoController: new angle was set: \"%d\""),
+                PSTR("New angle was set: \"%d\""),
                 newAngle
             ));
 
@@ -91,7 +96,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const int newAngle
         ) {
             logger.warning(format(
-                PSTR("ServoController: invalid angle given: \"%d\""),
+                PSTR("Invalid angle given: \"%d\""),
                 newAngle
             ));
 
@@ -107,7 +112,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const int oldAngle
         ) {
             logger.info(format(
-                PSTR("ServoController: showing current angle: \"%d\""),
+                PSTR("Showing current angle: \"%d\""),
                 oldAngle
             ));
 

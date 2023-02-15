@@ -3,6 +3,7 @@
 #include <ESPAsyncWebServer.h>
 #include <WString.h>
 
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Hardware/Furnace.h"
@@ -12,6 +13,11 @@
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class FurnaceController final:
         public Controller {
+    private:
+        using PrefixingLogger = DnApp
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
     public:
         explicit
         FurnaceController(
@@ -21,11 +27,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ):
             hardware{hardware},
             furnace{furnace},
-            logger{logger} {
+            logger{PrefixingLogger{logger, PSTR("FurnaceController::")}} {
         }
 
-        void statusAction(AsyncWebServerRequest& request) const {
-            logger.info(PSTR("FurnaceController::statusAction()"));
+        void statusAction(AsyncWebServerRequest& request) {
+            logger.info(PSTR("statusAction()"));
 
             Time uptime = hardware.getUptime();
 
@@ -69,16 +75,16 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void switchAction(AsyncWebServerRequest& request) const {
-            logger.info(PSTR("FurnaceController::switchAction()"));
+        void switchAction(AsyncWebServerRequest& request) {
+            logger.info(PSTR("switchAction()"));
 
             furnace.toggleHeater();
 
             redirect(request, PSTR("/furnace"));
         }
 
-        void apiGetAction(AsyncWebServerRequest& request) const {
-            logger.info(PSTR("FurnaceController::apiGetAction()"));
+        void apiGetAction(AsyncWebServerRequest& request) {
+            logger.info(PSTR("apiGetAction()"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -90,17 +96,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void apiPostAction(
             AsyncWebServerRequest& request,
             const String& body
-        ) const {
-            logger.info(PSTR("FurnaceController::apiPostAction()"));
+        ) {
+            logger.info(PSTR("apiPostAction()"));
 
             if (body.equals(PSTR("ON"))) {
                 furnace.turnOnHeater();
             } else if (body.equals(PSTR("OFF"))) {
                 furnace.turnOffHeater();
             } else {
-                logger.warning(PSTR(
-                    "FurnaceController::apiPostAction(): Invalid value response"
-                ));
+                logger.warning(PSTR("apiPostAction(): Invalid value response"));
 
                 request.send(
                     HTTP_RESPONSE_STATUS_BAD_REQUEST,
@@ -122,7 +126,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnApp::Hardware::Furnace& furnace;
 
-        DnApp::Logger::Logger& logger;
+        PrefixingLogger logger;
     };
 
     static_assert(!std::is_abstract<FurnaceController>());
