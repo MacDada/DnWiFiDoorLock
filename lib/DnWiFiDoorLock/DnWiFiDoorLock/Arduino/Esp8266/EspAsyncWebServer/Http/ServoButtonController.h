@@ -5,6 +5,7 @@
 #include "ESPAsyncWebServer.h"
 #include <WString.h>
 
+#include "DnApp/Arduino/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
@@ -18,6 +19,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
      */
     class ServoButtonController final:
         public Controller {
+    private:
+        using LoggerDecorator = DnApp
+            ::Arduino
+            ::Logger
+            ::Decorator
+            ::PrefixPostfixMessageLoggerDecorator;
     public:
         explicit
         ServoButtonController(
@@ -27,11 +34,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ):
             appName{appName},
             button{button},
-            logger{logger} {
+            logger{LoggerDecorator{logger, PSTR("ServoButtonController: ")}} {
         };
 
         void showSettingsAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::showSettingsAction()"));
+            logger.info(PSTR("showSettingsAction()"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -41,7 +48,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void updateSettingsAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::updateSettingsAction()"));
+            logger.info(PSTR("updateSettingsAction()"));
 
             auto settingsOrError = validateForm(request);
 
@@ -62,7 +69,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         // todo: include file as a string literal?
         //       https://forum.arduino.cc/t/how-to-store-a-file-in-code-memory/1075563/5
         void cssAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::cssAction()"));
+            logger.info(PSTR("cssAction()"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -103,7 +110,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void modalCssAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::modalCssAction()"));
+            logger.info(PSTR("modalCssAction()"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -160,7 +167,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void modalJsAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::modalJsAction()"));
+            logger.info(PSTR("modalJsAction()"));
 
             // todo: extract to "statically" served file: LittleFS
             //       * https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html
@@ -228,7 +235,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void inputNumberButtonsJsAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::inputNumberButtonsJsAction()"));
+            logger.info(PSTR("inputNumberButtonsJsAction()"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -300,7 +307,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void ajaxFormJsAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::ajaxFormJsAction()"));
+            logger.info(PSTR("ajaxFormJsAction()"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -349,7 +356,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void javascriptAction(AsyncWebServerRequest& request) {
-            logger.info(PSTR("ServoButtonController::javascriptAction()"));
+            logger.info(PSTR("javascriptAction()"));
 
             // todo: extract to "statically" served file? LittleFS
             request.send(
@@ -399,13 +406,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnWiFiDoorLock::Arduino::Servo::Button& button;
 
-        DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
+        LoggerDecorator logger;
 
-        String renderSettingsFormPage() const {
-            // todo: make PrependMessageDecoratorLogger to stop repeating class' name
-            logger.info(PSTR(
-                "ServoButtonController::renderSettingsFormPage(): generating pageContent"
-            ));
+        String renderSettingsFormPage() {
+            logger.info(PSTR("renderSettingsFormPage(): generating pageContent"));
 
             // todo: maybe extract SettingsView
             // language=HTML
@@ -557,7 +561,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             button.setNotPressingAngle(settings.notPressingAngle);
             button.setPressingMilliseconds(settings.pressingMilliseconds);
 
-            logger.info(PSTR("ServoButtonController: updated settings"));
+            logger.info(PSTR("Updated settings"));
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -582,9 +586,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void clientErrorResponse(
             AsyncWebServerRequest& request,
             const String& error
-        ) const {
+        ) {
             logger.warning(format(
-                PSTR("ServoButtonController: %s"),
+                PSTR("%s"),
                 error.c_str()
             ));
 
