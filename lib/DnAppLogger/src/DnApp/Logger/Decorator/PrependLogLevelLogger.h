@@ -18,17 +18,6 @@ namespace DnApp::Logger::Decorator {
         }
 
         void log(LOG_LEVEL level, const char* message) override {
-            doLog(level, message);
-        };
-
-        void log(LOG_LEVEL level, char* message) override {
-            doLog(level, message);
-        };
-    private:
-        Logger& logger;
-
-        template<typename Message>
-        void doLog(LOG_LEVEL level, const Message message) {
             logger.log(
                 level,
                 DnApp::Common::Strings::format(
@@ -37,7 +26,9 @@ namespace DnApp::Logger::Decorator {
                     message
                 ).get()
             );
-        }
+        };
+    private:
+        Logger& logger;
     };
 
     static_assert(!std::is_abstract<PrependLogLevelLogger>());

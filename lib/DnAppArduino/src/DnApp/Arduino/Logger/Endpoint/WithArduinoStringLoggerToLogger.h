@@ -23,10 +23,6 @@ namespace DnApp::Arduino::Logger::Endpoint {
         void log(LOG_LEVEL level, const char *message) override {
             logger.log(level, message);
         };
-
-        void log(LOG_LEVEL level, char *message) override {
-            logger.log(level, message);
-        };
     private:
         DnApp::Logger::Logger& logger;
     };

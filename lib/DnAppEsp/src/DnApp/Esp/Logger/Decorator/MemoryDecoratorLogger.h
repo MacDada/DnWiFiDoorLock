@@ -21,31 +21,18 @@ namespace DnApp::Esp::Logger::Decorator {
             logger{logger} {
         };
 
-        // todo: DRY those methods?
-        //       * maybe macro to generate those methods? since i think templates cant do that
-        //       * or maybe std::any?
-        //       * or maybe i can define it somehow in the base class and get rid of the template functions?
         void log(LOG_LEVEL level, const char* message) override {
-            doLog(level, message);
-        };
-
-        void log(LOG_LEVEL level, char* message) override {
-            doLog(level, message);
-        };
-    private:
-        EspClass& esp;
-
-        Logger& logger;
-
-        template<typename MessageType>
-        void doLog(LOG_LEVEL level, const MessageType message) const {
             logger.debug(DnApp::Common::Strings::format(
                 PSTR("free heap: %d"),
                 esp.getFreeHeap()
             ));
 
             logger.log(level, message);
-        }
+        };
+    private:
+        EspClass& esp;
+
+        Logger& logger;
     };
 
     static_assert(!std::is_abstract<MemoryDecoratorLogger>());

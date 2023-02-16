@@ -38,23 +38,14 @@ namespace DnApp::Logger::Decorator {
         using Logger::log;
 
         void log(LOG_LEVEL level, const char* message) override {
-            doLog(level, message);
-        }
-
-        void log(LOG_LEVEL level, char* message) override {
-            doLog(level, message);
+            for (const auto& logger: loggers) {
+                logger.get().log(level, message);
+            }
         }
     private:
         // todo: maybe I should not store references in the fields after all?
         //       https://discord.com/channels/583251190591258624/1063607252113702983/
         const Loggers& loggers;
-
-        template<typename Message>
-        void doLog(LOG_LEVEL level, const Message message) const {
-            for (const auto& logger: loggers) {
-                logger.get().log(level, message);
-            }
-        }
     };
 
     static_assert(!std::is_abstract<SequenceLogger>());

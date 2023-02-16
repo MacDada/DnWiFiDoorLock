@@ -20,22 +20,13 @@ namespace DnApp::Logger::Endpoint {
         // would hide base class declarations.
         using DnApp::Logger::Logger::log;
 
-        void log(LOG_LEVEL level, char* message) override {
-            doLog(level, message);
-        }
-
         void log(LOG_LEVEL level, const char* message) override {
-            doLog(level, message);
-        }
-    private:
-        std::string string;
-
-        template<typename MessageType>
-        void doLog(LOG_LEVEL level, const MessageType message) {
             string += Logger::logLevelToString(level);
             string += "\n";
             string += message;
             string += "\n";
         }
+    private:
+        std::string string;
     };
 }

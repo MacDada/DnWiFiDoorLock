@@ -9,8 +9,8 @@ namespace DnApp::Logger {
      *
      * Use `log(<log level>, <message>)` when dynamic log level needed.
      *
-     * For all logging methods, you can pass 3 types of messages:
-     * `char[]`, `const char[]` and `std::unique_ptr<char[]>`.
+     * For all logging methods, you can pass 2 types of messages:
+     * `char[]` and `std::unique_ptr<char[]>`.
      */
     class Logger {
     public:
@@ -38,9 +38,6 @@ namespace DnApp::Logger {
         }
 
         virtual
-        void log(LOG_LEVEL level, char* message) = 0;
-
-        virtual
         void log(LOG_LEVEL level, const char* message) = 0;
 
         // ATTENTION!
@@ -49,20 +46,12 @@ namespace DnApp::Logger {
             log(level, message.get());
         }
 
-        void debug(char* message) {
-            log(LOG_LEVEL::DEBUG, message);
-        };
-
         void debug(const char* message) {
             log(LOG_LEVEL::DEBUG, message);
         };
 
         void debug(std::unique_ptr<char[]> message) {
             log(LOG_LEVEL::DEBUG, message.get());
-        };
-
-        void info(char* message) {
-            log(LOG_LEVEL::INFO, message);
         };
 
         void info(const char* message) {
@@ -73,10 +62,6 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::INFO, message.get());
         };
 
-        void warning(char* message) {
-            log(LOG_LEVEL::WARNING, message);
-        };
-
         void warning(const char* message) {
             log(LOG_LEVEL::WARNING, message);
         };
@@ -85,20 +70,12 @@ namespace DnApp::Logger {
             log(LOG_LEVEL::WARNING, message.get());
         };
 
-        void error(char* message) {
-            log(LOG_LEVEL::ERROR, message);
-        };
-
         void error(const char* message) {
             log(LOG_LEVEL::ERROR, message);
         };
 
         void error(std::unique_ptr<char[]> message) {
             log(LOG_LEVEL::ERROR, message.get());
-        };
-
-        void critical(char* message) {
-            log(LOG_LEVEL::CRITICAL, message);
         };
 
         void critical(const char* message) {

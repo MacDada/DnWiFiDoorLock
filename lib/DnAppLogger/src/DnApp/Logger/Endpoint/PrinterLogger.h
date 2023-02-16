@@ -16,10 +16,6 @@ namespace DnApp::Logger::Endpoint {
         // would hide base class declarations.
         using DnApp::Logger::Logger::log;
 
-        void log(LOG_LEVEL level, char* message) override {
-            printer.println(message);
-        }
-
         void log(LOG_LEVEL level, const char* message) override {
             printer.println(message);
         }

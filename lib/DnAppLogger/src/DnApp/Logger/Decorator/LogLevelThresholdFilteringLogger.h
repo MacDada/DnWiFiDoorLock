@@ -30,23 +30,14 @@ namespace DnApp::Logger::Decorator {
         }
 
         void log(LOG_LEVEL level, const char* message) override {
-            doLog(level, message);
-        };
-
-        void log(LOG_LEVEL level, char* message) override {
-            doLog(level, message);
+            if (level >= threshold) {
+                logger.log(level, message);
+            }
         };
     private:
         Logger& logger;
 
         Logger::LOG_LEVEL threshold;
-
-        template<typename Message>
-        void doLog(LOG_LEVEL level, const Message message) {
-            if (level >= threshold) {
-                logger.log(level, message);
-            }
-        }
     };
 
     static_assert(!std::is_abstract<LogLevelThresholdFilteringLogger>());
