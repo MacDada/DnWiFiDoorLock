@@ -150,7 +150,13 @@ Ideas
   * For the loop indicator, I could use a soft heartbeat blinking,
     while using hard–bright blinking for error indication.
   * Must remember: `digitalRead` and `analogRead` give "wrong" results after `analogWrite`
-    – if I want to track the state, I have to do it with a code var. 
+    – if I want to track the state, I have to do it with a code var.
+* The `nodemcu` env is using `espressif8266` toolchain (GCC).
+* The `native` env is using whatever available by default (GCC), but:
+  * in MacOS GCC is "fake" – it is de facto Apple's Clang
+  * I'm using "normal" Clang, as it is more advanced/modern
+    [1](https://discord.com/channels/583251190591258624/1075788561334415360),
+    [2](https://github.com/platformio/platform-native/issues/22#issuecomment-1435140844)
 
 ---
 Will NOT do (non–goals)
