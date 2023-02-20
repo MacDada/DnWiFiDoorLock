@@ -14,7 +14,7 @@ namespace {
     class Printer {
     public:
         template<typename Text>
-        void println(Text text) {
+        void println(const Text text) {
             ++callsCount;
 
             result += text;

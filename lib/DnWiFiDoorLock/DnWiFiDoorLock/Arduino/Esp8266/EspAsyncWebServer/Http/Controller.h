@@ -36,7 +36,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         std::optional<String> getRequestPostParameter(
-            AsyncWebServerRequest& request,
+            const AsyncWebServerRequest& request,
             const char* const parameterName
         ) const {
             return request.hasParam(parameterName, true)

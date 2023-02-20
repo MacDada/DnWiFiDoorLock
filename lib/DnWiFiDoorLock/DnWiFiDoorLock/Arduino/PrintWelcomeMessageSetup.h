@@ -28,11 +28,12 @@ namespace DnWiFiDoorLock::Arduino {
         PrintWelcomeMessageSetup(
             Print& printer,
             const char* const appName,
-            Build build
+            const Build build
         ):
             printer{printer},
             appName{appName},
-            build(build) {
+            // todo: why not std::move here?
+            build{build} {
         }
 
         void onSetup() override {
@@ -102,7 +103,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         const char* const appName;
 
-        Build build;
+        const Build build;
     };
 
     static_assert(!std::is_abstract<PrintWelcomeMessageSetup>());

@@ -191,8 +191,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         String dataToString(
-            const uint8_t* data,
-            size_t dataLength
+            const uint8_t* const data,
+            const size_t dataLength
         ) const {
             String string;
             string.reserve(dataLength);

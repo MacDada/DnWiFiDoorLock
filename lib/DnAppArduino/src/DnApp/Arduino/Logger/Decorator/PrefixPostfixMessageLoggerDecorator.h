@@ -29,7 +29,7 @@ namespace DnApp::Arduino::Logger::Decorator {
         // would hide base class declarations.
         using DnApp::Arduino::Logger::WithArduinoStringLogger::log;
 
-        void log(LOG_LEVEL level, const char* message) override {
+        void log(const LOG_LEVEL level, const char* const message) override {
             logger.log(
                 level,
                 DnApp::Common::Strings::format(

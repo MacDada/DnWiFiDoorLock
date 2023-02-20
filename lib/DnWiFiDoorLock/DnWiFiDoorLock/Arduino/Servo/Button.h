@@ -39,7 +39,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             return pressingAngle;
         }
 
-        void setPressingAngle(byte angle) {
+        void setPressingAngle(const byte angle) {
             this->pressingAngle = angle;
         }
 
@@ -47,8 +47,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             return notPressingAngle;
         }
 
-        // todo: validation with VO? the VO could be created with std::variant
-        void setNotPressingAngle(byte angle) {
+        // todo: validation with VO?
+        //       the VO could be created with std::variant
+        //       or even better, with std::expected
+        //       https://mariusbancila.ro/blog/2022/08/17/using-the-cpp23-expected-type/
+        void setNotPressingAngle(const byte angle) {
             this->notPressingAngle = angle;
         }
 
@@ -56,7 +59,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             return pressingMilliseconds;
         }
 
-        void setPressingMilliseconds(int milliseconds) {
+        void setPressingMilliseconds(const int milliseconds) {
             this->pressingMilliseconds = milliseconds;
         }
 
@@ -95,7 +98,6 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         unsigned long getUptimeMilliseconds() const {
             return hardware.getUptime().getMilliseconds();
         }
-
 
         void stopPressing() {
             servo.setAngle(notPressingAngle);

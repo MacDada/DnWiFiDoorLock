@@ -34,6 +34,7 @@ namespace DnWiFiDoorLock::Arduino {
             std::function<void()> onSetupCallback,
             std::function<void()> onLoopCallback
         ):
+            // todo: maybe I should use move more often instead of const for arg?
             onSetupCallback{std::move(onSetupCallback)},
             onLoopCallback{std::move(onLoopCallback)} {
         }

@@ -21,7 +21,7 @@ namespace DnApp::Esp::Logger::Decorator {
             logger{logger} {
         };
 
-        void log(LOG_LEVEL level, const char* message) override {
+        void log(const LOG_LEVEL level, const char* const message) override {
             logger.debug(DnApp::Common::Strings::format(
                 PSTR("free heap: %d"),
                 esp.getFreeHeap()

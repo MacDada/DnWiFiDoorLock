@@ -37,7 +37,7 @@ namespace DnApp::Logger::Decorator {
         // would hide base class declarations.
         using Logger::log;
 
-        void log(LOG_LEVEL level, const char* message) override {
+        void log(const LOG_LEVEL level, const char* const message) override {
             for (const auto& logger: loggers) {
                 logger.get().log(level, message);
             }

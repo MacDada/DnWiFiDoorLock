@@ -22,6 +22,7 @@ namespace DnApp::Logger {
             CRITICAL
         };
 
+        // todo: would this change anything? `const char* const LOG_LEVELS[]`
         static
         constexpr
         const char* LOG_LEVELS[] = {
@@ -33,7 +34,7 @@ namespace DnApp::Logger {
         };
 
         static
-        const char* logLevelToString(LOG_LEVEL level) {
+        const char* logLevelToString(const LOG_LEVEL level) {
             return LOG_LEVELS[static_cast<int>(level)];
         }
 
@@ -42,47 +43,47 @@ namespace DnApp::Logger {
 
         // ATTENTION!
         // https://isocpp.org/wiki/faq/strange-inheritance#hiding-rule
-        void log(LOG_LEVEL level, std::unique_ptr<char[]> message) {
+        void log(const LOG_LEVEL level, const std::unique_ptr<const char[]> message) {
             log(level, message.get());
         }
 
-        void debug(const char* message) {
+        void debug(const char* const message) {
             log(LOG_LEVEL::DEBUG, message);
         };
 
-        void debug(std::unique_ptr<char[]> message) {
+        void debug(const std::unique_ptr<const char[]> message) {
             log(LOG_LEVEL::DEBUG, message.get());
         };
 
-        void info(const char* message) {
+        void info(const char* const message) {
             log(LOG_LEVEL::INFO, message);
         };
 
-        void info(std::unique_ptr<char[]> message) {
+        void info(const std::unique_ptr<const char[]> message) {
             log(LOG_LEVEL::INFO, message.get());
         };
 
-        void warning(const char* message) {
+        void warning(const char* const message) {
             log(LOG_LEVEL::WARNING, message);
         };
 
-        void warning(std::unique_ptr<char[]> message) {
+        void warning(const std::unique_ptr<const char[]> message) {
             log(LOG_LEVEL::WARNING, message.get());
         };
 
-        void error(const char* message) {
+        void error(const char* const message) {
             log(LOG_LEVEL::ERROR, message);
         };
 
-        void error(std::unique_ptr<char[]> message) {
+        void error(const std::unique_ptr<const char[]> message) {
             log(LOG_LEVEL::ERROR, message.get());
         };
 
-        void critical(const char* message) {
+        void critical(const char* const message) {
             log(LOG_LEVEL::CRITICAL, message);
         };
 
-        void critical(std::unique_ptr<char[]> message) {
+        void critical(const std::unique_ptr<const char[]> message) {
             log(LOG_LEVEL::CRITICAL, message.get());
         };
     };

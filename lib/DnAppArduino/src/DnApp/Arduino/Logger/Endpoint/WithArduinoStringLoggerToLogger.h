@@ -20,7 +20,7 @@ namespace DnApp::Arduino::Logger::Endpoint {
         // would hide base class declarations.
         using WithArduinoStringLogger::log;
 
-        void log(LOG_LEVEL level, const char *message) override {
+        void log(const LOG_LEVEL level, const char* const message) override {
             logger.log(level, message);
         };
     private:

@@ -40,7 +40,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         AsyncWebServer& server;
 
         void onWebSerialIncoming(
-            uint8_t* const message,
+            const uint8_t* const message,
             const size_t messageLength
         ) {
             String command = "";

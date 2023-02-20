@@ -61,13 +61,13 @@ namespace DnWiFiDoorLock {
                 const char* const ssid;
 
                 const char* const password;
-            } wiFi;
+            } const wiFi;
 
             struct {
                 const char* const hostname;
 
                 const unsigned short port;
-            } webServer;
+            } const webServer;
 
             struct {
                 const char* const hostname;
@@ -75,7 +75,7 @@ namespace DnWiFiDoorLock {
                 const int port;
 
                 const char* const passwordMd5;
-            } otaUpload;
+            } const otaUpload;
 
             struct {
                 const byte pressingAngle;
@@ -83,10 +83,11 @@ namespace DnWiFiDoorLock {
                 const byte notPressingAngle;
 
                 const int pressingMilliseconds;
-            } furnaceHeaterButton;
+            } const furnaceHeaterButton;
         };
 
         explicit
+        // todo: `Clang-Tidy: Pass by value and use std::move`?
         App(Config config):
             config{config} {
         }
