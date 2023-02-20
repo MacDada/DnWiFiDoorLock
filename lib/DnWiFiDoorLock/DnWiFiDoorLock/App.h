@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <utility>
 #include <vector>
 
 #include <Arduino.h>
@@ -87,9 +88,8 @@ namespace DnWiFiDoorLock {
         };
 
         explicit
-        // todo: `Clang-Tidy: Pass by value and use std::move`?
         App(Config config):
-            config{config} {
+            config{std::move(config)} {
         }
 
         void onSetup() override {
