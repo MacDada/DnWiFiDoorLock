@@ -26,9 +26,9 @@ namespace DnWiFiDoorLock {
         // a crash? or `millis()` will just give a wrong result?
         explicit
         Time(const unsigned long milliseconds):
-            milliseconds(milliseconds),
+            milliseconds{milliseconds},
             seconds(milliseconds / 1000),
-            minutes(seconds / 60),
+            minutes{seconds / 60},
             hours(minutes / 60),
             days(hours / 24) {
             // potential RAM saving:
