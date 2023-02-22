@@ -2,6 +2,8 @@
 
 #include <type_traits>
 
+#include "WString.h"
+
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Logger/Logger.h"
@@ -29,11 +31,12 @@ namespace DnApp::Arduino::Logger::Decorator {
         // would hide base class declarations.
         using DnApp::Arduino::Logger::WithArduinoStringLogger::log;
 
+        // todo: maybe lvl could be optimized with a reference?
         void log(const LOG_LEVEL level, const char* const message) override {
             logger.log(
                 level,
                 DnApp::Common::Strings::format(
-                    "%s%s%s",
+                    PSTR("%s%s%s"),
                     prefix,
                     message,
                     postfix
