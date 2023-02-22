@@ -32,7 +32,6 @@ namespace DnWiFiDoorLock::Arduino {
         ):
             printer{printer},
             appName{appName},
-            // todo: why not std::move here?
             build{build} {
         }
 
