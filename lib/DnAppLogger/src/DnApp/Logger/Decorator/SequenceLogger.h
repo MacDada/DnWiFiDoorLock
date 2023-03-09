@@ -19,7 +19,9 @@ namespace DnApp::Logger::Decorator {
          //       I could do it with Templates, but then there is no clear interface,
          //       to see what methods I need,
          //       without reading all the code, to notice the usage.
-         // todo: use array instead of vector?
+         //       SPAN is probably the answer :)
+         //       https://solarianprogrammer.com/2019/11/03/cpp-20-span-tutorial/
+         //       And then: todo: array instead of vector?
          //       * https://stackoverflow.com/questions/50942556/
          //       * https://stackoverflow.com/questions/26351587/
          //       * https://quuxplusone.github.io/blog/2020/08/06/array-size/
