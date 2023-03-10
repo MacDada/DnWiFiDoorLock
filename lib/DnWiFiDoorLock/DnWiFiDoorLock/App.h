@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <functional>
 #include <utility>
 #include <vector>
@@ -134,10 +135,10 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getLoggers() {
-            static std::vector<std::reference_wrapper<DnApp::Logger::Logger>> service{
+            static auto service = std::to_array<std::reference_wrapper<DnApp::Logger::Logger>>({
                 getHardwareSerialLogger(),
                 getWebSerialLogger()
-            };
+            });
 
             return service;
         }

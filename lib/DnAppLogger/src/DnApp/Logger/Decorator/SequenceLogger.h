@@ -12,12 +12,6 @@ namespace DnApp::Logger::Decorator {
     public:
          // A `vector` cannot store instances of abstract classes (todo: what about `span`s?),
          // but luckily we can store pointers/references to them.
-         //
-         // todo: pass in array instead of vector?
-         //       * https://stackoverflow.com/questions/50942556/
-         //       * https://stackoverflow.com/questions/26351587/
-         //       * https://quuxplusone.github.io/blog/2020/08/06/array-size/
-         //       * https://en.cppreference.com/w/cpp/container/array/deduction_guides
         using Loggers = std::span<const std::reference_wrapper<Logger>>;
 
         explicit
