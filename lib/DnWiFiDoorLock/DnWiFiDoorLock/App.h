@@ -3,7 +3,6 @@
 #include <array>
 #include <functional>
 #include <utility>
-#include <vector>
 
 #include <Arduino.h>
 #include <ESPAsyncWebServer.h>
@@ -466,7 +465,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getSetupAndLoopAwares() {
-            static std::vector<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference> service{
+            static auto service = std::to_array<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference>({
                 getSetupStartIndicator(),
                 getHardwareSerialSetup(),
                 getHardwareSerialWelcomeMessageSetup(),
@@ -479,7 +478,7 @@ namespace DnWiFiDoorLock {
                 getThrottledWiFiSignalStrengthLoggingLoopAware(),
                 getDoorLock(),
                 getFurnaceHeaterButton()
-            };
+            });
 
             return service;
         }

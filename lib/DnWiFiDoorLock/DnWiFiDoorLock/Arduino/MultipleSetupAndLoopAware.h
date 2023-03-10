@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <span>
 
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
@@ -10,7 +10,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         MultipleSetupAndLoopAware(
-            const std::vector<SetupAndLoopAwareReference>& awares
+            const std::span<const SetupAndLoopAwareReference> awares
         ):
             awares{awares} {
         }
@@ -27,7 +27,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
     private:
-        const std::vector<SetupAndLoopAwareReference>& awares;
+        const std::span<const SetupAndLoopAwareReference> awares;
     };
 
     static_assert(!std::is_abstract<MultipleSetupAndLoopAware>());
