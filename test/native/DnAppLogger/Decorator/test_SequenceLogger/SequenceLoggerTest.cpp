@@ -1,8 +1,11 @@
 #include <memory>
 
+#include <array>
 #include <functional>
-#include <unity.h>
+#include <span>
 #include <vector>
+
+#include <unity.h>
 
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Logger/Logger.h"
@@ -125,7 +128,39 @@ namespace {
             expectedOutputForFoo,
             stringLogger2.getContent()
         );
-    }    
+    }
+
+    void test_it_works_with_empty_array() {
+        const std::array<std::reference_wrapper<Logger>, 0> emptyArray{};
+
+        SequenceLogger loggerWithEmptyArray{emptyArray};
+
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
+            loggerWithEmptyArray,
+            "foo"
+        )
+    }
+
+    void test_logging_literals_with_array() {
+        const auto theArray = std::array<std::reference_wrapper<Logger>, 2>{
+            stringLogger1,
+            stringLogger2
+        };
+
+        SequenceLogger loggerWithArray{theArray};
+
+        DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(loggerWithArray, "foo")
+
+        TEST_ASSERT_EQUAL_STRING(
+            expectedOutputForFoo,
+            stringLogger1.getContent()
+        );
+
+        TEST_ASSERT_EQUAL_STRING(
+            expectedOutputForFoo,
+            stringLogger2.getContent()
+        );
+    }
 }
 
 void setUp() {
@@ -142,6 +177,8 @@ int main() {
     RUN_TEST(test_logging_chars);
     RUN_TEST(test_logging_const_chars);
     RUN_TEST(test_logging_unique_ptr_of_chars);
+    RUN_TEST(test_it_works_with_empty_array);
+    RUN_TEST(test_logging_literals_with_array);
 
     return UNITY_END();
 }

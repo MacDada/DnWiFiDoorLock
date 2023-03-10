@@ -36,6 +36,8 @@ namespace DnApp::Logger::Decorator {
             );
         };
     private:
+        // todo: maybe I should not store references in the fields after all?
+        //       https://discord.com/channels/583251190591258624/1063607252113702983/
         DnApp::Logger::Logger& logger;
 
         const char* const prefix;
