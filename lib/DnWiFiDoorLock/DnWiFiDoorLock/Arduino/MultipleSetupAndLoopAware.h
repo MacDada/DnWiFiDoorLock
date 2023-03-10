@@ -16,14 +16,13 @@ namespace DnWiFiDoorLock::Arduino {
         }
 
         void onSetup() override {
-            // todo: should this be `const auto&`?
-            for (auto& aware: awares) {
+            for (const auto& aware: awares) {
                 aware.get().onSetup();
             }
         }
 
         void onLoop() override {
-            for (auto& aware: awares) {
+            for (const auto& aware: awares) {
                 aware.get().onLoop();
             }
         }
