@@ -22,6 +22,28 @@ namespace DnWiFiDoorLock::Arduino {
             const char* const date = __DATE__;
 
             const char* const time = __TIME__;
+
+            const struct Compiler final {
+                const long standard = __cplusplus;
+
+#ifdef __clang__
+                const char* const name = "CLANG";
+
+                int versionMajor = __clang_major__;
+
+                int versionMinor = __clang_minor__;
+
+                int versionPatchLevel = __clang_patchlevel__;
+#else
+                const char* const name = "GCC";
+
+                int versionMajor = __GNUC__;
+
+                int versionMinor = __GNUC_MINOR__;
+
+                int versionPatchLevel = __GNUC_PATCHLEVEL__;
+#endif
+            } compiler;
         };
 
         explicit
@@ -52,6 +74,15 @@ namespace DnWiFiDoorLock::Arduino {
                     // build.date, build.time, build.gitCommitHash
                     "  Built: %s @ %s @ %s"
                     "%s" // reset
+                    "\n"
+                    "%s" // bold green
+                    // build.compiler.name,
+                    // build.compiler.versionMajor,
+                    // build.compiler.versionMinor,
+                    // build.compiler.versionPatchLevel,
+                    // build.compiler.standard,
+                    "         %s %d.%d.%d @ %d"
+                    "%s" // reset
                     "\n\n"
                     "%s" // bold blue
                     "==========================================="
@@ -68,6 +99,13 @@ namespace DnWiFiDoorLock::Arduino {
                 build.date,
                 build.time,
                 build.gitCommitHash,
+                VT100_FORMAT_RESET,
+                VT100_FORMAT_GREEN,
+                build.compiler.name,
+                build.compiler.versionMajor,
+                build.compiler.versionMinor,
+                build.compiler.versionPatchLevel,
+                build.compiler.standard,
                 VT100_FORMAT_RESET,
                 VT100_FORMAT_BOLD_BLUE,
                 VT100_FORMAT_RESET
