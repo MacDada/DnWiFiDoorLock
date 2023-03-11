@@ -99,9 +99,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         ) {
             logger.info(PSTR("apiPostAction()"));
 
-            if (body.equals(PSTR("ON"))) {
+            // todo: why PSTR() does NOT work here?
+            if (body.equals(F("ON"))) {
                 furnace.turnOnHeater();
-            } else if (body.equals(PSTR("OFF"))) {
+            } else if (body.equals(F("OFF"))) {
                 furnace.turnOffHeater();
             } else {
                 logger.warning(PSTR("apiPostAction(): Invalid value response"));
