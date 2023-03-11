@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock::Arduino {
         ) {
             return LambdaSetupAndLoopAware(
                 std::move(onSetupCallback),
-                []() {}
+                [] () {}
             );
         }
 
@@ -24,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
             std::function<void()> onLoopCallback
         ) {
             return LambdaSetupAndLoopAware(
-                []() {},
+                [] () {},
                 std::move(onLoopCallback)
             );
         }

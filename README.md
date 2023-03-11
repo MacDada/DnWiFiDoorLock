@@ -208,5 +208,9 @@ Code style, conventions, decisions
         therefore having [Harvard architecture](https://en.wikipedia.org/wiki/Harvard_architecture),
         where instructions and data are separate,
         the code would have to be strongly redesigned anyway.
+* A space between closure's context and body:
+  ```cpp
+  auto closure = [] () {};
+  ```
 
 ---

@@ -447,7 +447,7 @@ namespace DnWiFiDoorLock {
             //      a.) improve/new template to handle named constructors
             //      b.) improve LambdaSetupAndLoopAware to get rid of named constructor
             //          https://boost-ext.github.io/di/tutorial.html – grep "struct width {"
-            static auto service = DnWiFiDoorLock::Arduino::LambdaSetupAndLoopAware::createSetupAware([&]() {
+            static auto service = DnWiFiDoorLock::Arduino::LambdaSetupAndLoopAware::createSetupAware([&] () {
                 getBuiltInLedBlinker().blinkFast(5);
             });
 

@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         void onSetup() override {
             serial.begin(&server);
 
-            serial.msgCallback([&](uint8_t* const message, const size_t messageLength) {
+            serial.msgCallback([&] (uint8_t* const message, const size_t messageLength) {
                 onWebSerialIncoming(message, messageLength);
             });
         }

@@ -94,71 +94,71 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void setupRouting() {
-            registerRoute(PSTR("/"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 request.redirect(PSTR("/furnace"));
             });
 
-            registerRoute(PSTR("/doorlock"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/doorlock"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 doorLockController.statusAction(request);
             });
 
-            registerRoute(PSTR("/doorlock/switch"), HTTP_POST, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/doorlock/switch"), HTTP_POST, [&] (AsyncWebServerRequest& request) {
                 doorLockController.switchAction(request);
             });
 
-            registerRoute(PSTR("/furnace"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/furnace"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 furnaceController.statusAction(request);
             });
 
-            registerRoute(PSTR("/furnace/switch"), HTTP_POST, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/furnace/switch"), HTTP_POST, [&] (AsyncWebServerRequest& request) {
                 furnaceController.switchAction(request);
             });
 
-            registerRoute(PSTR("/api/furnace"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/api/furnace"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 furnaceController.apiGetAction(request);
             });
 
-            registerRoute(PSTR("/api/furnace"), HTTP_POST, [&](AsyncWebServerRequest& request, const String& body) {
+            registerRoute(PSTR("/api/furnace"), HTTP_POST, [&] (AsyncWebServerRequest& request, const String& body) {
                 furnaceController.apiPostAction(request, body);
             });
 
-            registerRoute(PSTR("/modal.css"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/modal.css"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.modalCssAction(request);
             });
 
-            registerRoute(PSTR("/modal.js"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/modal.js"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.modalJsAction(request);
             });
 
-            registerRoute(PSTR("/ajax-form.js"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/ajax-form.js"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.ajaxFormJsAction(request);
             });
 
-            registerRoute(PSTR("/input-number-buttons.js"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/input-number-buttons.js"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.inputNumberButtonsJsAction(request);
             });
 
-            registerRoute(PSTR("/servo-button.js"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/servo-button.js"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.javascriptAction(request);
             });
 
-            registerRoute(PSTR("/servo-button.css"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/servo-button.css"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.cssAction(request);
             });
 
-            registerRoute(PSTR("/servo-button"), HTTP_POST, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/servo-button"), HTTP_POST, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.updateSettingsAction(request);
             });
 
-            registerRoute(PSTR("/servo-button"), HTTP_GET, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/servo-button"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
                 servoButtonController.showSettingsAction(request);
             });
 
-            registerRoute(PSTR("/servo"), HTTP_GET | HTTP_POST, [&](AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/servo"), HTTP_GET | HTTP_POST, [&] (AsyncWebServerRequest& request) {
                 servoController.angleAction(request);
             });
 
-            server.onNotFound([&](AsyncWebServerRequest* const request) {
+            server.onNotFound([&] (AsyncWebServerRequest* const request) {
                 handleWebNotFound(*request);
             });
         }
@@ -177,7 +177,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const WebRequestMethodComposite method,
             OnRequestCallback onRequest
         ) {
-            server.on(uri, method, [&, onRequest = std::move(onRequest)](
+            server.on(uri, method, [&, onRequest = std::move(onRequest)] (
                 AsyncWebServerRequest* const request
             ) {
                 // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
@@ -192,9 +192,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const WebRequestMethodComposite method,
             OnRequestBodyCallback onRequestBody
         ) {
-            server.on(uri, method, [&](AsyncWebServerRequest* const request) {
+            server.on(uri, method, [&] (AsyncWebServerRequest* const request) {
                 // ignore, we use the callback with request body
-            }, nullptr, [&, onRequestBody = std::move(onRequestBody)](
+            }, nullptr, [&, onRequestBody = std::move(onRequestBody)] (
                 AsyncWebServerRequest* request,
                 uint8_t* bodyData,
                 size_t bodyDataLength,
