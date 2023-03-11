@@ -98,7 +98,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
             //
-            // todo: can i get null here instead of the object? o.O
+            // todo: in theory, i can have a nullptr instead of the request object -> need to handle that
             server.on(PSTR("/doorlock"), HTTP_GET, [&](AsyncWebServerRequest* const request) {
                 doorLockController.statusAction(*request);
             });
