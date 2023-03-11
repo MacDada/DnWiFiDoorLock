@@ -193,7 +193,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             OnRequestBodyCallback onRequestBody
         ) {
             server.on(uri, method, [] (AsyncWebServerRequest* const request) {
-                // ignore, we use the callback with request body
+                // cannot be nullptr or the route is not found o.O
+                // ignore it: we use the callback with request body
             }, nullptr, [&, onRequestBody = std::move(onRequestBody)] (
                 AsyncWebServerRequest* request,
                 uint8_t* bodyData,
