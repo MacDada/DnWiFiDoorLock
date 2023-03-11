@@ -202,9 +202,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 size_t index,
                 size_t total
             ) {
-                const String message = dataToString(bodyData, bodyDataLength);
-
-                onRequestBody(*request, message);
+                onRequestBody(*request, dataToString(bodyData, bodyDataLength));
             });
         }
 
