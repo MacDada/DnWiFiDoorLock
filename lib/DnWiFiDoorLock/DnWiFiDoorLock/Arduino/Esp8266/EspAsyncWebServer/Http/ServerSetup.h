@@ -94,7 +94,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void setupRouting() {
-            registerRoute(PSTR("/"), HTTP_GET, [&] (AsyncWebServerRequest& request) {
+            registerRoute(PSTR("/"), HTTP_GET, [] (AsyncWebServerRequest& request) {
                 request.redirect(PSTR("/furnace"));
             });
 
@@ -177,7 +177,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const WebRequestMethodComposite method,
             OnRequestCallback onRequest
         ) {
-            server.on(uri, method, [&, onRequest = std::move(onRequest)] (
+            server.on(uri, method, [onRequest = std::move(onRequest)] (
                 AsyncWebServerRequest* const request
             ) {
                 // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
@@ -192,7 +192,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const WebRequestMethodComposite method,
             OnRequestBodyCallback onRequestBody
         ) {
-            server.on(uri, method, [&] (AsyncWebServerRequest* const request) {
+            server.on(uri, method, [] (AsyncWebServerRequest* const request) {
                 // ignore, we use the callback with request body
             }, nullptr, [&, onRequestBody = std::move(onRequestBody)] (
                 AsyncWebServerRequest* request,
