@@ -163,6 +163,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             });
 
             server.onNotFound([&] (AsyncWebServerRequest* const request) {
+                assertRequestWasGiven(request);
+
                 handleWebNotFound(*request);
             });
         }
@@ -186,9 +188,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             ) {
                 onMatchedRoute(request);
 
-                // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
-                //
-                // todo: in theory, i can have a nullptr instead of the request object -> need to handle that
                 onRequest(*request);
             });
         }
@@ -215,6 +214,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         void onMatchedRoute(AsyncWebServerRequest* const request) {
+            assertRequestWasGiven(request);
+
             const auto method = request->methodToString();
             const auto url = request->url().c_str();
 
@@ -231,6 +232,23 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     url
                 ));
             });
+        }
+
+        void assertRequestWasGiven(const AsyncWebServerRequest* const request) {
+            if (nullptr == request) {
+                logger.critical(PSTR(
+                    "HttpServer: `AsyncWebServerRequest` object expected, `nullptr` given!"
+                ));
+
+                // todo: can I recover? ;)
+                //       * I could skip the callback
+                //       * Return error 500?
+                //       * Maybe a universal "problem indicator"?
+                //          * Special LED flashing
+                //          * Try to log to a configurable external service?
+                //       * Can I attach my own callback to the general panic handler?
+                panic();
+            }
         }
 
         void logServerHasStarted() {
