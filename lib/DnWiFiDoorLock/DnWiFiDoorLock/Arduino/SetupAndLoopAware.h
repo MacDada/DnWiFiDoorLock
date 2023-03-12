@@ -1,6 +1,6 @@
 #pragma once
 
-#include <functional>
+#include <functional> // std::reference_wrapper
 
 namespace DnWiFiDoorLock::Arduino {
     class SetupAndLoopAware {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <functional>
-#include <type_traits>
-#include <utility>
+#include <functional>  // std::function
+#include <type_traits> // std::is_abstract
+#include <utility>     // std::move
 
 #include <ESPAsyncWebServer.h>
 #include <WString.h>

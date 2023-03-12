@@ -1,7 +1,7 @@
 #pragma once
 
-#include <functional>
-#include <utility>
+#include <functional> // std::function
+#include <utility>    // std::move
 
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 

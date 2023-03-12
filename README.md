@@ -212,5 +212,9 @@ Code style, conventions, decisions
   ```cpp
   auto closure = [] () {};
   ```
+* A comment, explaining why the header is being included, when it isn't obvious from the header's name:
+  ```cpp
+  #include <memory> // std::make_unique
+  ```
 
 ---

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <type_traits>
+#include <type_traits> // std::is_abstract
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>

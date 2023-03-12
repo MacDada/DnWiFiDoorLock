@@ -1,7 +1,7 @@
 #pragma once
 
 #include <optional>
-#include <type_traits>
+#include <type_traits> // std::is_abstract
 
 #include <ESPAsyncWebServer.h>
 #include <WString.h>

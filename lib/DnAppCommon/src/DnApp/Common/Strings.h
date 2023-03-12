@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cstdarg>
-#include <memory>
+#include <cstdarg> // va_list, va_start, va_end
+#include <memory> // std::unique_ptr
 
 namespace DnApp::Common::Strings {
     // adopted from https://stackoverflow.com/a/10388547/666907

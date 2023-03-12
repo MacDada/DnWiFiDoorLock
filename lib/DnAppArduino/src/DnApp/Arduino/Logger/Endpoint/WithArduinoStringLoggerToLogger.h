@@ -1,6 +1,6 @@
 #pragma once
 
-#include <type_traits>
+#include <type_traits> // std::is_abstract
 
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Logger/Logger.h"

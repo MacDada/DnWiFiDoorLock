@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+#include <memory> // std::unique_ptr
 
 namespace DnApp::Logger {
     /**

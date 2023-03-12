@@ -1,7 +1,7 @@
 #include <memory>
 
 #include <array>
-#include <functional>
+#include <functional> // std::reference_wrapper
 #include <span>
 #include <vector>
 

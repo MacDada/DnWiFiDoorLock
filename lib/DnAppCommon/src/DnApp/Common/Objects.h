@@ -1,6 +1,6 @@
 #pragma once
 
-#include <type_traits>
+#include <type_traits> // std::is_base_of
 
 namespace DnApp::Common::Objects {
     // https://stackoverflow.com/a/25231384/666907

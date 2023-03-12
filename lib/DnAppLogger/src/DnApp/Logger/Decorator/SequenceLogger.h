@@ -1,8 +1,8 @@
 #pragma once
 
-#include <functional>
+#include <functional> // std::reference_wrapper
 #include <span>
-#include <type_traits>
+#include <type_traits> // std::is_abstract
 
 #include "DnApp/Logger/Logger.h"
 

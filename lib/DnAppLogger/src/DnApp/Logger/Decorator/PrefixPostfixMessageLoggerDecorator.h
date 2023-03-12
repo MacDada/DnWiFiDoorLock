@@ -1,6 +1,6 @@
 #pragma once
 
-#include <type_traits>
+#include <type_traits> // std::is_abstract
 
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
