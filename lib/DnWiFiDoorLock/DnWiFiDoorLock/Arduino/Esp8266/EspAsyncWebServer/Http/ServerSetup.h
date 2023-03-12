@@ -56,6 +56,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             // do nothing
         }
     private:
+        static
+        constexpr
+        auto format = DnApp::Common::Strings::format;
+
         ESP8266WiFiClass& wiFi;
 
         AsyncWebServer& server;
@@ -76,7 +80,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         Logger& logger;
 
         void handleWebNotFound(AsyncWebServerRequest &request) {
-            logger.warning(DnApp::Common::Strings::format(
+            logger.warning(format(
                 PSTR("HttpServer: page not found! URI: %s, method: %s"),
                 request.url().c_str(),
                 request.methodToString()
@@ -85,7 +89,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             request.send(
                 404,
                 PSTR("text/plain"),
-                DnApp::Common::Strings::format(
+                format(
                     PSTR("File Not Found\n\nURI: %s\nMethod: %s\n"),
                     request.url().c_str(),
                     request.methodToString()
@@ -177,9 +181,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const WebRequestMethodComposite method,
             OnRequestCallback onRequest
         ) {
-            server.on(uri, method, [onRequest = std::move(onRequest)] (
+            server.on(uri, method, [&, onRequest = std::move(onRequest)] (
                 AsyncWebServerRequest* const request
             ) {
+                onMatchedRoute(request);
+
                 // https://discord.com/channels/583251190591258624/742849025191051326/995832013405835316
                 //
                 // todo: in theory, i can have a nullptr instead of the request object -> need to handle that
@@ -202,7 +208,28 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 size_t index,
                 size_t total
             ) {
+                onMatchedRoute(request);
+
                 onRequestBody(*request, dataToString(bodyData, bodyDataLength));
+            });
+        }
+
+        void onMatchedRoute(AsyncWebServerRequest* const request) {
+            const auto method = request->methodToString();
+            const auto url = request->url().c_str();
+
+            logger.debug(format(
+                PSTR("HttpServer: matched route: %s %s"),
+                method,
+                url
+            ));
+
+            request->onDisconnect([&, method, url] {
+                logger.debug(format(
+                    PSTR("HttpServer: disconnected client: %s %s"),
+                    method,
+                    url
+                ));
             });
         }
 
