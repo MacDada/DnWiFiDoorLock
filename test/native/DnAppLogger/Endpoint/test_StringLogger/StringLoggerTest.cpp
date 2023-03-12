@@ -1,5 +1,3 @@
-#include <memory>
-
 #include <unity.h>
 
 #include "DnApp/Common/Strings.h"

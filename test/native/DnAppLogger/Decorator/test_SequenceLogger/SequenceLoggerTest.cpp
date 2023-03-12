@@ -1,5 +1,3 @@
-#include <memory>
-
 #include <array>
 #include <functional> // std::reference_wrapper
 #include <span>
