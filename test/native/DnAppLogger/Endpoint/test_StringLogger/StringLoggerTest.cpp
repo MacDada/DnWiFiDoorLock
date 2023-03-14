@@ -166,7 +166,7 @@ namespace {
     }
 
     void test_logging_unique_ptr_of_chars() {
-        constexpr auto f = DnApp::Common::Strings::makeUniquePtrOfChars;
+        constexpr const auto f = DnApp::Common::Strings::makeUniquePtrOfChars;
 
         logger.log(Logger::LOG_LEVEL::DEBUG, f("log debug message"));
         logger.log(Logger::LOG_LEVEL::INFO, f("log info message"));

@@ -58,6 +58,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     private:
         static
         constexpr
+        const
         auto format = DnApp::Common::Strings::format;
 
         ESP8266WiFiClass& wiFi;

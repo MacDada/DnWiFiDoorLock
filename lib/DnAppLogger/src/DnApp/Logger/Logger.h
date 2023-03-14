@@ -22,10 +22,9 @@ namespace DnApp::Logger {
             CRITICAL
         };
 
-        // todo: would this change anything? `const char* const LOG_LEVELS[]`
         static
         constexpr
-        const char* LOG_LEVELS[] = {
+        const char* const LOG_LEVELS[] = {
             "debug",
             "info",
             "warning",

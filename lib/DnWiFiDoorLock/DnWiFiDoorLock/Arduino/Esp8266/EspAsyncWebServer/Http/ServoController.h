@@ -67,6 +67,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         static
         constexpr
+        const
         auto format = DnApp::Common::Strings::format;
 
         bool isValidAngle(const int angle) const {

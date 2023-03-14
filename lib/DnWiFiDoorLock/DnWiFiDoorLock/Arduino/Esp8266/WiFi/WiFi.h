@@ -63,6 +63,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         static
         constexpr
+        const
         auto format = DnApp::Common::Strings::format;
 
         void connect() {
