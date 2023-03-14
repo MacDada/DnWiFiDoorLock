@@ -1,6 +1,6 @@
 #pragma once
 
-#include <variant>
+#include <tl_expected>
 
 #include "ESPAsyncWebServer.h"
 #include <WString.h>
@@ -50,21 +50,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         void updateSettingsAction(AsyncWebServerRequest& request) {
             logger.info(PSTR("updateSettingsAction()"));
 
-            auto settingsOrError = validateForm(request);
+            auto settings = validateForm(request);
 
-            // todo: std::expected
-            //       * https://en.cppreference.com/w/cpp/utility/expected
-            //       * https://github.com/TartanLlama/expected
-            if (std::holds_alternative<SettingsError>(settingsOrError)) {
-                clientErrorResponse(request, std::get<SettingsError>(settingsOrError));
+            if (!settings.has_value()) {
+                clientErrorResponse(request, settings.error());
 
                 return;
             }
 
-            handleValidSettings(
-                request,
-                std::get<Settings>(settingsOrError)
-            );
+            handleValidSettings(request, settings.value());
         }
 
         // todo: include file as a string literal?
@@ -397,8 +391,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const int pressingMilliseconds;
         };
 
-        using SettingsError = String;
-
         static
         constexpr
         auto format = DnApp::Common::Strings::format;
@@ -523,7 +515,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             return page;
         }
 
-        std::variant<Settings, SettingsError> validateForm(AsyncWebServerRequest& request) const {
+        tl::expected<Settings, String> validateForm(AsyncWebServerRequest& request) const {
             auto maybeNewPressingAngle = getRequestPostParameter(request, PSTR("pressing_angle"));
             auto maybeNewNotPressingAngle = getRequestPostParameter(request, PSTR("not_pressing_angle"));
             auto maybeNewMilliseconds = getRequestPostParameter(request, PSTR("pressing_milliseconds"));
@@ -532,7 +524,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 || !maybeNewNotPressingAngle
                 || !maybeNewMilliseconds
             ) {
-                return PSTR("No required data given");
+                return tl::unexpected{PSTR("No required data given")};
             }
 
             int newPressingAngle = maybeNewPressingAngle->toInt();
@@ -540,15 +532,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             int newMilliseconds = maybeNewMilliseconds->toInt();
 
             if (!isValidAngle(newPressingAngle)) {
-                return PSTR("Invalid pressing angle");
+                return tl::unexpected{PSTR("Invalid pressing angle")};
             }
 
             if (!isValidAngle(newNotPressingAngle)) {
-                return PSTR("Invalid not pressing angle");
+                return tl::unexpected{PSTR("Invalid not pressing angle")};
             }
 
             if (newMilliseconds <= 0) {
-                return PSTR("Invalid pressing milliseconds");
+                return tl::unexpected{PSTR("Invalid pressing milliseconds")};
             }
 
             return Settings{newPressingAngle, newNotPressingAngle, newMilliseconds};

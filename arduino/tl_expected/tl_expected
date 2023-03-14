@@ -1,0 +1,31 @@
+/**
+ * Marrying `Arduino` lib with `tl/expected` lib.
+ *
+ * Why is it needed?
+ *   * `tl/expected` is using `assert()` macro by default.
+ *   * `Arduino`'s `assert()` is using `PSTR()` macro internally.
+ *   * `PSTR` macro is declaring `static` variables.
+ *   * `static` vars cannot be used inside `constexpr` functions.
+ *   * `tl/expected` has `constexpr` functions doing assertions.
+ *   * `error: '__pstr__' declared 'static' in 'constexpr' function`
+ *
+ * Solution:
+ *   * (Pre)register custom `TL_ASSERT()` macro for `tl/expected` to use.
+ *   * Do same stuff that `Arduino`'s `assert()` does, but without `PSTR()`.
+ *
+ * todo: Get rid of it when upgraded to C++23 and can use `std::expected`.
+ */
+
+#pragma once
+
+// to reuse `__assert_func()` and `__ASSERT_FUNC`
+#include <cassert>
+
+// copy–paste from Arduino's `assert(), but without using `PSTR()`
+#define TL_ASSERT(__e) (                                         \
+    (__e)                                                        \
+        ? (void) 0                                               \
+        : __assert_func(__FILE__, __LINE__, __ASSERT_FUNC, #__e) \
+)
+
+#include <tl/expected.hpp>
