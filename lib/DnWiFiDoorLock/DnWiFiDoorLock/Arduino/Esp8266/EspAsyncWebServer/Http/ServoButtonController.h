@@ -52,8 +52,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             auto settingsOrError = validateForm(request);
 
-            // todo: maybe this could be simpler? I guess I could make a wrapper…
-            //       https://discord.com/channels/583251190591258624/602633986061369344/1060277428624310312
+            // todo: std::expected
+            //       * https://en.cppreference.com/w/cpp/utility/expected
+            //       * https://github.com/TartanLlama/expected
             if (std::holds_alternative<SettingsError>(settingsOrError)) {
                 clientErrorResponse(request, std::get<SettingsError>(settingsOrError));
 

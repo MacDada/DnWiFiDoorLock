@@ -326,13 +326,14 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     "HttpServer: `AsyncWebServerRequest` object expected, `nullptr` given!"
                 ));
 
-                // todo: can I recover? ;)
-                //       * I could skip the callback
-                //       * Return error 500?
-                //       * Maybe a universal "problem indicator"?
+                // We cannot recover -> no Request given, no way to respond (even with 500).
+                //
+                // todo: Maybe I should avoid panicking (and thus restarting the device),
+                //       -> just log and skip the response?
+                // todo: Maybe a universal "problem indicator"?
                 //          * Special LED flashing
                 //          * Try to log to a configurable external service?
-                //       * Can I attach my own callback to the general panic handler?
+                // todo: Can I attach my own callback to the general panic handler?
                 panic();
             }
         }
