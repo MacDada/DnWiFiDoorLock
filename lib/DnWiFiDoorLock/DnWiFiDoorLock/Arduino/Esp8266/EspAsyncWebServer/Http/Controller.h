@@ -29,6 +29,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         int HTTP_RESPONSE_STATUS_METHOD_NOT_ALLOWED = 405;
 
         static
+        const
+        int HTTP_RESPONSE_STATUS_INTERNAL_SERVER_ERROR = 500;
+
+        static
         PROGMEM
         constexpr
         const

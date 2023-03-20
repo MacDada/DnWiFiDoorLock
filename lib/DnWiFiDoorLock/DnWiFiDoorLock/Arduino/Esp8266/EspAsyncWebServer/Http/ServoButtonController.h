@@ -2,6 +2,7 @@
 
 #include <tl_expected>
 
+#include "ArduinoJson.h"
 #include "ESPAsyncWebServer.h"
 #include <WString.h>
 
@@ -557,24 +558,34 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             logger.info(PSTR("Updated settings"));
 
-            request.send(
-                HTTP_RESPONSE_STATUS_OK,
-                HTTP_RESPONSE_CONTENT_TYPE_JSON,
-                format(
-                    // todo: https://github.com/bblanchon/ArduinoJson/
-                    // language=JSON
-                    PSTR(R"({
-                        "servo_button": {
-                            "pressing_angle": %d,
-                            "not_pressing_angle": %d,
-                            "pressing_milliseconds": %d
-                        }
-                    })"),
-                    button.getPressingAngle(),
-                    button.getNotPressingAngle(),
-                    button.getPressingMilliseconds()
-                ).get()
+            servoButtonJsonResponse(request);
+        }
+
+        void servoButtonJsonResponse(AsyncWebServerRequest& request) const {
+            auto jsonBuffer = DynamicJsonBuffer{};
+
+            auto& jsonServoButton = jsonBuffer.createObject();
+            jsonServoButton[F("pressing_angle")] = button.getPressingAngle();
+            jsonServoButton[F("not_pressing_angle")] = button.getNotPressingAngle();
+            jsonServoButton[F("pressing_milliseconds")] = button.getPressingMilliseconds();
+
+            auto& json = jsonBuffer.createObject();
+            json[F("servo_button")] = jsonServoButton;
+
+            jsonResponse(request, json);
+        }
+
+        auto jsonResponse(
+            AsyncWebServerRequest& request,
+            const JsonObject& json
+        ) const -> void {
+            auto* response = request.beginResponseStream(
+                HTTP_RESPONSE_CONTENT_TYPE_JSON
             );
+
+            json.printTo(*response);
+
+            request.send(response);
         }
 
         void clientErrorResponse(
