@@ -220,23 +220,11 @@ Code style, conventions, decisions
   #include <memory> // std::make_unique
   ```
 * [`ArduinoJson`](https://arduinojson.org/)
-  * Using version `5`, as I had some compatibility issues between `ESPAsyncWebServer` and version `6`
-  * `DynamicJsonBuffer` unless it bites me
-    -> hate to manually specify/calculate sizes, same issue as with arrays/strings
+  * `StaticJsonDocument` when recommended (<1KB and "predictable")
+    -> with version `6` I'm forced to hardcode/calculate the size anyway,
+       so `DynamicJsonDocument` does _not_ really ease the usage
   * It crashes on `PSTR()`, so using the "proper" `F()` instead
     -> todo: maybe I should get rid of it anyway? just use CStrings?
-  * Serialization error handling policy: none :P
-    * It would require me to IF for `success()` on every single statement
-      (making even a simple object serialization long and complicated).
-    * Extracting helper (templated) functions does not help; maybe even makes it worse to read :/
-    * I've found only 2 possible kinds of errors detectable by `success()`:
-      * passing NULL as key -> theoretically possible, not a problem in the real life
-      * being out of memory -> printing response would fail then anyway, I guess…
-    * I'll see how it turns out in real life
-      * actually strange memory issues have bitten me in the past with the `String` implementation
-      * hence my first defence is to DETECT ALL ERRORS, but well…
-        the API must also be realistic for that, I guess…
-    * I [may try to propose](https://github.com/bblanchon/ArduinoJson/issues/1895)
-      a universal error handling solution to the library or write my own layer for that.
+  * Serialization error handling policy: checking for overflow (`jsonDocument.overflowed()`)
 
 ---

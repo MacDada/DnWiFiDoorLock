@@ -1,139 +1,62 @@
+#include <cstring>
+
 #include "ArduinoJson.h"
 #include "unity.h"
 
 namespace {
     // language=JSON
-    auto expectedSerialized = R"({"root":{"foo":"foo_val","bar":"bar_val","baz":["baz_val_1","baz_val_2"]}})";
+    const auto expectedSerialized =
+        R"({"root":{"foo":"foo_val","bar":"bar_val","baz":["baz_val_1","baz_val_2"]}})";
 
-    auto& createJsonObject(DynamicJsonBuffer& jsonBuffer) {
-        auto& object = jsonBuffer.createObject();
+    const auto serializedSize = strlen(expectedSerialized) + 1;
 
-        TEST_ASSERT_TRUE(object.success());
+    const auto documentSize =
+        JSON_OBJECT_SIZE(1)
+        + JSON_OBJECT_SIZE(3)
+        + JSON_ARRAY_SIZE(2);
 
-        return object;
-    }
+    auto testStaticJsonDocument() -> void {
+        auto json = StaticJsonDocument<documentSize>{};
 
-    auto addToJsonArray(
-        JsonArray& array,
-        const JsonVariant& value
-    ) -> void {
-        TEST_ASSERT_TRUE(array.add(value));
-    }
-
-    auto setJsonValue(
-        JsonObject& jsonObject,
-        const char* const key,
-        const JsonVariant& value
-    ) -> void {
-        TEST_ASSERT_TRUE(jsonObject.set(key, value));
-    }
-
-    auto testWithErrorHandling() -> void {
-        auto jsonBuffer = DynamicJsonBuffer{};
-
-        auto& baz = jsonBuffer.createArray();
-        addToJsonArray(baz, "baz_val_1");
-        addToJsonArray(baz, "baz_val_2");
-
-        auto& root = createJsonObject(jsonBuffer);
-        setJsonValue(root, "foo", "foo_val");
-        setJsonValue(root, "bar", "bar_val");
-        setJsonValue(root, "baz", baz);
-
-        auto& json = createJsonObject(jsonBuffer);
-        setJsonValue(json, "root", root);
-
-        char jsonString[200];
-        json.printTo(jsonString, 200);
-
-        TEST_ASSERT_EQUAL_STRING(expectedSerialized, jsonString);
-    }
-
-    auto testWithoutErrorHandling() -> void {
-        auto jsonBuffer = DynamicJsonBuffer{};
-
-        auto& json = jsonBuffer.createObject();
-
-        json["root"] = jsonBuffer.createObject();
         json["root"]["foo"] = "foo_val";
         json["root"]["bar"] = "bar_val";
 
-        auto& baz = jsonBuffer.createArray();
-        baz.add("baz_val_1");
-        baz.add("baz_val_2");
-        json["root"]["baz"] = baz;
+        json["root"]["baz"].add("baz_val_1");
+        json["root"]["baz"].add("baz_val_2");
 
-        char jsonString[200];
-        json.printTo(jsonString, 200);
+        TEST_ASSERT_FALSE(json.overflowed());
 
-        TEST_ASSERT_EQUAL_STRING(expectedSerialized, jsonString);
+        char serialized[serializedSize];
+
+        serializeJson(json, serialized, serializedSize);
+
+        TEST_ASSERT_EQUAL_STRING(expectedSerialized, serialized);
     }
 
-//    auto testPoC1() -> void {
-//        auto jsonFactory = JsonFactory{};
-//
-//        jsonFactory.onError([] () {
-//
-//        });
-//
-//        auto json = jsonFactory
-//            .makeObject()
-//            .with(
-//                "root",
-//                jsonFactory
-//                    .makeObject()
-//                    .set("foo", "foo_val")
-//                    .set("bar", "bar_val")
-//                    .set(
-//                        "baz",
-//                        jsonFactory
-//                            .makeArray()
-//                            .add("baz_val_1")
-//                            .add("baz_val_2")
-//                    )
-//            );
-//
-//        if (json.success()) {
-//            jsonResponse(request, json);
-//        } else {
-//            internalServerErrorResponse(
-//                request,
-//                PSTR("Failed to create jsonRoot")
-//            );
-//        }
-//    }
-//
-//    auto testPoC2() -> void {
-//        auto jsonFactory = JsonFactory{};
-//
-//        jsonFactory.onError([] () {
-//
-//        });
-//
-//        auto json = jsonFactory.makeObject();
-//        json2["root"] = jsonFactory.makeObject();
-//        json2["root"]["foo"] = "foo_val";
-//        json2["root"]["bar"] = "bar_val";
-//        json2["root"]["baz"] = jsonFactory.makeArray();
-//        json2["root"]["baz"][] = "baz_val_1";
-//        json2["root"]["baz"][] = "baz_val_2";
-//
-//        if (json.success()) {
-//            jsonResponse(request, json);
-//        } else {
-//            internalServerErrorResponse(
-//                request,
-//                PSTR("Failed to create jsonRoot")
-//            );
-//        }
-//    }
+    auto testDynamicJsonDocument() -> void {
+        auto json = DynamicJsonDocument{documentSize};
+
+        json["root"]["foo"] = "foo_val";
+        json["root"]["bar"] = "bar_val";
+
+        json["root"]["baz"].add("baz_val_1");
+        json["root"]["baz"].add("baz_val_2");
+
+        TEST_ASSERT_FALSE(json.overflowed());
+
+        char serialized[serializedSize];
+
+        serializeJson(json, serialized, serializedSize);
+
+        TEST_ASSERT_EQUAL_STRING(expectedSerialized, serialized);
+    }
 }
 
 auto main() -> int {
     UNITY_BEGIN();
 
-    RUN_TEST(testWithErrorHandling);
-    RUN_TEST(testWithoutErrorHandling);
+    RUN_TEST(testStaticJsonDocument);
+    RUN_TEST(testDynamicJsonDocument);
 
     return UNITY_END();
 }

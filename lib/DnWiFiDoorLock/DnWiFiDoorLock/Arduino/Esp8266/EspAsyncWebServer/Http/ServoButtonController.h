@@ -54,7 +54,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             auto settings = validateForm(request);
 
             if (!settings.has_value()) {
-                clientErrorResponse(request, settings.error());
+                jsonClientErrorResponse(request, settings.error().c_str());
 
                 return;
             }
@@ -561,50 +561,95 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             servoButtonJsonResponse(request);
         }
 
-        void servoButtonJsonResponse(AsyncWebServerRequest& request) const {
-            auto jsonBuffer = DynamicJsonBuffer{};
+        auto servoButtonJsonResponse(AsyncWebServerRequest& request) -> void {
+            auto json = StaticJsonDocument<
+                // https://arduinojson.org/v6/assistant/
+                //   Data structures: 64
+                //   Strings: 69
+                //   Total (minimum): 133
+                //   Total (recommended): 192
+                192
+            >{};
 
-            auto& jsonServoButton = jsonBuffer.createObject();
-            jsonServoButton[F("pressing_angle")] = button.getPressingAngle();
-            jsonServoButton[F("not_pressing_angle")] = button.getNotPressingAngle();
-            jsonServoButton[F("pressing_milliseconds")] = button.getPressingMilliseconds();
+            json[F("servo_button")][F("pressing_angle")] = button.getPressingAngle();
+            json[F("servo_button")][F("not_pressing_angle")] = button.getNotPressingAngle();
+            json[F("servo_button")][F("pressing_milliseconds")] = button.getPressingMilliseconds();
 
-            auto& json = jsonBuffer.createObject();
-            json[F("servo_button")] = jsonServoButton;
-
-            jsonResponse(request, json);
+            jsonSuccessResponse(request, json);
         }
 
-        auto jsonResponse(
+        auto jsonSuccessResponse(
             AsyncWebServerRequest& request,
-            const JsonObject& json
-        ) const -> void {
+            const JsonDocument& json
+        ) -> void {
+            if (json.overflowed()) {
+                jsonOverflowedErrorResponse(request);
+
+                return;
+            }
+
             auto* response = request.beginResponseStream(
                 HTTP_RESPONSE_CONTENT_TYPE_JSON
             );
 
-            json.printTo(*response);
+            serializeJson(json, *response);
 
             request.send(response);
         }
 
-        void clientErrorResponse(
+        auto jsonClientErrorResponse(
             AsyncWebServerRequest& request,
-            const String& error
-        ) {
+            const char* const error
+        ) -> void {
             logger.warning(format(
-                PSTR("%s"),
-                error.c_str()
+                PSTR("Client error: %s"),
+                error
             ));
 
+            const auto errorKey = String{F("error")};
+
+            auto json = DynamicJsonDocument{
+                // https://arduinojson.org/v6/assistant/
+                JSON_OBJECT_SIZE(1) + errorKey.length()
+            };
+
+            json[errorKey] = error;
+
+            if (json.overflowed()) {
+                jsonOverflowedErrorResponse(request);
+
+                return;
+            }
+
+            auto* response = request.beginResponseStream(
+                HTTP_RESPONSE_CONTENT_TYPE_JSON
+            );
+            response->setCode(HTTP_RESPONSE_STATUS_BAD_REQUEST);
+
+            serializeJson(json, *response);
+
+            request.send(response);
+        }
+
+        auto jsonOverflowedErrorResponse(
+            AsyncWebServerRequest& request
+        ) -> void {
+            internalServerErrorResponse(
+                request,
+                PSTR("JsonDocument overflowed")
+            );
+        }
+
+        auto internalServerErrorResponse(
+            AsyncWebServerRequest& request,
+            const char* const error
+        ) -> void {
+            logger.error(error);
+
             request.send(
-                HTTP_RESPONSE_STATUS_BAD_REQUEST,
-                HTTP_RESPONSE_CONTENT_TYPE_JSON,
-                format(
-                    // language=JSON
-                    PSTR(R"({"error": "%s"})"),
-                    error.c_str()
-                ).get()
+                HTTP_RESPONSE_STATUS_INTERNAL_SERVER_ERROR,
+                HTTP_RESPONSE_CONTENT_TYPE_PLAIN,
+                PSTR("Error 500: Internal Server Error")
             );
         }
 
