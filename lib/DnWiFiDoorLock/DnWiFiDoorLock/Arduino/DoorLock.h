@@ -37,7 +37,7 @@ namespace DnWiFiDoorLock::Arduino {
         //          we have no feedback as for the servo succeeded to open the door or not
         //
         // todo: "Clang-Tidy: Function 'isOpen' should be marked [[nodiscard]]"?
-        bool isOpen() const override {
+        auto isOpen() const -> bool override {
             // we're not checking for openAngle,
             // because if we have any other angle than the closedAngle
             // then it's better to assume the door is open
@@ -46,23 +46,23 @@ namespace DnWiFiDoorLock::Arduino {
 
         // warning! it only shows what we asked the servo to do
         //          we have no feedback as for the servo succeeded to close the door or not
-        bool isClosed() const override {
+        auto isClosed() const -> bool override {
             return servo.getAngle() == closedAngle;
         }
 
-        void open() override {
+        auto open() -> void override {
             logger.info(PSTR("Opening"));
 
             servo.setAngle(openAngle);
         }
 
-        void close() override {
+        auto close() -> void override {
             logger.info(PSTR("Closing"));
 
             servo.setAngle(closedAngle);
         }
 
-        void switchOpenClose() override {
+        auto switchOpenClose() -> void override {
             if (isOpen()) {
                 close();
             } else {
@@ -70,7 +70,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             // the door should be closed by default for security reasons
             // (for example unexpected device restart)
             //
@@ -79,7 +79,7 @@ namespace DnWiFiDoorLock::Arduino {
             close();
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             // do nothing
         }
     private:

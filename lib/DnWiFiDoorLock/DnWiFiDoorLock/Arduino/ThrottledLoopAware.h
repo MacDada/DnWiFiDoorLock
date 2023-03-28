@@ -20,11 +20,11 @@ namespace DnWiFiDoorLock::Arduino {
             throttleMilliseconds{throttleMilliseconds} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             otherAware.onSetup();
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             if (isItTime()) {
                 otherAware.onLoop();
 
@@ -40,7 +40,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         unsigned long lastOtherAwareCallMilliseconds = 0;
 
-        bool isItTime() const {
+        auto isItTime() const -> bool  {
             return hardware.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
         }
     };

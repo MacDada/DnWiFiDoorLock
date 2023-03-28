@@ -17,16 +17,16 @@ namespace {
     using DnApp::Logger::Endpoint::StringLogger;
     using DnApp::Logger::Decorator::SequenceLogger;
 
-    StringLogger stringLogger1{};
+    auto stringLogger1 = StringLogger{};
 
-    StringLogger stringLogger2{};
+    auto stringLogger2 = StringLogger{};
 
     const auto innerLoggers = std::vector<std::reference_wrapper<Logger>>{
         stringLogger1,
         stringLogger2
     };
 
-    SequenceLogger logger{innerLoggers};
+    auto logger = SequenceLogger{innerLoggers};
 
     const auto expectedOutputForFoo = ""
         "debug\n"
@@ -50,12 +50,12 @@ namespace {
         "critical\n"
         "foo\n";
 
-    void test_it_is_a_Logger() {
+    auto test_it_is_a_Logger() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
     }
 
-    void test_it_works_with_no_inner_loggers() {
-        const std::vector<std::reference_wrapper<Logger>> emptyVector{};
+    auto test_it_works_with_no_inner_loggers() -> void {
+        const auto emptyVector = std::vector<std::reference_wrapper<Logger>>{};
 
         SequenceLogger loggerWithEmptyVector{emptyVector};
 
@@ -65,7 +65,7 @@ namespace {
         )
     }
 
-    void test_logging_literals() {
+    auto test_logging_literals() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
@@ -79,7 +79,7 @@ namespace {
         );
     }
 
-    void test_logging_chars() {
+    auto test_logging_chars() -> void {
         char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
@@ -95,7 +95,7 @@ namespace {
         );
     }
 
-    void test_logging_const_chars() {
+    auto test_logging_const_chars() -> void {
         const char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
@@ -111,7 +111,7 @@ namespace {
         );
     }
 
-    void test_logging_unique_ptr_of_chars() {
+    auto test_logging_unique_ptr_of_chars() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
             DnApp::Common::Strings::makeUniquePtrOfChars("foo")
@@ -128,8 +128,8 @@ namespace {
         );
     }
 
-    void test_it_works_with_empty_array() {
-        const std::array<std::reference_wrapper<Logger>, 0> emptyArray{};
+    auto test_it_works_with_empty_array() -> void {
+        const auto emptyArray = std::array<std::reference_wrapper<Logger>, 0>{};
 
         SequenceLogger loggerWithEmptyArray{emptyArray};
 
@@ -139,13 +139,13 @@ namespace {
         )
     }
 
-    void test_logging_literals_with_array() {
+    auto test_logging_literals_with_array() -> void {
         const auto theArray = std::array<std::reference_wrapper<Logger>, 2>{
             stringLogger1,
             stringLogger2
         };
 
-        SequenceLogger loggerWithArray{theArray};
+        auto loggerWithArray = SequenceLogger{theArray};
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(loggerWithArray, "foo")
 
@@ -161,12 +161,12 @@ namespace {
     }
 }
 
-void setUp() {
+auto setUp() -> void {
     stringLogger1.clear();
     stringLogger2.clear();
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Logger);

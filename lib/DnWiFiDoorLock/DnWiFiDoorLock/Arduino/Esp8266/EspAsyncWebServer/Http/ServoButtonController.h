@@ -38,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger{LoggerDecorator{logger, PSTR("ServoButtonController: ")}} {
         };
 
-        void showSettingsAction(AsyncWebServerRequest& request) const {
+        auto showSettingsAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("showSettingsAction()"));
 
             request.send(
@@ -48,7 +48,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void updateSettingsAction(AsyncWebServerRequest& request) {
+        auto updateSettingsAction(AsyncWebServerRequest& request) -> void {
             logger.info(PSTR("updateSettingsAction()"));
 
             auto settings = validateForm(request);
@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         // todo: include file as a string literal?
         //       https://forum.arduino.cc/t/how-to-store-a-file-in-code-memory/1075563/5
-        void cssAction(AsyncWebServerRequest& request) const {
+        auto cssAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("cssAction()"));
 
             request.send(
@@ -105,7 +105,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void modalCssAction(AsyncWebServerRequest& request) const {
+        auto modalCssAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("modalCssAction()"));
 
             request.send(
@@ -162,7 +162,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void modalJsAction(AsyncWebServerRequest& request) const {
+        auto modalJsAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("modalJsAction()"));
 
             // todo: extract to "statically" served file: LittleFS
@@ -230,7 +230,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void inputNumberButtonsJsAction(AsyncWebServerRequest& request) const {
+        auto inputNumberButtonsJsAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("inputNumberButtonsJsAction()"));
 
             request.send(
@@ -302,7 +302,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void ajaxFormJsAction(AsyncWebServerRequest& request) const {
+        auto ajaxFormJsAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("ajaxFormJsAction()"));
 
             request.send(
@@ -351,7 +351,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void javascriptAction(AsyncWebServerRequest& request) const {
+        auto javascriptAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("javascriptAction()"));
 
             // todo: extract to "statically" served file? LittleFS
@@ -404,12 +404,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         mutable
         LoggerDecorator logger;
 
-        String renderSettingsFormPage() const {
+        auto renderSettingsFormPage() const -> String {
             logger.info(PSTR("renderSettingsFormPage(): generating pageContent"));
 
             // todo: maybe extract SettingsView
             // language=HTML
-            String page = PSTR(R"(
+            auto page = String{PSTR(R"(
                 <!DOCTYPE html>
                 <html>
                     <head>
@@ -496,15 +496,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                         </form>
                     </body>
                 </html>
-            )");
+            )")};
 
             page.replace(PSTR("{{ app_name }}"), appName);
             page.replace(PSTR("{{ button_name }}"), PSTR("Heater"));
-            page.replace(PSTR("{{ servo_min_angle }}"), String(Servo::MIN_ANGLE));
-            page.replace(PSTR("{{ servo_max_angle }}"), String(Servo::MAX_ANGLE));
-            page.replace(PSTR("{{ pressing_angle }}"), String(button.getPressingAngle()));
-            page.replace(PSTR("{{ not_pressing_angle }}"), String(button.getNotPressingAngle()));
-            page.replace(PSTR("{{ pressing_milliseconds }}"), String(button.getPressingMilliseconds()));
+            page.replace(PSTR("{{ servo_min_angle }}"), String{Servo::MIN_ANGLE});
+            page.replace(PSTR("{{ servo_max_angle }}"), String{Servo::MAX_ANGLE});
+            page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle()});
+            page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle()});
+            page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.getPressingMilliseconds()});
 
             // todo: extract render() after all? ;-)
             // #include <tuple>
@@ -518,7 +518,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             return page;
         }
 
-        tl::expected<Settings, String> validateForm(AsyncWebServerRequest& request) const {
+        auto validateForm(AsyncWebServerRequest& request) const -> tl::expected<Settings, String> {
             auto maybeNewPressingAngle = getRequestPostParameter(request, PSTR("pressing_angle"));
             auto maybeNewNotPressingAngle = getRequestPostParameter(request, PSTR("not_pressing_angle"));
             auto maybeNewMilliseconds = getRequestPostParameter(request, PSTR("pressing_milliseconds"));
@@ -530,9 +530,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("No required data given")};
             }
 
-            int newPressingAngle = maybeNewPressingAngle->toInt();
-            int newNotPressingAngle = maybeNewNotPressingAngle->toInt();
-            int newMilliseconds = maybeNewMilliseconds->toInt();
+            auto newPressingAngle = (int) maybeNewPressingAngle->toInt();
+            auto newNotPressingAngle = (int) maybeNewNotPressingAngle->toInt();
+            auto newMilliseconds = (int) maybeNewMilliseconds->toInt();
 
             if (!isValidAngle(newPressingAngle)) {
                 return tl::unexpected{PSTR("Invalid pressing angle")};
@@ -549,10 +549,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             return Settings{newPressingAngle, newNotPressingAngle, newMilliseconds};
         }
 
-        void handleValidSettings(
+        auto handleValidSettings(
             AsyncWebServerRequest& request,
             const Settings& settings
-        ) {
+        ) -> void {
             button.setPressingAngle(settings.pressingAngle);
             button.setNotPressingAngle(settings.notPressingAngle);
             button.setPressingMilliseconds(settings.pressingMilliseconds);
@@ -654,7 +654,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        bool isValidAngle(const int angle) const {
+        auto isValidAngle(const int angle) const -> bool {
             return angle >= Servo::MIN_ANGLE && angle <= Servo::MAX_ANGLE;
         }
     };

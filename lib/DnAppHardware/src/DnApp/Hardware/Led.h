@@ -4,18 +4,18 @@ namespace DnApp::Hardware {
     class Led {
     public:
         virtual
-        bool isOn() const = 0;
+        auto isOn() const -> bool = 0;
 
         virtual
-        bool isOff() const = 0;
+        auto isOff() const -> bool = 0;
 
         virtual
-        void on() = 0;
+        auto on() -> void = 0;
 
         virtual
-        void off() = 0;
+        auto off() -> void = 0;
 
         virtual
-        void toggle() = 0;
+        auto toggle() -> void = 0;
     };
 }

@@ -4,6 +4,6 @@ namespace DnApp::Hardware {
     class Button {
     public:
         virtual
-        void press() = 0;
+        auto press() -> void = 0;
     };
 }

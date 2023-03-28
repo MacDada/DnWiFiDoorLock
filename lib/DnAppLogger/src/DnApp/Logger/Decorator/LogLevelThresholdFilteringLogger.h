@@ -21,15 +21,15 @@ namespace DnApp::Logger::Decorator {
             threshold{threshold} {
         }
 
-        LOG_LEVEL getThreshold() const {
+        auto getThreshold() const -> LOG_LEVEL {
             return threshold;
         }
 
-        void setThreshold(const LOG_LEVEL newThreshold) {
+        auto setThreshold(const LOG_LEVEL newThreshold) -> void {
             threshold = newThreshold;
         }
 
-        void log(const LOG_LEVEL level, const char* const message) override {
+        auto log(const LOG_LEVEL level, const char* const message) -> void override {
             if (level >= threshold) {
                 logger.log(level, message);
             }

@@ -44,7 +44,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger{logger} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             setupRouting();
 
             server.begin();
@@ -52,7 +52,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logServerHasStarted();
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             // do nothing
         }
     private:
@@ -80,7 +80,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         Logger& logger;
 
-        void handleWebNotFound(AsyncWebServerRequest &request) const {
+        auto handleWebNotFound(AsyncWebServerRequest &request) const -> void {
             logger.warning(format(
                 PSTR("HttpServer: page not found! URI: %s, method: %s"),
                 request.url().c_str(),
@@ -98,7 +98,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void setupRouting() {
+        auto setupRouting() -> void {
             registerRoute(
                 PSTR("app.index"),
                 PSTR("/"),
@@ -258,12 +258,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             const String& body
         )>;
 
-        void registerRoute(
+        auto registerRoute(
             const char* const name,
             const char* const uri,
             const WebRequestMethodComposite method,
             OnRequestCallback onRequest
-        ) {
+        ) -> void {
             server.on(uri, method, [&, name, onRequest = std::move(onRequest)] (
                 AsyncWebServerRequest* const request
             ) {
@@ -273,12 +273,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             });
         }
 
-        void registerRoute(
+        auto registerRoute(
             const char* const name,
             const char* const uri,
             const WebRequestMethodComposite method,
             OnRequestBodyCallback onRequestBody
-        ) {
+        ) -> void {
             server.on(uri, method, [] (const AsyncWebServerRequest* const) {
                 // cannot be nullptr or the route is not found o.O
                 // ignore it: we use the callback with request body
@@ -295,10 +295,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             });
         }
 
-        void onMatchedRoute(
+        auto onMatchedRoute(
             const char* const routeName,
             AsyncWebServerRequest* const request
-        ) {
+        ) -> void {
             assertRequestWasGiven(request);
 
             const auto requestMethod = request->methodToString();
@@ -321,7 +321,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             });
         }
 
-        void assertRequestWasGiven(const AsyncWebServerRequest* const request) {
+        auto assertRequestWasGiven(const AsyncWebServerRequest* const request) -> void {
             if (nullptr == request) {
                 logger.critical(PSTR(
                     "HttpServer: `AsyncWebServerRequest` object expected, `nullptr` given!"
@@ -339,8 +339,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             }
         }
 
-        void logServerHasStarted() const {
-            String message{PSTR("HTTP server has started, open http://")};
+        auto logServerHasStarted() const -> void {
+            auto message = String{PSTR("HTTP server has started, open http://")};
 
             message += wiFi.localIP().toString();
 
@@ -355,11 +355,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger.info(message);
         }
 
-        String dataToString(
+        auto dataToString(
             const uint8_t* const data,
             const size_t dataLength
-        ) const {
-            String string;
+        ) const -> String {
+            auto string = String{};
             string.reserve(dataLength);
 
             for (size_t i = 0; i < dataLength; i++) {

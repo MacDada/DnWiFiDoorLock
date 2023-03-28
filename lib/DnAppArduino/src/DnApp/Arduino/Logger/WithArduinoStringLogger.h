@@ -19,27 +19,27 @@ namespace DnApp::Arduino::Logger {
         using DnApp::Logger::Logger::error;
         using DnApp::Logger::Logger::critical;
 
-        void log(const LOG_LEVEL level, const String& message) {
+        auto log(const LOG_LEVEL level, const String& message) -> void {
             log(level, message.c_str());
         }
 
-        void debug(const String& message) {
+        auto debug(const String& message) -> void {
             log(LOG_LEVEL::DEBUG, message.c_str());
         }
 
-        void info(const String& message) {
+        auto info(const String& message) -> void {
             log(LOG_LEVEL::INFO, message.c_str());
         }
 
-        void warning(const String& message) {
+        auto warning(const String& message) -> void {
             log(LOG_LEVEL::WARNING, message.c_str());
         }
 
-        void error(const String& message) {
+        auto error(const String& message) -> void {
             log(LOG_LEVEL::ERROR, message.c_str());
         }
 
-        void critical(const String& message) {
+        auto critical(const String& message) -> void {
             log(LOG_LEVEL::CRITICAL, message.c_str());
         }
     };

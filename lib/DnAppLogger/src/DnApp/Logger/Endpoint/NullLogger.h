@@ -11,7 +11,7 @@ namespace DnApp::Logger::Endpoint {
         // required for our log() implementations not to hide existing base log() methods
         using Logger::log;
 
-        void log(const LOG_LEVEL level, const char* const message) override {
+        auto log(const LOG_LEVEL level, const char* const message) -> void override {
             // do nothing
         };
     };

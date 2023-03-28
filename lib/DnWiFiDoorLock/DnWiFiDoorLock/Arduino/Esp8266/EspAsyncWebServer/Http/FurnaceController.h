@@ -30,10 +30,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger{PrefixingLogger{logger, PSTR("FurnaceController::")}} {
         }
 
-        void statusAction(AsyncWebServerRequest& request) const {
+        auto statusAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("statusAction()"));
 
-            Time uptime = hardware.getUptime();
+            auto uptime = hardware.getUptime();
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -75,7 +75,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void switchAction(AsyncWebServerRequest& request) {
+        auto switchAction(AsyncWebServerRequest& request) -> void {
             logger.info(PSTR("switchAction()"));
 
             furnace.toggleHeater();
@@ -83,7 +83,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             redirect(request, PSTR("/furnace"));
         }
 
-        void apiGetAction(AsyncWebServerRequest& request) const {
+        auto apiGetAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("apiGetAction()"));
 
             request.send(
@@ -93,10 +93,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void apiPostAction(
+        auto apiPostAction(
             AsyncWebServerRequest& request,
             const String& body
-        ) {
+        ) -> void {
             logger.info(PSTR("apiPostAction()"));
 
             // todo: why PSTR() does NOT work here?

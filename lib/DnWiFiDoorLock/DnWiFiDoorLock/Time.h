@@ -37,40 +37,40 @@ namespace DnWiFiDoorLock {
             //   4 bytes each ;-)
         }
 
-        unsigned long getMilliseconds() const {
+        auto getMilliseconds() const -> unsigned long {
             return milliseconds;
         }
 
-        long getSeconds() const {
+        auto getSeconds() const -> long {
             return seconds;
         }
 
-        long getMinutes() const {
+        auto getMinutes() const -> long {
             return minutes;
         }
 
-        int getHours() const {
+        auto getHours() const -> int {
             return hours;
         }
 
         // `byte` is enough, we won't be going longer than 49 days xD
-        byte getDays() const {
+        auto getDays() const -> byte {
             return days;
         }
 
-        int getRemainingMilliseconds() const {
+        auto getRemainingMilliseconds() const -> int {
             return milliseconds % 1000;
         }
 
-        byte getRemainingSeconds() const {
+        auto getRemainingSeconds() const -> byte {
             return seconds % 60;
         }
 
-        byte getRemainingMinutes() const {
+        auto getRemainingMinutes() const -> byte {
             return minutes % 60;
         }
 
-        byte getRemainingHours() const {
+        auto getRemainingHours() const -> byte {
             return hours % 24;
         }
     };

@@ -2,12 +2,12 @@
 #include <unity.h>
 
 namespace {
-    void test_proof_of_concept() {
+    auto test_proof_of_concept() -> void {
         TEST_ASSERT_EQUAL_INT(13, LED_BUILTIN);
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_proof_of_concept);

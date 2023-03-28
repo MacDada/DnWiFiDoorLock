@@ -8,13 +8,13 @@ namespace DnWiFiDoorLock::Arduino {
     class Hardware final {
     public:
         static
-        const byte BUILT_IN_LED_PIN = LED_BUILTIN;
+        const auto BUILT_IN_LED_PIN = LED_BUILTIN;
 
-        void pause(const unsigned long milliseconds) {
+        auto pause(const unsigned long milliseconds) -> void {
             delay(milliseconds);
         }
 
-        Time getUptime() const {
+        auto getUptime() const -> Time {
             return Time(millis());
         }
     };

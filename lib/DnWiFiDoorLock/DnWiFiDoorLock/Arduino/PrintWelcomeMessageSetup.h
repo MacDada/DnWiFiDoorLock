@@ -57,7 +57,7 @@ namespace DnWiFiDoorLock::Arduino {
             build{build} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             printer.print(DnApp::Common::Strings::format(
                 PSTR(
                     "\n\n\n"
@@ -112,29 +112,29 @@ namespace DnWiFiDoorLock::Arduino {
             ).get());
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             // do nothing
         }
     private:
         static
         PROGMEM
         constexpr
-        const char* const VT100_FORMAT_RESET = "\e[0m";
+        const auto VT100_FORMAT_RESET = "\e[0m";
 
         static
         PROGMEM
         constexpr
-        const char* const VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
+        const auto VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
 
         static
         PROGMEM
         constexpr
-        const char* const VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
+        const auto VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
 
         static
         PROGMEM
         constexpr
-        const char* const VT100_FORMAT_GREEN = "\e[0;32m";
+        const auto VT100_FORMAT_GREEN = "\e[0;32m";
 
         Print& printer;
 

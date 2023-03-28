@@ -5,7 +5,7 @@
 namespace {
     using DnApp::Logger::Logger;
 
-    void test_log_level_to_string() {
+    auto test_log_level_to_string() -> void {
         TEST_ASSERT_EQUAL_STRING(
             "debug",
             Logger::logLevelToString(Logger::LOG_LEVEL::DEBUG)
@@ -34,7 +34,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_log_level_to_string);

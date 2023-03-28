@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino {
             bitsPerSecond{bitsPerSecond} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             serial.begin(bitsPerSecond);
 
             // waiting by uptime is not enough?!
@@ -38,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino {
             serial.print(PSTR("\n\n\n\nHardwareSerial is working.\n"));
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             // do nothing
         }
     private:

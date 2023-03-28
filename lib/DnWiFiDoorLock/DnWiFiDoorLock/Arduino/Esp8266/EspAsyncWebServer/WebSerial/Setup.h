@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
             server{server} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             serial.begin(&server);
 
             serial.msgCallback([&] (uint8_t* const message, const size_t messageLength) {
@@ -31,7 +31,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
             });
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             // do nothing
         }
     private:
@@ -39,11 +39,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
 
         AsyncWebServer& server;
 
-        void onWebSerialIncoming(
+        auto onWebSerialIncoming(
             const uint8_t* const message,
             const size_t messageLength
-        ) {
-            String command = "";
+        ) -> void {
+            auto command = String{""};
 
             for (size_t i = 0; i < messageLength; i++) {
                 command += char(message[i]);

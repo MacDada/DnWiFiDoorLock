@@ -27,15 +27,15 @@ namespace DnWiFiDoorLock::Arduino {
             logger{PrefixingLogger{logger, PSTR("Furnace: ")}} {
         }
 
-        bool isHeaterOn() const override {
+        auto isHeaterOn() const -> bool override {
             return heaterOn;
         }
 
-        bool isHeaterOff() const override {
+        auto isHeaterOff() const -> bool override {
             return !heaterOn;
         }
 
-        void turnOnHeater() override {
+        auto turnOnHeater() -> void override {
             if (heaterOn) {
                 logger.warning(PSTR("The heater is already on"));
 
@@ -47,7 +47,7 @@ namespace DnWiFiDoorLock::Arduino {
             heaterOn = true;
         }
 
-        void turnOffHeater() override {
+        auto turnOffHeater() -> void override {
             if (!heaterOn) {
                 logger.warning(PSTR("The heater is already off"));
 
@@ -59,7 +59,7 @@ namespace DnWiFiDoorLock::Arduino {
             heaterOn = false;
         }
 
-        void toggleHeater() override {
+        auto toggleHeater() -> void override {
             if (isHeaterOn()) {
                 turnOffHeater();
             } else {

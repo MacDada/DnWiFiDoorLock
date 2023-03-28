@@ -35,8 +35,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             appName{appName} {
         }
 
-        void angleAction(Request& request) {
-            int oldAngle = servo.getAngle();
+        auto angleAction(Request& request) -> void {
+            auto oldAngle = servo.getAngle();
 
             auto maybeNewAngle = getRequestPostParameter(request, "angle");
 
@@ -46,7 +46,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return;
             }
 
-            int newAngle = maybeNewAngle->toInt();
+            auto newAngle = (int) maybeNewAngle->toInt();
 
             if (!isValidAngle(newAngle)) {
                 invalidAngleGivenResponse(request, oldAngle, newAngle);
@@ -71,15 +71,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const
         auto format = DnApp::Common::Strings::format;
 
-        bool isValidAngle(const int angle) const {
+        auto isValidAngle(const int angle) const -> bool {
             return angle >= Servo::MIN_ANGLE && angle <= Servo::MAX_ANGLE;
         }
 
-        void newAngleSetResponse(
+        auto newAngleSetResponse(
             Request& request,
             const int oldAngle,
             const int newAngle
-        ) const {
+        ) const -> void {
             logger.info(format(
                 PSTR("New angle was set: \"%d\""),
                 newAngle
@@ -92,11 +92,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void invalidAngleGivenResponse(
+        auto invalidAngleGivenResponse(
             Request& request,
             const int oldAngle,
             const int newAngle
-        ) const {
+        ) const -> void {
             logger.warning(format(
                 PSTR("Invalid angle given: \"%d\""),
                 newAngle
@@ -109,10 +109,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void showCurrentAngleResponse(
+        auto showCurrentAngleResponse(
             Request& request,
             const int oldAngle
-        ) const {
+        ) const -> void {
             logger.info(format(
                 PSTR("Showing current angle: \"%d\""),
                 oldAngle
@@ -125,18 +125,18 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        String renderAngleResponse(
+        auto renderAngleResponse(
             const int oldAngle,
             const std::optional<int> newAngle = {},
             const bool invalidAngle = false
-        ) const {
+        ) const -> String {
             // todo: extract some kind of templates?
             //       or use a template engine?
             //       https://techtutorialsx.com/2021/09/08/esp32-json/
             // todo: for some reason, when I hit enter from the number input, two values are sent:
             //       zero and the input value -> causing the value to be zero after all
             //       it works ok when I click submit instead of hitting enter
-            String content = PSTR(R"(
+            auto content = String{PSTR(R"(
                 <!DOCTYPE html>
                 <html>
                     <head>
@@ -181,12 +181,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                         </form>
                     </body>
                 </html>
-            )");
+            )")};
 
             content.replace(PSTR("{{ app_name }}"), appName);
 
-            content.replace(PSTR("{{ servo_min_angle }}"), String(Servo::MIN_ANGLE));
-            content.replace(PSTR("{{ servo_max_angle }}"), String(Servo::MAX_ANGLE));
+            content.replace(PSTR("{{ servo_min_angle }}"), String{Servo::MIN_ANGLE});
+            content.replace(PSTR("{{ servo_max_angle }}"), String{Servo::MAX_ANGLE});
 
             content.replace(
                 PSTR("{{ invalid_angle_error }}"),
@@ -194,7 +194,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
 
             content.replace(PSTR("{{ old_or_current }}"), newAngle ? PSTR("Old") : PSTR("Current"));
-            content.replace(PSTR("{{ old_angle }}"), String(oldAngle));
+            content.replace(PSTR("{{ old_angle }}"), String{oldAngle});
 
             content.replace(
                 PSTR("{{ new_angle }}"),

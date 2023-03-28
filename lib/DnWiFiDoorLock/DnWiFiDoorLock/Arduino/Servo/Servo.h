@@ -27,6 +27,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     class Servo final {
     public:
         static const int MIN_ANGLE = 0;
+
         static const int MAX_ANGLE = 180;
 
         Servo(
@@ -41,11 +42,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             servo.attach(pin, minPulseWidthMicroseconds, maxPulseWidthMicroseconds);
         }
 
-        int getAngle() const {
+        auto getAngle() const -> int {
             return servo.read();
         }
 
-        void setAngle(int degrees) {
+        auto setAngle(int degrees) -> void {
             if (degrees < MIN_ANGLE) {
                 degrees = MIN_ANGLE;
             } else if (degrees > MAX_ANGLE) {

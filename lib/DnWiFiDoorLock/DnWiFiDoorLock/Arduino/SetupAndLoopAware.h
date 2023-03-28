@@ -5,9 +5,9 @@
 namespace DnWiFiDoorLock::Arduino {
     class SetupAndLoopAware {
     public:
-        virtual void onSetup() = 0;
+        virtual auto onSetup() -> void = 0;
 
-        virtual void onLoop() = 0;
+        virtual auto onLoop() -> void = 0;
     };
 
     using SetupAndLoopAwareReference = std::reference_wrapper<SetupAndLoopAware>;

@@ -8,17 +8,17 @@
 namespace {
     using DnApp::Logger::Logger;
 
-    DnApp::Logger::Endpoint::StringLogger logger{};
+    auto logger = DnApp::Logger::Endpoint::StringLogger{};
 
-    void test_it_is_a_Logger() {
+    auto test_it_is_a_Logger() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Logger::Logger, &logger);
     }
 
-    void test_it_is_empty_at_start() {
+    auto test_it_is_empty_at_start() -> void {
         TEST_ASSERT_EQUAL_STRING("", logger.getContent());
     }
 
-    void test_clear() {
+    auto test_clear() -> void {
         logger.warning("foo");
         logger.error("bar");
 
@@ -27,7 +27,7 @@ namespace {
         TEST_ASSERT_EQUAL_STRING("", logger.getContent());
     }
 
-    void test_logging_literals() {
+    auto test_logging_literals() -> void {
         logger.log(Logger::LOG_LEVEL::DEBUG, "log debug message");
         logger.log(Logger::LOG_LEVEL::INFO, "log info message");
         logger.log(Logger::LOG_LEVEL::WARNING, "log warning message");
@@ -65,7 +65,7 @@ namespace {
         );
     }
 
-    void test_logging_chars() {
+    auto test_logging_chars() -> void {
         char log_debug_message[] = "log debug message";
         char log_info_message[] = "log info message";
         char log_warning_message[] = "log warning message";
@@ -115,7 +115,7 @@ namespace {
         );
     }
 
-    void test_logging_const_chars() {
+    auto test_logging_const_chars() -> void {
         const char log_debug_message[] = "log debug message";
         const char log_info_message[] = "log info message";
         const char log_warning_message[] = "log warning message";
@@ -165,7 +165,7 @@ namespace {
         );
     }
 
-    void test_logging_unique_ptr_of_chars() {
+    auto test_logging_unique_ptr_of_chars() -> void {
         constexpr const auto f = DnApp::Common::Strings::makeUniquePtrOfChars;
 
         logger.log(Logger::LOG_LEVEL::DEBUG, f("log debug message"));
@@ -206,11 +206,11 @@ namespace {
     }
 }
 
-void setUp() {
+auto setUp() -> void {
     logger.clear();
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Logger);

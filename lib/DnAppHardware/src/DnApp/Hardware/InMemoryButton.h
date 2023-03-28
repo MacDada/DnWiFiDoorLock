@@ -8,15 +8,15 @@ namespace DnApp::Hardware {
     class InMemoryButton final:
         public DnApp::Hardware::Button {
     public:
-        void press() override {
+        auto press() -> void override {
             ++pressCount;
         }
 
-        int getPressCount() const {
+        auto getPressCount() -> int const {
             return pressCount;
         }
 
-        void resetPressCount() {
+        auto resetPressCount() -> void {
             pressCount = 0;
         }
 

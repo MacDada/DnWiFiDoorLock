@@ -4,18 +4,18 @@ namespace DnApp::Hardware {
     class DoorLock {
     public:
         virtual
-        bool isOpen() const = 0;
+        auto isOpen() const -> bool = 0;
 
         virtual
-        bool isClosed() const = 0;
+        auto isClosed() const -> bool = 0;
 
         virtual
-        void open() = 0;
+        auto open() -> void = 0;
 
         virtual
-        void close() = 0;
+        auto close() -> void = 0;
 
         virtual
-        void switchOpenClose() = 0;
+        auto switchOpenClose() -> void = 0;
     };
 }

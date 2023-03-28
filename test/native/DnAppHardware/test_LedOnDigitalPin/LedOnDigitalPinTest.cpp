@@ -6,25 +6,25 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    DnApp::Hardware::InMemoryDigitalPin pin{};
-    DnApp::Hardware::LedOnDigitalPin led{pin};
+    auto pin = DnApp::Hardware::InMemoryDigitalPin{};
+    auto led = DnApp::Hardware::LedOnDigitalPin{pin};
 
-    void test_it_is_a_Led() {
+    auto test_it_is_a_Led() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &led);
     }
 
-    void test_it_sets_output_mode_on_pin() {
+    auto test_it_sets_output_mode_on_pin() -> void {
         TEST_ASSERT_TRUE(pin.isOutputMode());
     }
 
-    void test_it_is_off_by_default() {
+    auto test_it_is_off_by_default() -> void {
         TEST_ASSERT_TRUE(pin.isLow());
 
         TEST_ASSERT_TRUE(led.isOff());
         TEST_ASSERT_FALSE(led.isOn());
     }
 
-    void test_it_turns_on() {
+    auto test_it_turns_on() -> void {
         led.on();
 
         TEST_ASSERT_TRUE(led.isOn());
@@ -33,7 +33,7 @@ namespace {
         TEST_ASSERT_TRUE(pin.isHigh());
     }
 
-    void test_it_turns_off() {
+    auto test_it_turns_off() -> void {
         led.on();
         led.off();
 
@@ -43,7 +43,7 @@ namespace {
         TEST_ASSERT_TRUE(pin.isLow());
     }
 
-    void test_toggle() {
+    auto test_toggle() -> void {
         led.toggle();
         TEST_ASSERT_TRUE(led.isOn());
         TEST_ASSERT_TRUE(pin.isHigh());
@@ -54,7 +54,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Led);

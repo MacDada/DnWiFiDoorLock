@@ -43,11 +43,11 @@ namespace {
         "critical\n"
         "the_prefix foo the_postfix\n";
 
-    void test_it_is_a_WithArduinoStringLogger() {
+    auto test_it_is_a_WithArduinoStringLogger() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(WithArduinoStringLogger, &logger);
     }
 
-    void test_logging_with_empty_prefix_and_postfix() {
+    auto test_logging_with_empty_prefix_and_postfix() -> void {
         auto loggerWithEmptyPrefixAndPostfix = PrefixPostfixMessageLoggerDecorator{
             stringLogger,
         };
@@ -82,7 +82,7 @@ namespace {
         );
     };
 
-    void test_logging_with_prefix() {
+    auto test_logging_with_prefix() -> void {
         auto loggerWithPrefix = PrefixPostfixMessageLoggerDecorator{
             stringLogger,
             "prefix ",
@@ -115,7 +115,7 @@ namespace {
         );
     };
 
-    void test_logging_with_postfix() {
+    auto test_logging_with_postfix() -> void {
         auto loggerWithPostfix = PrefixPostfixMessageLoggerDecorator{
             stringLogger,
             "",
@@ -149,7 +149,7 @@ namespace {
         );
     };
 
-    void test_logging_literals() {
+    auto test_logging_literals() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
@@ -158,7 +158,7 @@ namespace {
         );
     }
 
-    void test_logging_chars() {
+    auto test_logging_chars() -> void {
         char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
@@ -169,7 +169,7 @@ namespace {
         );
     }
 
-    void test_logging_const_chars() {
+    auto test_logging_const_chars() -> void {
         const char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
@@ -180,7 +180,7 @@ namespace {
         );
     }
 
-    void test_logging_unique_ptr_of_chars() {
+    auto test_logging_unique_ptr_of_chars() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
             DnApp::Common::Strings::makeUniquePtrOfChars("foo")
@@ -192,7 +192,7 @@ namespace {
         );
     }
 
-    void test_logging_arduino_string() {
+    auto test_logging_arduino_string() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
             String("foo")
@@ -205,11 +205,11 @@ namespace {
     }
 }
 
-void setUp() {
+auto setUp() -> void {
     stringLogger.clear();
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_WithArduinoStringLogger);

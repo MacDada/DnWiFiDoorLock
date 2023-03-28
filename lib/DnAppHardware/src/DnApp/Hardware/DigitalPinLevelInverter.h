@@ -13,27 +13,27 @@ namespace DnApp::Hardware {
             pin{pin} {
         }
 
-        void setOutputMode() override {
+        auto setOutputMode() -> void override {
             pin.setOutputMode();
         }
 
-        void setInputMode() override {
+        auto setInputMode() -> void override {
             pin.setInputMode();
         }
 
-        void setHigh() override {
+        auto setHigh() -> void override {
             pin.setLow();
         }
 
-        void setLow() override {
+        auto setLow() -> void override {
             pin.setHigh();
         }
 
-        bool isHigh() const override {
+        auto isHigh() const -> bool override {
             return pin.isLow();
         }
 
-        bool isLow() const override {
+        auto isLow() const -> bool override {
             return pin.isHigh();
         }
     private:

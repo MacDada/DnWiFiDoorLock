@@ -1,7 +1,7 @@
 #include <iostream> // std::cout, std::endl
 
 // nothing to do here, we just need this file for the `native` env to be built
-int main() {
+auto main() -> int {
     std::cout << __cplusplus << std::endl;
 
 #ifdef __clang__

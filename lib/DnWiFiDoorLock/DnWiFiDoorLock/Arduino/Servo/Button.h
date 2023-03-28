@@ -29,21 +29,21 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         // pressing the button, while it is being pressed,
         // will prolong the pressing
-        void press() override {
+        auto press() -> void override {
             servo.setAngle(pressingAngle);
 
             scheduleStopPressing();
         }
 
-        byte getPressingAngle() const {
+        auto getPressingAngle() const -> byte {
             return pressingAngle;
         }
 
-        void setPressingAngle(const byte angle) {
+        auto setPressingAngle(const byte angle) -> void {
             this->pressingAngle = angle;
         }
 
-        byte getNotPressingAngle() const {
+        auto getNotPressingAngle() const -> byte {
             return notPressingAngle;
         }
 
@@ -51,24 +51,24 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         //       the VO could be created with std::variant
         //       or even better, with std::expected
         //       https://mariusbancila.ro/blog/2022/08/17/using-the-cpp23-expected-type/
-        void setNotPressingAngle(const byte angle) {
+        auto setNotPressingAngle(const byte angle) -> void {
             this->notPressingAngle = angle;
         }
 
-        int getPressingMilliseconds() const {
+        auto getPressingMilliseconds() const -> int {
             return pressingMilliseconds;
         }
 
-        void setPressingMilliseconds(const int milliseconds) {
+        auto setPressingMilliseconds(const int milliseconds) -> void {
             this->pressingMilliseconds = milliseconds;
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             // just in case the servo is in the pressing position at the start
             stopPressing();
         };
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             if (isItTimeToStopPressing()) {
                 stopPressing();
             }
@@ -86,20 +86,20 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         unsigned long stopPressingAtUptimeMilliseconds = 0;
 
-        void scheduleStopPressing() {
+        auto scheduleStopPressing() -> void {
             stopPressingAtUptimeMilliseconds = getUptimeMilliseconds() + pressingMilliseconds;
         }
 
-        bool isItTimeToStopPressing() const {
+        auto isItTimeToStopPressing() const -> bool {
             return stopPressingAtUptimeMilliseconds
                 && getUptimeMilliseconds() > stopPressingAtUptimeMilliseconds;
         }
 
-        unsigned long getUptimeMilliseconds() const {
+        auto getUptimeMilliseconds() const -> unsigned long {
             return hardware.getUptime().getMilliseconds();
         }
 
-        void stopPressing() {
+        auto stopPressing() -> void {
             servo.setAngle(notPressingAngle);
 
             stopPressingAtUptimeMilliseconds = 0;

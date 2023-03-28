@@ -26,13 +26,13 @@ namespace DnWiFiDoorLock::Arduino {
             logger{logger} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             ArduinoOTA.setPort(port);
             ArduinoOTA.setHostname(hostname);
             ArduinoOTA.setPasswordHash(passwordHash);
 
             ArduinoOTA.onStart([&] () {
-                String message{PSTR("Starting the OTA update of the ")};
+                auto message = String{PSTR("Starting the OTA update of the ")};
 
                 if (ArduinoOTA.getCommand() == U_FLASH) {
                     message += PSTR("sketch!");
@@ -78,7 +78,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 
-        const char* otaErrorToString(const ota_error_t error) const {
+        auto otaErrorToString(const ota_error_t error) const -> const char* {
             switch (error) {
                 case OTA_AUTH_ERROR:
                     return PSTR("OTA_AUTH_ERROR");

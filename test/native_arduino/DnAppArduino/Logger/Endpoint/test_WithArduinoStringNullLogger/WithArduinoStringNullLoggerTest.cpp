@@ -11,39 +11,39 @@
 namespace {
     using DnApp::Arduino::Logger::WithArduinoStringLogger;
 
-    DnApp::Arduino::Logger::Endpoint::WithArduinoStringNullLogger logger{};
+    auto logger = DnApp::Arduino::Logger::Endpoint::WithArduinoStringNullLogger{};
 
-    void test_it_is_a_WithArduinoStringLogger() {
+    auto test_it_is_a_WithArduinoStringLogger() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(
             WithArduinoStringLogger,
             &logger
         );
     }
 
-    void test_logging_literals() {
+    auto test_logging_literals() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
     }
 
-    void test_logging_chars() {
+    auto test_logging_chars() -> void {
         char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
     }
 
-    void test_logging_const_chars() {
+    auto test_logging_const_chars() -> void {
         const char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
     }
 
-    void test_logging_unique_ptr_of_chars() {
+    auto test_logging_unique_ptr_of_chars() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
             std::make_unique<char[]>(4)
         )
     }
 
-    void test_logging_arduino_string() {
+    auto test_logging_arduino_string() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
             String("foo")
@@ -51,7 +51,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_WithArduinoStringLogger);

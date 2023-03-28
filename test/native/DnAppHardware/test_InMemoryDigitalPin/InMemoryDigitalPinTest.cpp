@@ -5,7 +5,7 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    DnApp::Hardware::InMemoryDigitalPin pin{};
+    auto pin = DnApp::Hardware::InMemoryDigitalPin{};
 
     void test_it_is_a_DigitalPin() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, &pin);
@@ -45,7 +45,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_DigitalPin);

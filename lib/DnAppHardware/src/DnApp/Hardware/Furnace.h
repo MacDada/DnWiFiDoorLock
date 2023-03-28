@@ -4,18 +4,18 @@ namespace DnApp::Hardware {
     class Furnace {
     public:
         virtual
-        bool isHeaterOn() const = 0;
+        auto isHeaterOn() const -> bool = 0;
 
         virtual
-        bool isHeaterOff() const = 0;
+        auto isHeaterOff() const -> bool = 0;
 
         virtual
-        void turnOnHeater() = 0;
+        auto turnOnHeater() -> void = 0;
 
         virtual
-        void turnOffHeater() = 0;
+        auto turnOffHeater() -> void = 0;
 
         virtual
-        void toggleHeater() = 0;
+        auto toggleHeater() -> void = 0;
     };
 }

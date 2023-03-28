@@ -27,10 +27,10 @@ DnWiFiDoorLock::App app{{
     },
 }};
 
-void setup() {
+auto setup() -> void {
     app.onSetup();
 }
 
-void loop() {
+auto loop() -> void {
     app.onLoop();
 }

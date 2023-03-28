@@ -34,14 +34,14 @@ namespace {
         "critical\n"
         "[critical] foo\n";
 
-    StringLogger stringLogger{};
-    PrependLogLevelLogger logger{stringLogger};
+    auto stringLogger = StringLogger{};
+    auto logger = PrependLogLevelLogger{stringLogger};
 
-    void test_it_is_a_Logger() {
+    auto test_it_is_a_Logger() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
     }
 
-    void test_logging_literals() {
+    auto test_logging_literals() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
         TEST_ASSERT_EQUAL_STRING(
@@ -50,7 +50,7 @@ namespace {
         );
     }
 
-    void test_logging_chars() {
+    auto test_logging_chars() -> void {
         char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
@@ -61,7 +61,7 @@ namespace {
         );
     }
 
-    void test_logging_const_chars() {
+    auto test_logging_const_chars() -> void {
         const char foo[4] = "foo";
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, foo)
@@ -72,7 +72,7 @@ namespace {
         );
     }
 
-    void test_logging_unique_ptr_of_chars() {
+    auto test_logging_unique_ptr_of_chars() -> void {
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
             DnApp::Common::Strings::makeUniquePtrOfChars("foo")
@@ -85,11 +85,11 @@ namespace {
     }
 }
 
-void setUp() {
+auto setUp() -> void {
     stringLogger.clear();
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Logger);

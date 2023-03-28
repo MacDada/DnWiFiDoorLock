@@ -7,7 +7,7 @@ namespace DnApp::Common::Strings {
     // adopted from https://stackoverflow.com/a/10388547/666907
     // published at https://stackoverflow.com/a/72875362/666907
     inline
-    std::unique_ptr<char[]> format(const char* const format...) {
+    auto format(const char* const format...) -> std::unique_ptr<char[]> {
         // `vsnprintf()` changes `va_list`'s state, so using it after that is UB.
         // We need the args twice, so it is safer to just get two copies.
         va_list args1;
@@ -16,7 +16,7 @@ namespace DnApp::Common::Strings {
         va_start(args1, format);
         va_start(args2, format);
 
-        const size_t needed = 1 + vsnprintf(nullptr, 0, format, args1);
+        const auto needed = 1 + vsnprintf(nullptr, 0, format, args1);
 
         auto buffer = std::make_unique<char[]>(needed);
 
@@ -29,7 +29,7 @@ namespace DnApp::Common::Strings {
     }
 
     inline
-    std::unique_ptr<char[]> makeUniquePtrOfChars(const char string[]) {
+    auto makeUniquePtrOfChars(const char string[]) -> std::unique_ptr<char[]> {
         auto ptr = std::make_unique<char[]>(strlen(string) + 1);
 
         strcpy(ptr.get(), string);

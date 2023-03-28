@@ -17,44 +17,44 @@ namespace {
         public Child {
     };
 
-    Parent parent{};
+    auto parent = Parent{};
 
-    OtherParent otherParent{};
+    auto otherParent = OtherParent{};
 
-    Child child{};
+    auto child = Child{};
 
-    GrandChild grandChild{};
+    auto grandChild = GrandChild{};
 
-    void test_instance_of_itself() {
+    auto test_instance_of_itself() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &parent);
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, &otherParent);
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Child, &child);
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(GrandChild, &grandChild);
     }
 
-    void test_child_is_instance_of_parents() {
+    auto test_child_is_instance_of_parents() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &child);
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, &child);
     }
 
-    void test_grandchild_is_instance_of_child_and_parents() {
+    auto test_grandchild_is_instance_of_child_and_parents() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &grandChild);
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, &grandChild);
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Child, &grandChild);
     }
 
-    void test_parent_is_not_instance_of_other_parent() {
+    auto test_parent_is_not_instance_of_other_parent() -> void {
         DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(Parent, &otherParent);
         DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(OtherParent, &parent);
     }
 
-    void test_parent_is_not_instance_of_child_and_grandchild() {
+    auto test_parent_is_not_instance_of_child_and_grandchild() -> void {
         DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(Child, &parent);
         DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(GrandChild, &parent);
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_instance_of_itself);

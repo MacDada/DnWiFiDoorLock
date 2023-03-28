@@ -25,11 +25,11 @@ namespace DnWiFiDoorLock::Arduino {
             logger{logger} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             // do nothing
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             informTheLoopIsRunning();
         }
     private:
@@ -41,7 +41,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         bool hasLoopStarted = false;
 
-        void informThatTheLoopHasStarted() {
+        auto informThatTheLoopHasStarted() -> void {
             if (!hasLoopStarted) {
                 logger.info(PSTR("The Loop has started!"));
                 ledBlinker.blinkFast(5);
@@ -50,7 +50,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
 
-        void informTheLoopIsRunning() {
+        auto informTheLoopIsRunning() -> void {
             informThatTheLoopHasStarted();
 
             // todo: maybe it would be possible to dim the led a bit?

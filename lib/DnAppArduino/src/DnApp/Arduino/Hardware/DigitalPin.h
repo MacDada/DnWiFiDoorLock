@@ -15,31 +15,31 @@ namespace DnApp::Arduino::Hardware {
             id{id} {
         }
 
-        byte getId() const {
+        auto getId() const -> byte {
             return id;
         }
 
-        void setOutputMode() override {
+        auto setOutputMode() -> void override {
             pinMode(id, OUTPUT);
         }
 
-        void setInputMode() override {
+        auto setInputMode() -> void override {
             pinMode(id, INPUT);
         }
 
-        void setHigh() override {
+        auto setHigh() -> void override {
             digitalWrite(id, HIGH);
         }
 
-        void setLow() override {
+        auto setLow() -> void override {
             digitalWrite(id, LOW);
         }
 
-        bool isHigh() const override {
+        auto isHigh() const -> bool override {
             return digitalRead(id) == HIGH;
         }
 
-        bool isLow() const override {
+        auto isLow() const -> bool override {
             return digitalRead(id) == LOW;
         }
     private:

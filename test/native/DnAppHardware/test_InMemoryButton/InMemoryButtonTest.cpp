@@ -5,17 +5,17 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    DnApp::Hardware::InMemoryButton button{};
+    auto button = DnApp::Hardware::InMemoryButton{};
 
-    void test_it_is_a_Button() {
+    auto test_it_is_a_Button() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Button, &button);
     }
 
-    void test_it_was_not_pressed_at_start() {
+    auto test_it_was_not_pressed_at_start() -> void {
         TEST_ASSERT_EQUAL_INT(0, button.getPressCount());
     }
 
-    void test_pressing_increases_count() {
+    auto test_pressing_increases_count() -> void {
         button.press();
         TEST_ASSERT_EQUAL_INT(1, button.getPressCount());
 
@@ -26,7 +26,7 @@ namespace {
         TEST_ASSERT_EQUAL_INT(3, button.getPressCount());
     }
 
-    void test_resetting_press_count() {
+    auto test_resetting_press_count() -> void {
         button.press();
         button.press();
         button.press();
@@ -38,7 +38,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Button);

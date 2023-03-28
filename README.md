@@ -236,6 +236,6 @@ Code style, conventions, decisions
       -> whether they do or not, it does not **logically** change the service's state,
       -> therefore the internal `Logger logger` field might be marked as `mutable`.
     * https://discord.com/channels/583251190591258624/1088209923302768691/1089911377151397918
-  
+* [AAA: Almost Always Auto](https://herbsutter.com/2013/08/12/gotw-94-solution-aaa-style-almost-always-auto/)
 
 ---

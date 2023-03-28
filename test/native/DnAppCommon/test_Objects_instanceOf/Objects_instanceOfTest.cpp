@@ -17,44 +17,44 @@ namespace {
     class GrandChild: public Child {
     };
 
-    Parent parent{};
+    auto parent = Parent{};
 
-    OtherParent otherParent{};
+    auto otherParent = OtherParent{};
 
-    Child child{};
+    auto child = Child{};
 
-    GrandChild grandChild{};
+    auto grandChild = GrandChild{};
 
-    void test_instance_of_itself() {
+    auto test_instance_of_itself() -> void {
         TEST_ASSERT_TRUE(instanceOf<Parent>(&parent));
         TEST_ASSERT_TRUE(instanceOf<OtherParent>(&otherParent));
         TEST_ASSERT_TRUE(instanceOf<Child>(&child));
         TEST_ASSERT_TRUE(instanceOf<GrandChild>(&grandChild));
     }
 
-    void test_child_is_instance_of_parents() {
+    auto test_child_is_instance_of_parents() -> void {
         TEST_ASSERT_TRUE(instanceOf<Parent>(&child));
         TEST_ASSERT_TRUE(instanceOf<OtherParent>(&child));
     }
 
-    void test_grandchild_is_instance_of_child_and_parents() {
+    auto test_grandchild_is_instance_of_child_and_parents() -> void {
         TEST_ASSERT_TRUE(instanceOf<Parent>(&grandChild));
         TEST_ASSERT_TRUE(instanceOf<OtherParent>(&grandChild));
         TEST_ASSERT_TRUE(instanceOf<Child>(&grandChild));
     }
 
-    void test_parent_is_not_instance_of_other_parent() {
+    auto test_parent_is_not_instance_of_other_parent() -> void {
         TEST_ASSERT_FALSE(instanceOf<Parent>(&otherParent));
         TEST_ASSERT_FALSE(instanceOf<OtherParent>(&parent));
     }
 
-    void test_parent_is_not_instance_of_child_and_grandchild() {
+    auto test_parent_is_not_instance_of_child_and_grandchild() -> void {
         TEST_ASSERT_FALSE(instanceOf<Child>(&parent));
         TEST_ASSERT_FALSE(instanceOf<GrandChild>(&parent));
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_instance_of_itself);

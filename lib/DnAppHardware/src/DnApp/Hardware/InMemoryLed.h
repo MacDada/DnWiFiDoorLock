@@ -8,23 +8,23 @@ namespace DnApp::Hardware {
     class InMemoryLed final:
         public DnApp::Hardware::Led {
     public:
-        bool isOn() const override {
+        auto isOn() const -> bool override {
             return _on;
         }
 
-        bool isOff() const override {
+        auto isOff() const -> bool override {
             return !_on;
         };
 
-        void on() override {
+        auto on() -> void override {
             _on = true;
         };
 
-        void off() override {
+        auto off() -> void override {
             _on = false;
         };
 
-        void toggle() override {
+        auto toggle() -> void override {
             _on = !_on;
         };
     private:

@@ -10,62 +10,62 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     protected:
         static
         const
-        int HTTP_RESPONSE_STATUS_OK = 200;
+        auto HTTP_RESPONSE_STATUS_OK = 200;
 
         static
         const
-        int HTTP_RESPONSE_STATUS_ACCEPTED = 202;
+        auto HTTP_RESPONSE_STATUS_ACCEPTED = 202;
 
         static
         const
-        int HTTP_RESPONSE_STATUS_REDIRECT = 303;
+        auto HTTP_RESPONSE_STATUS_REDIRECT = 303;
 
         static
         const
-        int HTTP_RESPONSE_STATUS_BAD_REQUEST = 400;
+        auto HTTP_RESPONSE_STATUS_BAD_REQUEST = 400;
 
         static
         const
-        int HTTP_RESPONSE_STATUS_METHOD_NOT_ALLOWED = 405;
+        auto HTTP_RESPONSE_STATUS_METHOD_NOT_ALLOWED = 405;
 
         static
         const
-        int HTTP_RESPONSE_STATUS_INTERNAL_SERVER_ERROR = 500;
-
-        static
-        PROGMEM
-        constexpr
-        const
-        char HTTP_RESPONSE_CONTENT_TYPE_PLAIN[] = "text/plain";
+        auto HTTP_RESPONSE_STATUS_INTERNAL_SERVER_ERROR = 500;
 
         static
         PROGMEM
         constexpr
         const
-        char HTTP_RESPONSE_CONTENT_TYPE_HTML[] = "text/html";
+        auto HTTP_RESPONSE_CONTENT_TYPE_PLAIN = "text/plain";
 
         static
         PROGMEM
         constexpr
         const
-        char HTTP_RESPONSE_CONTENT_TYPE_JSON[] = "application/json";
+        auto HTTP_RESPONSE_CONTENT_TYPE_HTML = "text/html";
 
         static
         PROGMEM
         constexpr
         const
-        char HTTP_RESPONSE_CONTENT_TYPE_CSS[] = "text/css";
+        auto HTTP_RESPONSE_CONTENT_TYPE_JSON = "application/json";
+
+        static
+        PROGMEM
+        constexpr
+        const
+        auto HTTP_RESPONSE_CONTENT_TYPE_CSS = "text/css";
 
         // https://stackoverflow.com/a/21098951/666907
         static
         PROGMEM
         constexpr
         const
-        char HTTP_RESPONSE_CONTENT_TYPE_JAVASCRIPT[] = "text/javascript";
+        auto HTTP_RESPONSE_CONTENT_TYPE_JAVASCRIPT = "text/javascript";
 
-        bool isRequestMethodPost(
+        auto isRequestMethodPost(
             const AsyncWebServerRequest& request
-        ) const {
+        ) const -> bool {
             return 0 == strcmp(request.methodToString(), PSTR("POST"));
         }
 
@@ -78,10 +78,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 : std::optional<String>{};
         }
 
-        void redirect(
+        auto redirect(
             AsyncWebServerRequest& request,
             const String& location
-        ) const {
+        ) const -> void {
             // request->redirect("/") is wrong as it sends 302
             AsyncWebServerResponse* const response = request.beginResponse(
                 HTTP_RESPONSE_STATUS_REDIRECT

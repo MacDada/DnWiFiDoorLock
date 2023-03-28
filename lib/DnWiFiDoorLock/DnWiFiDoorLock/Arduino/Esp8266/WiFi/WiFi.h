@@ -39,11 +39,11 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             esp8266WiFi{esp8266WiFi} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             connect();
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             watchForDisconnection();
         }
     private:
@@ -66,7 +66,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         const
         auto format = DnApp::Common::Strings::format;
 
-        void connect() {
+        auto connect() -> void {
             esp8266WiFi.begin(this->ssid, this->password);
 
             logger.info(format(PSTR("Selected: \"%s\""), this->ssid));
@@ -79,15 +79,15 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             ));
         }
 
-        void waitForConnection() {
+        auto waitForConnection() -> void {
             String connectingMessage{PSTR("Connecting")};
 
             logger.info(connectingMessage.c_str());
 
-            int tries = 0;
+            auto tries = 0;
 
             while (true) {
-                const int status = esp8266WiFi.status();
+                const auto status = esp8266WiFi.status();
 
                 if (WL_CONNECTED == status) {
                     return;
@@ -105,7 +105,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             }
         }
 
-        void informAboutConnectingIssue(const int tries, const int status) {
+        auto informAboutConnectingIssue(const int tries, const int status) -> void {
             ledBlinker.blinkFast(3);
 
             if (0 == tries % 5) {
@@ -117,7 +117,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             }
         }
 
-        void watchForDisconnection() {
+        auto watchForDisconnection() -> void {
             if (!esp8266WiFi.isConnected()) {
                 onDisconnected();
             } else if (disconnected) {
@@ -125,11 +125,11 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             }
         }
 
-        void onDisconnected() {
+        auto onDisconnected() -> void {
             if (!disconnected) {
                 disconnected = true;
 
-                const uint8_t status = esp8266WiFi.status();
+                const auto status = esp8266WiFi.status();
 
                 logger.error(format(
                     PSTR("Disconnected! Status: %s (%d)"),
@@ -141,13 +141,13 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             ledBlinker.blinkFast(2);
         }
 
-        void onReconnected() {
+        auto onReconnected() -> void {
             disconnected = false;
 
             logger.info(PSTR("Reconnected!"));
         }
 
-        const char* wiFiConnectionStatusToString(const uint8_t status) const {
+        auto wiFiConnectionStatusToString(const uint8_t status) const -> const char* {
             switch (status) {
                 case WL_NO_SHIELD:
                     return PSTR("WL_NO_SHIELD");

@@ -12,16 +12,16 @@ namespace {
     using DnApp::Logger::Endpoint::StringLogger;
     using DnApp::Logger::Decorator::LogLevelThresholdFilteringLogger;
 
-    StringLogger stringLogger{};
+    auto stringLogger = StringLogger{};
 
-    void test_it_is_a_Logger() {
-        LogLevelThresholdFilteringLogger logger{stringLogger};
+    auto test_it_is_a_Logger() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{stringLogger};
 
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
     }
 
-    void test_threshold_is_debug_by_default() {
-        LogLevelThresholdFilteringLogger logger{stringLogger};
+    auto test_threshold_is_debug_by_default() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{stringLogger};
 
         TEST_ASSERT_EQUAL_INT(
             Logger::LOG_LEVEL::DEBUG,
@@ -29,8 +29,8 @@ namespace {
         );
     }
 
-    void test_logging_literals() {
-        LogLevelThresholdFilteringLogger logger{stringLogger};
+    auto test_logging_literals() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{stringLogger};
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(logger, "foo")
 
@@ -59,8 +59,8 @@ namespace {
         );
     }
 
-    void test_logging_chars() {
-        LogLevelThresholdFilteringLogger logger{stringLogger};
+    auto test_logging_chars() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{stringLogger};
 
         char foo[4] = "foo";
 
@@ -91,8 +91,8 @@ namespace {
         );
     }
 
-    void test_logging_const_chars() {
-        LogLevelThresholdFilteringLogger logger{stringLogger};
+    auto test_logging_const_chars() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{stringLogger};
 
         const char foo[4] = "foo";
 
@@ -123,8 +123,8 @@ namespace {
         );
     }
 
-    void test_logging_unique_ptr_of_chars() {
-        LogLevelThresholdFilteringLogger logger{stringLogger};
+    auto test_logging_unique_ptr_of_chars() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{stringLogger};
 
         DN_APP_LOGGER_TEST_ALL_LOG_METHODS_AND_LEVELS(
             logger,
@@ -156,8 +156,8 @@ namespace {
         );
     }
 
-    void test_debug_threshold_can_be_configured() {
-        LogLevelThresholdFilteringLogger logger{
+    auto test_debug_threshold_can_be_configured() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{
             stringLogger,
             Logger::LOG_LEVEL::DEBUG
         };
@@ -194,8 +194,8 @@ namespace {
         );
     }
 
-    void test_info_threshold_can_be_configured() {
-        LogLevelThresholdFilteringLogger logger{
+    auto test_info_threshold_can_be_configured() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{
             stringLogger,
             Logger::LOG_LEVEL::INFO
         };
@@ -228,8 +228,8 @@ namespace {
         );
     }
 
-    void test_warning_threshold_can_be_configured() {
-        LogLevelThresholdFilteringLogger logger{
+    auto test_warning_threshold_can_be_configured() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{
             stringLogger,
             Logger::LOG_LEVEL::WARNING
         };
@@ -258,8 +258,8 @@ namespace {
         );
     }
 
-    void test_error_threshold_can_be_configured() {
-        LogLevelThresholdFilteringLogger logger{
+    auto test_error_threshold_can_be_configured() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{
             stringLogger,
             Logger::LOG_LEVEL::ERROR
         };
@@ -284,8 +284,8 @@ namespace {
         );
     }
 
-    void test_critical_threshold_can_be_configured() {
-        LogLevelThresholdFilteringLogger logger{
+    auto test_critical_threshold_can_be_configured() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{
             stringLogger,
             Logger::LOG_LEVEL::CRITICAL
         };
@@ -306,8 +306,8 @@ namespace {
         );
     }
 
-    void test_threshold_can_be_set() {
-        LogLevelThresholdFilteringLogger logger{
+    auto test_threshold_can_be_set() -> void {
+        auto logger = LogLevelThresholdFilteringLogger{
             stringLogger,
             Logger::LOG_LEVEL::CRITICAL
         };
@@ -345,11 +345,11 @@ namespace {
     }
 }
 
-void setUp() {
+auto setUp() -> void {
     stringLogger.clear();
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Logger);

@@ -10,9 +10,9 @@ namespace DnWiFiDoorLock::Arduino {
         public SetupAndLoopAware {
     public:
         static
-        LambdaSetupAndLoopAware createSetupAware(
+        auto createSetupAware(
             std::function<void()> onSetupCallback
-        ) {
+        ) -> LambdaSetupAndLoopAware {
             return LambdaSetupAndLoopAware(
                 std::move(onSetupCallback),
                 [] () {}
@@ -20,9 +20,9 @@ namespace DnWiFiDoorLock::Arduino {
         }
 
         static
-        LambdaSetupAndLoopAware createLoopAware(
+        auto createLoopAware(
             std::function<void()> onLoopCallback
-        ) {
+        ) -> LambdaSetupAndLoopAware {
             return LambdaSetupAndLoopAware(
                 [] () {},
                 std::move(onLoopCallback)
@@ -38,11 +38,11 @@ namespace DnWiFiDoorLock::Arduino {
             onLoopCallback{std::move(onLoopCallback)} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             onSetupCallback();
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             onLoopCallback();
         }
     private:

@@ -5,28 +5,28 @@
 namespace {
     using DnApp::Common::Strings::format;
 
-    void test_format_empty_string() {
+    auto test_format_empty_string() -> void {
         TEST_ASSERT_EQUAL_STRING(
             "",
             format("").get()
         );
     }
 
-    void test_format_a_string() {
+    auto test_format_a_string() -> void {
         TEST_ASSERT_EQUAL_STRING(
             "FooBarBaz",
             format("FooBarBaz").get()
         );
     }
 
-    void test_format_with_string_interpolation() {
+    auto test_format_with_string_interpolation() -> void {
         TEST_ASSERT_EQUAL_STRING(
             "Foo Bar",
             format("Foo %s", "Bar").get()
         );
     }
 
-    void test_format_with_mixed_interpolation() {
+    auto test_format_with_mixed_interpolation() -> void {
         TEST_ASSERT_EQUAL_STRING(
             "Hello Baz World 23!",
             format("Hello %s World %d!", "Baz", 23).get()
@@ -34,7 +34,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_format_empty_string);

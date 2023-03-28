@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266 {
             hostname{hostname} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             if (mdnsResponder.begin(hostname)) {
                 logger.info(PSTR("MDNS responder started"));
             } else {
@@ -35,7 +35,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266 {
             }
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             mdnsResponder.update();
         }
     private:

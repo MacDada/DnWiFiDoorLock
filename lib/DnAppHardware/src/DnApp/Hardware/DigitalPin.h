@@ -4,21 +4,21 @@ namespace DnApp::Hardware {
     class DigitalPin {
     public:
         virtual
-        void setOutputMode() = 0;
+        auto setOutputMode() -> void = 0;
 
         virtual
-        void setInputMode() = 0;
+        auto setInputMode() -> void = 0;
 
         virtual
-        void setHigh() = 0;
+        auto setHigh() -> void = 0;
 
         virtual
-        void setLow() = 0;
+        auto setLow() -> void = 0;
 
         virtual
-        bool isHigh() const = 0;
+        auto isHigh() const -> bool = 0;
 
         virtual
-        bool isLow() const = 0;
+        auto isLow() const -> bool = 0;
     };
 }

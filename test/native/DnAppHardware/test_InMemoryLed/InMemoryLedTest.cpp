@@ -5,7 +5,7 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    DnApp::Hardware::InMemoryLed led{};
+    auto led = DnApp::Hardware::InMemoryLed{};
 
     void test_it_is_a_Led() {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &led);
@@ -40,7 +40,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Led);

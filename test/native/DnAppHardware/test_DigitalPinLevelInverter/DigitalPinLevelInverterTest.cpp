@@ -6,14 +6,14 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    DnApp::Hardware::InMemoryDigitalPin pin{};
-    DnApp::Hardware::DigitalPinLevelInverter inverter{pin};
+    auto pin = DnApp::Hardware::InMemoryDigitalPin{};
+    auto inverter = DnApp::Hardware::DigitalPinLevelInverter{pin};
 
-    void test_it_is_a_DigitalPin() {
+    auto test_it_is_a_DigitalPin() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, &inverter);
     }
 
-    void test_output_mode_is_normal() {
+    auto test_output_mode_is_normal() -> void {
         inverter.setOutputMode();
         TEST_ASSERT_TRUE(pin.isOutputMode());
 
@@ -21,12 +21,12 @@ namespace {
         TEST_ASSERT_TRUE(pin.isInputMode());
     }
 
-    void test_levels_are_inverted_by_default() {
+    auto test_levels_are_inverted_by_default() -> void {
         TEST_ASSERT_EQUAL(pin.isHigh(), inverter.isLow());
         TEST_ASSERT_EQUAL(pin.isLow(), inverter.isHigh());
     }
 
-    void test_setting_high_is_inverted() {
+    auto test_setting_high_is_inverted() -> void {
         pin.setLow();
 
         inverter.setLow();
@@ -38,7 +38,7 @@ namespace {
         TEST_ASSERT_FALSE(pin.isLow());
     }
 
-    void test_setting_low_is_inverted() {
+    auto test_setting_low_is_inverted() -> void {
         pin.setHigh();
 
         inverter.setHigh();
@@ -51,7 +51,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_DigitalPin);

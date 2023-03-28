@@ -24,11 +24,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
             logger{logger} {
         }
 
-        void onSetup() override {
+        auto onSetup() -> void override {
             // do nothing
         }
 
-        void onLoop() override {
+        auto onLoop() -> void override {
             log();
         }
     private:
@@ -36,8 +36,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
 
         Logger& logger;
 
-        void log() {
-            String message = PSTR("WiFi ");
+        auto log() -> void {
+            auto message = String{PSTR("WiFi ")};
 
             if (esp8266WiFi.isConnected()) {
                 message += PSTR("signal strength: ");

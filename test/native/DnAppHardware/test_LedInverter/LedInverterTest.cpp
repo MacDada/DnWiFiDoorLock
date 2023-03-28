@@ -6,33 +6,33 @@
 #include "DnApp/Unity/asserts.h"
 
 namespace {
-    DnApp::Hardware::InMemoryLed led{};
-    DnApp::Hardware::LedInverter inverter{led};
+    auto led = DnApp::Hardware::InMemoryLed{};
+    auto inverter = DnApp::Hardware::LedInverter{led};
 
-    void test_it_is_a_Led() {
+    auto test_it_is_a_Led() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &inverter);
     }
 
-    void test_it_is_inverted_by_default() {
+    auto test_it_is_inverted_by_default() -> void {
         TEST_ASSERT_EQUAL(led.isOn(), inverter.isOff());
         TEST_ASSERT_EQUAL(led.isOff(), inverter.isOn());
     }
 
-    void test_is_on_is_inverted() {
+    auto test_is_on_is_inverted() -> void {
         led.on();
 
         TEST_ASSERT_TRUE(inverter.isOff());
         TEST_ASSERT_FALSE(inverter.isOn());
     }
 
-    void test_is_off_is_inverted() {
+    auto test_is_off_is_inverted() -> void {
         led.off();
 
         TEST_ASSERT_TRUE(inverter.isOn());
         TEST_ASSERT_FALSE(inverter.isOff());
     }
 
-    void test_turning_on_is_inverted() {
+    auto test_turning_on_is_inverted() -> void {
         led.on();
 
         inverter.on();
@@ -42,7 +42,7 @@ namespace {
         TEST_ASSERT_FALSE(inverter.isOff());
     }
 
-    void test_turning_off_is_inverted() {
+    auto test_turning_off_is_inverted() -> void {
         led.off();
 
         inverter.off();
@@ -52,7 +52,7 @@ namespace {
         TEST_ASSERT_FALSE(inverter.isOn());
     }
 
-    void test_toggle_from_off_is_inverted() {
+    auto test_toggle_from_off_is_inverted() -> void {
         inverter.off();
 
         inverter.toggle();
@@ -64,7 +64,7 @@ namespace {
         TEST_ASSERT_TRUE(led.isOff());
     }
 
-    void test_toggle_from_on_is_inverted() {
+    auto test_toggle_from_on_is_inverted() -> void {
         inverter.on();
 
         inverter.toggle();
@@ -77,7 +77,7 @@ namespace {
     }
 }
 
-int main() {
+auto main() -> int {
     UNITY_BEGIN();
 
     RUN_TEST(test_it_is_a_Led);
