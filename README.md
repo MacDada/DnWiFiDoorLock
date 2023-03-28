@@ -226,5 +226,16 @@ Code style, conventions, decisions
   * It crashes on `PSTR()`, so using the "proper" `F()` instead
     -> todo: maybe I should get rid of it anyway? just use CStrings?
   * Serialization error handling policy: checking for overflow (`jsonDocument.overflowed()`)
+* `const` methods vs `mutable`
+  * https://isocpp.org/wiki/faq/const-correctness#logical-vs-physical-const
+  * `DnApp::Logger::Logger`
+    * `Logger` implementations obviously can have (some of them do have) internal state to manage 
+      * -> to stay truthful with their nature, their methods are _not_ marked `const`.
+      * -> to allow that, I don't specify `const` for the abstract base class methods as well.
+    * On the other hand, the userland objects (services) might log or not
+      -> whether they do or not, it does not **logically** change the service's state,
+      -> therefore the internal `Logger logger` field might be marked as `mutable`.
+    * https://discord.com/channels/583251190591258624/1088209923302768691/1089911377151397918
+  
 
 ---

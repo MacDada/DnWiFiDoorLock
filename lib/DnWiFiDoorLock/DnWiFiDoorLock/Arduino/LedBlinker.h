@@ -10,7 +10,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         LedBlinker(
-            const DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnWiFiDoorLock::Arduino::Hardware& hardware,
             DnApp::Hardware::Led& led
         ):
             hardware{hardware},
@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
     private:
-        const DnWiFiDoorLock::Arduino::Hardware& hardware;
+        DnWiFiDoorLock::Arduino::Hardware& hardware;
 
         DnApp::Hardware::Led& led;
     };

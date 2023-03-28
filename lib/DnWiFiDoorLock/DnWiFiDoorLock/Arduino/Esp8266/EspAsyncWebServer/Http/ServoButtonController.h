@@ -38,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger{LoggerDecorator{logger, PSTR("ServoButtonController: ")}} {
         };
 
-        void showSettingsAction(AsyncWebServerRequest& request) {
+        void showSettingsAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("showSettingsAction()"));
 
             request.send(
@@ -64,7 +64,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         // todo: include file as a string literal?
         //       https://forum.arduino.cc/t/how-to-store-a-file-in-code-memory/1075563/5
-        void cssAction(AsyncWebServerRequest& request) {
+        void cssAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("cssAction()"));
 
             request.send(
@@ -105,7 +105,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void modalCssAction(AsyncWebServerRequest& request) {
+        void modalCssAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("modalCssAction()"));
 
             request.send(
@@ -162,7 +162,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void modalJsAction(AsyncWebServerRequest& request) {
+        void modalJsAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("modalJsAction()"));
 
             // todo: extract to "statically" served file: LittleFS
@@ -230,7 +230,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void inputNumberButtonsJsAction(AsyncWebServerRequest& request) {
+        void inputNumberButtonsJsAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("inputNumberButtonsJsAction()"));
 
             request.send(
@@ -302,7 +302,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void ajaxFormJsAction(AsyncWebServerRequest& request) {
+        void ajaxFormJsAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("ajaxFormJsAction()"));
 
             request.send(
@@ -351,7 +351,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
 
-        void javascriptAction(AsyncWebServerRequest& request) {
+        void javascriptAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("javascriptAction()"));
 
             // todo: extract to "statically" served file? LittleFS
@@ -401,9 +401,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnWiFiDoorLock::Arduino::Servo::Button& button;
 
+        mutable
         LoggerDecorator logger;
 
-        String renderSettingsFormPage() {
+        String renderSettingsFormPage() const {
             logger.info(PSTR("renderSettingsFormPage(): generating pageContent"));
 
             // todo: maybe extract SettingsView
@@ -561,7 +562,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             servoButtonJsonResponse(request);
         }
 
-        auto servoButtonJsonResponse(AsyncWebServerRequest& request) -> void {
+        auto servoButtonJsonResponse(AsyncWebServerRequest& request) const -> void {
             auto json = StaticJsonDocument<
                 // https://arduinojson.org/v6/assistant/
                 //   Data structures: 64
@@ -581,7 +582,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto jsonSuccessResponse(
             AsyncWebServerRequest& request,
             const JsonDocument& json
-        ) -> void {
+        ) const -> void {
             if (json.overflowed()) {
                 jsonOverflowedErrorResponse(request);
 
@@ -600,7 +601,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto jsonClientErrorResponse(
             AsyncWebServerRequest& request,
             const char* const error
-        ) -> void {
+        ) const -> void {
             logger.warning(format(
                 PSTR("Client error: %s"),
                 error
@@ -633,7 +634,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         auto jsonOverflowedErrorResponse(
             AsyncWebServerRequest& request
-        ) -> void {
+        ) const -> void {
             internalServerErrorResponse(
                 request,
                 PSTR("JsonDocument overflowed")
@@ -643,7 +644,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto internalServerErrorResponse(
             AsyncWebServerRequest& request,
             const char* const error
-        ) -> void {
+        ) const -> void {
             logger.error(error);
 
             request.send(

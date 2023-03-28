@@ -28,7 +28,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             const char* const password,
             DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker,
             DnApp::Logger::Logger& logger,
-            const DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnWiFiDoorLock::Arduino::Hardware& hardware,
             ESP8266WiFiClass& esp8266WiFi
         ):
             ssid{ssid},
@@ -55,7 +55,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         PrefixingLogger logger;
 
-        const DnWiFiDoorLock::Arduino::Hardware& hardware;
+        DnWiFiDoorLock::Arduino::Hardware& hardware;
 
         ESP8266WiFiClass& esp8266WiFi;
 

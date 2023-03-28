@@ -30,7 +30,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             logger{PrefixingLogger{logger, PSTR("FurnaceController::")}} {
         }
 
-        void statusAction(AsyncWebServerRequest& request) {
+        void statusAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("statusAction()"));
 
             Time uptime = hardware.getUptime();
@@ -83,7 +83,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             redirect(request, PSTR("/furnace"));
         }
 
-        void apiGetAction(AsyncWebServerRequest& request) {
+        void apiGetAction(AsyncWebServerRequest& request) const {
             logger.info(PSTR("apiGetAction()"));
 
             request.send(
@@ -127,6 +127,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         DnApp::Hardware::Furnace& furnace;
 
+        mutable
         PrefixingLogger logger;
     };
 

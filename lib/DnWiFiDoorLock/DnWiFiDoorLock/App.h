@@ -112,7 +112,7 @@ namespace DnWiFiDoorLock {
         const Config config;
 
         auto& getHardware() {
-            static const DnWiFiDoorLock::Arduino::Hardware service{};
+            static DnWiFiDoorLock::Arduino::Hardware service{};
 
             return service;
         }

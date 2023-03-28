@@ -80,7 +80,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         Logger& logger;
 
-        void handleWebNotFound(AsyncWebServerRequest &request) {
+        void handleWebNotFound(AsyncWebServerRequest &request) const {
             logger.warning(format(
                 PSTR("HttpServer: page not found! URI: %s, method: %s"),
                 request.url().c_str(),
@@ -339,7 +339,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             }
         }
 
-        void logServerHasStarted() {
+        void logServerHasStarted() const {
             String message{PSTR("HTTP server has started, open http://")};
 
             message += wiFi.localIP().toString();
