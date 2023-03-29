@@ -45,7 +45,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
         ) -> void {
             auto command = String{""};
 
-            for (size_t i = 0; i < messageLength; i++) {
+            for (auto i = decltype(messageLength){0}; i < messageLength; i++) {
                 command += char(message[i]);
             }
 

@@ -362,7 +362,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             auto string = String{};
             string.reserve(dataLength);
 
-            for (size_t i = 0; i < dataLength; i++) {
+            for (auto i = decltype(dataLength){0}; i < dataLength; i++) {
                 string += char(data[i]);
             }
 

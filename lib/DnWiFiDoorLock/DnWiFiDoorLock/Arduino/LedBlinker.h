@@ -18,7 +18,7 @@ namespace DnWiFiDoorLock::Arduino {
         }
 
         auto blinkFast(const int count) -> void {
-            for (auto i = 0; i < count; ++i) {
+            for (auto i = decltype(count){0}; i < count; ++i) {
                 led.on();
                 hardware.pause(100);
                 led.off();
