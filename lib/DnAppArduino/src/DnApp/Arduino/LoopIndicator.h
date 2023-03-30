@@ -9,7 +9,7 @@
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Hardware/Led.h"
 
-namespace DnWiFiDoorLock::Arduino {
+namespace DnApp::Arduino {
     class LoopIndicator final:
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:

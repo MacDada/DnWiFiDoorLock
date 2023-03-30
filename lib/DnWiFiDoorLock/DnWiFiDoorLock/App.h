@@ -20,6 +20,7 @@
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
 #include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
+#include "DnApp/Arduino/LoopIndicator.h"
 #include "DnApp/Esp/Esp8266/LogWiFiStrengthLoopAware.h"
 #include "DnApp/Esp/Esp8266/MdnsSetupAndLoopAware.h"
 #include "DnApp/Esp/Esp8266/WiFiSetupAndLoopAware.h"
@@ -39,7 +40,6 @@
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
-#include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/PrintWelcomeMessageSetup.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
@@ -426,7 +426,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getLoopIndicator() {
-            static auto service = DnWiFiDoorLock::Arduino::LoopIndicator{
+            static auto service = DnApp::Arduino::LoopIndicator{
                 getBuiltInLed(),
                 getBuiltInLedBlinker(),
                 getArduinoLogger()
