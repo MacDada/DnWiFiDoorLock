@@ -16,7 +16,7 @@ namespace {
     auto test_it_is_a_WithArduinoStringLogger() -> void {
         DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(
             WithArduinoStringLogger,
-            &logger
+            logger
         );
     }
 

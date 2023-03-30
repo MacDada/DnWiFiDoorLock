@@ -12,7 +12,7 @@ namespace {
 
         const auto actual = dataToString(given, 0);
 
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, &actual);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, actual);
         TEST_ASSERT_EQUAL_STRING("", actual.c_str());
     }
 
@@ -21,7 +21,7 @@ namespace {
 
         const auto actual = dataToString(given, 0);
 
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, &actual);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, actual);
         TEST_ASSERT_EQUAL_STRING("", actual.c_str());
     }
 
@@ -30,7 +30,7 @@ namespace {
 
         const auto actual = dataToString(given, 1);
 
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, &actual);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, actual);
         TEST_ASSERT_EQUAL_STRING("f", actual.c_str());
     }
 
@@ -39,7 +39,7 @@ namespace {
 
         const auto actual = dataToString(given, 7);
 
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, &actual);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, actual);
         TEST_ASSERT_EQUAL_STRING("foo bar", actual.c_str());
     }
 
@@ -48,7 +48,7 @@ namespace {
 
         const auto actual = dataToString(given, 2);
 
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, &actual);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(String, actual);
         TEST_ASSERT_EQUAL_STRING("ba", actual.c_str());
     }
 }

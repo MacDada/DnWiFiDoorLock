@@ -8,7 +8,7 @@ namespace {
     auto pin = DnApp::Hardware::InMemoryDigitalPin{};
 
     void test_it_is_a_DigitalPin() {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, &pin);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, pin);
     }
 
     void test_it_is_low_by_default() {

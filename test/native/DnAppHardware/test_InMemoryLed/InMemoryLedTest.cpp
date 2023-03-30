@@ -8,7 +8,7 @@ namespace {
     auto led = DnApp::Hardware::InMemoryLed{};
 
     void test_it_is_a_Led() {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &led);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, led);
     }
 
     void test_it_is_off_by_default() {

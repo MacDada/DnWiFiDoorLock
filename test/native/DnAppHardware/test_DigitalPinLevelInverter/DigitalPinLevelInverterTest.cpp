@@ -10,7 +10,7 @@ namespace {
     auto inverter = DnApp::Hardware::DigitalPinLevelInverter{pin};
 
     auto test_it_is_a_DigitalPin() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, &inverter);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::DigitalPin, inverter);
     }
 
     auto test_output_mode_is_normal() -> void {

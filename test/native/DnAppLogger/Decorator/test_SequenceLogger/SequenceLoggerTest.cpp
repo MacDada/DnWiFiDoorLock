@@ -51,7 +51,7 @@ namespace {
         "foo\n";
 
     auto test_it_is_a_Logger() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, logger);
     }
 
     auto test_it_works_with_no_inner_loggers() -> void {

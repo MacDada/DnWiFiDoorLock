@@ -13,7 +13,7 @@ namespace {
     auto logger = DnApp::Logger::Endpoint::NullLogger{};
 
     auto test_it_is_a_Logger() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, logger);
     }
 
     auto test_logging_literals() -> void {

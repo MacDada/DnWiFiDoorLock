@@ -10,7 +10,7 @@ namespace {
     auto inverter = DnApp::Hardware::LedInverter{led};
 
     auto test_it_is_a_Led() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &inverter);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, inverter);
     }
 
     auto test_it_is_inverted_by_default() -> void {

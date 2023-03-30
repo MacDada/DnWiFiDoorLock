@@ -10,7 +10,7 @@ namespace {
     auto led = DnApp::Hardware::LedOnDigitalPin{pin};
 
     auto test_it_is_a_Led() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, &led);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Led, led);
     }
 
     auto test_it_sets_output_mode_on_pin() -> void {

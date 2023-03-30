@@ -26,31 +26,31 @@ namespace {
     auto grandChild = GrandChild{};
 
     auto test_instance_of_itself() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &parent);
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, &otherParent);
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Child, &child);
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(GrandChild, &grandChild);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, parent);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, otherParent);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Child, child);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(GrandChild, grandChild);
     }
 
     auto test_child_is_instance_of_parents() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &child);
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, &child);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, child);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, child);
     }
 
     auto test_grandchild_is_instance_of_child_and_parents() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, &grandChild);
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, &grandChild);
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Child, &grandChild);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Parent, grandChild);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(OtherParent, grandChild);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Child, grandChild);
     }
 
     auto test_parent_is_not_instance_of_other_parent() -> void {
-        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(Parent, &otherParent);
-        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(OtherParent, &parent);
+        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(Parent, otherParent);
+        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(OtherParent, parent);
     }
 
     auto test_parent_is_not_instance_of_child_and_grandchild() -> void {
-        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(Child, &parent);
-        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(GrandChild, &parent);
+        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(Child, parent);
+        DN_APP_UNITY_TEST_ASSERT_NOT_INSTANCE_OF(GrandChild, parent);
     }
 }
 

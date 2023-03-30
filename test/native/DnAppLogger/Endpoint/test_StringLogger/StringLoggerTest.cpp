@@ -11,7 +11,7 @@ namespace {
     auto logger = DnApp::Logger::Endpoint::StringLogger{};
 
     auto test_it_is_a_Logger() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Logger::Logger, &logger);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Logger::Logger, logger);
     }
 
     auto test_it_is_empty_at_start() -> void {

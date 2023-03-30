@@ -44,7 +44,7 @@ namespace {
         "the_prefix foo the_postfix\n";
 
     auto test_it_is_a_WithArduinoStringLogger() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(WithArduinoStringLogger, &logger);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(WithArduinoStringLogger, logger);
     }
 
     auto test_logging_with_empty_prefix_and_postfix() -> void {

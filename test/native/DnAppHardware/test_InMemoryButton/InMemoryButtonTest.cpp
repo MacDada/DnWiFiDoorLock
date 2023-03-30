@@ -8,7 +8,7 @@ namespace {
     auto button = DnApp::Hardware::InMemoryButton{};
 
     auto test_it_is_a_Button() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Button, &button);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(DnApp::Hardware::Button, button);
     }
 
     auto test_it_was_not_pressed_at_start() -> void {

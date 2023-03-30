@@ -43,7 +43,7 @@ namespace {
         "the_prefix foo the_postfix\n";
 
     auto test_it_is_a_Logger() -> void {
-        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, &logger);
+        DN_APP_UNITY_TEST_ASSERT_INSTANCE_OF(Logger, logger);
     }
 
     auto test_logging_with_empty_prefix_and_postfix() -> void {
