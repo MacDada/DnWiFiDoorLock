@@ -20,6 +20,7 @@
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
 #include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
+#include "DnApp/Esp/Esp8266/WiFiSetupAndLoopAware.h"
 #include "DnApp/Esp/Logger/Decorator/MemoryDecoratorLogger.h"
 #include "DnApp/Esp/Logger/Endpoint/WebSerialLogger.h"
 #include "DnApp/Hardware/LedInverter.h"
@@ -35,7 +36,6 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/MDNSSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
-#include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
@@ -251,7 +251,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getWiFi() {
-            static auto service = DnWiFiDoorLock::Arduino::Esp82666::WiFi::WiFi{
+            static auto service = DnApp::Esp::Esp8266::WiFiSetupAndLoopAware{
                 // todo: figure out why `*ssid` crashes in `::WiFi.begin()` when using `PSTR("the ssid")`
                 //       * https://discord.com/channels/583251190591258624/1063162264468865047/1063162264468865047
                 //       * https://community.platformio.org/t/esp8266-why-is-pstr-crashing-on-text-in-a-function/31457/1

@@ -14,8 +14,8 @@
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 
-namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
-    class WiFi final:
+namespace DnApp::Esp::Esp8266 {
+    class WiFiSetupAndLoopAware final:
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     private:
         using PrefixingLogger = DnApp
@@ -23,7 +23,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             ::Decorator
             ::PrefixPostfixMessageLoggerDecorator;
     public:
-        WiFi(
+        WiFiSetupAndLoopAware(
             const char* const ssid,
             const char* const password,
             DnApp::Arduino::Hardware::LedBlinker& ledBlinker,
@@ -173,5 +173,5 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         }
     };
 
-    static_assert(!std::is_abstract<WiFi>());
+    static_assert(!std::is_abstract<WiFiSetupAndLoopAware>());
 }
