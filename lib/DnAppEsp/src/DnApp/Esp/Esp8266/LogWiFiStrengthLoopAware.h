@@ -8,14 +8,14 @@
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 
-namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
-    class LoopAwareSignalStrengthLogger final:
+namespace DnApp::Esp::Esp8266 {
+    class LogWiFiStrengthLoopAware final:
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     private:
-        using Logger = DnApp::Arduino::Logger::WithArduinoStringLogger;
+        using Logger = Arduino::Logger::WithArduinoStringLogger;
     public:
         explicit
-        LoopAwareSignalStrengthLogger(
+        LogWiFiStrengthLoopAware(
             ESP8266WiFiClass& esp8266WiFi,
             Logger& logger
         ):
@@ -52,5 +52,5 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
         }
     };
 
-    static_assert(!std::is_abstract<LoopAwareSignalStrengthLogger>());
+    static_assert(!std::is_abstract<LogWiFiStrengthLoopAware>());
 }

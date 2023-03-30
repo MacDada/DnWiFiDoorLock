@@ -20,6 +20,7 @@
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
 #include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
+#include "DnApp/Esp/Esp8266/LogWiFiStrengthLoopAware.h"
 #include "DnApp/Esp/Esp8266/WiFiSetupAndLoopAware.h"
 #include "DnApp/Esp/Logger/Decorator/MemoryDecoratorLogger.h"
 #include "DnApp/Esp/Logger/Endpoint/WebSerialLogger.h"
@@ -35,7 +36,6 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/ServoController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/MDNSSetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/LoopAwareSignalStrengthLogger.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
@@ -301,7 +301,7 @@ namespace DnWiFiDoorLock {
                 filtered
             };
 
-            static auto service = DnWiFiDoorLock::Arduino::Esp8266::WiFi::LoopAwareSignalStrengthLogger{
+            static auto service = DnApp::Esp::Esp8266::LogWiFiStrengthLoopAware{
                 ::WiFi,
                 logger
             };
