@@ -8,7 +8,7 @@
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 
-namespace DnWiFiDoorLock::Arduino {
+namespace DnApp::Arduino {
     class HardwareSerialSetup final:
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:

@@ -11,6 +11,7 @@
 #include <WebSerial.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/HardwareSerialSetup.h"
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
 #include "DnApp/Arduino/Hardware/LedBlinker.h"
@@ -40,7 +41,6 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/WebSerial/Setup.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
-#include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
@@ -407,7 +407,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getHardwareSerialSetup() {
-            static auto service = DnWiFiDoorLock::Arduino::HardwareSerialSetup{
+            static auto service = DnApp::Arduino::HardwareSerialSetup{
                 Serial,
                 getBoard(),
                 config.serialBitsPerSecond
