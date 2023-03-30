@@ -13,6 +13,7 @@
 
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
+#include "DnApp/Arduino/Hardware/LedBlinker.h"
 #include "DnApp/Arduino/Kernel/LambdaSetupAndLoopAware.h"
 #include "DnApp/Arduino/Kernel/MultipleSetupAndLoopAware.h"
 #include "DnApp/Arduino/Kernel/ThrottledLoopAware.h"
@@ -38,7 +39,6 @@
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
-#include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
 #include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/PrintWelcomeMessageSetup.h"
@@ -242,7 +242,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getBuiltInLedBlinker() {
-            static auto service = DnWiFiDoorLock::Arduino::LedBlinker{
+            static auto service = DnApp::Arduino::Hardware::LedBlinker{
                 getBoard(),
                 getBuiltInLed()
             };

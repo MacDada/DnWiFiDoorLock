@@ -5,10 +5,10 @@
 #include <ESP8266WiFi.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/Hardware/LedBlinker.h"
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Hardware/Led.h"
-#include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class LoopIndicator final:
@@ -17,7 +17,7 @@ namespace DnWiFiDoorLock::Arduino {
         explicit
         LoopIndicator(
             DnApp::Hardware::Led& led,
-            LedBlinker& ledBlinker,
+            DnApp::Arduino::Hardware::LedBlinker& ledBlinker,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger
         ):
             led{led},
@@ -35,7 +35,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         DnApp::Hardware::Led& led;
 
-        LedBlinker& ledBlinker;
+        DnApp::Arduino::Hardware::LedBlinker& ledBlinker;
 
         DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 

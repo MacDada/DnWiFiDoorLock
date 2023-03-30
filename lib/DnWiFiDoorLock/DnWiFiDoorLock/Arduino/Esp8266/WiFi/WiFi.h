@@ -8,11 +8,11 @@
 #include <WString.h>
 
 #include "DnApp/Arduino/Hardware/Board.h"
+#include "DnApp/Arduino/Hardware/LedBlinker.h"
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
-#include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     class WiFi final:
@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
         WiFi(
             const char* const ssid,
             const char* const password,
-            DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker,
+            DnApp::Arduino::Hardware::LedBlinker& ledBlinker,
             DnApp::Logger::Logger& logger,
             DnApp::Arduino::Hardware::Board& board,
             ESP8266WiFiClass& esp8266WiFi
@@ -51,7 +51,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         const char* const password;
 
-        DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker;
+        DnApp::Arduino::Hardware::LedBlinker& ledBlinker;
 
         PrefixingLogger logger;
 

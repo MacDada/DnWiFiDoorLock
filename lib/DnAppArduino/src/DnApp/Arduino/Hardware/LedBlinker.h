@@ -1,16 +1,14 @@
 #pragma once
 
-#include <Arduino.h>
-
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Hardware/Led.h"
 
-namespace DnWiFiDoorLock::Arduino {
+namespace DnApp::Arduino::Hardware {
     class LedBlinker final {
     public:
         explicit
         LedBlinker(
-            DnApp::Arduino::Hardware::Board& board,
+            Board& board,
             DnApp::Hardware::Led& led
         ):
             board{board},
@@ -26,7 +24,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
     private:
-        DnApp::Arduino::Hardware::Board& board;
+        Board& board;
 
         DnApp::Hardware::Led& led;
     };
