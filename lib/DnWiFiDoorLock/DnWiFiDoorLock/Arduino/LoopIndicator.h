@@ -5,14 +5,14 @@
 #include <ESP8266WiFi.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Hardware/Led.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class LoopIndicator final:
-        public SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         explicit
         LoopIndicator(

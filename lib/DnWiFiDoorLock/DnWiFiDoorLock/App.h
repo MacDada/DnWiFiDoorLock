@@ -13,6 +13,7 @@
 
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
 #include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
 #include "DnApp/Esp/Logger/Decorator/MemoryDecoratorLogger.h"
@@ -42,12 +43,11 @@
 #include "DnWiFiDoorLock/Arduino/PrintWelcomeMessageSetup.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
 
 namespace DnWiFiDoorLock {
     class App final:
-        public Arduino::SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         struct Config final {
             const char* const name;
@@ -468,7 +468,9 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getSetupAndLoopAwares() {
-            static auto service = std::to_array<DnWiFiDoorLock::Arduino::SetupAndLoopAwareReference>({
+            static auto service = std::to_array<
+                DnApp::Arduino::Kernel::SetupAndLoopAwareReference
+            >({
                 getSetupStartIndicator(),
                 getHardwareSerialSetup(),
                 getHardwareSerialWelcomeMessageSetup(),

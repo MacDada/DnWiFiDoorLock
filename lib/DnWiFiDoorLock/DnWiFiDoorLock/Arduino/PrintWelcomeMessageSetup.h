@@ -5,12 +5,12 @@
 #include <Print.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Common/Strings.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class PrintWelcomeMessageSetup final:
-        public SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         struct Build final {
             const char* const gitCommitHash;

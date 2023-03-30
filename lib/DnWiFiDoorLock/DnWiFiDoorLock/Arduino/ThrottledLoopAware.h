@@ -3,11 +3,11 @@
 #include <type_traits> // std::is_abstract
 
 #include "DnApp/Arduino/Hardware/Board.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class ThrottledLoopAware final:
-        public SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         explicit
         ThrottledLoopAware(

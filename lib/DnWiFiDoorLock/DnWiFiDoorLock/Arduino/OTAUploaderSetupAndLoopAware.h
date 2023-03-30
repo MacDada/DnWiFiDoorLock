@@ -5,13 +5,13 @@
 #include <ArduinoOTA.h>
 #include <WString.h>
 
-#include "DnApp/Common/Strings.h"
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnApp/Common/Strings.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class OTAUploaderSetupAndLoopAware final:
-        public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         explicit
         OTAUploaderSetupAndLoopAware(

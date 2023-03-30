@@ -8,15 +8,15 @@
 #include <WString.h>
 
 #include "DnApp/Arduino/Hardware/Board.h"
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
     class WiFi final:
-        public DnWiFiDoorLock::Arduino::SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     private:
         using PrefixingLogger = DnApp
             ::Logger

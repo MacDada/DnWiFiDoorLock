@@ -7,13 +7,13 @@
 #include <WebSerial.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/functions.h"
 #include "DnApp/Common/Strings.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
     class Setup:
-        public SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         explicit
         Setup(

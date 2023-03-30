@@ -5,12 +5,12 @@
 #include <ESP8266WiFi.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {
     class LoopAwareSignalStrengthLogger final:
-        public Arduino::SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     private:
         using Logger = DnApp::Arduino::Logger::WithArduinoStringLogger;
     public:

@@ -6,11 +6,11 @@
 #include <WString.h>
 
 #include "DnApp/Arduino/Hardware/Board.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class HardwareSerialSetup final:
-        public SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         explicit
         HardwareSerialSetup(

@@ -2,7 +2,7 @@
 
 #include <functional> // std::reference_wrapper
 
-namespace DnWiFiDoorLock::Arduino {
+namespace DnApp::Arduino::Kernel {
     class SetupAndLoopAware {
     public:
         virtual auto onSetup() -> void = 0;

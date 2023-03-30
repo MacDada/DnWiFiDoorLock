@@ -4,15 +4,15 @@
 
 #include <WString.h>
 
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Hardware/DoorLock.h"
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class DoorLock final:
-        public DnWiFiDoorLock::Arduino::SetupAndLoopAware,
+        public DnApp::Arduino::Kernel::SetupAndLoopAware,
         public DnApp::Hardware::DoorLock {
     private:
         using PrefixingLogger = DnApp

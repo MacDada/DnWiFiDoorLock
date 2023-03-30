@@ -2,15 +2,17 @@
 
 #include <span>
 
-#include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
+#include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class MultipleSetupAndLoopAware final:
-        public SetupAndLoopAware {
+        public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         explicit
         MultipleSetupAndLoopAware(
-            const std::span<const SetupAndLoopAwareReference> awares
+            const std::span<
+                const DnApp::Arduino::Kernel::SetupAndLoopAwareReference
+            > awares
         ):
             awares{awares} {
         }
@@ -27,7 +29,9 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
     private:
-        const std::span<const SetupAndLoopAwareReference> awares;
+        const std::span<
+            const DnApp::Arduino::Kernel::SetupAndLoopAwareReference
+        > awares;
     };
 
     static_assert(!std::is_abstract<MultipleSetupAndLoopAware>());
