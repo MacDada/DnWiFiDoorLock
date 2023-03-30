@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#include "DnWiFiDoorLock/Time.h"
+#include "DnApp/Common/ElapsedTime.h"
 
 namespace DnApp::Arduino::Hardware {
     class Board final {
@@ -14,8 +14,8 @@ namespace DnApp::Arduino::Hardware {
             delay(milliseconds);
         }
 
-        auto getUptime() const -> DnWiFiDoorLock::Time {
-            return DnWiFiDoorLock::Time(millis());
+        auto getUptime() const -> DnApp::Common::ElapsedTime {
+            return DnApp::Common::ElapsedTime(millis());
         }
     };
 }

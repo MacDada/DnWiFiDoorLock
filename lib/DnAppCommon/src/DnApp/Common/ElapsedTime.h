@@ -2,8 +2,8 @@
 
 #include <Arduino.h>
 
-namespace DnWiFiDoorLock {
-    class Time final {
+namespace DnApp::Common {
+    class ElapsedTime final {
     private:
         const unsigned long milliseconds;
 
@@ -25,7 +25,7 @@ namespace DnWiFiDoorLock {
         // what will happen after 49 days?
         // a crash? or `millis()` will just give a wrong result?
         explicit
-        Time(const unsigned long milliseconds):
+        ElapsedTime(const unsigned long milliseconds):
             milliseconds{milliseconds},
             seconds(milliseconds / 1000),
             minutes{seconds / 60},
