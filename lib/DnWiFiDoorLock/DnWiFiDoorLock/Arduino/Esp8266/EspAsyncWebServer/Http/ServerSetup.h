@@ -8,6 +8,7 @@
 #include <WString.h>
 
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
+#include "DnApp/Arduino/functions.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/DoorLockController.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/FurnaceController.h"
@@ -291,7 +292,13 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             ) {
                 onMatchedRoute(name, request);
 
-                onRequestBody(*request, dataToString(bodyData, bodyDataLength));
+                onRequestBody(
+                    *request,
+                    DnApp::Arduino::functions::dataToString(
+                        bodyData,
+                        bodyDataLength
+                    )
+                );
             });
         }
 
@@ -353,20 +360,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             message += PSTR(" in a web browser :)");
 
             logger.info(message);
-        }
-
-        auto dataToString(
-            const uint8_t* const data,
-            const size_t dataLength
-        ) const -> String {
-            auto string = String{};
-            string.reserve(dataLength);
-
-            for (auto i = decltype(dataLength){0}; i < dataLength; i++) {
-                string += char(data[i]);
-            }
-
-            return string;
         }
     };
 

@@ -7,6 +7,7 @@
 #include <WebSerial.h>
 #include <WString.h>
 
+#include "DnApp/Arduino/functions.h"
 #include "DnApp/Common/Strings.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
@@ -43,11 +44,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::WebSerial {
             const uint8_t* const message,
             const size_t messageLength
         ) -> void {
-            auto command = String{""};
-
-            for (auto i = decltype(messageLength){0}; i < messageLength; i++) {
-                command += char(message[i]);
-            }
+            auto command = DnApp::Arduino::functions::dataToString(
+                message,
+                messageLength
+            );
 
             serial.println(DnApp::Common::Strings::format(
                 PSTR("Received command: \"%s\""),
