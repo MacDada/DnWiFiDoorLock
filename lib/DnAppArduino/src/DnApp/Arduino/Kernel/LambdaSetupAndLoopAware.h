@@ -5,9 +5,9 @@
 
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 
-namespace DnWiFiDoorLock::Arduino {
+namespace DnApp::Arduino::Kernel {
     class LambdaSetupAndLoopAware final:
-        public DnApp::Arduino::Kernel::SetupAndLoopAware {
+        public SetupAndLoopAware {
     public:
         static
         auto createSetupAware(

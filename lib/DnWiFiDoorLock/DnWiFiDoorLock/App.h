@@ -13,6 +13,9 @@
 
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Hardware/DigitalPin.h"
+#include "DnApp/Arduino/Kernel/LambdaSetupAndLoopAware.h"
+#include "DnApp/Arduino/Kernel/MultipleSetupAndLoopAware.h"
+#include "DnApp/Arduino/Kernel/ThrottledLoopAware.h"
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
 #include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
@@ -35,15 +38,12 @@
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
-#include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/LoopIndicator.h"
-#include "DnWiFiDoorLock/Arduino/MultipleSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/PrintWelcomeMessageSetup.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
-#include "DnWiFiDoorLock/Arduino/ThrottledLoopAware.h"
 
 namespace DnWiFiDoorLock {
     class App final:
@@ -310,7 +310,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getThrottledWiFiSignalStrengthLoggingLoopAware() {
-            static auto service = DnWiFiDoorLock::Arduino::ThrottledLoopAware{
+            static auto service = DnApp::Arduino::Kernel::ThrottledLoopAware{
                 getWifiSignalStrengthLoggingLoopAware(),
                 getBoard(),
                 WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
@@ -436,7 +436,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getThrottledLoopIndicator() {
-            static auto service = DnWiFiDoorLock::Arduino::ThrottledLoopAware{
+            static auto service = DnApp::Arduino::Kernel::ThrottledLoopAware{
                 getLoopIndicator(),
                 getBoard(),
                 LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
@@ -450,7 +450,7 @@ namespace DnWiFiDoorLock {
             //      a.) improve/new template to handle named constructors
             //      b.) improve LambdaSetupAndLoopAware to get rid of named constructor
             //          https://boost-ext.github.io/di/tutorial.html – grep "struct width {"
-            static auto service = DnWiFiDoorLock::Arduino::LambdaSetupAndLoopAware::createSetupAware([&] () {
+            static auto service = DnApp::Arduino::Kernel::LambdaSetupAndLoopAware::createSetupAware([&] () {
                 getBuiltInLedBlinker().blinkFast(5);
             });
 
@@ -489,8 +489,8 @@ namespace DnWiFiDoorLock {
         }
 
         // cannot have `auto` return type, as order of methods declaration matters then
-        DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware& getAppSetupAndLoopAwares() {
-            static auto service = DnWiFiDoorLock::Arduino::MultipleSetupAndLoopAware{
+        DnApp::Arduino::Kernel::MultipleSetupAndLoopAware& getAppSetupAndLoopAwares() {
+            static auto service = DnApp::Arduino::Kernel::MultipleSetupAndLoopAware{
                 getSetupAndLoopAwares()
             };
 
