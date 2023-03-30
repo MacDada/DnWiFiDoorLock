@@ -5,7 +5,7 @@
 #include <HardwareSerial.h>
 #include <WString.h>
 
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
@@ -15,11 +15,11 @@ namespace DnWiFiDoorLock::Arduino {
         explicit
         HardwareSerialSetup(
             HardwareSerial& serial,
-            DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnWiFiDoorLock::Arduino::Board& board,
             const long bitsPerSecond
         ):
             serial{serial},
-            hardware{hardware},
+            board{board},
             bitsPerSecond{bitsPerSecond} {
         }
 
@@ -28,10 +28,10 @@ namespace DnWiFiDoorLock::Arduino {
 
             // waiting by uptime is not enough?!
             // without it the first Hello message is not printed :/
-            hardware.pause(2000);
+            board.pause(2000);
 
             // taken from https://github.com/khoih-prog/WiFiWebServer/blob/master/examples/HelloServer/HelloServer.ino#L90
-            while (!Serial && hardware.getUptime().getSeconds() < 5) {
+            while (!Serial && board.getUptime().getSeconds() < 5) {
                 // wait for serial port to open
             }
 
@@ -44,7 +44,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         HardwareSerial& serial;
 
-        DnWiFiDoorLock::Arduino::Hardware& hardware;
+        DnWiFiDoorLock::Arduino::Board& board;
 
         const long bitsPerSecond;
     };

@@ -6,7 +6,6 @@
 #include <WString.h>
 
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::WiFi {

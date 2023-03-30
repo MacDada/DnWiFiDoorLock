@@ -3,7 +3,7 @@
 #include <type_traits> // std::is_abstract
 
 #include "DnApp/Hardware/Button.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
@@ -14,13 +14,13 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     public:
         explicit
         Button(
-            const Hardware& hardware,
+            const Board& board,
             Servo& servo,
             const byte pressingAngle,
             const byte notPressingAngle,
             const int pressingMilliseconds
         ):
-            hardware{hardware},
+            board{board},
             servo{servo},
             pressingAngle{pressingAngle},
             notPressingAngle{notPressingAngle},
@@ -74,7 +74,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             }
         }
     private:
-        const Hardware& hardware;
+        const Board& board;
 
         Servo& servo;
 
@@ -96,7 +96,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         }
 
         auto getUptimeMilliseconds() const -> unsigned long {
-            return hardware.getUptime().getMilliseconds();
+            return board.getUptime().getMilliseconds();
         }
 
         auto stopPressing() -> void {

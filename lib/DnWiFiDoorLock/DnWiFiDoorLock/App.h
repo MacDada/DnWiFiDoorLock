@@ -32,7 +32,7 @@
 #include "DnWiFiDoorLock/Arduino/Esp8266/WiFi/WiFi.h"
 #include "DnWiFiDoorLock/Arduino/DoorLock.h"
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/LambdaSetupAndLoopAware.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
@@ -114,8 +114,8 @@ namespace DnWiFiDoorLock {
 
         const Config config;
 
-        auto& getHardware() {
-            static auto service = DnWiFiDoorLock::Arduino::Hardware{};
+        auto& getBoard() {
+            static auto service = DnWiFiDoorLock::Arduino::Board{};
 
             return service;
         }
@@ -234,7 +234,7 @@ namespace DnWiFiDoorLock {
             // it is inverted for built–in led
             // https://github.com/nodemcu/nodemcu-devkit-v1.0/issues/16
             // https://stackoverflow.com/questions/46087828/why-is-nodemcu-triggering-gpio-in-reverse-when-using-lua
-            static auto pin = DnApp::Arduino::Hardware::DigitalPin{DnWiFiDoorLock::Arduino::Hardware::BUILT_IN_LED_PIN};
+            static auto pin = DnApp::Arduino::Hardware::DigitalPin{DnWiFiDoorLock::Arduino::Board::BUILT_IN_LED_PIN};
             static auto led = DnApp::Hardware::LedOnDigitalPin{pin};
             static auto service = DnApp::Hardware::LedInverter{led};
 
@@ -243,7 +243,7 @@ namespace DnWiFiDoorLock {
 
         auto& getBuiltInLedBlinker() {
             static auto service = DnWiFiDoorLock::Arduino::LedBlinker{
-                getHardware(),
+                getBoard(),
                 getBuiltInLed()
             };
 
@@ -262,7 +262,7 @@ namespace DnWiFiDoorLock {
                 // WebSerial(Logger) cannot be injected, runtime crash for some reason
                 // todo: find a way to inject full logger or at least add decorators
                 getHardwareSerialLogger(),
-                getHardware(),
+                getBoard(),
                 ::WiFi
             };
 
@@ -312,7 +312,7 @@ namespace DnWiFiDoorLock {
         auto& getThrottledWiFiSignalStrengthLoggingLoopAware() {
             static auto service = DnWiFiDoorLock::Arduino::ThrottledLoopAware{
                 getWifiSignalStrengthLoggingLoopAware(),
-                getHardware(),
+                getBoard(),
                 WIFI_STRENGTH_LOGGING_INTERVAL_MILLISECONDS
             };
 
@@ -321,7 +321,7 @@ namespace DnWiFiDoorLock {
 
         auto& getFurnaceHeaterButton() {
             static auto service = DnWiFiDoorLock::Arduino::Servo::Button{
-                getHardware(),
+                getBoard(),
                 // todo: a different servo than DoorLock servo? ;p
                 getServo(),
                 config.furnaceHeaterButton.pressingAngle,
@@ -343,7 +343,7 @@ namespace DnWiFiDoorLock {
 
         auto& getDoorLockHttpController() {
             static auto service = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::DoorLockController{
-                getHardware(),
+                getBoard(),
                 getDoorLock(),
                 getLogger()
             };
@@ -353,7 +353,7 @@ namespace DnWiFiDoorLock {
 
         auto& getFurnaceHttpController() {
             static auto service = DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http::FurnaceController{
-                getHardware(),
+                getBoard(),
                 getFurnace(),
                 getLogger()
             };
@@ -409,7 +409,7 @@ namespace DnWiFiDoorLock {
         auto& getHardwareSerialSetup() {
             static auto service = DnWiFiDoorLock::Arduino::HardwareSerialSetup{
                 Serial,
-                getHardware(),
+                getBoard(),
                 config.serialBitsPerSecond
             };
 
@@ -438,7 +438,7 @@ namespace DnWiFiDoorLock {
         auto& getThrottledLoopIndicator() {
             static auto service = DnWiFiDoorLock::Arduino::ThrottledLoopAware{
                 getLoopIndicator(),
-                getHardware(),
+                getBoard(),
                 LOOP_INDICATOR_LED_TOGGLE_INTERVAL_MILLISECONDS
             };
 

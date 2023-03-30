@@ -3,30 +3,30 @@
 #include <Arduino.h>
 
 #include "DnApp/Hardware/Led.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class LedBlinker final {
     public:
         explicit
         LedBlinker(
-            DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnWiFiDoorLock::Arduino::Board& board,
             DnApp::Hardware::Led& led
         ):
-            hardware{hardware},
+            board{board},
             led{led} {
         }
 
         auto blinkFast(const int count) -> void {
             for (auto i = decltype(count){0}; i < count; ++i) {
                 led.on();
-                hardware.pause(100);
+                board.pause(100);
                 led.off();
-                hardware.pause(100);
+                board.pause(100);
             }
         }
     private:
-        DnWiFiDoorLock::Arduino::Hardware& hardware;
+        DnWiFiDoorLock::Arduino::Board& board;
 
         DnApp::Hardware::Led& led;
     };

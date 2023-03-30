@@ -5,7 +5,7 @@
 #include "DnWiFiDoorLock/Time.h"
 
 namespace DnWiFiDoorLock::Arduino {
-    class Hardware final {
+    class Board final {
     public:
         static
         const auto BUILT_IN_LED_PIN = LED_BUILTIN;

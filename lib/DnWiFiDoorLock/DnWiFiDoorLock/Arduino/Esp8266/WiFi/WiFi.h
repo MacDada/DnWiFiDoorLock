@@ -10,7 +10,7 @@
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 #include "DnWiFiDoorLock/Arduino/LedBlinker.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
@@ -28,14 +28,14 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
             const char* const password,
             DnWiFiDoorLock::Arduino::LedBlinker& ledBlinker,
             DnApp::Logger::Logger& logger,
-            DnWiFiDoorLock::Arduino::Hardware& hardware,
+            DnWiFiDoorLock::Arduino::Board& board,
             ESP8266WiFiClass& esp8266WiFi
         ):
             ssid{ssid},
             password{password},
             ledBlinker{ledBlinker},
             logger{PrefixingLogger{logger, PSTR("WiFi: ")}},
-            hardware{hardware},
+            board{board},
             esp8266WiFi{esp8266WiFi} {
         }
 
@@ -55,7 +55,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
 
         PrefixingLogger logger;
 
-        DnWiFiDoorLock::Arduino::Hardware& hardware;
+        DnWiFiDoorLock::Arduino::Board& board;
 
         ESP8266WiFiClass& esp8266WiFi;
 
@@ -93,7 +93,7 @@ namespace DnWiFiDoorLock::Arduino::Esp82666::WiFi {
                     return;
                 }
 
-                hardware.pause(500);
+                board.pause(500);
 
                 connectingMessage += PSTR(".");
 

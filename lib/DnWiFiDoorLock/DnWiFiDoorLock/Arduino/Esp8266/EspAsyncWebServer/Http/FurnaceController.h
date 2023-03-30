@@ -8,7 +8,7 @@
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Hardware/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class FurnaceController final:
@@ -21,11 +21,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     public:
         explicit
         FurnaceController(
-            const DnWiFiDoorLock::Arduino::Hardware& hardware,
+            const DnWiFiDoorLock::Arduino::Board& board,
             DnApp::Hardware::Furnace& furnace,
             DnApp::Logger::Logger& logger
         ):
-            hardware{hardware},
+            board{board},
             furnace{furnace},
             logger{PrefixingLogger{logger, PSTR("FurnaceController::")}} {
         }
@@ -33,7 +33,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto statusAction(AsyncWebServerRequest& request) const -> void {
             logger.info(PSTR("statusAction()"));
 
-            auto uptime = hardware.getUptime();
+            auto uptime = board.getUptime();
 
             request.send(
                 HTTP_RESPONSE_STATUS_OK,
@@ -123,7 +123,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
     private:
-        const DnWiFiDoorLock::Arduino::Hardware& hardware;
+        const DnWiFiDoorLock::Arduino::Board& board;
 
         DnApp::Hardware::Furnace& furnace;
 

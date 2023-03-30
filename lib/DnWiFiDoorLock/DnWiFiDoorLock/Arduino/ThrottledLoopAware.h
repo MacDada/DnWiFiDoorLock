@@ -2,7 +2,7 @@
 
 #include <type_traits> // std::is_abstract
 
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
+#include "DnWiFiDoorLock/Arduino/Board.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
@@ -12,11 +12,11 @@ namespace DnWiFiDoorLock::Arduino {
         explicit
         ThrottledLoopAware(
             SetupAndLoopAware& otherAware,
-            const DnWiFiDoorLock::Arduino::Hardware& hardware,
+            const DnWiFiDoorLock::Arduino::Board& board,
             const int throttleMilliseconds
         ):
             otherAware{otherAware},
-            hardware{hardware},
+            board{board},
             throttleMilliseconds{throttleMilliseconds} {
         }
 
@@ -28,20 +28,20 @@ namespace DnWiFiDoorLock::Arduino {
             if (isItTime()) {
                 otherAware.onLoop();
 
-                lastOtherAwareCallMilliseconds = hardware.getUptime().getMilliseconds();
+                lastOtherAwareCallMilliseconds = board.getUptime().getMilliseconds();
             }
         }
     private:
         SetupAndLoopAware& otherAware;
 
-        const DnWiFiDoorLock::Arduino::Hardware& hardware;
+        const DnWiFiDoorLock::Arduino::Board& board;
 
         const int throttleMilliseconds;
 
         unsigned long lastOtherAwareCallMilliseconds = 0;
 
         auto isItTime() const -> bool  {
-            return hardware.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
+            return board.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
         }
     };
 

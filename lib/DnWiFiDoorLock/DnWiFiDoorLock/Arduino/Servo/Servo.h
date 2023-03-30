@@ -5,7 +5,6 @@
 
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
-#include "DnWiFiDoorLock/Arduino/Hardware.h"
 
 // todo: servo power supply:
 //       * should I detach()?
