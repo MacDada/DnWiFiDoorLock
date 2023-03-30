@@ -2,15 +2,15 @@
 
 #include <Arduino.h>
 
+#include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Hardware/Led.h"
-#include "DnWiFiDoorLock/Arduino/Board.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class LedBlinker final {
     public:
         explicit
         LedBlinker(
-            DnWiFiDoorLock::Arduino::Board& board,
+            DnApp::Arduino::Hardware::Board& board,
             DnApp::Hardware::Led& led
         ):
             board{board},
@@ -26,7 +26,7 @@ namespace DnWiFiDoorLock::Arduino {
             }
         }
     private:
-        DnWiFiDoorLock::Arduino::Board& board;
+        DnApp::Arduino::Hardware::Board& board;
 
         DnApp::Hardware::Led& led;
     };

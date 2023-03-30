@@ -4,7 +4,7 @@
 
 #include "DnWiFiDoorLock/Time.h"
 
-namespace DnWiFiDoorLock::Arduino {
+namespace DnApp::Arduino::Hardware {
     class Board final {
     public:
         static
@@ -14,8 +14,8 @@ namespace DnWiFiDoorLock::Arduino {
             delay(milliseconds);
         }
 
-        auto getUptime() const -> Time {
-            return Time(millis());
+        auto getUptime() const -> DnWiFiDoorLock::Time {
+            return DnWiFiDoorLock::Time(millis());
         }
     };
 }

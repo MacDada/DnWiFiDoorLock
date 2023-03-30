@@ -5,7 +5,7 @@
 #include <HardwareSerial.h>
 #include <WString.h>
 
-#include "DnWiFiDoorLock/Arduino/Board.h"
+#include "DnApp/Arduino/Hardware/Board.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock::Arduino {
         explicit
         HardwareSerialSetup(
             HardwareSerial& serial,
-            DnWiFiDoorLock::Arduino::Board& board,
+            DnApp::Arduino::Hardware::Board& board,
             const long bitsPerSecond
         ):
             serial{serial},
@@ -44,7 +44,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         HardwareSerial& serial;
 
-        DnWiFiDoorLock::Arduino::Board& board;
+        DnApp::Arduino::Hardware::Board& board;
 
         const long bitsPerSecond;
     };

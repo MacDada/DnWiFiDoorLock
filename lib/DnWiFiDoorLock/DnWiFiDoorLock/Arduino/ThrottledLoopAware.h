@@ -2,7 +2,7 @@
 
 #include <type_traits> // std::is_abstract
 
-#include "DnWiFiDoorLock/Arduino/Board.h"
+#include "DnApp/Arduino/Hardware/Board.h"
 #include "DnWiFiDoorLock/Arduino/SetupAndLoopAware.h"
 
 namespace DnWiFiDoorLock::Arduino {
@@ -12,7 +12,7 @@ namespace DnWiFiDoorLock::Arduino {
         explicit
         ThrottledLoopAware(
             SetupAndLoopAware& otherAware,
-            const DnWiFiDoorLock::Arduino::Board& board,
+            const DnApp::Arduino::Hardware::Board& board,
             const int throttleMilliseconds
         ):
             otherAware{otherAware},
@@ -34,7 +34,7 @@ namespace DnWiFiDoorLock::Arduino {
     private:
         SetupAndLoopAware& otherAware;
 
-        const DnWiFiDoorLock::Arduino::Board& board;
+        const DnApp::Arduino::Hardware::Board& board;
 
         const int throttleMilliseconds;
 

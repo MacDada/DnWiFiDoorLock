@@ -3,12 +3,12 @@
 #include <ESPAsyncWebServer.h>
 #include <WString.h>
 
-#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
-#include "DnApp/Logger/Logger.h"
+#include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Common/Strings.h"
 #include "DnApp/Hardware/Furnace.h"
+#include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
+#include "DnApp/Logger/Logger.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
-#include "DnWiFiDoorLock/Arduino/Board.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class FurnaceController final:
@@ -21,7 +21,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     public:
         explicit
         FurnaceController(
-            const DnWiFiDoorLock::Arduino::Board& board,
+            const DnApp::Arduino::Hardware::Board& board,
             DnApp::Hardware::Furnace& furnace,
             DnApp::Logger::Logger& logger
         ):
@@ -123,7 +123,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
     private:
-        const DnWiFiDoorLock::Arduino::Board& board;
+        const DnApp::Arduino::Hardware::Board& board;
 
         DnApp::Hardware::Furnace& furnace;
 
