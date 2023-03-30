@@ -2,7 +2,6 @@
 
 #include <type_traits> // std::is_abstract
 
-#include <ESP8266WiFi.h>
 #include <WString.h>
 
 #include "DnApp/Arduino/Hardware/LedBlinker.h"
