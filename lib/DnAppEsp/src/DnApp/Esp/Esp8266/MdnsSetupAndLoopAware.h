@@ -8,15 +8,15 @@
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Logger/Logger.h"
 
-namespace DnWiFiDoorLock::Arduino::Esp8266 {
-    class MDNSSetupAndLoopAware final:
+namespace DnApp::Esp::Esp8266 {
+    class MdnsSetupAndLoopAware final:
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     private:
-        using MDNSResponder = esp8266::MDNSImplementation::MDNSResponder;
+        using MDNSResponder = ::esp8266::MDNSImplementation::MDNSResponder;
         using Logger = DnApp::Logger::Logger;
     public:
         explicit
-        MDNSSetupAndLoopAware(
+        MdnsSetupAndLoopAware(
             MDNSResponder& mdnsResponder,
             Logger& logger,
             const char* const hostname
@@ -46,5 +46,5 @@ namespace DnWiFiDoorLock::Arduino::Esp8266 {
         const char* const hostname;
     };
 
-    static_assert(!std::is_abstract<MDNSSetupAndLoopAware>());
+    static_assert(!std::is_abstract<MdnsSetupAndLoopAware>());
 }
