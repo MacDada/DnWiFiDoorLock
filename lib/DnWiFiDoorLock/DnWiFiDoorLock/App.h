@@ -21,6 +21,7 @@
 #include "DnApp/Arduino/Logger/Endpoint/HardwareSerialLogger.h"
 #include "DnApp/Arduino/Logger/Endpoint/WithArduinoStringLoggerToLogger.h"
 #include "DnApp/Arduino/LoopIndicator.h"
+#include "DnApp/Arduino/WelcomeMessagePrinter.h"
 #include "DnApp/Esp/Esp8266/LogWiFiStrengthLoopAware.h"
 #include "DnApp/Esp/Esp8266/MdnsSetupAndLoopAware.h"
 #include "DnApp/Esp/Esp8266/WiFiSetupAndLoopAware.h"
@@ -41,7 +42,6 @@
 #include "DnWiFiDoorLock/Arduino/Furnace.h"
 #include "DnWiFiDoorLock/Arduino/HardwareSerialSetup.h"
 #include "DnWiFiDoorLock/Arduino/OTAUploaderSetupAndLoopAware.h"
-#include "DnWiFiDoorLock/Arduino/PrintWelcomeMessageSetup.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 
@@ -458,7 +458,7 @@ namespace DnWiFiDoorLock {
         }
 
         auto& getHardwareSerialWelcomeMessageSetup() const {
-            static auto service = DnWiFiDoorLock::Arduino::PrintWelcomeMessageSetup{
+            static auto service = DnApp::Arduino::WelcomeMessagePrinter{
                 ::Serial,
                 config.name,
                 {.gitCommitHash = config.buildGitCommitHash}

@@ -8,8 +8,8 @@
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Common/Strings.h"
 
-namespace DnWiFiDoorLock::Arduino {
-    class PrintWelcomeMessageSetup final:
+namespace DnApp::Arduino {
+    class WelcomeMessagePrinter final:
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     public:
         struct Build final {
@@ -47,7 +47,7 @@ namespace DnWiFiDoorLock::Arduino {
         };
 
         explicit
-        PrintWelcomeMessageSetup(
+        WelcomeMessagePrinter(
             Print& printer,
             const char* const appName,
             const Build build
@@ -143,5 +143,5 @@ namespace DnWiFiDoorLock::Arduino {
         const Build build;
     };
 
-    static_assert(!std::is_abstract<PrintWelcomeMessageSetup>());
+    static_assert(!std::is_abstract<WelcomeMessagePrinter>());
 }
