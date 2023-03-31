@@ -9,9 +9,9 @@
 #include "DnApp/Arduino/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
+#include "DnApp/Hardware/Servo.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
 #include "DnWiFiDoorLock/Arduino/Servo/Button.h"
-#include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     /**
@@ -382,7 +382,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
         }
     private:
-        using Servo = DnWiFiDoorLock::Arduino::Servo::Servo;
+        using Servo = DnApp::Hardware::Servo;
 
         struct Settings final {
             const int pressingAngle;

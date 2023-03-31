@@ -5,6 +5,7 @@
 
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
 #include "DnApp/Common/Strings.h"
+#include "DnApp/Hardware/Servo.h"
 
 // todo: servo power supply:
 //       * should I detach()?
@@ -23,12 +24,9 @@
 //      * red: power
 //      * orange: control
 namespace DnWiFiDoorLock::Arduino::Servo {
-    class Servo final {
+    class Servo final:
+        public DnApp::Hardware::Servo {
     public:
-        static const int MIN_ANGLE = 0;
-
-        static const int MAX_ANGLE = 180;
-
         Servo(
             ::Servo& servo,
             const byte pin,
@@ -41,11 +39,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             servo.attach(pin, minPulseWidthMicroseconds, maxPulseWidthMicroseconds);
         }
 
-        auto getAngle() const -> int {
+        auto getAngle() const -> int override {
             return servo.read();
         }
 
-        auto setAngle(int degrees) -> void {
+        auto setAngle(int degrees) -> void override {
             if (degrees < MIN_ANGLE) {
                 degrees = MIN_ANGLE;
             } else if (degrees > MAX_ANGLE) {

@@ -6,9 +6,9 @@
 
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Hardware/DoorLock.h"
+#include "DnApp/Hardware/Servo.h"
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
-#include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 
 namespace DnWiFiDoorLock::Arduino {
     class DoorLock final:
@@ -22,7 +22,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         DoorLock(
-            Servo::Servo& servo,
+            DnApp::Hardware::Servo& servo,
             DnApp::Logger::Logger& logger,
             const byte openAngle,
             const byte closedAngle
@@ -83,7 +83,7 @@ namespace DnWiFiDoorLock::Arduino {
             // do nothing
         }
     private:
-        Servo::Servo& servo;
+        DnApp::Hardware::Servo& servo;
 
         PrefixingLogger logger;
 

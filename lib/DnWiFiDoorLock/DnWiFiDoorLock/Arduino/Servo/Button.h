@@ -5,7 +5,7 @@
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Hardware/Button.h"
-#include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
+#include "DnApp/Hardware/Servo.h"
 
 namespace DnWiFiDoorLock::Arduino::Servo {
     class Button final:
@@ -15,7 +15,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         explicit
         Button(
             const DnApp::Arduino::Hardware::Board& board,
-            Servo& servo,
+            DnApp::Hardware::Servo& servo,
             const byte pressingAngle,
             const byte notPressingAngle,
             const int pressingMilliseconds
@@ -76,7 +76,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     private:
         const DnApp::Arduino::Hardware::Board& board;
 
-        Servo& servo;
+        DnApp::Hardware::Servo& servo;
 
         byte pressingAngle;
 

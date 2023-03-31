@@ -9,8 +9,8 @@
 #include "DnApp/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Logger/Logger.h"
 #include "DnApp/Common/Strings.h"
+#include "DnApp/Hardware/Servo.h"
 #include "DnWiFiDoorLock/Arduino/Esp8266/EspAsyncWebServer/Http/Controller.h"
-#include "DnWiFiDoorLock/Arduino/Servo/Servo.h"
 
 namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class ServoController final:
@@ -22,7 +22,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             ::Logger
             ::Decorator
             ::PrefixPostfixMessageLoggerDecorator;
-        using Servo = DnWiFiDoorLock::Arduino::Servo::Servo;
+        using Servo = DnApp::Hardware::Servo;
     public:
         explicit
         ServoController(
