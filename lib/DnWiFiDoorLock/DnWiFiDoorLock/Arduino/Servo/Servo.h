@@ -44,10 +44,10 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         }
 
         auto setAngle(int degrees) -> void override {
-            if (degrees < MIN_ANGLE) {
-                degrees = MIN_ANGLE;
-            } else if (degrees > MAX_ANGLE) {
-                degrees = MAX_ANGLE;
+            if (degrees < Angle::MIN) {
+                degrees = Angle::MIN;
+            } else if (degrees > Angle::MAX) {
+                degrees = Angle::MAX;
             }
 
             logger.info(DnApp::Common::Strings::format(

@@ -46,17 +46,18 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return;
             }
 
-            auto newAngle = (int) maybeNewAngle->toInt();
+            const auto newAngleDegrees = (int) maybeNewAngle->toInt();
+            const auto newAngle = Servo::Angle::withDegrees(newAngleDegrees);
 
-            if (!isValidAngle(newAngle)) {
-                invalidAngleGivenResponse(request, oldAngle, newAngle);
+            if (!newAngle) {
+                invalidAngleGivenResponse(request, oldAngle, newAngleDegrees);
 
                 return;
             }
 
-            servo.setAngle(newAngle);
+            servo.setAngle(newAngle->getDegrees());
 
-            newAngleSetResponse(request, oldAngle, newAngle);
+            newAngleSetResponse(request, oldAngle, newAngle->getDegrees());
         }
     private:
         Servo& servo;
@@ -70,10 +71,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         constexpr
         const
         auto format = DnApp::Common::Strings::format;
-
-        auto isValidAngle(const int angle) const -> bool {
-            return angle >= Servo::MIN_ANGLE && angle <= Servo::MAX_ANGLE;
-        }
 
         auto newAngleSetResponse(
             Request& request,
@@ -185,8 +182,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             content.replace(PSTR("{{ app_name }}"), appName);
 
-            content.replace(PSTR("{{ servo_min_angle }}"), String{Servo::MIN_ANGLE});
-            content.replace(PSTR("{{ servo_max_angle }}"), String{Servo::MAX_ANGLE});
+            content.replace(PSTR("{{ servo_min_angle }}"), String{Servo::Angle::MIN});
+            content.replace(PSTR("{{ servo_max_angle }}"), String{Servo::Angle::MAX});
 
             content.replace(
                 PSTR("{{ invalid_angle_error }}"),

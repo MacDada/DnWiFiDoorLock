@@ -500,8 +500,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             page.replace(PSTR("{{ app_name }}"), appName);
             page.replace(PSTR("{{ button_name }}"), PSTR("Heater"));
-            page.replace(PSTR("{{ servo_min_angle }}"), String{Servo::MIN_ANGLE});
-            page.replace(PSTR("{{ servo_max_angle }}"), String{Servo::MAX_ANGLE});
+            page.replace(PSTR("{{ servo_min_angle }}"), String{Servo::Angle::MIN});
+            page.replace(PSTR("{{ servo_max_angle }}"), String{Servo::Angle::MAX});
             page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle()});
             page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle()});
             page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.getPressingMilliseconds()});
@@ -530,15 +530,15 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("No required data given")};
             }
 
-            auto newPressingAngle = (int) maybeNewPressingAngle->toInt();
-            auto newNotPressingAngle = (int) maybeNewNotPressingAngle->toInt();
+            auto newPressingAngle = Servo::Angle::withDegrees((int) maybeNewPressingAngle->toInt());
+            auto newNotPressingAngle = Servo::Angle::withDegrees((int) maybeNewNotPressingAngle->toInt());
             auto newMilliseconds = (int) maybeNewMilliseconds->toInt();
 
-            if (!isValidAngle(newPressingAngle)) {
+            if (!newPressingAngle) {
                 return tl::unexpected{PSTR("Invalid pressing angle")};
             }
 
-            if (!isValidAngle(newNotPressingAngle)) {
+            if (!newNotPressingAngle) {
                 return tl::unexpected{PSTR("Invalid not pressing angle")};
             }
 
@@ -546,7 +546,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("Invalid pressing milliseconds")};
             }
 
-            return Settings{newPressingAngle, newNotPressingAngle, newMilliseconds};
+            return Settings{
+                newPressingAngle->getDegrees(),
+                newNotPressingAngle->getDegrees(),
+                newMilliseconds
+            };
         }
 
         auto handleValidSettings(
@@ -652,10 +656,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 HTTP_RESPONSE_CONTENT_TYPE_PLAIN,
                 PSTR("Error 500: Internal Server Error")
             );
-        }
-
-        auto isValidAngle(const int angle) const -> bool {
-            return angle >= Servo::MIN_ANGLE && angle <= Servo::MAX_ANGLE;
         }
     };
 
