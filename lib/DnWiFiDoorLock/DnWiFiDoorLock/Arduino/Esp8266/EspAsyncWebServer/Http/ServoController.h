@@ -46,11 +46,10 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return;
             }
 
-            const auto newAngleDegrees = (int) maybeNewAngle->toInt();
-            const auto newAngle = Servo::Angle::withDegrees(newAngleDegrees);
+            const auto newAngle = Servo::Angle::withDegrees((int) maybeNewAngle->toInt());
 
             if (!newAngle) {
-                invalidAngleGivenResponse(request, oldAngle, newAngleDegrees);
+                invalidAngleGivenResponse(request, oldAngle, *maybeNewAngle);
 
                 return;
             }
@@ -92,17 +91,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto invalidAngleGivenResponse(
             Request& request,
             const int oldAngle,
-            const int newAngle
+            const String& invalidAngle
         ) const -> void {
             logger.warning(format(
-                PSTR("Invalid angle given: \"%d\""),
-                newAngle
+                PSTR("Invalid angle value given: \"%s\""),
+                invalidAngle.c_str()
             ));
 
             request.send(
                 HTTP_RESPONSE_STATUS_BAD_REQUEST,
                 HTTP_RESPONSE_CONTENT_TYPE_HTML,
-                renderAngleResponse(oldAngle, newAngle, true)
+                renderAngleResponse(oldAngle, {}, true)
             );
         }
 
