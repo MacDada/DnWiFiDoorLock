@@ -49,8 +49,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             return notPressingAngle.getDegrees();
         }
 
-        // todo: the VO could be created with std::variant
-        //       or even better, with std::expected
+        // todo: the VO could be created with std::expected
         //       https://mariusbancila.ro/blog/2022/08/17/using-the-cpp23-expected-type/
         auto setNotPressingAngle(const Servo::Angle angle) -> void {
             notPressingAngle = angle;
