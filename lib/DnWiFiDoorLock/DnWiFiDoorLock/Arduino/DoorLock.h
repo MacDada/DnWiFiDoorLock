@@ -49,7 +49,8 @@ namespace DnWiFiDoorLock::Arduino {
         // warning! it only shows what we asked the servo to do
         //          we have no feedback as for the servo succeeded to close the door or not
         auto isClosed() const -> bool override {
-            return servo.getAngle() == closedAngle.getDegrees();
+            // todo: compare operator for angles? servo.isAngle()?
+            return servo.getAngle().getDegrees() == closedAngle.getDegrees();
         }
 
         auto open() -> void override {

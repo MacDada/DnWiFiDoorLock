@@ -8,15 +8,18 @@ namespace DnApp::Hardware {
     class InMemoryServo final:
         public DnApp::Hardware::Servo {
     public:
-        auto getAngle() const -> int override {
-            return degrees;
+        static
+        const int DEFAULT_ANGLE_DEGREES = 0;
+
+        auto getAngle() const -> Angle override {
+            return angle;
         }
 
         auto setAngle(const Angle angle) -> void override {
-            degrees = angle.getDegrees();
+            this->angle = angle;
         }
     private:
-        int degrees = 0;
+        Angle angle = Angle::withDegrees(DEFAULT_ANGLE_DEGREES).value();
     };
 
     static_assert(!std::is_abstract<InMemoryServo>());

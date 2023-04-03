@@ -39,8 +39,9 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             servo.attach(pin, minPulseWidthMicroseconds, maxPulseWidthMicroseconds);
         }
 
-        auto getAngle() const -> int override {
-            return servo.read();
+        auto getAngle() const -> Angle override {
+            // todo: test if the "default" (or random?) value does not actually throw
+            return Angle::withDegrees(servo.read()).value();
         }
 
         auto setAngle(const Angle angle) -> void override {

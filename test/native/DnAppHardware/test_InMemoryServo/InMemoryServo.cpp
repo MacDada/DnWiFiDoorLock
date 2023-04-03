@@ -12,13 +12,13 @@ namespace {
     }
 
     auto test_angle_is_zero_by_default() -> void {
-        TEST_ASSERT_EQUAL_INT(0, servo.getAngle());
+        TEST_ASSERT_EQUAL_INT(0, servo.getAngle().getDegrees());
     }
 
     auto test_setting_angle() -> void {
         servo.setAngle(DnApp::Hardware::Servo::Angle::withDegrees(12).value());
 
-        TEST_ASSERT_EQUAL_INT(12, servo.getAngle());
+        TEST_ASSERT_EQUAL_INT(12, servo.getAngle().getDegrees());
     }
 }
 

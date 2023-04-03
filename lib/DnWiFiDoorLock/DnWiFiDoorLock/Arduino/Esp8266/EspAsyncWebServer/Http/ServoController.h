@@ -77,7 +77,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         auto newAngleSetResponse(
             Request& request,
-            const int oldAngle,
+            const Servo::Angle oldAngle,
             const Servo::Angle newAngle
         ) const -> void {
             logger.info(format(
@@ -94,7 +94,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         auto invalidAngleGivenResponse(
             Request& request,
-            const int oldAngle,
+            const Servo::Angle oldAngle,
             const String& invalidAngle
         ) const -> void {
             logger.warning(format(
@@ -111,7 +111,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         auto showCurrentAngleResponse(
             Request& request,
-            const int oldAngle
+            const Servo::Angle oldAngle
         ) const -> void {
             logger.info(format(
                 PSTR("Showing current angle: \"%d\""),
@@ -126,7 +126,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         auto renderAngleResponse(
-            const int oldAngle,
+            const Servo::Angle oldAngle,
             const std::optional<Servo::Angle> newAngle = {},
             const bool invalidAngle = false
         ) const -> String {
@@ -194,7 +194,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             );
 
             content.replace(PSTR("{{ old_or_current }}"), newAngle ? PSTR("Old") : PSTR("Current"));
-            content.replace(PSTR("{{ old_angle }}"), String{oldAngle});
+            content.replace(PSTR("{{ old_angle }}"), String{oldAngle.getDegrees()});
 
             content.replace(
                 PSTR("{{ new_angle }}"),
@@ -208,7 +208,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             content.replace(
                 PSTR("{{ angle_form_value }}"),
-                String(newAngle ? newAngle->getDegrees() : oldAngle)
+                String(newAngle ? newAngle->getDegrees() : oldAngle.getDegrees())
             );
 
             content.trim();
