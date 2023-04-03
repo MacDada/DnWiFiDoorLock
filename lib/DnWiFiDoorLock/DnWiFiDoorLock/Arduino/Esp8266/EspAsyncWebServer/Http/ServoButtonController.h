@@ -51,7 +51,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto updateSettingsAction(AsyncWebServerRequest& request) -> void {
             logger.info(PSTR("updateSettingsAction()"));
 
-            auto settings = validateForm(request);
+            const auto settings = validateForm(request);
 
             if (!settings.has_value()) {
                 jsonClientErrorResponse(request, settings.error().c_str());
@@ -519,9 +519,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         }
 
         auto validateForm(AsyncWebServerRequest& request) const -> tl::expected<Settings, String> {
-            auto maybeNewPressingAngle = getRequestPostParameter(request, PSTR("pressing_angle"));
-            auto maybeNewNotPressingAngle = getRequestPostParameter(request, PSTR("not_pressing_angle"));
-            auto maybeNewMilliseconds = getRequestPostParameter(request, PSTR("pressing_milliseconds"));
+            const auto maybeNewPressingAngle = getRequestPostParameter(request, PSTR("pressing_angle"));
+            const auto maybeNewNotPressingAngle = getRequestPostParameter(request, PSTR("not_pressing_angle"));
+            const auto maybeNewMilliseconds = getRequestPostParameter(request, PSTR("pressing_milliseconds"));
 
             if (!maybeNewPressingAngle
                 || !maybeNewNotPressingAngle
@@ -530,9 +530,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("No required data given")};
             }
 
-            auto newPressingAngle = Servo::Angle::withDegrees((int) maybeNewPressingAngle->toInt());
-            auto newNotPressingAngle = Servo::Angle::withDegrees((int) maybeNewNotPressingAngle->toInt());
-            auto newMilliseconds = (int) maybeNewMilliseconds->toInt();
+            const auto newPressingAngle = Servo::Angle::withDegrees((int) maybeNewPressingAngle->toInt());
+            const auto newNotPressingAngle = Servo::Angle::withDegrees((int) maybeNewNotPressingAngle->toInt());
+            const auto newMilliseconds = (int) maybeNewMilliseconds->toInt();
 
             if (!newPressingAngle) {
                 return tl::unexpected{PSTR("Invalid pressing angle")};
