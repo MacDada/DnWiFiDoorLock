@@ -56,7 +56,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             servo.setAngle(newAngle->getDegrees());
 
-            newAngleSetResponse(request, oldAngle, newAngle->getDegrees());
+            // todo: find/make something "safer" than std::optional
+            //       the fact that dereferencing WITHOUT CHECKING FOR NULL
+            //       is even possible makes std::optional UNSAFE
+            //       (and also tempting to be used – it's just too easy xd)
+            newAngleSetResponse(request, oldAngle, *newAngle);
         }
     private:
         Servo& servo;
@@ -74,11 +78,11 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         auto newAngleSetResponse(
             Request& request,
             const int oldAngle,
-            const int newAngle
+            const Servo::Angle newAngle
         ) const -> void {
             logger.info(format(
-                PSTR("New angle was set: \"%d\""),
-                newAngle
+                PSTR("New angle was set: %d°"),
+                newAngle.getDegrees()
             ));
 
             request.send(
@@ -123,7 +127,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         auto renderAngleResponse(
             const int oldAngle,
-            const std::optional<int> newAngle = {},
+            const std::optional<Servo::Angle> newAngle = {},
             const bool invalidAngle = false
         ) const -> String {
             // todo: extract some kind of templates?
@@ -194,12 +198,17 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             content.replace(
                 PSTR("{{ new_angle }}"),
-                newAngle ? format(PSTR("<p>New angle: %d</p>"), newAngle.value()).get() : ""
+                newAngle
+                    ? format(
+                        PSTR("<p>New angle: %d</p>"),
+                        newAngle->getDegrees()
+                    ).get()
+                    : ""
             );
 
             content.replace(
                 PSTR("{{ angle_form_value }}"),
-                String(newAngle ? newAngle.value() : oldAngle)
+                String(newAngle ? newAngle->getDegrees() : oldAngle)
             );
 
             content.trim();
