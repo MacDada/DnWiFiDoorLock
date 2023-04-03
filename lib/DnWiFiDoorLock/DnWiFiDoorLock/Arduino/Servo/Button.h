@@ -37,16 +37,16 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             scheduleStopPressing();
         }
 
-        auto getPressingAngle() const -> byte {
-            return pressingAngle.getDegrees();
+        auto getPressingAngle() const -> Servo::Angle {
+            return pressingAngle;
         }
 
         auto setPressingAngle(const Servo::Angle angle) -> void {
             pressingAngle = angle;
         }
 
-        auto getNotPressingAngle() const -> byte {
-            return notPressingAngle.getDegrees();
+        auto getNotPressingAngle() const -> Servo::Angle {
+            return notPressingAngle;
         }
 
         // todo: the VO could be created with std::expected

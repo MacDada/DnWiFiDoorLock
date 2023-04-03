@@ -502,8 +502,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             page.replace(PSTR("{{ button_name }}"), PSTR("Heater"));
             page.replace(PSTR("{{ servo_min_angle }}"), String{Servo::Angle::MIN});
             page.replace(PSTR("{{ servo_max_angle }}"), String{Servo::Angle::MAX});
-            page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle()});
-            page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle()});
+            page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle().getDegrees()});
+            page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle().getDegrees()});
             page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.getPressingMilliseconds()});
 
             // todo: extract render() after all? ;-)
@@ -576,8 +576,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 192
             >{};
 
-            json[F("servo_button")][F("pressing_angle")] = button.getPressingAngle();
-            json[F("servo_button")][F("not_pressing_angle")] = button.getNotPressingAngle();
+            json[F("servo_button")][F("pressing_angle")] = button.getPressingAngle().getDegrees();
+            json[F("servo_button")][F("not_pressing_angle")] = button.getNotPressingAngle().getDegrees();
             json[F("servo_button")][F("pressing_milliseconds")] = button.getPressingMilliseconds();
 
             jsonSuccessResponse(request, json);
