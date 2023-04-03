@@ -34,10 +34,11 @@ namespace DnApp::Hardware {
             int degrees;
         };
 
+        // todo: return Angle
         virtual
         auto getAngle() const -> int = 0;
 
         virtual
-        auto setAngle(int degrees) -> void = 0;
+        auto setAngle(Angle angle) -> void = 0;
     };
 }

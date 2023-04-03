@@ -54,7 +54,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return;
             }
 
-            servo.setAngle(newAngle->getDegrees());
+            servo.setAngle(*newAngle);
 
             // todo: find/make something "safer" than std::optional
             //       the fact that dereferencing WITHOUT CHECKING FOR NULL

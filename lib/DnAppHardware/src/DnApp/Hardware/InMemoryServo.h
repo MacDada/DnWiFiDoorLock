@@ -12,8 +12,8 @@ namespace DnApp::Hardware {
             return degrees;
         }
 
-        auto setAngle(const int degrees) -> void override {
-            this->degrees = degrees;
+        auto setAngle(const Angle angle) -> void override {
+            degrees = angle.getDegrees();
         }
     private:
         int degrees = 0;

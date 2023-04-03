@@ -16,7 +16,7 @@ namespace {
     }
 
     auto test_setting_angle() -> void {
-        servo.setAngle(12);
+        servo.setAngle(DnApp::Hardware::Servo::Angle::withDegrees(12).value());
 
         TEST_ASSERT_EQUAL_INT(12, servo.getAngle());
     }

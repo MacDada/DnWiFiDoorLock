@@ -11,13 +11,15 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     class Button final:
         public DnApp::Hardware::Button,
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
+    private:
+        using Servo = DnApp::Hardware::Servo;
     public:
         explicit
         Button(
             const DnApp::Arduino::Hardware::Board& board,
-            DnApp::Hardware::Servo& servo,
-            const byte pressingAngle,
-            const byte notPressingAngle,
+            Servo& servo,
+            const Servo::Angle pressingAngle,
+            const Servo::Angle notPressingAngle,
             const int pressingMilliseconds
         ):
             board{board},
@@ -36,23 +38,22 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         }
 
         auto getPressingAngle() const -> byte {
-            return pressingAngle;
+            return pressingAngle.getDegrees();
         }
 
-        auto setPressingAngle(const byte angle) -> void {
-            this->pressingAngle = angle;
+        auto setPressingAngle(const Servo::Angle angle) -> void {
+            pressingAngle = angle;
         }
 
         auto getNotPressingAngle() const -> byte {
-            return notPressingAngle;
+            return notPressingAngle.getDegrees();
         }
 
-        // todo: validation with VO?
-        //       the VO could be created with std::variant
+        // todo: the VO could be created with std::variant
         //       or even better, with std::expected
         //       https://mariusbancila.ro/blog/2022/08/17/using-the-cpp23-expected-type/
-        auto setNotPressingAngle(const byte angle) -> void {
-            this->notPressingAngle = angle;
+        auto setNotPressingAngle(const Servo::Angle angle) -> void {
+            notPressingAngle = angle;
         }
 
         auto getPressingMilliseconds() const -> int {
@@ -76,11 +77,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     private:
         const DnApp::Arduino::Hardware::Board& board;
 
-        DnApp::Hardware::Servo& servo;
+        Servo& servo;
 
-        byte pressingAngle;
+        Servo::Angle pressingAngle;
 
-        byte notPressingAngle;
+        Servo::Angle notPressingAngle;
 
         int pressingMilliseconds;
 

@@ -19,13 +19,15 @@ namespace DnWiFiDoorLock::Arduino {
             ::Logger
             ::Decorator
             ::PrefixPostfixMessageLoggerDecorator;
+
+        using Servo = DnApp::Hardware::Servo;
     public:
         explicit
         DoorLock(
-            DnApp::Hardware::Servo& servo,
+            Servo& servo,
             DnApp::Logger::Logger& logger,
-            const byte openAngle,
-            const byte closedAngle
+            const Servo::Angle openAngle,
+            const Servo::Angle closedAngle
         ):
             servo{servo},
             logger{PrefixingLogger{logger, PSTR("DoorLock: ")}},
@@ -47,7 +49,7 @@ namespace DnWiFiDoorLock::Arduino {
         // warning! it only shows what we asked the servo to do
         //          we have no feedback as for the servo succeeded to close the door or not
         auto isClosed() const -> bool override {
-            return servo.getAngle() == closedAngle;
+            return servo.getAngle() == closedAngle.getDegrees();
         }
 
         auto open() -> void override {
@@ -83,13 +85,13 @@ namespace DnWiFiDoorLock::Arduino {
             // do nothing
         }
     private:
-        DnApp::Hardware::Servo& servo;
+        Servo& servo;
 
         PrefixingLogger logger;
 
-        const byte openAngle;
+        const Servo::Angle openAngle;
 
-        const byte closedAngle;
+        const Servo::Angle closedAngle;
     };
 
     static_assert(!std::is_abstract<DoorLock>());

@@ -223,8 +223,8 @@ namespace DnWiFiDoorLock {
             static auto service = DnWiFiDoorLock::Arduino::DoorLock{
                 getServo(),
                 getLogger(),
-                0,
-                180
+                DnApp::Hardware::Servo::Angle::withDegrees(0).value(),
+                DnApp::Hardware::Servo::Angle::withDegrees(180).value()
             };
 
             return service;
@@ -324,8 +324,8 @@ namespace DnWiFiDoorLock {
                 getBoard(),
                 // todo: a different servo than DoorLock servo? ;p
                 getServo(),
-                config.furnaceHeaterButton.pressingAngle,
-                config.furnaceHeaterButton.notPressingAngle,
+                DnApp::Hardware::Servo::Angle::withDegrees(config.furnaceHeaterButton.pressingAngle).value(),
+                DnApp::Hardware::Servo::Angle::withDegrees(config.furnaceHeaterButton.notPressingAngle).value(),
                 config.furnaceHeaterButton.pressingMilliseconds
             };
 

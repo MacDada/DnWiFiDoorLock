@@ -385,9 +385,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         using Servo = DnApp::Hardware::Servo;
 
         struct Settings final {
-            const int pressingAngle;
+            const Servo::Angle pressingAngle;
 
-            const int notPressingAngle;
+            const Servo::Angle notPressingAngle;
 
             const int pressingMilliseconds;
         };
@@ -547,8 +547,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             }
 
             return Settings{
-                newPressingAngle->getDegrees(),
-                newNotPressingAngle->getDegrees(),
+                *newPressingAngle,
+                *newNotPressingAngle,
                 newMilliseconds
             };
         }
