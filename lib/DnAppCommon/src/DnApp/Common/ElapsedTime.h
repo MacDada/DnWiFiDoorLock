@@ -1,29 +1,38 @@
 #pragma once
 
-#include <Arduino.h>
+#include <cstdint> // uint32_t, uint16_t, uint8_t
 
 namespace DnApp::Common {
     class ElapsedTime final {
     private:
-        const unsigned long milliseconds;
+        const uint32_t milliseconds;
 
-        const long seconds;
+        const uint32_t seconds;
 
-        const long minutes;
+        const uint32_t minutes;
 
-        const int hours;
+        const uint16_t hours;
 
-        const byte days;
+        const uint8_t days;
     public:
-        // If I count correctly, `unsigned long` gives us max 49 days without restart xD
-        // 4294967295/1000/60/60/24 ~= 49
+        // Accepting `uint32_t` as this is a 32–bit value.
         //
-        // what will happen after 49 days?
-        // a crash? or `millis()` will just give a wrong result?
+        // No point in making it bigger,
+        // as this is primarily used to present the microcontroller's uptime,
+        // and Arduino's `millis()` is returning `unsigned long`,
+        // which on ESP8266 is a 32–bit value (see `README.md`).
+        //
+        // That gives us max ~49 days without restart xD
+        // 4294967295/1000/60/60/24 = ~49
+        //
+        // todo:[1] What will happen after 49 days?
+        //       A crash? Or `millis()` will just give a wrong result?
+        //       -> probably strange behaviour from type size overflows
+        //       -> Maybe I should just force restart when overflow actually occurs?
         explicit
-        ElapsedTime(const unsigned long milliseconds):
+        ElapsedTime(const uint32_t milliseconds):
             milliseconds{milliseconds},
-            seconds(milliseconds / 1000),
+            seconds{milliseconds / 1000},
             minutes{seconds / 60},
             hours(minutes / 60),
             days(hours / 24) {
@@ -33,40 +42,39 @@ namespace DnApp::Common {
             //   4 bytes each ;-)
         }
 
-        auto getMilliseconds() const -> unsigned long {
+        auto getMilliseconds() const -> uint32_t {
             return milliseconds;
         }
 
-        auto getSeconds() const -> long {
+        auto getSeconds() const -> uint32_t {
             return seconds;
         }
 
-        auto getMinutes() const -> long {
+        auto getMinutes() const -> uint32_t {
             return minutes;
         }
 
-        auto getHours() const -> int {
+        auto getHours() const -> uint16_t {
             return hours;
         }
 
-        // `byte` is enough, we won't be going longer than 49 days xD
-        auto getDays() const -> byte {
+        auto getDays() const -> uint8_t {
             return days;
         }
 
-        auto getRemainingMilliseconds() const -> int {
+        auto getRemainingMilliseconds() const -> uint16_t {
             return milliseconds % 1000;
         }
 
-        auto getRemainingSeconds() const -> byte {
+        auto getRemainingSeconds() const -> uint8_t {
             return seconds % 60;
         }
 
-        auto getRemainingMinutes() const -> byte {
+        auto getRemainingMinutes() const -> uint8_t {
             return minutes % 60;
         }
 
-        auto getRemainingHours() const -> byte {
+        auto getRemainingHours() const -> uint8_t {
             return hours % 24;
         }
     };

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint32_t
 #include <type_traits> // std::is_abstract
 
 #include "DnApp/Arduino/Hardware/Board.h"
@@ -84,9 +85,10 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         int pressingMilliseconds;
 
-        unsigned long stopPressingAtUptimeMilliseconds = 0;
+        uint32_t stopPressingAtUptimeMilliseconds = 0;
 
         auto scheduleStopPressing() -> void {
+            // todo:[1] possible uint32_t overflow
             stopPressingAtUptimeMilliseconds = getUptimeMilliseconds() + pressingMilliseconds;
         }
 
@@ -95,7 +97,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
                 && getUptimeMilliseconds() > stopPressingAtUptimeMilliseconds;
         }
 
-        auto getUptimeMilliseconds() const -> unsigned long {
+        auto getUptimeMilliseconds() const -> uint32_t {
             return board.getUptime().getMilliseconds();
         }
 

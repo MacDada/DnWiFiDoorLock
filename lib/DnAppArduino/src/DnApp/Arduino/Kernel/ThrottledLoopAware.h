@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint32_t
 #include <type_traits> // std::is_abstract
 
 #include "DnApp/Arduino/Hardware/Board.h"
@@ -38,10 +39,18 @@ namespace DnApp::Arduino::Kernel {
 
         const int throttleMilliseconds;
 
-        unsigned long lastOtherAwareCallMilliseconds = 0;
+        uint32_t lastOtherAwareCallMilliseconds = 0;
 
         auto isItTime() const -> bool  {
-            return board.getUptime().getMilliseconds() > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
+            return board.getUptime().getMilliseconds()
+                // todo:[1] what to do with uint32_t overflow?
+                //       I need to test what Arduino's `millis()` returns
+                //       after its max value and think how I can handle
+                //       such long uptimes
+                //       -> prevent with scheduled restarts?
+                //       -> restart on overflow?
+                //       -> count how many times uptime was overflowed?
+                > (lastOtherAwareCallMilliseconds + throttleMilliseconds);
         }
     };
 

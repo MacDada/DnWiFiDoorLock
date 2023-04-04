@@ -15,7 +15,7 @@ namespace DnApp::Arduino::Hardware {
         }
 
         auto getUptime() const -> DnApp::Common::ElapsedTime {
-            return DnApp::Common::ElapsedTime(millis());
+            return DnApp::Common::ElapsedTime{millis()};
         }
     };
 }

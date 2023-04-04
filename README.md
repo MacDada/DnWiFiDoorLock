@@ -238,8 +238,26 @@ Code style, conventions, decisions
     * https://discord.com/channels/583251190591258624/1088209923302768691/1089911377151397918
 * [AAA: Almost Always Auto](https://herbsutter.com/2013/08/12/gotw-94-solution-aaa-style-almost-always-auto/)
 * Integer types
-  * prefer the (size) explicit options (like `uint8_t`), over the unspecified `int`
-  * use Arduino specific types (like `byte`) only for
-    code directly dealing with such requirements in the Arduino framework
+  * Prefer the (size) explicit options (like `uint8_t`), over the unspecified (like `int`).
+  * Use Arduino specific types (like `byte`) only for
+    code directly dealing with such requirements from the Arduino framework.
+  * Watch out for sizes on different platforms!
+    * `unsigned long` is `uint32_t` on `nodemcu` env (ESP8266)
+      * that's what the
+        [Arduino docs are saying](https://reference.arduino.cc/reference/en/language/variables/data-types/unsignedlong/)
+      * tested with
+        ```cpp
+        // in a file compiled with the `nodemcu` env
+        static_assert(sizeof(unsigned long) == sizeof(uint32_t));
+        ```
+    * `unsigned long` is `uint64_t` on (my) `native` env (MacOS x86)
+      * tested with
+        ```cpp
+        // in a file compiled with the `native` env
+        static_assert(sizeof(unsigned long) == sizeof(uint64_t));
+        ```
+* `// todo:[2137] Description of what is to be done`
+  – the number is for easier grep,
+    when the same kind of issue appears in multiple places.
 
 ---
