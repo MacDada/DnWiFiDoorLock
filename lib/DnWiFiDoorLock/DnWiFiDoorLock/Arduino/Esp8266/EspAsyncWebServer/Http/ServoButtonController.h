@@ -530,8 +530,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("No required data given")};
             }
 
-            const auto newPressingAngle = Servo::Angle::withDegrees((int) maybeNewPressingAngle->toInt());
-            const auto newNotPressingAngle = Servo::Angle::withDegrees((int) maybeNewNotPressingAngle->toInt());
+            const auto newPressingAngle = Servo::Angle::withDegrees(maybeNewPressingAngle->toInt());
+            const auto newNotPressingAngle = Servo::Angle::withDegrees(maybeNewNotPressingAngle->toInt());
             const auto newMilliseconds = (int) maybeNewMilliseconds->toInt();
 
             if (!newPressingAngle) {

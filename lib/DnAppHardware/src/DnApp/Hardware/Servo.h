@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint> // uint8_t
 #include <optional>
 
 namespace DnApp::Hardware {
@@ -8,13 +9,13 @@ namespace DnApp::Hardware {
         class Angle final {
         public:
             static
-            const int MIN = 0;
+            const uint8_t MIN = 0;
 
             static
-            const int MAX = 180;
+            const uint8_t MAX = 180;
 
             static
-            auto withDegrees(const int degrees) -> std::optional<Angle> {
+            auto withDegrees(const uint8_t degrees) -> std::optional<Angle> {
                 if (degrees < MIN || degrees > MAX) {
                     return {};
                 }
@@ -22,16 +23,16 @@ namespace DnApp::Hardware {
                 return Angle{degrees};
             }
 
-            auto getDegrees() const -> int {
+            auto getDegrees() const -> uint8_t {
                 return degrees;
             }
         private:
             explicit
-            Angle(const int degrees):
+            Angle(const uint8_t degrees):
                 degrees{degrees} {
             }
 
-            int degrees;
+            uint8_t degrees;
         };
 
         virtual

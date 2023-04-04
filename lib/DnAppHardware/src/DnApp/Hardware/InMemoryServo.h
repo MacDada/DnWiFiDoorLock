@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint8_t
 #include <type_traits> // std::is_abstract
 
 #include "DnApp/Hardware/Servo.h"
@@ -9,7 +10,7 @@ namespace DnApp::Hardware {
         public DnApp::Hardware::Servo {
     public:
         static
-        const int DEFAULT_ANGLE_DEGREES = 0;
+        const uint8_t DEFAULT_ANGLE_DEGREES = 0;
 
         auto getAngle() const -> Angle override {
             return angle;

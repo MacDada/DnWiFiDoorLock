@@ -42,7 +42,6 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         }
 
         auto getAngle() const -> Angle override {
-            // todo: test if the "default" (or random?) value does not actually throw
             return Angle::withDegrees(servo.read()).value();
         }
 

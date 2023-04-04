@@ -46,7 +46,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return;
             }
 
-            const auto newAngle = Servo::Angle::withDegrees((int) maybeNewAngle->toInt());
+            const auto newAngle = Servo::Angle::withDegrees(maybeNewAngle->toInt());
 
             if (!newAngle) {
                 invalidAngleGivenResponse(request, oldAngle, *maybeNewAngle);

@@ -80,9 +80,9 @@ namespace DnWiFiDoorLock {
             } const otaUpload;
 
             struct {
-                const byte pressingAngle;
+                const uint8_t pressingAngle;
 
-                const byte notPressingAngle;
+                const uint8_t notPressingAngle;
 
                 const int pressingMilliseconds;
             } const furnaceHeaterButton;
