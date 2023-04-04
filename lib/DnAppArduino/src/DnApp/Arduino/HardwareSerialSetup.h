@@ -16,7 +16,7 @@ namespace DnApp::Arduino {
         HardwareSerialSetup(
             HardwareSerial& serial,
             DnApp::Arduino::Hardware::Board& board,
-            const long bitsPerSecond
+            const unsigned long bitsPerSecond
         ):
             serial{serial},
             board{board},
@@ -46,7 +46,7 @@ namespace DnApp::Arduino {
 
         DnApp::Arduino::Hardware::Board& board;
 
-        const long bitsPerSecond;
+        const unsigned long bitsPerSecond;
     };
 
     static_assert(!std::is_abstract<HardwareSerialSetup>());

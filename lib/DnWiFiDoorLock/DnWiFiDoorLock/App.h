@@ -55,7 +55,7 @@ namespace DnWiFiDoorLock {
 
             const char* const buildGitCommitHash;
 
-            const int serialBitsPerSecond;
+            const unsigned long serialBitsPerSecond;
 
             const uint8_t servoPin;
 
