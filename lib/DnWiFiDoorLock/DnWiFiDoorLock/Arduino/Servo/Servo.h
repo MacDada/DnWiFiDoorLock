@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint> // uint8_t
+
 #include <Servo.h>
 #include <WString.h>
 
@@ -29,7 +31,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     public:
         Servo(
             ::Servo& servo,
-            const byte pin,
+            const uint8_t pin,
             const int minPulseWidthMicroseconds,
             const int maxPulseWidthMicroseconds,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger

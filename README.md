@@ -237,5 +237,9 @@ Code style, conventions, decisions
       -> therefore the internal `Logger logger` field might be marked as `mutable`.
     * https://discord.com/channels/583251190591258624/1088209923302768691/1089911377151397918
 * [AAA: Almost Always Auto](https://herbsutter.com/2013/08/12/gotw-94-solution-aaa-style-almost-always-auto/)
+* Integer types
+  * prefer the (size) explicit options (like `uint8_t`), over the unspecified `int`
+  * use Arduino specific types (like `byte`) only for
+    code directly dealing with such requirements in the Arduino framework
 
 ---

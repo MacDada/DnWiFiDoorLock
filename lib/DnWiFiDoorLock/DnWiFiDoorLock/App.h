@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstdint>    // uint8_t
 #include <functional> // std::reference_wrapper
 #include <utility>    // std::move
 
@@ -56,7 +57,7 @@ namespace DnWiFiDoorLock {
 
             const int serialBitsPerSecond;
 
-            const byte servoPin;
+            const uint8_t servoPin;
 
             struct {
                 const char* const ssid;

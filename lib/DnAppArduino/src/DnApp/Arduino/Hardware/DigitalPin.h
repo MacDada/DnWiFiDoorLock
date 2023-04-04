@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint8_t
 #include <type_traits> // std::is_abstract
 
 #include <Arduino.h>
@@ -11,11 +12,11 @@ namespace DnApp::Arduino::Hardware {
         public DnApp::Hardware::DigitalPin {
     public:
         explicit
-        DigitalPin(const byte id):
+        DigitalPin(const uint8_t id):
             id{id} {
         }
 
-        auto getId() const -> byte {
+        auto getId() const -> uint8_t {
             return id;
         }
 
@@ -43,7 +44,7 @@ namespace DnApp::Arduino::Hardware {
             return digitalRead(id) == LOW;
         }
     private:
-        const byte id;
+        const uint8_t id;
     };
 
     static_assert(!std::is_abstract<DigitalPin>());
