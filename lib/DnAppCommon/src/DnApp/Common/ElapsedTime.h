@@ -18,10 +18,6 @@ namespace DnApp::Common {
         // If I count correctly, `unsigned long` gives us max 49 days without restart xD
         // 4294967295/1000/60/60/24 ~= 49
         //
-        // btw, I used to have `int` here:
-        // how is that the compiler did not warn me
-        // that the potential value coming here could me `unsigned long`,
-        // which is given by `millis()`?
         // what will happen after 49 days?
         // a crash? or `millis()` will just give a wrong result?
         explicit
