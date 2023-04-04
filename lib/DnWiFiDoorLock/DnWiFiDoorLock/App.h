@@ -68,7 +68,7 @@ namespace DnWiFiDoorLock {
             struct {
                 const char* const hostname;
 
-                const unsigned short port;
+                const uint16_t port;
             } const webServer;
 
             struct {

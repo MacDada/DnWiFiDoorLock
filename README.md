@@ -242,20 +242,23 @@ Code style, conventions, decisions
   * Use Arduino specific types (like `byte`) only for
     code directly dealing with such requirements from the Arduino framework.
   * Watch out for sizes on different platforms!
-    * `unsigned long` is `uint32_t` on `nodemcu` env (ESP8266)
-      * that's what the
-        [Arduino docs are saying](https://reference.arduino.cc/reference/en/language/variables/data-types/unsignedlong/)
-      * tested with
-        ```cpp
-        // in a file compiled with the `nodemcu` env
-        static_assert(sizeof(unsigned long) == sizeof(uint32_t));
-        ```
-    * `unsigned long` is `uint64_t` on (my) `native` env (MacOS x86)
-      * tested with
-        ```cpp
-        // in a file compiled with the `native` env
-        static_assert(sizeof(unsigned long) == sizeof(uint64_t));
-        ```
+    * Can be tested in this way:
+      ```cpp
+      // compiles in the `nodemcu` env, does not on _(my)_ `native` env
+      static_assert(sizeof(unsigned long) == sizeof(uint32_t));
+      ```
+    * `byte` / `unsigned byte`:
+      * `nodemcu`: `int8_t` / `uint8_t` (`-128`–`127` / `0`–`255`)
+      * `native`:  ~
+    * `short` / `unsigned short`:
+      * `nodemcu`: `int16_t` / `uint16_t` (`-32,768`–`32,767` / `0`–`65,535`)
+      * `native`:  `int16_t` / `uint16_t` (`-32,768`–`32,767` / `0`–`65,535`)
+    * `int` / `unsigned int`:
+      * `nodemcu`: `int32_t` / `uint32_t` (`-2,147,483,648`–`2,147,483,647` / `0`–`4,294,967,295`)
+      * `native`:  `int32_t` / `uint32_t` (`-2,147,483,648`–`2,147,483,647` / `0`–`4,294,967,295`)
+    * `long` / `unsigned long`:
+      * `nodemcu`: `int32_t` / `uint32_t` (`-2,147,483,648`–`2,147,483,647` / `0`–`4,294,967,295`)
+      * `native`:  `int64_t` / `uint64_t` (large^^)
 * `// todo:[2137] Description of what is to be done`
   – the number is for easier grep,
     when the same kind of issue appears in multiple places.

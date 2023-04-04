@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint16_t
 #include <functional>  // std::function
 #include <type_traits> // std::is_abstract
 #include <utility>     // std::move
@@ -27,7 +28,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             ESP8266WiFiClass& wiFi,
             AsyncWebServer& server,
             const char* const hostname,
-            const unsigned int port,
+            const uint16_t port,
             DoorLockController& doorLockController,
             FurnaceController& furnaceController,
             ServoButtonController& servoButtonController,
@@ -68,7 +69,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         const char* const hostname;
 
-        const unsigned int port;
+        const uint16_t port;
 
         // todo: controllers should register themselves to avoid having 2137 controllers here?
         DoorLockController& doorLockController;
