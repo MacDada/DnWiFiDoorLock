@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint> // uint16_t
 #include <type_traits> // std::is_abstract
 
 #include <Arduino.h>
@@ -84,7 +85,7 @@ namespace DnApp::Esp::Esp8266 {
 
             logger.info(connectingMessage.c_str());
 
-            auto tries = 0;
+            auto tries = uint16_t{0};
 
             while (true) {
                 const auto status = esp8266WiFi.status();
@@ -105,7 +106,7 @@ namespace DnApp::Esp::Esp8266 {
             }
         }
 
-        auto informAboutConnectingIssue(const int tries, const int status) -> void {
+        auto informAboutConnectingIssue(const uint16_t tries, const int status) -> void {
             ledBlinker.blinkFast(3);
 
             if (0 == tries % 5) {
