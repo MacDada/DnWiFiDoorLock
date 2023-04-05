@@ -21,7 +21,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             Servo& servo,
             const Servo::Angle pressingAngle,
             const Servo::Angle notPressingAngle,
-            const int pressingMilliseconds
+            const uint32_t pressingMilliseconds
         ):
             board{board},
             servo{servo},
@@ -56,12 +56,12 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             notPressingAngle = angle;
         }
 
-        auto getPressingMilliseconds() const -> int {
+        auto getPressingMilliseconds() const -> uint32_t {
             return pressingMilliseconds;
         }
 
-        auto setPressingMilliseconds(const int milliseconds) -> void {
-            this->pressingMilliseconds = milliseconds;
+        auto setPressingMilliseconds(const uint32_t milliseconds) -> void {
+            pressingMilliseconds = milliseconds;
         }
 
         auto onSetup() -> void override {
@@ -83,7 +83,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         Servo::Angle notPressingAngle;
 
-        int pressingMilliseconds;
+        uint32_t pressingMilliseconds;
 
         uint32_t stopPressingAtUptimeMilliseconds = 0;
 

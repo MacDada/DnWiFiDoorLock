@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include <cstdint>    // uint8_t, uint16_t
+#include <cstdint>    // uint8_t, uint16_t, uint32_t
 #include <functional> // std::reference_wrapper
 #include <utility>    // std::move
 
@@ -84,7 +84,7 @@ namespace DnWiFiDoorLock {
 
                 const uint8_t notPressingAngle;
 
-                const int pressingMilliseconds;
+                const uint32_t pressingMilliseconds;
             } const furnaceHeaterButton;
         };
 

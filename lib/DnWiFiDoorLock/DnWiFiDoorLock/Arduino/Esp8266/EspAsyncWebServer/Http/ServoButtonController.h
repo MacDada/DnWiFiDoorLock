@@ -389,7 +389,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             const Servo::Angle notPressingAngle;
 
-            const int pressingMilliseconds;
+            const uint32_t pressingMilliseconds;
         };
 
         static
@@ -483,8 +483,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
                                 <input
                                     type="number"
-                                    min="100"
-                                    max="5000"
+                                    min="{{ min_pressing_milliseconds }}"
+                                    max="{{ max_pressing_milliseconds }}"
                                     step="100"
                                     data-buttons-step="100"
                                     name="pressing_milliseconds"
@@ -505,6 +505,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle().getDegrees()});
             page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle().getDegrees()});
             page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.getPressingMilliseconds()});
+            page.replace(PSTR("{{ min_pressing_milliseconds }}"), String{uint32_t{100}});
+            page.replace(PSTR("{{ max_pressing_milliseconds }}"), String{uint32_t{5000}});
 
             // todo: extract render() after all? ;-)
             // #include <tuple>
@@ -532,7 +534,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
             const auto newPressingAngle = Servo::Angle::withDegrees(maybeNewPressingAngle->toInt());
             const auto newNotPressingAngle = Servo::Angle::withDegrees(maybeNewNotPressingAngle->toInt());
-            const auto newMilliseconds = (int) maybeNewMilliseconds->toInt();
+            const auto newMilliseconds = uint32_t(maybeNewMilliseconds->toInt());
 
             if (!newPressingAngle) {
                 return tl::unexpected{PSTR("Invalid pressing angle")};
