@@ -12,7 +12,7 @@ namespace DnApp::Hardware {
             ++pressCount;
         }
 
-        auto getPressCount() -> int const {
+        auto getPressCount() const -> int {
             return pressCount;
         }
 
