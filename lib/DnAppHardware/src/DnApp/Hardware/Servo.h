@@ -9,10 +9,10 @@ namespace DnApp::Hardware {
         class Angle final {
         public:
             static
-            const uint8_t MIN = 0;
+            const auto MIN = uint8_t{0};
 
             static
-            const uint8_t MAX = 180;
+            const auto MAX = uint8_t{180};
 
             static
             auto withDegrees(const uint8_t degrees) -> std::optional<Angle> {
