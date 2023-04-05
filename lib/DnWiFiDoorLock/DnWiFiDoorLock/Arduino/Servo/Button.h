@@ -3,6 +3,9 @@
 #include <cstdint>     // uint32_t
 #include <type_traits> // std::is_abstract
 
+#include <WString.h>
+#include <tl_expected>
+
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Arduino/Kernel/SetupAndLoopAware.h"
 #include "DnApp/Hardware/Button.h"
@@ -15,6 +18,31 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     private:
         using Servo = DnApp::Hardware::Servo;
     public:
+        class PressingMilliseconds final {
+        public:
+            static
+            auto create(
+                uint32_t value
+            ) -> tl::expected<PressingMilliseconds, String> {
+                if (value == 0) {
+                    return tl::unexpected{PSTR("Positive integer required")};
+                }
+
+                return PressingMilliseconds{value};
+            }
+
+            auto getValue() const -> uint32_t {
+                return value;
+            }
+        private:
+            explicit
+            PressingMilliseconds(uint32_t value):
+                value{value} {
+            }
+
+            uint32_t value;
+        };
+
         explicit
         Button(
             const DnApp::Arduino::Hardware::Board& board,

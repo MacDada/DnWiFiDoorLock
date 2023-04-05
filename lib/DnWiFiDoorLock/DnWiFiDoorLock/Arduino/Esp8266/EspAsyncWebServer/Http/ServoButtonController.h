@@ -20,6 +20,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     class ServoButtonController final:
         public Controller {
     private:
+        using Button = DnWiFiDoorLock::Arduino::Servo::Button;
+
         using LoggerDecorator = DnApp
             ::Arduino
             ::Logger
@@ -29,7 +31,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         explicit
         ServoButtonController(
             const char* const appName,
-            DnWiFiDoorLock::Arduino::Servo::Button& button,
+            Button& button,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger
         ):
             appName{appName},
@@ -398,7 +400,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         const char* const appName;
 
-        DnWiFiDoorLock::Arduino::Servo::Button& button;
+        Button& button;
 
         mutable
         LoggerDecorator logger;
@@ -504,8 +506,12 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle().getDegrees()});
             page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle().getDegrees()});
             page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.getPressingMilliseconds()});
-            page.replace(PSTR("{{ min_pressing_milliseconds }}"), String{uint32_t{100}});
-            page.replace(PSTR("{{ max_pressing_milliseconds }}"), String{uint32_t{5000}});
+            page.replace(PSTR("{{ min_pressing_milliseconds }}"), String{
+                Button::PressingMilliseconds::create(100).value().getValue()
+            });
+            page.replace(PSTR("{{ max_pressing_milliseconds }}"), String{
+                Button::PressingMilliseconds::create(5000).value().getValue()
+            });
 
             // todo: extract render() after all? ;-)
             // #include <tuple>
@@ -534,7 +540,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             // todo: what if a negative number was given?
             const auto newPressingAngle = Servo::Angle::withDegrees(maybeNewPressingAngle->toInt());
             const auto newNotPressingAngle = Servo::Angle::withDegrees(maybeNewNotPressingAngle->toInt());
-            const auto newMilliseconds = uint32_t(maybeNewMilliseconds->toInt());
+            const auto newMilliseconds = Button::PressingMilliseconds::create(maybeNewMilliseconds->toInt());
 
             if (!newPressingAngle) {
                 return tl::unexpected{PSTR("Invalid pressing angle")};
@@ -544,14 +550,16 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("Invalid not pressing angle")};
             }
 
-            if (newMilliseconds == 0) {
-                return tl::unexpected{PSTR("Invalid pressing milliseconds")};
+            if (!newMilliseconds) {
+                return tl::unexpected{
+                    String{PSTR("Invalid pressing milliseconds: ")} + newMilliseconds.error()
+                };
             }
 
             return Settings{
                 *newPressingAngle,
                 *newNotPressingAngle,
-                newMilliseconds
+                newMilliseconds.value().getValue()
             };
         }
 
