@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint16_t
 #include <type_traits> // std::is_abstract
 
 #include "DnApp/Hardware/Button.h"
@@ -12,7 +13,7 @@ namespace DnApp::Hardware {
             ++pressCount;
         }
 
-        auto getPressCount() const -> int {
+        auto getPressCount() const -> uint16_t {
             return pressCount;
         }
 
@@ -21,7 +22,7 @@ namespace DnApp::Hardware {
         }
 
     private:
-        int pressCount = 0;
+        uint16_t pressCount = 0;
     };
 
     static_assert(!std::is_abstract<InMemoryButton>());
