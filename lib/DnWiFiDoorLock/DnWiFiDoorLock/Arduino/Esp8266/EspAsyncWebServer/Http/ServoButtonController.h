@@ -1,10 +1,9 @@
 #pragma once
 
-#include <tl_expected>
-
 #include "ArduinoJson.h"
 #include "ESPAsyncWebServer.h"
 #include <WString.h>
+#include <tl_expected>
 
 #include "DnApp/Arduino/Logger/Decorator/PrefixPostfixMessageLoggerDecorator.h"
 #include "DnApp/Arduino/Logger/WithArduinoStringLogger.h"
@@ -532,6 +531,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("No required data given")};
             }
 
+            // todo: what if a negative number was given?
             const auto newPressingAngle = Servo::Angle::withDegrees(maybeNewPressingAngle->toInt());
             const auto newNotPressingAngle = Servo::Angle::withDegrees(maybeNewNotPressingAngle->toInt());
             const auto newMilliseconds = uint32_t(maybeNewMilliseconds->toInt());
@@ -544,7 +544,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("Invalid not pressing angle")};
             }
 
-            if (newMilliseconds <= 0) {
+            if (newMilliseconds == 0) {
                 return tl::unexpected{PSTR("Invalid pressing milliseconds")};
             }
 
