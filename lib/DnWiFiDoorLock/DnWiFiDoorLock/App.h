@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include <cstdint>    // uint8_t
+#include <cstdint>    // uint8_t, uint16_t
 #include <functional> // std::reference_wrapper
 #include <utility>    // std::move
 
@@ -74,7 +74,7 @@ namespace DnWiFiDoorLock {
             struct {
                 const char* const hostname;
 
-                const int port;
+                const uint16_t port;
 
                 const char* const passwordMd5;
             } const otaUpload;

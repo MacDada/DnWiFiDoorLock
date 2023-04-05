@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>     // uint16_t
 #include <type_traits> // std::is_abstract
 
 #include <ArduinoOTA.h>
@@ -15,7 +16,7 @@ namespace DnWiFiDoorLock::Arduino {
     public:
         explicit
         OTAUploaderSetupAndLoopAware(
-            const int port,
+            const uint16_t port,
             const char* const hostname,
             const char* const passwordHash,
             DnApp::Arduino::Logger::WithArduinoStringLogger& logger
@@ -70,7 +71,7 @@ namespace DnWiFiDoorLock::Arduino {
             ArduinoOTA.handle();
         }
     private:
-        const int port;
+        const uint16_t port;
 
         const char* const hostname;
 
