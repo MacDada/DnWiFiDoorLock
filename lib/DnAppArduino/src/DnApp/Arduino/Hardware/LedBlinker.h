@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint> // uint8_t
+
 #include "DnApp/Arduino/Hardware/Board.h"
 #include "DnApp/Hardware/Led.h"
 
@@ -15,7 +17,7 @@ namespace DnApp::Arduino::Hardware {
             led{led} {
         }
 
-        auto blinkFast(const int count) -> void {
+        auto blinkFast(const uint8_t count) -> void {
             for (auto i = decltype(count){0}; i < count; ++i) {
                 led.on();
                 board.pause(100);
