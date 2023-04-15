@@ -23,6 +23,7 @@ namespace DnApp::Hardware {
                 return Angle{degrees};
             }
 
+            [[nodiscard]]
             auto getDegrees() const -> uint8_t {
                 return degrees;
             }
@@ -39,6 +40,7 @@ namespace DnApp::Hardware {
             uint8_t degrees;
         };
 
+        [[nodiscard]]
         virtual
         auto getAngle() const -> Angle = 0;
 

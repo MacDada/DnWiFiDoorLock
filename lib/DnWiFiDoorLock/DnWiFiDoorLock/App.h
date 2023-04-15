@@ -466,6 +466,7 @@ namespace DnWiFiDoorLock {
             return service;
         }
 
+        [[nodiscard]]
         auto& getHardwareSerialWelcomeMessageSetup() const {
             static auto service = DnApp::Arduino::WelcomeMessagePrinter{
                 ::Serial,

@@ -148,6 +148,7 @@ namespace DnApp::Esp::Esp8266 {
             logger.info(PSTR("Reconnected!"));
         }
 
+        [[nodiscard]]
         auto wiFiConnectionStatusToString(const uint8_t status) const -> const char* {
             switch (status) {
                 case WL_NO_SHIELD:

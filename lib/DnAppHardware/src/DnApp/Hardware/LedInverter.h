@@ -13,10 +13,12 @@ namespace DnApp::Hardware {
             led{led} {
         }
 
+        [[nodiscard]]
         auto isOn() const -> bool override {
             return led.isOff();
         }
 
+        [[nodiscard]]
         auto isOff() const -> bool override {
             return led.isOn();
         };

@@ -38,7 +38,7 @@ namespace DnWiFiDoorLock::Arduino {
         // warning! it only shows what we asked the servo to do
         //          we have no feedback as for the servo succeeded to open the door or not
         //
-        // todo: "Clang-Tidy: Function 'isOpen' should be marked [[nodiscard]]"?
+        [[nodiscard]]
         auto isOpen() const -> bool override {
             // we're not checking for openAngle,
             // because if we have any other angle than the closedAngle
@@ -48,6 +48,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         // warning! it only shows what we asked the servo to do
         //          we have no feedback as for the servo succeeded to close the door or not
+        [[nodiscard]]
         auto isClosed() const -> bool override {
             return servo.getAngle() == closedAngle;
         }

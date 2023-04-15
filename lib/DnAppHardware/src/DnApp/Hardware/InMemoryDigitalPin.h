@@ -8,10 +8,12 @@ namespace DnApp::Hardware {
     class InMemoryDigitalPin final:
         public DnApp::Hardware::DigitalPin {
     public:
+        [[nodiscard]]
         auto isOutputMode() const -> bool {
             return !inputMode;
         }
 
+        [[nodiscard]]
         auto isInputMode() const -> bool {
             return inputMode;
         }
@@ -32,10 +34,12 @@ namespace DnApp::Hardware {
             low = true;
         }
 
+        [[nodiscard]]
         auto isHigh() const -> bool override {
             return !low;
         }
 
+        [[nodiscard]]
         auto isLow() const -> bool override {
             return low;
         }

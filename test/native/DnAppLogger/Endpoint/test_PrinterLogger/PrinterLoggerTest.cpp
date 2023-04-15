@@ -20,10 +20,12 @@ namespace {
             result += "\n";
         }
 
+        [[nodiscard]]
         int getCallsCount() const {
             return callsCount;
         }
 
+        [[nodiscard]]
         std::string getResult() const {
             return result;
         }

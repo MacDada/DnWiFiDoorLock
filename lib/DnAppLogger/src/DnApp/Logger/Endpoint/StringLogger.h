@@ -8,6 +8,7 @@ namespace DnApp::Logger::Endpoint {
     class StringLogger final:
         public DnApp::Logger::Logger {
     public:
+        [[nodiscard]]
         auto getContent() const -> const char* {
             return string.c_str();
         }

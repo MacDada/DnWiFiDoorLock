@@ -27,10 +27,12 @@ namespace DnWiFiDoorLock::Arduino {
             logger{PrefixingLogger{logger, PSTR("Furnace: ")}} {
         }
 
+        [[nodiscard]]
         auto isHeaterOn() const -> bool override {
             return heaterOn;
         }
 
+        [[nodiscard]]
         auto isHeaterOff() const -> bool override {
             return !heaterOn;
         }

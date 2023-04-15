@@ -3,9 +3,11 @@
 namespace DnApp::Hardware {
     class Led {
     public:
+        [[nodiscard]]
         virtual
         auto isOn() const -> bool = 0;
 
+        [[nodiscard]]
         virtual
         auto isOff() const -> bool = 0;
 

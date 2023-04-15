@@ -13,6 +13,7 @@ namespace DnApp::Hardware {
             ++pressCount;
         }
 
+        [[nodiscard]]
         auto getPressCount() const -> uint16_t {
             return pressCount;
         }

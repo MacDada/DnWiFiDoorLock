@@ -16,6 +16,7 @@ namespace DnApp::Arduino::Hardware {
             id{id} {
         }
 
+        [[nodiscard]]
         auto getId() const -> uint8_t {
             return id;
         }
@@ -36,10 +37,12 @@ namespace DnApp::Arduino::Hardware {
             digitalWrite(id, LOW);
         }
 
+        [[nodiscard]]
         auto isHigh() const -> bool override {
             return digitalRead(id) == HIGH;
         }
 
+        [[nodiscard]]
         auto isLow() const -> bool override {
             return digitalRead(id) == LOW;
         }

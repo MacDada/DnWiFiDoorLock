@@ -21,6 +21,7 @@ namespace DnApp::Logger::Decorator {
             threshold{threshold} {
         }
 
+        [[nodiscard]]
         auto getThreshold() const -> LOG_LEVEL {
             return threshold;
         }

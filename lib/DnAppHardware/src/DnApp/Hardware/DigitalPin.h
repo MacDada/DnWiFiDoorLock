@@ -15,9 +15,11 @@ namespace DnApp::Hardware {
         virtual
         auto setLow() -> void = 0;
 
+        [[nodiscard]]
         virtual
         auto isHigh() const -> bool = 0;
 
+        [[nodiscard]]
         virtual
         auto isLow() const -> bool = 0;
     };

@@ -32,6 +32,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
                 return PressingMilliseconds{value};
             }
 
+            [[nodiscard]]
             auto getValue() const -> uint32_t {
                 return value;
             }
@@ -96,11 +97,13 @@ namespace DnWiFiDoorLock::Arduino::Servo {
                 + settings.pressingMilliseconds.getValue();
         }
 
+        [[nodiscard]]
         auto isItTimeToStopPressing() const -> bool {
             return stopPressingAtUptimeMilliseconds
                 && getUptimeMilliseconds() > stopPressingAtUptimeMilliseconds;
         }
 
+        [[nodiscard]]
         auto getUptimeMilliseconds() const -> uint32_t {
             return board.getUptime().getMilliseconds();
         }

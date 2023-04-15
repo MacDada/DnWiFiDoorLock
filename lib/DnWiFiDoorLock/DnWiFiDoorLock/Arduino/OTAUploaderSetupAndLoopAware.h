@@ -79,6 +79,7 @@ namespace DnWiFiDoorLock::Arduino {
 
         DnApp::Arduino::Logger::WithArduinoStringLogger& logger;
 
+        [[nodiscard]]
         auto otaErrorToString(const ota_error_t error) const -> const char* {
             switch (error) {
                 case OTA_AUTH_ERROR:

@@ -63,6 +63,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
         const
         auto HTTP_RESPONSE_CONTENT_TYPE_JAVASCRIPT = "text/javascript";
 
+        [[nodiscard]]
         auto isRequestMethodPost(
             const AsyncWebServerRequest& request
         ) const -> bool {

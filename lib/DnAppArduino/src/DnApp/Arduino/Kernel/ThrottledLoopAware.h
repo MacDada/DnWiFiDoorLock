@@ -41,6 +41,7 @@ namespace DnApp::Arduino::Kernel {
 
         uint32_t lastOtherAwareCallMilliseconds = 0;
 
+        [[nodiscard]]
         auto isItTime() const -> bool  {
             return board.getUptime().getMilliseconds()
                 // todo:[1] what to do with uint32_t overflow?

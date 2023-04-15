@@ -42,38 +42,47 @@ namespace DnApp::Common {
             //   4 bytes each ;-)
         }
 
+        [[nodiscard]]
         auto getMilliseconds() const -> uint32_t {
             return milliseconds;
         }
 
+        [[nodiscard]]
         auto getSeconds() const -> uint32_t {
             return seconds;
         }
 
+        [[nodiscard]]
         auto getMinutes() const -> uint32_t {
             return minutes;
         }
 
+        [[nodiscard]]
         auto getHours() const -> uint16_t {
             return hours;
         }
 
+        [[nodiscard]]
         auto getDays() const -> uint8_t {
             return days;
         }
 
+        [[nodiscard]]
         auto getRemainingMilliseconds() const -> uint16_t {
             return milliseconds % 1000;
         }
 
+        [[nodiscard]]
         auto getRemainingSeconds() const -> uint8_t {
             return seconds % 60;
         }
 
+        [[nodiscard]]
         auto getRemainingMinutes() const -> uint8_t {
             return minutes % 60;
         }
 
+        [[nodiscard]]
         auto getRemainingHours() const -> uint8_t {
             return hours % 24;
         }

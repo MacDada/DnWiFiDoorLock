@@ -14,6 +14,7 @@ namespace DnApp::Arduino::Hardware {
             delay(milliseconds);
         }
 
+        [[nodiscard]]
         auto getUptime() const -> DnApp::Common::ElapsedTime {
             return DnApp::Common::ElapsedTime{millis()};
         }

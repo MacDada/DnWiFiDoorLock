@@ -15,10 +15,12 @@ namespace DnApp::Hardware {
             pin.setOutputMode();
         }
 
+        [[nodiscard]]
         auto isOn() const -> bool override {
             return pin.isHigh();
         }
 
+        [[nodiscard]]
         auto isOff() const -> bool override {
             return pin.isLow();
         };

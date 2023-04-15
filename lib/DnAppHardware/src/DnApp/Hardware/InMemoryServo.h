@@ -12,6 +12,7 @@ namespace DnApp::Hardware {
         static
         const uint8_t DEFAULT_ANGLE_DEGREES = 0;
 
+        [[nodiscard]]
         auto getAngle() const -> Angle override {
             return angle;
         }

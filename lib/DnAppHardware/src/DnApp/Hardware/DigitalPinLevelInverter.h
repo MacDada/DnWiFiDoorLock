@@ -29,10 +29,12 @@ namespace DnApp::Hardware {
             pin.setHigh();
         }
 
+        [[nodiscard]]
         auto isHigh() const -> bool override {
             return pin.isLow();
         }
 
+        [[nodiscard]]
         auto isLow() const -> bool override {
             return pin.isHigh();
         }
