@@ -14,8 +14,6 @@ namespace DnApp::Hardware {
             static
             const auto MAX = uint8_t{180};
 
-            // todo: the VO could be created with std::expected
-            //       https://mariusbancila.ro/blog/2022/08/17/using-the-cpp23-expected-type/
             static
             auto withDegrees(const uint8_t degrees) -> std::optional<Angle> {
                 if (degrees < MIN || degrees > MAX) {
