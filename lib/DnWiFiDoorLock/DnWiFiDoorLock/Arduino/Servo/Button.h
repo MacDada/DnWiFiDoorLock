@@ -54,7 +54,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
 
         explicit
         Button(
-            Settings settings,
+            const Settings settings,
             const Board& board,
             Servo& servo
         ):
