@@ -17,6 +17,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         public DnApp::Arduino::Kernel::SetupAndLoopAware {
     private:
         using Servo = DnApp::Hardware::Servo;
+        using Board = DnApp::Arduino::Hardware::Board;
     public:
         class PressingMilliseconds final {
         public:
@@ -43,51 +44,31 @@ namespace DnWiFiDoorLock::Arduino::Servo {
             uint32_t value;
         };
 
+        struct Settings final {
+            Servo::Angle pressingAngle;
+
+            Servo::Angle notPressingAngle;
+
+            PressingMilliseconds pressingMilliseconds;
+        };
+
         explicit
         Button(
-            const DnApp::Arduino::Hardware::Board& board,
-            Servo& servo,
-            const Servo::Angle pressingAngle,
-            const Servo::Angle notPressingAngle,
-            const PressingMilliseconds pressingMilliseconds
+            Settings settings,
+            const Board& board,
+            Servo& servo
         ):
+            settings{settings},
             board{board},
-            servo{servo},
-            pressingAngle{pressingAngle},
-            notPressingAngle{notPressingAngle},
-            pressingMilliseconds{pressingMilliseconds} {
+            servo{servo} {
         }
 
         // pressing the button, while it is being pressed,
         // will prolong the pressing
         auto press() -> void override {
-            servo.setAngle(pressingAngle);
+            servo.setAngle(settings.pressingAngle);
 
             scheduleStopPressing();
-        }
-
-        auto getPressingAngle() const -> Servo::Angle {
-            return pressingAngle;
-        }
-
-        auto setPressingAngle(const Servo::Angle angle) -> void {
-            pressingAngle = angle;
-        }
-
-        auto getNotPressingAngle() const -> Servo::Angle {
-            return notPressingAngle;
-        }
-
-        auto setNotPressingAngle(const Servo::Angle angle) -> void {
-            notPressingAngle = angle;
-        }
-
-        auto getPressingMilliseconds() const -> PressingMilliseconds {
-            return pressingMilliseconds;
-        }
-
-        auto setPressingMilliseconds(const PressingMilliseconds milliseconds) -> void {
-            pressingMilliseconds = milliseconds;
         }
 
         auto onSetup() -> void override {
@@ -100,23 +81,19 @@ namespace DnWiFiDoorLock::Arduino::Servo {
                 stopPressing();
             }
         }
+
+        Settings settings;
     private:
-        const DnApp::Arduino::Hardware::Board& board;
+        const Board& board;
 
         Servo& servo;
-
-        Servo::Angle pressingAngle;
-
-        Servo::Angle notPressingAngle;
-
-        PressingMilliseconds pressingMilliseconds;
 
         uint32_t stopPressingAtUptimeMilliseconds = 0;
 
         auto scheduleStopPressing() -> void {
             // todo:[1] possible uint32_t overflow
             stopPressingAtUptimeMilliseconds = getUptimeMilliseconds()
-                + pressingMilliseconds.getValue();
+                + settings.pressingMilliseconds.getValue();
         }
 
         auto isItTimeToStopPressing() const -> bool {
@@ -129,7 +106,7 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         }
 
         auto stopPressing() -> void {
-            servo.setAngle(notPressingAngle);
+            servo.setAngle(settings.notPressingAngle);
 
             stopPressingAtUptimeMilliseconds = 0;
         }

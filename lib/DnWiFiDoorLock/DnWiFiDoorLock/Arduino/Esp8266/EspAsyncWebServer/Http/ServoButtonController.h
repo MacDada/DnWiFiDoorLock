@@ -385,14 +385,6 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
     private:
         using Servo = DnApp::Hardware::Servo;
 
-        struct Settings final {
-            const Servo::Angle pressingAngle;
-
-            const Servo::Angle notPressingAngle;
-
-            const Button::PressingMilliseconds pressingMilliseconds;
-        };
-
         static
         constexpr
         const
@@ -503,9 +495,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             page.replace(PSTR("{{ button_name }}"), PSTR("Heater"));
             page.replace(PSTR("{{ servo_min_angle }}"), String{Servo::Angle::MIN});
             page.replace(PSTR("{{ servo_max_angle }}"), String{Servo::Angle::MAX});
-            page.replace(PSTR("{{ pressing_angle }}"), String{button.getPressingAngle().getDegrees()});
-            page.replace(PSTR("{{ not_pressing_angle }}"), String{button.getNotPressingAngle().getDegrees()});
-            page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.getPressingMilliseconds().getValue()});
+            page.replace(PSTR("{{ pressing_angle }}"), String{button.settings.pressingAngle.getDegrees()});
+            page.replace(PSTR("{{ not_pressing_angle }}"), String{button.settings.notPressingAngle.getDegrees()});
+            page.replace(PSTR("{{ pressing_milliseconds }}"), String{button.settings.pressingMilliseconds.getValue()});
             page.replace(PSTR("{{ min_pressing_milliseconds }}"), String{
                 Button::PressingMilliseconds::create(100).value().getValue()
             });
@@ -525,7 +517,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
             return page;
         }
 
-        auto validateForm(AsyncWebServerRequest& request) const -> tl::expected<Settings, String> {
+        auto validateForm(AsyncWebServerRequest& request) const -> tl::expected<Button::Settings, String> {
             const auto maybeNewPressingAngle = getRequestPostParameter(request, PSTR("pressing_angle"));
             const auto maybeNewNotPressingAngle = getRequestPostParameter(request, PSTR("not_pressing_angle"));
             const auto maybeNewMilliseconds = getRequestPostParameter(request, PSTR("pressing_milliseconds"));
@@ -556,7 +548,7 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 };
             }
 
-            return Settings{
+            return Button::Settings{
                 *newPressingAngle,
                 *newNotPressingAngle,
                 newMilliseconds.value()
@@ -565,11 +557,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
 
         auto handleValidSettings(
             AsyncWebServerRequest& request,
-            const Settings& settings
+            const Button::Settings& settings
         ) -> void {
-            button.setPressingAngle(settings.pressingAngle);
-            button.setNotPressingAngle(settings.notPressingAngle);
-            button.setPressingMilliseconds(settings.pressingMilliseconds);
+            button.settings = settings;
 
             logger.info(PSTR("Updated settings"));
 
@@ -586,9 +576,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 192
             >{};
 
-            json[F("servo_button")][F("pressing_angle")] = button.getPressingAngle().getDegrees();
-            json[F("servo_button")][F("not_pressing_angle")] = button.getNotPressingAngle().getDegrees();
-            json[F("servo_button")][F("pressing_milliseconds")] = button.getPressingMilliseconds().getValue();
+            json[F("servo_button")][F("pressing_angle")] = button.settings.pressingAngle.getDegrees();
+            json[F("servo_button")][F("not_pressing_angle")] = button.settings.notPressingAngle.getDegrees();
+            json[F("servo_button")][F("pressing_milliseconds")] = button.settings.pressingMilliseconds.getValue();
 
             jsonSuccessResponse(request, json);
         }

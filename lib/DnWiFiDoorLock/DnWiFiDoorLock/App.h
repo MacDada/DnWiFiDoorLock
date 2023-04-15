@@ -322,18 +322,20 @@ namespace DnWiFiDoorLock {
 
         auto& getFurnaceHeaterButton() {
             static auto service = DnWiFiDoorLock::Arduino::Servo::Button{
+                {
+                    .pressingAngle = DnApp::Hardware::Servo::Angle::withDegrees(
+                        config.furnaceHeaterButton.pressingAngle
+                    ).value(),
+                    .notPressingAngle = DnApp::Hardware::Servo::Angle::withDegrees(
+                        config.furnaceHeaterButton.notPressingAngle
+                    ).value(),
+                    .pressingMilliseconds = DnWiFiDoorLock::Arduino::Servo::Button::PressingMilliseconds::create(
+                        config.furnaceHeaterButton.pressingMilliseconds
+                    ).value()
+                },
                 getBoard(),
                 // todo: a different servo than DoorLock servo? ;p
-                getServo(),
-                DnApp::Hardware::Servo::Angle::withDegrees(
-                    config.furnaceHeaterButton.pressingAngle
-                ).value(),
-                DnApp::Hardware::Servo::Angle::withDegrees(
-                    config.furnaceHeaterButton.notPressingAngle
-                ).value(),
-                DnWiFiDoorLock::Arduino::Servo::Button::PressingMilliseconds::create(
-                    config.furnaceHeaterButton.pressingMilliseconds
-                ).value()
+                getServo()
             };
 
             return service;
