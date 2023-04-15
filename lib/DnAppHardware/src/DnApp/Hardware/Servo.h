@@ -26,6 +26,10 @@ namespace DnApp::Hardware {
             auto getDegrees() const -> uint8_t {
                 return degrees;
             }
+
+            auto operator ==(const Angle& other) const -> bool {
+                return degrees == other.degrees;
+            }
         private:
             explicit
             Angle(const uint8_t degrees):
