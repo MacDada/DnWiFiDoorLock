@@ -10,7 +10,7 @@ namespace DnApp::Hardware {
         public DnApp::Hardware::Servo {
     public:
         static
-        const uint8_t DEFAULT_ANGLE_DEGREES = 0;
+        const auto DEFAULT_ANGLE_DEGREES = uint8_t{0};
 
         [[nodiscard]]
         auto getAngle() const -> Angle override {

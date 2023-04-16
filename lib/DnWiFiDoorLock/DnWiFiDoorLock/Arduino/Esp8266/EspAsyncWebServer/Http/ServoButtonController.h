@@ -529,9 +529,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 return tl::unexpected{PSTR("No required data given")};
             }
 
-            // todo: what if a negative number was given?
             const auto newPressingAngle = Servo::Angle::withDegrees(maybeNewPressingAngle->toInt());
             const auto newNotPressingAngle = Servo::Angle::withDegrees(maybeNewNotPressingAngle->toInt());
+            // todo: what if a negative number was given?
             const auto newMilliseconds = Button::PressingMilliseconds::create(maybeNewMilliseconds->toInt());
 
             if (!newPressingAngle) {

@@ -14,13 +14,14 @@ namespace DnApp::Hardware {
             static
             const auto MAX = uint8_t{180};
 
+            template<typename Degrees>
             static
-            auto withDegrees(const uint8_t degrees) -> std::optional<Angle> {
+            auto withDegrees(const Degrees degrees) -> std::optional<Angle> {
                 if (degrees < MIN || degrees > MAX) {
                     return {};
                 }
 
-                return Angle{degrees};
+                return Angle(degrees);
             }
 
             [[nodiscard]]

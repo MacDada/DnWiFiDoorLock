@@ -1,3 +1,5 @@
+#include <cstdint> // int8_t, int32_t
+
 #include "unity.h"
 
 #include "DnApp/Hardware/Servo.h"
@@ -65,6 +67,16 @@ namespace {
 
         TEST_ASSERT_TRUE(angle1 != angle2);
     }
+
+    auto test_angle_cannot_be_negative() -> void {
+        TEST_ASSERT_FALSE(Angle::withDegrees(int8_t{-124}).has_value());
+        TEST_ASSERT_FALSE(Angle::withDegrees(int32_t{-124445}).has_value());
+    }
+
+    auto test_angle_cannot_be_really_big() -> void {
+        TEST_ASSERT_FALSE(Angle::withDegrees(int32_t{12445}).has_value());
+        TEST_ASSERT_FALSE(Angle::withDegrees(long{4242424}).has_value());
+    }
 }
 
 auto main() -> int {
@@ -79,6 +91,8 @@ auto main() -> int {
     RUN_TEST(test_copying_angle);
     RUN_TEST(test_angles_with_equal_degrees_are_equal);
     RUN_TEST(test_angles_with_different_degrees_are_not_equal);
+    RUN_TEST(test_angle_cannot_be_negative);
+    RUN_TEST(test_angle_cannot_be_really_big);
 
     return UNITY_END();
 }
