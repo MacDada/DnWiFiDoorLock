@@ -38,11 +38,18 @@ namespace {
         TEST_ASSERT_FALSE(angle.has_value());
     }
 
-    auto test_copying() -> void {
+    auto test_copying_optional() -> void {
         const auto angle = Angle::withDegrees(120);
         const auto angle2 = angle;
 
         TEST_ASSERT_EQUAL_INT(120, angle2->getDegrees());
+    }
+
+    auto test_copying_angle() -> void {
+        const auto angle = Angle::withDegrees(120).value();
+        const auto angle2 = angle;
+
+        TEST_ASSERT_EQUAL_INT(120, angle2.getDegrees());
     }
 
     auto test_angles_with_equal_degrees_are_equal() -> void {
@@ -68,7 +75,8 @@ auto main() -> int {
     RUN_TEST(test_it_returns_Angle_for_MAX_degrees);
     RUN_TEST(test_it_returns_no_value_for_too_small_degrees);
     RUN_TEST(test_it_returns_no_value_for_too_high_degrees);
-    RUN_TEST(test_copying);
+    RUN_TEST(test_copying_optional);
+    RUN_TEST(test_copying_angle);
     RUN_TEST(test_angles_with_equal_degrees_are_equal);
     RUN_TEST(test_angles_with_different_degrees_are_not_equal);
 
