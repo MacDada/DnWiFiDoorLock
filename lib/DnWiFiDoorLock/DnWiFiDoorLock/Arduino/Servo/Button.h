@@ -19,12 +19,13 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         using Servo = DnApp::Hardware::Servo;
         using Board = DnApp::Arduino::Hardware::Board;
     public:
+        // todo: constexpr?
         class PressingMilliseconds final {
         public:
             template<typename T>
             static
             auto create(
-                T value
+                const T value
             ) -> tl::expected<PressingMilliseconds, String> {
                 if (value <= 0) {
                     return tl::unexpected{PSTR("Positive integer required")};
