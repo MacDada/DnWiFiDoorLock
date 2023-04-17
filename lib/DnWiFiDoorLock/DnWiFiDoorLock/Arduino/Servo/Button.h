@@ -21,11 +21,12 @@ namespace DnWiFiDoorLock::Arduino::Servo {
     public:
         class PressingMilliseconds final {
         public:
+            template<typename T>
             static
             auto create(
-                uint32_t value
+                T value
             ) -> tl::expected<PressingMilliseconds, String> {
-                if (value == 0) {
+                if (value <= 0) {
                     return tl::unexpected{PSTR("Positive integer required")};
                 }
 
