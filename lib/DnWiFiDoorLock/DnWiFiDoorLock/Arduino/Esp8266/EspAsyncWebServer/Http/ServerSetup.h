@@ -291,6 +291,9 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                 const size_t index,
                 const size_t total
             ) {
+                (void) index;
+                (void) total;
+
                 onMatchedRoute(name, request);
 
                 onRequestBody(
