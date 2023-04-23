@@ -4,16 +4,6 @@
 
 namespace DnApp::Common {
     class ElapsedTime final {
-    private:
-        const uint32_t milliseconds;
-
-        const uint32_t seconds;
-
-        const uint32_t minutes;
-
-        const uint16_t hours;
-
-        const uint8_t days;
     public:
         // Accepting `uint32_t` as this is a 32–bit value.
         //
@@ -31,15 +21,7 @@ namespace DnApp::Common {
         //       -> Maybe I should just force restart when overflow actually occurs?
         explicit
         ElapsedTime(const uint32_t milliseconds):
-            milliseconds{milliseconds},
-            seconds{milliseconds / 1000},
-            minutes{seconds / 60},
-            hours(minutes / 60),
-            days(hours / 24) {
-            // potential RAM saving:
-            //   calculate on demand,
-            //   instead of storing precalculated values,
-            //   4 bytes each ;-)
+            milliseconds{milliseconds} {
         }
 
         [[nodiscard]]
@@ -49,22 +31,22 @@ namespace DnApp::Common {
 
         [[nodiscard]]
         auto getSeconds() const -> uint32_t {
-            return seconds;
+            return milliseconds / 1000;
         }
 
         [[nodiscard]]
         auto getMinutes() const -> uint32_t {
-            return minutes;
+            return getSeconds() / 60;
         }
 
         [[nodiscard]]
         auto getHours() const -> uint16_t {
-            return hours;
+            return getMinutes() / 60;
         }
 
         [[nodiscard]]
         auto getDays() const -> uint8_t {
-            return days;
+            return getHours() / 24;
         }
 
         [[nodiscard]]
@@ -74,17 +56,19 @@ namespace DnApp::Common {
 
         [[nodiscard]]
         auto getRemainingSeconds() const -> uint8_t {
-            return seconds % 60;
+            return getSeconds() % 60;
         }
 
         [[nodiscard]]
         auto getRemainingMinutes() const -> uint8_t {
-            return minutes % 60;
+            return getMinutes() % 60;
         }
 
         [[nodiscard]]
         auto getRemainingHours() const -> uint8_t {
-            return hours % 24;
+            return getHours() % 24;
         }
+    private:
+        const uint32_t milliseconds;
     };
 }
