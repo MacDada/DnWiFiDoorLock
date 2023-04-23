@@ -50,22 +50,22 @@ namespace DnApp::Common {
         }
 
         [[nodiscard]]
-        auto getRemainingMilliseconds() const -> uint16_t {
+        auto getMillisecondsRemainder() const -> uint16_t {
             return milliseconds % 1000;
         }
 
         [[nodiscard]]
-        auto getRemainingSeconds() const -> uint8_t {
+        auto getSecondsRemainder() const -> uint8_t {
             return getSeconds() % 60;
         }
 
         [[nodiscard]]
-        auto getRemainingMinutes() const -> uint8_t {
+        auto getMinutesRemainder() const -> uint8_t {
             return getMinutes() % 60;
         }
 
         [[nodiscard]]
-        auto getRemainingHours() const -> uint8_t {
+        auto getHoursRemainder() const -> uint8_t {
             return getHours() % 24;
         }
     private:

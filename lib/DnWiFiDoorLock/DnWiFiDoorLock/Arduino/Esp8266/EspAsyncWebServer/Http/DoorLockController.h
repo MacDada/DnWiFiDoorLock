@@ -69,8 +69,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     doorLock.isClosed() ? PSTR("&#128274;") : PSTR("&#128275;"),
                     doorLock.isClosed() ? PSTR("Zamknięte!") : PSTR("Otwarte!"),
                     uptime.getHours(),
-                    uptime.getRemainingMinutes(),
-                    uptime.getRemainingSeconds()
+                    uptime.getMinutesRemainder(),
+                    uptime.getSecondsRemainder()
                 ).get()
             );
         }

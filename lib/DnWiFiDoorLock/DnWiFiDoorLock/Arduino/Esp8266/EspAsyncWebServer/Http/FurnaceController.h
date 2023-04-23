@@ -69,8 +69,8 @@ namespace DnWiFiDoorLock::Arduino::Esp8266::EspAsyncWebServer::Http {
                     furnace.isHeaterOn() ? PSTR("&#128293;") : PSTR("&#10060;"),
                     furnace.isHeaterOn() ? PSTR("włączone!") : PSTR("wyłączone!"),
                     uptime.getHours(),
-                    uptime.getRemainingMinutes(),
-                    uptime.getRemainingSeconds()
+                    uptime.getMinutesRemainder(),
+                    uptime.getSecondsRemainder()
                 ).get()
             );
         }

@@ -14,10 +14,10 @@ namespace {
         TEST_ASSERT_EQUAL_INT(0, time.getSeconds());
         TEST_ASSERT_EQUAL_INT(0, time.getMilliseconds());
 
-        TEST_ASSERT_EQUAL_INT(0, time.getRemainingHours());
-        TEST_ASSERT_EQUAL_INT(0, time.getRemainingMinutes());
-        TEST_ASSERT_EQUAL_INT(0, time.getRemainingSeconds());
-        TEST_ASSERT_EQUAL_INT(0, time.getRemainingMilliseconds());
+        TEST_ASSERT_EQUAL_INT(0, time.getHoursRemainder());
+        TEST_ASSERT_EQUAL_INT(0, time.getMinutesRemainder());
+        TEST_ASSERT_EQUAL_INT(0, time.getSecondsRemainder());
+        TEST_ASSERT_EQUAL_INT(0, time.getMillisecondsRemainder());
     }
 
     auto testTypical() -> void {
@@ -30,10 +30,10 @@ namespace {
         TEST_ASSERT_EQUAL_INT(634567, time.getSeconds());
         TEST_ASSERT_EQUAL_INT(634567224, time.getMilliseconds());
 
-        TEST_ASSERT_EQUAL_INT(8, time.getRemainingHours());
-        TEST_ASSERT_EQUAL_INT(16, time.getRemainingMinutes());
-        TEST_ASSERT_EQUAL_INT(7, time.getRemainingSeconds());
-        TEST_ASSERT_EQUAL_INT(224, time.getRemainingMilliseconds());
+        TEST_ASSERT_EQUAL_INT(8, time.getHoursRemainder());
+        TEST_ASSERT_EQUAL_INT(16, time.getMinutesRemainder());
+        TEST_ASSERT_EQUAL_INT(7, time.getSecondsRemainder());
+        TEST_ASSERT_EQUAL_INT(224, time.getMillisecondsRemainder());
     }
 
     auto testMaximal() -> void {
@@ -45,10 +45,10 @@ namespace {
         TEST_ASSERT_EQUAL_INT(4294967, time.getSeconds());
         TEST_ASSERT_EQUAL_INT(4294967295, time.getMilliseconds());
 
-        TEST_ASSERT_EQUAL_INT(17, time.getRemainingHours());
-        TEST_ASSERT_EQUAL_INT(2, time.getRemainingMinutes());
-        TEST_ASSERT_EQUAL_INT(47, time.getRemainingSeconds());
-        TEST_ASSERT_EQUAL_INT(295, time.getRemainingMilliseconds());
+        TEST_ASSERT_EQUAL_INT(17, time.getHoursRemainder());
+        TEST_ASSERT_EQUAL_INT(2, time.getMinutesRemainder());
+        TEST_ASSERT_EQUAL_INT(47, time.getSecondsRemainder());
+        TEST_ASSERT_EQUAL_INT(295, time.getMillisecondsRemainder());
     }
 }
 
