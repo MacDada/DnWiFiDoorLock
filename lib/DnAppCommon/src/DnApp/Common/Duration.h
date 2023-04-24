@@ -3,7 +3,7 @@
 #include <cstdint> // uint32_t, uint16_t, uint8_t
 
 namespace DnApp::Common {
-    class ElapsedTime final {
+    class Duration final {
     public:
         // Accepting `uint32_t` as this is a 32–bit value.
         //
@@ -20,7 +20,7 @@ namespace DnApp::Common {
         //       -> probably strange behaviour from type size overflows
         //       -> Maybe I should just force restart when overflow actually occurs?
         explicit
-        ElapsedTime(const uint32_t milliseconds):
+        Duration(const uint32_t milliseconds):
             milliseconds{milliseconds} {
         }
 

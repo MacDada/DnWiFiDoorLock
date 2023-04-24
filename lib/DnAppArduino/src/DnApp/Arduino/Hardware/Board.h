@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#include "DnApp/Common/ElapsedTime.h"
+#include "DnApp/Common/Duration.h"
 
 namespace DnApp::Arduino::Hardware {
     class Board final {
@@ -15,8 +15,8 @@ namespace DnApp::Arduino::Hardware {
         }
 
         [[nodiscard]]
-        auto getUptime() const -> DnApp::Common::ElapsedTime {
-            return DnApp::Common::ElapsedTime{millis()};
+        auto getUptime() const -> DnApp::Common::Duration {
+            return DnApp::Common::Duration{millis()};
         }
     };
 }
