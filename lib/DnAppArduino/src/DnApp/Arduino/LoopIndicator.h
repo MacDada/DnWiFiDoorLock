@@ -40,6 +40,14 @@ namespace DnApp::Arduino {
 
         bool hasLoopStarted = false;
 
+        auto informTheLoopIsRunning() -> void {
+            informThatTheLoopHasStarted();
+
+            // todo: maybe it would be possible to dim the led a bit?
+            //       so that there would be a bright and dark version?
+            led.toggle();
+        }
+
         auto informThatTheLoopHasStarted() -> void {
             if (!hasLoopStarted) {
                 logger.info(PSTR("The Loop has started!"));
@@ -47,14 +55,6 @@ namespace DnApp::Arduino {
 
                 hasLoopStarted = true;
             }
-        }
-
-        auto informTheLoopIsRunning() -> void {
-            informThatTheLoopHasStarted();
-
-            // todo: maybe it would be possible to dim the led a bit?
-            //       so that there would be a bright and dark version?
-            led.toggle();
         }
     };
 
