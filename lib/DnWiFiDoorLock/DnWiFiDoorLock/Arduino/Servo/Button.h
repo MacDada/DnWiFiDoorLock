@@ -19,7 +19,15 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         using Servo = DnApp::Hardware::Servo;
         using Board = DnApp::Arduino::Hardware::Board;
     public:
+        // Takes whatever cast–able to uint32_t.
+        // So in theory, the max value is ~49 days, or half of it if signed value given.
+        //
         // todo: constexpr?
+        // todo: Store a smaller value [?]
+        // todo: Merge with DnApp::Duration?
+        // todo: Extract PositiveInteger?
+        // todo: answer to (implicit) conversions being warning/error
+        //       https://discord.com/channels/583251190591258624/1101931673794383893
         class PressingMilliseconds final {
         public:
             template<typename T>
@@ -28,10 +36,10 @@ namespace DnWiFiDoorLock::Arduino::Servo {
                 const T value
             ) -> tl::expected<PressingMilliseconds, String> {
                 if (value <= 0) {
-                    return tl::unexpected{PSTR("Positive integer required")};
+                    return tl::unexpected{PSTR("A positive integer required")};
                 }
 
-                return PressingMilliseconds{value};
+                return PressingMilliseconds{static_cast<uint32_t>(value)};
             }
 
             [[nodiscard]]
