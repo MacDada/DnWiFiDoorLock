@@ -43,7 +43,7 @@ namespace DnApp::Arduino {
 
                 int versionPatchLevel = __GNUC_PATCHLEVEL__;
 #endif
-            } compiler;
+            } compiler = {};
         };
 
         explicit
