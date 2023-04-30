@@ -11,8 +11,8 @@
 # Env is decided automatically from first dir after test root dir.
 #
 # Example usage:
-#   * `./tdd.sh "test/native/*"`
-#   * `./tdd.sh "test/native/Foo/test_foo/"`
+#   * `./scripts/tdd.sh "test/native/*"`
+#   * `./scripts/tdd.sh "test/native/Foo/test_foo/"`
 #
 # Thanks to `jcw` for inspiration:
 # https://community.platformio.org/t/a-new-pio-tdd-workflow/21431
