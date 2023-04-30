@@ -262,5 +262,13 @@ Code style, conventions, decisions
 * `// todo:[2137] Description of what is to be done`
   – the number is for easier grep,
     when the same kind of issue appears in multiple places.
+* `static_cast` to `void` when function arguments are not being used.
+  I know of 3 possible solutions:
+    * A.) `static_cast<void>(unusedParameter);`
+          – the preferred C++ way, that we're doing,
+    * B.) `(void) unusedParameter;`
+          – the "old" C–style casting, but `A.)` is more precise,
+    * C.) remove `unusedParameter` var from the function arguments
+          – but keeping the name better explains what it represents.
 
 ---

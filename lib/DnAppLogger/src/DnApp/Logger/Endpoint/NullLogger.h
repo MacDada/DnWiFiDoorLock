@@ -12,6 +12,10 @@ namespace DnApp::Logger::Endpoint {
         using Logger::log;
 
         auto log(const LOG_LEVEL level, const char* const message) -> void override {
+            // fix `[-Wunused-parameter]` warnings:
+            static_cast<void>(level);
+            static_cast<void>(message);
+
             // do nothing
         };
     };
