@@ -37,6 +37,6 @@ Import("env")
 #  * https://community.platformio.org/t/silence-warnings-for-dependencies-external-libraries/33387
 #
 # Using `env` as it applies to everything, including the external libraries,
-# while `projectenv` would apply only to _my_ code,
+# while `projenv` would apply only to _my_ code,
 # https://github.com/platformio/platformio-core/issues/1728#issuecomment-403297776
 env.Append(CXXFLAGS=["-Wno-volatile"])
