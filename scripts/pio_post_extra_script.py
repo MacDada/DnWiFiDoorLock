@@ -1,4 +1,4 @@
-# Activate the script with `extra_scripts = pre:scripts/pio_post_extra_script.py` in `platformio.ini` config.
+# Activate the script with `extra_scripts = post:scripts/pio_post_extra_script.py` in `platformio.ini` config.
 #
 # https://docs.platformio.org/en/latest/projectconf/sections/env/options/advanced/extra_scripts.html
 # https://docs.platformio.org/en/latest/scripting/actions.html
