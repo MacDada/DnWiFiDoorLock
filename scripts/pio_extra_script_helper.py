@@ -40,6 +40,7 @@ class Helper:
               while my `custom_system_packages` is a string…
               https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380
         """
+
         return [
             value
             for value
@@ -51,12 +52,14 @@ class Helper:
         """
         https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
         """
+
         return self.env.GetProjectOption(name, default=default)
 
     def get_platform(self) -> PlatformBase:
         """
         The platform is the same for all the envs.
         """
+
         return self.env.PioPlatform()
 
     def list_available_packages(self) -> list:
@@ -77,6 +80,7 @@ class Helper:
         """
         See :meth:`~pio_extra_script_helper.Helper.mark_package_as_system`
         """
+
         for package in packages:
             self.mark_package_as_system(package)
 
