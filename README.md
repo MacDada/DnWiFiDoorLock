@@ -22,6 +22,7 @@ Thank you for all the help that I received on
 - `Alvin121#2883`
 - `Arno#7285`
 - `Doctor Bazooka#2461`
+- `Droid33#7264`
 - `DXPower#0133`
 - `Felix#6325`
 - `Fluffles#6709`
