@@ -43,11 +43,6 @@ helper = Helper(globals())
 # https://github.com/platformio/platformio-core/issues/1728#issuecomment-403297776
 helper.env.Append(CXXFLAGS=['-Wno-volatile'])
 
-helper.mark_packages_as_system([
-    package
-    for package
-    # todo: why it returns string instead of a list?
-    #       for example `build_src_flags` returns a list…
-    in helper.get_config_value('custom_system_packages').split('\n')
-    if package != ''
-])
+helper.mark_packages_as_system(
+    helper.get_config_value_as_list('custom_system_packages')
+)

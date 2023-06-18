@@ -31,7 +31,26 @@ class Helper:
             self.env,
         ]
 
+    def get_config_value_as_list(self, name: str) -> list[str]:
+        """
+        https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
+
+        todo: why `env.GetProjectOption()` sometimes returns `str` instead of `list[str]`?
+              for example `build_src_flags` returns a list,
+              while my `custom_system_packages` is a string…
+              https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380
+        """
+        return [
+            value
+            for value
+            in self.get_config_value(name).split('\n')
+            if value != ''
+        ]
+
     def get_config_value(self, name: str, default: str = ''):
+        """
+        https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
+        """
         return self.env.GetProjectOption(name, default=default)
 
     def get_platform(self) -> PlatformBase:
