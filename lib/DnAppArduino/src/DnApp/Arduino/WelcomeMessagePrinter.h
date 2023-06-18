@@ -119,22 +119,22 @@ namespace DnApp::Arduino {
         static
         PROGMEM
         constexpr
-        const auto VT100_FORMAT_RESET = "\e[0m";
+        const auto VT100_FORMAT_RESET = "\033[0m";
 
         static
         PROGMEM
         constexpr
-        const auto VT100_FORMAT_BOLD_BLUE = "\e[1;34m";
+        const auto VT100_FORMAT_BOLD_BLUE = "\033[1;34m";
 
         static
         PROGMEM
         constexpr
-        const auto VT100_FORMAT_BOLD_GREEN = "\e[1;32m";
+        const auto VT100_FORMAT_BOLD_GREEN = "\033[1;32m";
 
         static
         PROGMEM
         constexpr
-        const auto VT100_FORMAT_GREEN = "\e[0;32m";
+        const auto VT100_FORMAT_GREEN = "\033[0;32m";
 
         Print& printer;
 
