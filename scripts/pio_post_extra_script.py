@@ -3,7 +3,9 @@
 # https://docs.platformio.org/en/latest/projectconf/sections/env/options/advanced/extra_scripts.html
 # https://docs.platformio.org/en/latest/scripting/actions.html
 
-Import("env")
+from pio_extra_script_helper import Helper
+
+helper = Helper(globals())
 
 # Silencing `volatile` warnings
 #
@@ -39,4 +41,13 @@ Import("env")
 # Using `env` as it applies to everything, including the external libraries,
 # while `projenv` would apply only to _my_ code,
 # https://github.com/platformio/platformio-core/issues/1728#issuecomment-403297776
-env.Append(CXXFLAGS=["-Wno-volatile"])
+helper.env.Append(CXXFLAGS=['-Wno-volatile'])
+
+helper.mark_packages_as_system([
+    package
+    for package
+    # todo: why it returns string instead of a list?
+    #       for example `build_src_flags` returns a list…
+    in helper.get_config_value('custom_system_packages').split('\n')
+    if package != ''
+])
