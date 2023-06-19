@@ -1,6 +1,7 @@
 from SCons.Script.SConscript import SConsEnvironment
 from pathlib import Path
 from platformio.platform.base import PlatformBase
+from platformio.project.config import ProjectConfigBase
 from utils import partition
 
 
@@ -34,6 +35,7 @@ class Helper:
     def get_config_value_as_list(self, name: str) -> list[str]:
         """
         https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
+        https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380/2
 
         todo: why `env.GetProjectOption()` sometimes returns `str` instead of `list[str]`?
               for example `build_src_flags` returns a list,
@@ -41,12 +43,9 @@ class Helper:
               https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380
         """
 
-        return [
-            value
-            for value
-            in self.get_config_value(name).split('\n')
-            if value != ''
-        ]
+        return self.get_project_config().parse_multi_values(
+            self.get_config_value(name)
+        )
 
     def get_config_value(self, name: str, default: str = ''):
         """
@@ -54,6 +53,9 @@ class Helper:
         """
 
         return self.env.GetProjectOption(name, default=default)
+
+    def get_project_config(self) -> ProjectConfigBase:
+        return self.env.GetProjectConfig()
 
     def get_platform(self) -> PlatformBase:
         """
