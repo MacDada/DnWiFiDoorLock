@@ -3,6 +3,9 @@ from pathlib import Path
 from platformio.compat import MISSING
 from platformio.platform.base import PlatformBase
 from platformio.project.config import ProjectConfigBase
+from platformio.project.config import ProjectOptions
+from platformio.project.options import ConfigEnvOption
+from typing import Callable
 from utils import partition
 
 
@@ -33,15 +36,35 @@ class Helper:
             self.env,
         ]
 
+    def register_custom_config_option(
+        self,
+        name: str,
+        description: str,
+        default=None,
+        multiple: bool = False,
+        type: Callable = str,
+        processor: Callable = None
+    ) -> None:
+        """
+        https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
+        https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380/6
+        """
+
+        option = ConfigEnvOption(
+            group='custom',
+            name=name,
+            description=description,
+            type=type,
+            multiple=multiple,
+            default=default,
+            validate=processor,
+        )
+        ProjectOptions['%s.%s' % (option.scope, option.name)] = option
+
     def get_config_value_as_list(self, name: str) -> list[str]:
         """
         https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
         https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380/2
-
-        todo: why `env.GetProjectOption()` sometimes returns `str` instead of `list[str]`?
-              for example `build_src_flags` returns a list,
-              while my `custom_system_packages` is a string…
-              https://community.platformio.org/t/custom-platformio-ini-options-as-list-str-not-str/34380
         """
 
         return self.get_project_config().parse_multi_values(

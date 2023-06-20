@@ -3,6 +3,7 @@
 # https://docs.platformio.org/en/latest/projectconf/sections/env/options/advanced/extra_scripts.html
 # https://docs.platformio.org/en/latest/scripting/actions.html
 
+import click
 from pio_extra_script_helper import Helper
 
 helper = Helper(globals())
@@ -43,6 +44,16 @@ helper = Helper(globals())
 # https://github.com/platformio/platformio-core/issues/1728#issuecomment-403297776
 helper.env.Append(CXXFLAGS=['-Wno-volatile'])
 
+helper.register_custom_config_option(
+    name='custom_system_packages',
+    description=(
+        'Adds `-isystem` flag for the specified packages. '
+        'As the result, warnings for those packages will be silenced.'
+    ),
+    multiple=True,
+    type=click.Choice(helper.list_available_packages()),
+)
+
 helper.mark_packages_as_system(
-    helper.get_config_value_as_list('custom_system_packages')
+    helper.get_config_value('custom_system_packages')
 )
