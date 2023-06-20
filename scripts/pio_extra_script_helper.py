@@ -1,5 +1,6 @@
 from SCons.Script.SConscript import SConsEnvironment
 from pathlib import Path
+from platformio.compat import MISSING
 from platformio.platform.base import PlatformBase
 from platformio.project.config import ProjectConfigBase
 from utils import partition
@@ -47,7 +48,7 @@ class Helper:
             self.get_config_value(name)
         )
 
-    def get_config_value(self, name: str, default: str = ''):
+    def get_config_value(self, name: str, default=MISSING):
         """
         https://docs.platformio.org/en/latest/scripting/examples/platformio_ini_custom_options.html
         """
@@ -64,14 +65,14 @@ class Helper:
 
         return self.env.PioPlatform()
 
-    def list_available_packages(self) -> list:
+    def list_available_packages(self) -> list[str]:
         return [
             package.metadata.name
             for package
             in self.get_platform().get_installed_packages()
         ]
 
-    def list_used_packages(self) -> list:
+    def list_used_packages(self) -> list[str]:
         return [
             package['name']
             for package
