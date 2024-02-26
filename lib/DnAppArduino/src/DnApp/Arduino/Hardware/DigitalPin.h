@@ -37,11 +37,25 @@ namespace DnApp::Arduino::Hardware {
             digitalWrite(id, LOW);
         }
 
+        /**
+         * CANNOT be trusted if `analogWrite()` was used before it!
+         *
+         * I've tested it on a loop of `analogWrite()` from `0` to `255`
+         * – I don't see a pattern, the result must be treated as "random":
+         * https://arduino.stackexchange.com/a/59820/85901
+         */
         [[nodiscard]]
         auto isHigh() const -> bool override {
             return digitalRead(id) == HIGH;
         }
 
+        /**
+         * CANNOT be trusted if `analogWrite()` was used before it!
+         *
+         * I've tested it on a loop of `analogWrite()` from `0` to `255`
+         * – I don't see a pattern, the result must be treated as "random":
+         * https://arduino.stackexchange.com/a/59820/85901
+         */
         [[nodiscard]]
         auto isLow() const -> bool override {
             return digitalRead(id) == LOW;
