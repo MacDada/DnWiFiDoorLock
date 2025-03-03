@@ -2,6 +2,7 @@
 
 #include <cstdarg> // va_list, va_start, va_end
 #include <memory> // std::unique_ptr
+#include <stdio.h> // vsnprintf
 
 namespace DnApp::Common::Strings {
     // adopted from https://stackoverflow.com/a/10388547/666907
