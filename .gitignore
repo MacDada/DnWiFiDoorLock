@@ -2,3 +2,6 @@
 CMakeListsPrivate.txt
 cmake-build-*/
 /config/secret.ini
+
+# MacOS files
+.DS_Store
