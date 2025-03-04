@@ -81,7 +81,8 @@ Unit Tests
 
 * TDD workflow: watches for file changes and runs test(s) immediately, in a continuous loop.
   * Install `fswatch` tool first: `brew install fswatch`.
-  * `./scripts/tdd.sh native/Foo/test_Foo` – pass path to the test as the first argument.
+  * `./scripts/tdd.sh test/native/Foo/test_Foo` – pass path to the test as the first argument.
+  * `./scripts/tdd.sh native/Foo/test_Foo` – you can also skip te `test` part of the path.
   * It is best to configure `External Tools` and `Keymap` in `Clion` to run `scripts/tdd.sh`.
   * See more info inside the file.
 
