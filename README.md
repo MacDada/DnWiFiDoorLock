@@ -80,6 +80,7 @@ Unit Tests
    as it would build tests do deploy on the embedded device.
 
 * TDD workflow: watches for file changes and runs test(s) immediately, in a continuous loop.
+  * Install `fswatch` tool first: `brew install fswatch`.
   * `./scripts/tdd.sh native/Foo/test_Foo` – pass path to the test as the first argument.
   * It is best to configure `External Tools` and `Keymap` in `Clion` to run `scripts/tdd.sh`.
   * See more info inside the file.
