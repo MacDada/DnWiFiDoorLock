@@ -83,7 +83,10 @@ Unit Tests
   * Install `fswatch` tool first: `brew install fswatch`.
   * `./scripts/tdd.sh test/native/Foo/test_Foo` – pass path to the test as the first argument.
   * `./scripts/tdd.sh native/Foo/test_Foo` – you can also skip te `test` part of the path.
-  * It is best to configure `External Tools` and `Keymap` in `Clion` to run `scripts/tdd.sh`.
+  * For `CLion` IDE it is best to configure `External Tools` and `Keymap` to run `tdd.sh`:
+    * `Program`: `ABSOLUTE_PATH_TO_THE_PROJECT/scripts/tdd.sh`
+    * `Arguments`: `$FileDirRelativeToProjectRoot$`
+    * `Working directory`: `ABSOLUTE_PATH_TO_THE_PROJECT`
   * See more info inside the file.
 
 ---
