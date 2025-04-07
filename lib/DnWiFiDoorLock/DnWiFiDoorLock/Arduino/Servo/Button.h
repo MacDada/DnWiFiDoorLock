@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdint>     // uint32_t
+#include <cstdint>     // uint16_t, uint32_t
 #include <type_traits> // std::is_abstract
 
 #include <WString.h>
@@ -19,11 +19,11 @@ namespace DnWiFiDoorLock::Arduino::Servo {
         using Servo = DnApp::Hardware::Servo;
         using Board = DnApp::Arduino::Hardware::Board;
     public:
-        // Takes whatever cast–able to uint32_t.
-        // So in theory, the max value is ~49 days, or half of it if signed value given.
+        // Takes whatever cast–able to uint16_t.
+        // So, the max value is ~65 seconds, or half of it if signed value given.
+        // todo: require unsigned, because should never be negative anyway?
         //
         // todo: constexpr?
-        // todo: Store a smaller value [?]
         // todo: Merge with DnApp::Duration?
         // todo: Extract PositiveInteger?
         // todo: answer to (implicit) conversions being warning/error
@@ -39,20 +39,20 @@ namespace DnWiFiDoorLock::Arduino::Servo {
                     return tl::unexpected{PSTR("A positive integer required")};
                 }
 
-                return PressingMilliseconds{static_cast<uint32_t>(value)};
+                return PressingMilliseconds{static_cast<uint16_t>(value)};
             }
 
             [[nodiscard]]
-            auto getValue() const -> uint32_t {
+            auto getValue() const -> uint16_t {
                 return value;
             }
         private:
             explicit
-            PressingMilliseconds(uint32_t value):
+            PressingMilliseconds(uint16_t value):
                 value{value} {
             }
 
-            uint32_t value;
+            uint16_t value;
         };
 
         struct Settings final {

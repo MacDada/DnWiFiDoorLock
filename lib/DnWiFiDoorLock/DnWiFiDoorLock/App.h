@@ -84,7 +84,7 @@ namespace DnWiFiDoorLock {
 
                 const uint8_t notPressingAngle;
 
-                const uint32_t pressingMilliseconds;
+                const uint16_t pressingMilliseconds;
             } const furnaceHeaterButton;
         };
 
