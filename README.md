@@ -1,4 +1,4 @@
-DnApp
+DnApp 
 ===
 
 ---
@@ -9,6 +9,9 @@ Project ideas that are currently work in progress:
 
 * a door lock
 * a furnace (central heating) controller
+
+---
+[![CodeFactor](https://www.codefactor.io/repository/github/macdada/dnwifidoorlock/badge)](https://www.codefactor.io/repository/github/macdada/dnwifidoorlock)
 
 ---
 Big thanks!
